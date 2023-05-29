@@ -1,7 +1,6 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
-    <a href="http://localhost:8080">Home</a>
     <div>
         <form method="post" action="equipments">
             <select class="form-control" id="firma" name="firmName">

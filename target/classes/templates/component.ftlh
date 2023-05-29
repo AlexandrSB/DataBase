@@ -2,8 +2,6 @@
 <#import "parts/elements.ftlh" as e>
 
 <@c.page "Components">
-    <a href="http://localhost:8080">Home</a>
-
     <div>
         <@e.equips />
     </div>
