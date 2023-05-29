@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add component</title>
+</head>
+<body>
+    <a href="http://localhost:8080">Home</a>
+    <div>
+        <form action="components" method="post">
+            <select class="form-control" id="model" name="myModel">
+                {{#equipments}}
+                <option>{{model}}</option>
+                {{/equipments}}
+            </select><br>
+            <input type="text" name="name" placeholder="componentName"></br>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <div>Addition</div>
+    {{#components}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{ownerModel}}</span>
+        <span>{{name}}</span>
+    </div>
+    {{/components}}
+</body>
+</html>
