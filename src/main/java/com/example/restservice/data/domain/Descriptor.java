@@ -1,4 +1,4 @@
-package com.example.restservice.domain;
+package com.example.restservice.data.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,8 +1,6 @@
-package com.example.restservice.domain;
+package com.example.restservice.data.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,8 +23,8 @@ public class Equipment {
     @Enumerated(EnumType.STRING)
     private EnumTypeOfEquipment type;
 
-    @OneToMany
-//    @JoinColumn(name = "elements_id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "equipment_components")
 //    @Cascade(CascadeType.ALL)
     private List<Component> elements;
 

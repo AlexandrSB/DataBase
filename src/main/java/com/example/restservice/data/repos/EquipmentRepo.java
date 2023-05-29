@@ -1,6 +1,6 @@
-package com.example.restservice.repos;
+package com.example.restservice.data.repos;
 
-import com.example.restservice.domain.Equipment;
+import com.example.restservice.data.domain.Equipment;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
