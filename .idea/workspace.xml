@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="add FreeMarker (work)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeIntegerValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/AttributeRepo.java" afterDir="false" />
+    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="add lombok (work)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/GreetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute_value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeStringValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Descriptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeIntegerValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeIntegerValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeStringValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeStringValue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Equipment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/DescriptorRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/GreetingController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685342208310</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add lombok (work)">
+      <created>1685347776648</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685347776648</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,6 +125,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="29052023 start" />
     <MESSAGE value="add FreeMarker (work)" />
-    <option name="LAST_COMMIT_MESSAGE" value="add FreeMarker (work)" />
+    <MESSAGE value="add lombok (work)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add lombok (work)" />
   </component>
 </project>

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 //import java.util.List;
 
@@ -38,7 +38,7 @@ public class Equipment {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinColumn(name = "equipment_components")
 //    @Cascade(CascadeType.ALL)
-    private List<Component> elements;
+    private Set<Component> elements;
 
 
     public void addElement(Component element) {
