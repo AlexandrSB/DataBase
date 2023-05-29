@@ -1,11 +1,16 @@
 package com.example.restservice.data.domain;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"id", "name"})
+@NoArgsConstructor(force = true)
 public class Component {
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE)
@@ -14,6 +19,7 @@ public class Component {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
+    @NonNull
     private Equipment owner;
 
     @ManyToMany
@@ -25,12 +31,13 @@ public class Component {
     private Set<Component> relationship = new HashSet<>();
 
     @Column(name = "name", nullable = false)
+    @NonNull
     private String name;
-//    private Boolean isElectronic;
-//    private Boolean isMechanic;
-//    private Boolean isElectric;
 
-    public Component() {}
+    @Column(name = "description")
+    private String description;
+
+
     public Component(String name) {
         this.name = name;
     }
@@ -45,30 +52,8 @@ public class Component {
         return owner != null ? owner.getModel() : "<none>";
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Equipment getOwner() {
-        return owner;
-    }
     public void setOwner(Equipment equip) {
         owner = equip;
         owner.addElement(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Component> getRelationship() {
-        return relationship;
-    }
-
-    public void setRelationship(Set<Component> relationship) {
-        this.relationship = relationship;
     }
 }

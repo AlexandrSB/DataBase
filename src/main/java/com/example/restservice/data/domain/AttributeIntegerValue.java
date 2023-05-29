@@ -1,2 +1,4 @@
-package com.example.restservice.data.domain;public interface AttributeIntegerValue {
+package com.example.restservice.data.domain;
+
+public interface AttributeIntegerValue {
 }

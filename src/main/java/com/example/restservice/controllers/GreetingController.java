@@ -1,4 +1,4 @@
-package com.example.restservice;
+package com.example.restservice.controllers;
 
 import java.util.List;
 import java.util.Map;
