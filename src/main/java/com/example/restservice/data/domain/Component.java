@@ -45,13 +45,13 @@ public class Component {
     )
     private Set<Attribute> attributes = new HashSet<>();
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "")
     @Setter
     private String description;
 
     @Column(name = "isComposit")
     @Setter
-    private Boolean isComposit;
+    private Boolean isComposite;
 
     @Column(name = "isMechanic")
     @Setter
@@ -76,11 +76,11 @@ public class Component {
 
     public void addOwner(Equipment equip) {
         owner.add(equip);
-        equip.addElement(this);
+//        equip.addElement(this);
     }
 
     public void addAttribute(Attribute attr) {
         attributes.add(attr);
-        attr.addComponent(this);
+//        attr.addComponent(this);
     }
 }

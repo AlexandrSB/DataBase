@@ -6,6 +6,7 @@ import com.example.restservice.data.repos.ComponentRepo;
 import com.example.restservice.data.repos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,20 +39,22 @@ public class ComponentController {
     public String components(
             @RequestParam String myModel,
             @RequestParam String name,
-            Map<String, Object> model) {
+            @RequestParam Boolean isComposite,
+            Model model) {
 
         Component component = new Component(name);
         Equipment equipment = equipmentRepo.findByModel(myModel).get(0);
         if (equipment != null) {
             component.addOwner(equipment);
+            component.setIsComposite(isComposite);
             componentRepo.save(component);
         }
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
-        model.put("equipments", equipments);
+        model.addAttribute("equipments", equipments);
 
         Iterable<Component> components = componentRepo.findAll();
-        model.put("components", components);
+        model.addAttribute("components", components);
 
         return "component";
     }

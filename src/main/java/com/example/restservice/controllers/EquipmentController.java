@@ -1,14 +1,14 @@
 package com.example.restservice.controllers;
 
+import com.example.restservice.data.domain.Component;
 import com.example.restservice.data.domain.EnumFirma;
 import com.example.restservice.data.domain.EnumTypeOfEquipment;
 import com.example.restservice.data.domain.Equipment;
 import com.example.restservice.data.repos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -71,5 +71,18 @@ public class EquipmentController {
         model.put("equipments", equipments);
 
         return "allEquipments";
+    }
+
+    @GetMapping("equipments/{equipment}")
+    public String equipmentViewForm(
+            @PathVariable Equipment equipment,
+            Model model
+    ) {
+        model.addAttribute("equip", equipment);
+
+        Iterable<Component> comp = equipment.getElements();
+        model.addAttribute("component", comp);
+
+        return "equipView";
     }
 }
