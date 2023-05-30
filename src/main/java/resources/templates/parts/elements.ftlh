@@ -9,9 +9,18 @@
                 <#if component.isComposite??>
                     <span>is composite</span>
                 </#if>
+                <#if component.isMechanic??>
+                    <span>is mechanic</span>
+                </#if>
+                <#if component.isElectric??>
+                    <span>is electric</span>
+                </#if>
+                <#if component.isElectronic??>
+                    <span>is electronic</span>
+                </#if>
             </div>
         <#else>
-            No components!
+            <b>No components!</b>
         </#list>
     </div>
 </#macro>
@@ -39,10 +48,32 @@
 
         <div class="form-group row">
             <label for="isComposite" class="col-sm-2 col-form-label">Is composite :</label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 <input class="form-control" type="checkbox" name="isComposite" id="isComposite">
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="isComposite" class="col-sm-2 col-form-label">Is mechanic :</label>
+            <div class="col-sm-1">
+                <input class="form-control" type="checkbox" name="isMechanic" id="isMechanic">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="isComposite" class="col-sm-2 col-form-label">Is electric :</label>
+            <div class="col-sm-1">
+                <input class="form-control" type="checkbox" name="isElectric" id="isElectric">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="isComposite" class="col-sm-2 col-form-label">Is electronic :</label>
+            <div class="col-sm-1">
+                <input class="form-control" type="checkbox" name="isElectronic" id="isElectronic">
+            </div>
+        </div>
+
         <button class="btn btn-primary my-2" type="submit">Add</button>
     </form>
 </#macro>

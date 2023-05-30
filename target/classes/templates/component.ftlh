@@ -3,7 +3,7 @@
 
 <@c.page "Components">
     <div>
-        <@e.equips />
+        <@e.component />
     </div>
 
     <div>Addition</div>

@@ -40,13 +40,21 @@ public class ComponentController {
             @RequestParam String myModel,
             @RequestParam String name,
             @RequestParam Boolean isComposite,
+            @RequestParam Boolean isMechanic,
+            @RequestParam Boolean isElectric,
+            @RequestParam Boolean isElectronic,
+
             Model model) {
 
         Component component = new Component(name);
         Equipment equipment = equipmentRepo.findByModel(myModel).get(0);
         if (equipment != null) {
             component.addOwner(equipment);
-            component.setIsComposite(isComposite);
+            component.getIsComposite();
+//            component.setIsComposite(false);
+            if (isMechanic) { component.setIsMechanic(isMechanic); }
+            if (isElectric) { component.setIsElectric(isElectric); }
+            if (isElectronic) { component.setIsElectronic(isElectronic); }
             componentRepo.save(component);
         }
 

@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="change Controllers (work)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipView.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml.old" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest-service-complete.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rest-service-complete.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/component.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/component.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/domain/Attribute.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/domain/Attribute_value.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/domain/Component_attribute.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/domain/Component_relationship.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/component.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/component.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +52,7 @@
     </option>
   </component>
   <component name="ProjectId" id="2QRb2ijc3KVh08QYXfzxaf3djlM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,6 +64,9 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>

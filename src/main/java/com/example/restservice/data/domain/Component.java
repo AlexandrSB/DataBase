@@ -47,23 +47,23 @@ public class Component {
 
     @Column(name = "description", columnDefinition = "")
     @Setter
-    private String description;
+    private String description = "";
 
-    @Column(name = "isComposit")
+    @Column(name = "isComposite")
     @Setter
-    private Boolean isComposite;
+    private Boolean isComposite = false;
 
     @Column(name = "isMechanic")
     @Setter
-    private Boolean isMechanic;
+    private Boolean isMechanic = false;
 
     @Column(name = "isElectronic")
     @Setter
-    private Boolean isElectronic;
+    private Boolean isElectronic = false;
 
     @Column(name = "isElectric")
     @Setter
-    private Boolean isElectric;
+    private Boolean isElectric = false;
 
     public Component(String name) {
         this.name = name;
