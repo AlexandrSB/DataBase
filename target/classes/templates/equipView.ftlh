@@ -2,22 +2,18 @@
 
 <@com.page>
     <div>
-        <form method = "GET" action = "http://localhost:8080/addComponent?name=${equip.id}">
+        <form>
             <div class="form-row align-items-center">
-
                 <div class="col-sm-10">
                     <h3 class="mb-2">${equip.type} ${equip.firmName} ${equip.model}</h3>
-                    <input name="eq" value="${equip.id?c}" type="hidden"/>
                 </div>
-
                 <div class="col-auto">
-                    <button class="btn btn-primary mb-2" type="submit" >Add Element</button>
+                    <button class="btn btn-primary mb-2" onclick="location.href = '/component';">Add Component</button>
                 </div>
-
             </div>
         </form>
 
-        <h5 class="align-self-center my-2">Components</h5>
+        <h5 class="align-self-center">Components</h5>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -42,28 +38,28 @@
                         </#if>
                     </td>
                     <td>
-                         <#if cp.isComposite>
+                         <#if cp.isComposite??>
                              <span>True</span>
                          <#else>
                             <span>-</span>
                          </#if>
                     </td>
                     <td>
-                         <#if cp.isMechanic>
+                         <#if cp.isMechanic??>
                              <span>True</span>
                          <#else>
                             <span>-</span>
                          </#if>
                     </td>
                     <td>
-                         <#if cp.isElectronic>
+                         <#if cp.isElectronic??>
                              <span>True</span>
                          <#else>
                             <span>-</span>
                          </#if>
                     </td>
                     <td>
-                         <#if cp.isElectric>
+                         <#if cp.isElectric??>
                              <span>True</span>
                          <#else>
                             <span>-</span>

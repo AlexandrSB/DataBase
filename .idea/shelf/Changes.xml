@@ -1,0 +1,14 @@
+<changelist name="Changes" date="1686893320840" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Changes/shelved.patch" />
+  <option name="DESCRIPTION" value="Changes" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/restservice/data/domain/Component.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/restservice/data/domain/Component.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Changes/Component.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/restservice/controllers/ComponentController.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/restservice/controllers/ComponentController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Changes/ComponentController.class" />
+  </binary>
+</changelist>
