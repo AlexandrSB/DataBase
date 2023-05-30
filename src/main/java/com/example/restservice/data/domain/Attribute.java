@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,14 @@ public class Attribute {
     @Setter
     private EnumUnits unit;
 
+    @ManyToMany
+    @JoinTable(
+            name = "component_attribute",
+            joinColumns = { @JoinColumn(name = "attr_id") },
+            inverseJoinColumns = { @JoinColumn(name = "comp_id") }
+    )
+    private Set<Component> components = new HashSet<>();
+
     @Setter
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AttributeStringValue> strValues;
@@ -32,4 +41,8 @@ public class Attribute {
     @Setter
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AttributeIntegerValue> intValues;
+
+    public void addComponent(Component comp) {
+        components.add(comp);
+    }
 }

@@ -42,6 +42,8 @@
                     <i>${equip.type}</i><br>
                 </div>
             </div>
+        <#else>
+            No equipments!
         </#list>
     </div>
 </@c.page>

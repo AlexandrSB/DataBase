@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="add bootstrap (work)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Units.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/EquipmentGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/EquipmentGroupRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/common.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/common.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Equipment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/main.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/main.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Attribute.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Attribute.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Equipment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Equipment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/equipment.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/main.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/main.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +34,7 @@
       <list>
         <option value="HTML File" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -128,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685351633113</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add bootstrap (work)">
+      <created>1685412618845</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685412618845</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

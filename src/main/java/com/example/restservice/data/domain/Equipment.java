@@ -3,6 +3,7 @@ package com.example.restservice.data.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,10 +36,14 @@ public class Equipment {
     @NonNull
     private EnumTypeOfEquipment type;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "equipment_components")
+    @ManyToMany
+    @JoinTable(
+            name = "equipment_component",
+            joinColumns = { @JoinColumn(name = "equip_id")},
+            inverseJoinColumns = {@JoinColumn(name = "comp_id")}
+    )
 //    @Cascade(CascadeType.ALL)
-    private Set<Component> elements;
+    private Set<Component> elements = new HashSet<>();
 
 
     public void addElement(Component element) {

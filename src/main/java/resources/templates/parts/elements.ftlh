@@ -34,3 +34,19 @@
         <button class="btn btn-primary my-2" type="submit">Add</button>
     </form>
 </#macro>
+
+<#macro equipCards>
+    <div class="card-columns">
+        <#list equipments as equip>
+            <div class="card my-3" style="width: 18rem;">
+                <div>
+                    <span>${equip.firmName}</span>
+                    <span>${equip.model}</span>
+                    <i>${equip.type}</i><br>
+                </div>
+            </div>
+        <#else>
+            No equipments!
+        </#list>
+    </div>
+</#macro>

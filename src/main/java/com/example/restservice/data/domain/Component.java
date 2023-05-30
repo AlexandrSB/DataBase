@@ -16,10 +16,13 @@ public class Component {
     @Column(name = "component_id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    @NonNull
-    private Equipment owner;
+    @ManyToMany
+    @JoinTable(
+            name = "equipment_component",
+            joinColumns = { @JoinColumn(name = "comp_id")},
+            inverseJoinColumns = { @JoinColumn(name = "equip_id")}
+    )
+    private Set<Equipment> owner = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -33,6 +36,14 @@ public class Component {
     @NonNull
     @Setter
     private String name;
+
+    @ManyToMany
+    @JoinTable(
+            name = "component_attribute",
+            joinColumns = {@JoinColumn(name = "comp_id")},
+            inverseJoinColumns = { @JoinColumn(name = "attr_id")}
+    )
+    private Set<Attribute> attributes = new HashSet<>();
 
     @Column(name = "description")
     @Setter
@@ -57,19 +68,19 @@ public class Component {
     public Component(String name) {
         this.name = name;
     }
-    public Component(Equipment equip, String name) {
-        owner = equip;
-        owner.addElement(this);
-        this.name = name;
+
+
+    public String getOwnerModel(Equipment equip) {
+        return equip.getModel();
     }
 
-
-    public String getOwnerModel() {
-        return owner != null ? owner.getModel() : "<none>";
+    public void addOwner(Equipment equip) {
+        owner.add(equip);
+        equip.addElement(this);
     }
 
-    public void setOwner(Equipment equip) {
-        owner = equip;
-        owner.addElement(this);
+    public void addAttribute(Attribute attr) {
+        attributes.add(attr);
+        attr.addComponent(this);
     }
 }
