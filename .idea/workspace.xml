@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="add bootstrap (work)" />
+    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="add bootstrap (work)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Units.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/common.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/common.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685351216165</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add bootstrap (work)">
+      <created>1685351633113</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1685351633113</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

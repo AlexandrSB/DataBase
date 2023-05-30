@@ -8,7 +8,6 @@ import java.util.Set;
 
 @Entity
 @Getter
-@Setter
 @EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
 public class Component {
@@ -32,11 +31,28 @@ public class Component {
 
     @Column(name = "name", nullable = false)
     @NonNull
+    @Setter
     private String name;
 
     @Column(name = "description")
+    @Setter
     private String description;
 
+    @Column(name = "isComposit")
+    @Setter
+    private Boolean isComposit;
+
+    @Column(name = "isMechanic")
+    @Setter
+    private Boolean isMechanic;
+
+    @Column(name = "isElectronic")
+    @Setter
+    private Boolean isElectronic;
+
+    @Column(name = "isElectric")
+    @Setter
+    private Boolean isElectric;
 
     public Component(String name) {
         this.name = name;

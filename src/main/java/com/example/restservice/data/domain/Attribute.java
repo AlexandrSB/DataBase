@@ -21,6 +21,10 @@ public class Attribute {
     @Setter
     private String name;
 
+    @NonNull
+    @Setter
+    private EnumUnits unit;
+
     @Setter
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AttributeStringValue> strValues;

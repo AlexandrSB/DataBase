@@ -3,30 +3,45 @@
 <@c.page>
     <div>
         <form method="post" action="equipments">
-            <select class="form-control" id="firma" name="firmName">
-                <#list firmas as firma>
-                <option>${firma}</option>
-                </#list>
-            </select>
-
-            <input type="text" name="myModel" placeholder="Model">
-            <select class="form-control" id="model" name="type">
-                <#list types as type>
-                    <option>${type}</option>
-                </#list>
-            </select>
-
-            <button type="submit">Add</button>
+            <div class="form-group row">
+                <label for="firma" class="col-sm-1 col-form-label">Firma :</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="firma" name="firmName">
+                        <#list firmas as firma>
+                            <option>${firma}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="model" class="col-sm-1 col-form-label">Model :</label>
+                <div class="col-sm-6">
+                    <input type="text" name="myModel" id="model" placeholder="Model" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="type" class="col-sm-1 col-form-label">Type :</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="type" name="type" class="form-control">
+                        <#list types as type>
+                            <option>${type}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+                <button class="btn btn-primary" type="submit">Add</button>
         </form>
     </div>
 
-    <div>Addition</div><br>
-    <#list equipments as equip>
-        <div>
-            <b>${equip.id}</b>
-            <span>${equip.firmName}</span>
-            <span>${equip.model}</span>
-            <i>${equip.type}</i><br>
-        </div>
-    </#list>
+    <div class="card-columns">
+        <#list equipments as equip>
+            <div class="card my-3" style="width: 18rem;">
+                <div>
+                    <span>${equip.firmName}</span>
+                    <span>${equip.model}</span>
+                    <i>${equip.type}</i><br>
+                </div>
+            </div>
+        </#list>
+    </div>
 </@c.page>
