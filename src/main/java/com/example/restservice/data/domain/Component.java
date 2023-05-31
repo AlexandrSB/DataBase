@@ -83,4 +83,8 @@ public class Component {
         attributes.add(attr);
 //        attr.addComponent(this);
     }
+
+    public void addRelationship(Component parent) {
+        relationship.add(parent);
+    }
 }

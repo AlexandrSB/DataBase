@@ -13,7 +13,7 @@
             </div>
         </form>
 
-        <h5 class="align-self-center">Components</h5>
+        <h5 class="align-self-center my-2">Components</h5>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -38,28 +38,28 @@
                         </#if>
                     </td>
                     <td>
-                         <#if cp.isComposite??>
+                         <#if cp.isComposite>
                              <span>True</span>
                          <#else>
                             <span>-</span>
                          </#if>
                     </td>
                     <td>
-                         <#if cp.isMechanic??>
+                         <#if cp.isMechanic>
                              <span>True</span>
                          <#else>
                             <span>-</span>
                          </#if>
                     </td>
                     <td>
-                         <#if cp.isElectronic??>
+                         <#if cp.isElectronic>
                              <span>True</span>
                          <#else>
                             <span>-</span>
                          </#if>
                     </td>
                     <td>
-                         <#if cp.isElectric??>
+                         <#if cp.isElectric>
                              <span>True</span>
                          <#else>
                             <span>-</span>

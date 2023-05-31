@@ -1,4 +1,5 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/elements.ftlh" as e>
 
 <@c.page>
     <div>
@@ -29,21 +30,10 @@
                     </select>
                 </div>
             </div>
-                <button class="btn btn-primary" type="submit">Add</button>
+                <button class="btn btn-primary my-2" type="submit">Add</button>
         </form>
     </div>
+        <button class="btn btn-primary my-2" onclick="location.href = '/equipments';">Show all</button>
 
-    <div class="card-columns">
-        <#list equipments as equip>
-            <div class="card my-3" style="width: 18rem;">
-                <div>
-                    <span>${equip.firmName}</span>
-                    <span>${equip.model}</span>
-                    <i>${equip.type}</i><br>
-                </div>
-            </div>
-        <#else>
-            No equipments!
-        </#list>
-    </div>
+    <@e.equipCards />
 </@c.page>

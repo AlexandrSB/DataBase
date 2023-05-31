@@ -42,7 +42,16 @@ public class Attribute {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AttributeIntegerValue> intValues;
 
+    public Attribute(String name) {
+        this.name = name;
+    }
+
     public void addComponent(Component comp) {
         components.add(comp);
+    }
+
+    public void addValues(String str) {
+        AttributeStringValue attributeStringValue = new AttributeStringValue(str);
+        strValues.add(attributeStringValue);
     }
 }

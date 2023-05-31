@@ -1,13 +1,13 @@
 <#import "parts/common.ftlh" as c>
-<#import "parts/elements.ftlh" as e>
+<#import "parts/componentParts.ftlh" as cp>
 
 <@c.page "Components">
     <div>
-        <@e.component />
+        <@cp.addComponent />
     </div>
 
-    <div>Addition</div>
+    <h5 class"my-2">Addition</h5>
     <div>
-        <@e.comps />
+        <@cp.componentCard />
     </div>
 </@c.page>

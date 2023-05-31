@@ -10,6 +10,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/component">Components</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/addAttribute">Attributes</a>
+            </li>
         </ul>
     </div>
 </div>
