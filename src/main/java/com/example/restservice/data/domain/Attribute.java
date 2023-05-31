@@ -20,6 +20,7 @@ public class Attribute {
 
     @NonNull
     @Setter
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @NonNull
@@ -42,8 +43,8 @@ public class Attribute {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AttributeIntegerValue> intValues;
 
-    public Attribute(String name) {
-        this.name = name;
+    public Attribute(String n) {
+        this.name = n;
     }
 
     public void addComponent(Component comp) {

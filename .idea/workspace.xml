@@ -4,27 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="make Equipments page (work)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/templates/addAttribute.ftlh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" afterDir="false" />
+    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="add Attribute page (work)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/ComponentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/ComponentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/component.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/component.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipView.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipView.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/navbar.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/navbar.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/AttributeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/AttributeRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Attribute.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Attribute.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/ComponentRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/ComponentRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/allEquipments.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/allEquipments.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/component.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/component.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/equipment.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/parts/navbar.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/parts/navbar.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +145,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685422505101</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add Attribute page (work)">
+      <created>1685522718110</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1685522718110</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,6 +172,7 @@
     <MESSAGE value="add lombok (work)" />
     <MESSAGE value="add bootstrap (work)" />
     <MESSAGE value="change Controllers (work)" />
-    <option name="LAST_COMMIT_MESSAGE" value="change Controllers (work)" />
+    <MESSAGE value="add Attribute page (work)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Attribute page (work)" />
   </component>
 </project>

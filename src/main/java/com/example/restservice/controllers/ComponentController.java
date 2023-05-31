@@ -48,7 +48,7 @@ public class ComponentController {
             @RequestParam String myModel,
             @RequestParam(value = "comp", required = false) String compName,
             @RequestParam String name,
-            @RequestParam(value = "attribute") String attribute,
+            @RequestParam(value = "attribute", required = false) String attr,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "isComposite", required = false) String isComposite,
             @RequestParam(value = "isMechanic", required = false) String isMechanic,
@@ -61,6 +61,12 @@ public class ComponentController {
             Component componentParent = componentRepo.findByName(compName);
             component.addRelationship(componentParent);
         }
+
+        if (attr != null) {
+            Attribute attribute = attributeRepo.findByName(attr);
+            component.addAttribute(attribute);
+        }
+
         Equipment equipment = equipmentRepo.findByModel(myModel).get(0);
 
         if (equipment != null) {

@@ -32,7 +32,7 @@ public class Component {
     )
     private Set<Component> relationship = new HashSet<>();
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     @NonNull
     @Setter
     private String name;
