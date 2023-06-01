@@ -43,6 +43,17 @@ public class ComponentController {
         return "component";
     }
 
+    @GetMapping("/addComponent")
+    public String addComponentGet(
+            @RequestParam Equipment eq,
+            Model model
+    ) {
+
+        model.addAttribute("eq", eq);
+
+        return "addComponent";
+    }
+
     @PostMapping("addComponent")
     public String components(
             @RequestParam String myModel,

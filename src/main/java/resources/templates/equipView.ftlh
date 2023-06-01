@@ -2,14 +2,18 @@
 
 <@com.page>
     <div>
-        <form>
+        <form method = "GET" action = "http://localhost:8080/addComponent?name=${equip.id}">
             <div class="form-row align-items-center">
+
                 <div class="col-sm-10">
                     <h3 class="mb-2">${equip.type} ${equip.firmName} ${equip.model}</h3>
+                    <input name="eq" value="${equip.id?c}" type="hidden"/>
                 </div>
+
                 <div class="col-auto">
-                    <button class="btn btn-primary mb-2" onclick="location.href = '/component';">Add Component</button>
+                    <button class="btn btn-primary mb-2" type="submit" >Add Element</button>
                 </div>
+
             </div>
         </form>
 

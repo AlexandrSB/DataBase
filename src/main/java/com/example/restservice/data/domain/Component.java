@@ -65,6 +65,7 @@ public class Component {
     @Setter
     private Boolean isElectric = false;
 
+
     public Component(String name) {
         this.name = name;
     }

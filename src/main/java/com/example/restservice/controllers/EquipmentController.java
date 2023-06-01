@@ -1,9 +1,7 @@
 package com.example.restservice.controllers;
 
-import com.example.restservice.data.domain.Component;
-import com.example.restservice.data.domain.EnumFirma;
-import com.example.restservice.data.domain.EnumTypeOfEquipment;
-import com.example.restservice.data.domain.Equipment;
+import com.example.restservice.data.domain.*;
+import com.example.restservice.data.repos.EquipmentGroupRepo;
 import com.example.restservice.data.repos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,9 @@ public class EquipmentController {
     @Autowired
     private EquipmentRepo equipmentRepo;
 
+    @Autowired
+    private EquipmentGroupRepo equipmentGroupRepo;
+
 
     @GetMapping("/equipment")
     public String equipment(Map<String, Object> model) {
@@ -30,6 +31,9 @@ public class EquipmentController {
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);
+
+        Iterable<EquipmentGroup> eqGroups = equipmentGroupRepo.findAll();
+        model.put("groups", eqGroups);
 
         return "equipment";
     }
