@@ -9,7 +9,7 @@
                     <span>${equip.firmName}</span>
                     <span>${equip.model}</span>
                     <i>${equip.type}</i><br>
-                    <a href="/equipments/${equip.id}">View</a>
+                    <a href="equipments/${equip.id?c}">View</a>
                 </div>
             </div>
         <#else>
