@@ -4,54 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="change application.properties">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EnumUnits.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/EquipmentGroupRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageDomain/Storage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Attribute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeIntegerValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeIntegerValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/AttributeStringValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeStringValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/EnumFirma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EnumFirma.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/EnumTypeOfEquipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EnumTypeOfEquipment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/EnumUnits.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/domain/EquipmentGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/AttributeIntegerValueRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeIntegerValueRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/AttributeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/AttributeStringValueRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeStringValueRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/ComponentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/EquipmentGroupRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/data/repos/EquipmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/EquipmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/EquipmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/EquipmentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Attribute.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/AttributeIntegerValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/AttributeStringValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Component.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/EnumFirma.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/EnumTypeOfEquipment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/EnumUnits.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/Equipment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/domain/EquipmentGroup.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/AttributeIntegerValueRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/AttributeRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/AttributeStringValueRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/ComponentRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/EquipmentGroupRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/data/repos/EquipmentRepo.class" beforeDir="false" />
-    </list>
+    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="try to adding second database (not working)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,6 +28,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SET_USER_NAME_GLOBALLY" value="false" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -198,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1687430913388</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="try to adding second database (not working)">
+      <option name="closed" value="true" />
+      <created>1688034264109</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1688034264109</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,12 +169,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -231,6 +198,7 @@
     <MESSAGE value="add bootstrap (work)" />
     <MESSAGE value="change Controllers (work)" />
     <MESSAGE value="change application.properties" />
-    <option name="LAST_COMMIT_MESSAGE" value="change application.properties" />
+    <MESSAGE value="try to adding second database (not working)" />
+    <option name="LAST_COMMIT_MESSAGE" value="try to adding second database (not working)" />
   </component>
 </project>
