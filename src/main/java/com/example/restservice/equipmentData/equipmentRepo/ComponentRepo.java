@@ -1,6 +1,6 @@
-package com.example.restservice.data.repos;
+package com.example.restservice.equipmentData.equipmentRepo;
 
-import com.example.restservice.data.domain.Component;
+import com.example.restservice.equipmentData.equipmentDomain.Component;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ComponentRepo extends CrudRepository<Component, Long> {

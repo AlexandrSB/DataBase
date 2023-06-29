@@ -1,4 +1,4 @@
-package com.example.restservice.data.domain;
+package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,15 +7,15 @@ import lombok.*;
 
 @Entity
 @Getter
-@EqualsAndHashCode(of = {"id", "value"})
+@EqualsAndHashCode
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public class AttributeIntegerValue {
+public class AttributeStringValue {
     @Id
-    @Column(name = "attr_int_id")
+    @Column(name = "attr_str_val")
     private Integer id;
 
     @Setter
     @NonNull
-    private Integer value;
+    private String value;
 }

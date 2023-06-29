@@ -1,6 +1,6 @@
-package com.example.restservice.data.repos;
+package com.example.restservice.equipmentData.equipmentRepo;
 
-import com.example.restservice.data.domain.AttributeIntegerValue;
+import com.example.restservice.equipmentData.equipmentDomain.AttributeIntegerValue;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AttributeIntegerValueRepo extends CrudRepository<AttributeIntegerValue, Long> {

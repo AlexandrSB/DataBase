@@ -1,16 +1,13 @@
 package com.example.restservice.controllers;
 
-import java.util.List;
 import java.util.Map;
 
-import com.example.restservice.data.domain.*;
-import com.example.restservice.data.repos.ComponentRepo;
-import com.example.restservice.data.repos.EquipmentRepo;
+import com.example.restservice.equipmentData.equipmentRepo.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepo.EquipmentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller

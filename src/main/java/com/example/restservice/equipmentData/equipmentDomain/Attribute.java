@@ -1,4 +1,4 @@
-package com.example.restservice.data.domain;
+package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
 
