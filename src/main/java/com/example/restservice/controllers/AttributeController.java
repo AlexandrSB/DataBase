@@ -1,16 +1,16 @@
 package com.example.restservice.controllers;
 
-import com.example.restservice.data.domain.Attribute;
-import com.example.restservice.data.domain.Component;
-import com.example.restservice.data.domain.EnumUnits;
-import com.example.restservice.data.repos.AttributeRepo;
+import com.example.restservice.equipmentData.equipmentDomain.Attribute;
+import com.example.restservice.equipmentData.equipmentDomain.Component;
+import com.example.restservice.equipmentData.equipmentDomain.EnumUnits;
+import com.example.restservice.equipmentData.equipmentRepo.AttributeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.restservice.data.repos.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepo.ComponentRepo;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
