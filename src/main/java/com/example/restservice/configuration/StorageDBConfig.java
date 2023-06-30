@@ -1,7 +1,10 @@
 package com.example.restservice.configuration;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +32,9 @@ public class StorageDBConfig {
 
     @Autowired
     private Environment env;
+
+    @Value("${storage.flyway.locations}")
+    private String flywayLocations;
 
     @Bean
     @Qualifier("storageDataSource")
@@ -66,5 +72,20 @@ public class StorageDBConfig {
         transactionManager.setEntityManagerFactory(
                 storageEntityManager().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public Flyway storageflyway() {
+        return Flyway.configure()
+                .dataSource(storageDataSource())
+                .locations(flywayLocations)
+                .baselineVersion("0.0")
+                .baselineOnMigrate(true)
+                .load();
+    }
+
+    @Bean
+    public FlywayMigrationInitializer storageFlywayMigrationInitializer() {
+        return new FlywayMigrationInitializer(storageflyway());
     }
 }

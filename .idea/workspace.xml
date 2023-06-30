@@ -5,14 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="try to adding second database (not working)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/resources/db/migration/equipment/V1__InitDB_Equipment.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/resources/db/migration/storage/V1__InitDB_Storage.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/AttributeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/AttributeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Attribute.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Attribute.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Component.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/equipView.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/equipView.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Attribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeIntegerValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeIntegerValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeStringValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeStringValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageDomain/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageDomain/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Equipment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Equipment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageDomain/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageDomain/Storage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageRepo/StorageRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageRepo/StorageRepo.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,22 +66,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/SB/IdeaProjects/DataBase/src/main/java/resources/db/migrations/storage",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SB\IdeaProjects\DataBase\src\main\java\resources\db\migrations\storage" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\SB\IdeaProjects\DataBase\src\main\java\resources\db\migrations" />
+      <recent name="C:\Users\SB\IdeaProjects\DataBase\src\main\java\resources\db" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="RestServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-19" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.example.restservice.RestServiceApplication" />
       <module name="rest-service-complete" />
       <extension name="coverage">
@@ -177,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1688034745800</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="try to adding second database (not working)">
+      <option name="closed" value="true" />
+      <created>1688035786910</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1688035786910</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -2,6 +2,7 @@ package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,17 +11,18 @@ import java.util.Set;
 //import java.util.List;
 
 @Entity
-@Table(name = "equipment")
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id", "model", "type"})
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
+@EnableAutoConfiguration
+@Table(name = "equipment", schema = "public")
 public class Equipment {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "equipment_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "firmName", nullable = false)
     @Enumerated(EnumType.STRING)

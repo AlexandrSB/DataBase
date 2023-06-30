@@ -10,6 +10,7 @@ import java.util.Set;
 @Getter
 @EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
+@Table(name = "component", schema = "public")
 public class Component {
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE)

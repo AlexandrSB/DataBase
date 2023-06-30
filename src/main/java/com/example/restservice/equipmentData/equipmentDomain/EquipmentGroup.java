@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor(force = true)
+@Table(name = "equipment_group", schema = "public")
 public class EquipmentGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

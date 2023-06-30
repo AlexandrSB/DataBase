@@ -1,6 +1,9 @@
 package com.example.restservice.configuration;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +31,9 @@ import java.util.HashMap;
 public class EquipmentDBConfig {
     @Autowired
     private Environment env;
+
+    @Value("${equipment.flyway.locations}")
+    private String flywayLocations;
 
     @Bean
     @Primary
@@ -67,5 +73,22 @@ public class EquipmentDBConfig {
         transactionManager.setEntityManagerFactory(
                 equipmentEntityManager().getObject());
         return transactionManager;
+    }
+
+    @Primary
+    @Bean
+    public Flyway equipmentflyway() {
+        return Flyway.configure()
+                .dataSource(equipmentDataSource())
+                .locations(flywayLocations)
+                .baselineVersion("0.0")
+                .baselineOnMigrate(true)
+                .load();
+    }
+
+    @Primary
+    @Bean
+    public FlywayMigrationInitializer equipmentFlywayMigrationInitializer() {
+        return new FlywayMigrationInitializer(equipmentflyway());
     }
 }
