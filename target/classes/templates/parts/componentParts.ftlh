@@ -32,17 +32,19 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="attr" class="col-sm-2 col-form-label">Attribute : </label>
-            <div class="col-sm-6">
-                <select class="form-control" id="model" name="attr">
-                <option value="">Choice Attrubute</option>
-                    <#list attributes as attr>
-                        <option>${attr.name}</option>
-                    </#list>
-                </select>
+        <#if attributes??>
+            <div class="form-group row">
+                <label for="attr" class="col-sm-2 col-form-label">Attribute : </label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="model" name="attr">
+                    <option value="">Choice Attrubute</option>
+                        <#list attributes as attr>
+                            <option>${attr.name}</option>
+                        </#list>
+                    </select>
+                </div>
             </div>
-        </div>
+        </#if>
 
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Description :</label>

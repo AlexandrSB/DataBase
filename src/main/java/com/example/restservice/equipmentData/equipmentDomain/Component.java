@@ -50,19 +50,19 @@ public class Component {
     @Setter
     private String description = "";
 
-    @Column(name = "isComposite")
+    @Column(name = "is_composite")
     @Setter
     private Boolean isComposite = false;
 
-    @Column(name = "isMechanic")
+    @Column(name = "is_mechanic")
     @Setter
     private Boolean isMechanic = false;
 
-    @Column(name = "isElectronic")
+    @Column(name = "is_electronic")
     @Setter
     private Boolean isElectronic = false;
 
-    @Column(name = "isElectric")
+    @Column(name = "is_electric")
     @Setter
     private Boolean isElectric = false;
 

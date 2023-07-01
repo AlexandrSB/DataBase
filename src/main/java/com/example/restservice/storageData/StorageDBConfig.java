@@ -1,7 +1,8 @@
-package com.example.restservice.configuration;
+package com.example.restservice.storageData;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,36 +21,35 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-
 @Configuration
 @PropertySource({ "classpath:application.properties" })
 @EnableJpaRepositories(
-        basePackages = "com.example.restservice.equipmentData.equipmentRepo",
-        entityManagerFactoryRef = "equipmentEntityManager",
-        transactionManagerRef = "equipmentTransactionManager"
+        basePackages = "com.example.restservice.storageData.storageRepos",
+        entityManagerFactoryRef = "storageEntityManager",
+        transactionManagerRef = "storageTransactionManager"
 )
-public class EquipmentDBConfig {
+public class StorageDBConfig {
+
     @Autowired
     private Environment env;
 
-    @Value("${equipment.flyway.locations}")
+    @Value("${storage.flyway.locations}")
     private String flywayLocations;
 
     @Bean
-    @Primary
-    @ConfigurationProperties(prefix="equipment.datasource")
-    public DataSource equipmentDataSource() {
+    @Qualifier("storageDataSource")
+    @ConfigurationProperties(prefix="storage.datasource")
+    public DataSource storageDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean
-    @Primary
-    public LocalContainerEntityManagerFactoryBean equipmentEntityManager() {
+    public LocalContainerEntityManagerFactoryBean storageEntityManager() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(equipmentDataSource());
+        em.setDataSource(storageDataSource());
         em.setPackagesToScan(
-                new String[] { "com.example.restservice.equipmentData.equipmentDomain" });
+                new String[] { "com.example.restservice.storageData.storageDomain" });
 
         HibernateJpaVendorAdapter vendorAdapter
                 = new HibernateJpaVendorAdapter();
@@ -64,31 +64,28 @@ public class EquipmentDBConfig {
         return em;
     }
 
-    @Primary
     @Bean
-    public PlatformTransactionManager equipmentTransactionManager() {
+    public PlatformTransactionManager storageTransactionManager() {
 
         JpaTransactionManager transactionManager
                 = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(
-                equipmentEntityManager().getObject());
+                storageEntityManager().getObject());
         return transactionManager;
     }
 
-    @Primary
     @Bean
-    public Flyway equipmentflyway() {
+    public Flyway storageflyway() {
         return Flyway.configure()
-                .dataSource(equipmentDataSource())
+                .dataSource(storageDataSource())
                 .locations(flywayLocations)
                 .baselineVersion("0.0")
                 .baselineOnMigrate(true)
                 .load();
     }
 
-    @Primary
     @Bean
-    public FlywayMigrationInitializer equipmentFlywayMigrationInitializer() {
-        return new FlywayMigrationInitializer(equipmentflyway());
+    public FlywayMigrationInitializer storageFlywayMigrationInitializer() {
+        return new FlywayMigrationInitializer(storageflyway());
     }
 }

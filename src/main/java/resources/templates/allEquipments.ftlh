@@ -8,4 +8,5 @@
     <div>
         <@e.equipCards />
     </div>
+
 </@c.page>

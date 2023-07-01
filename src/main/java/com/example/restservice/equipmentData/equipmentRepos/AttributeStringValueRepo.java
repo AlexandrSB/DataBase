@@ -1,4 +1,4 @@
-package com.example.restservice.equipmentData.equipmentRepo;
+package com.example.restservice.equipmentData.equipmentRepos;
 
 import com.example.restservice.equipmentData.equipmentDomain.AttributeStringValue;
 import org.springframework.data.repository.CrudRepository;

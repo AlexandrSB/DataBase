@@ -1,4 +1,4 @@
-package com.example.restservice.storageData.storageRepo;
+package com.example.restservice.storageData.storageRepos;
 
 import com.example.restservice.storageData.storageDomain.Storage;
 import org.springframework.data.repository.CrudRepository;

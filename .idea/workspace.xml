@@ -4,26 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="try to adding second database (not working)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/db/migration/equipment/V1__InitDB_Equipment.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/db/migration/storage/V1__InitDB_Storage.sql" afterDir="false" />
+    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="try to adding second database (almost working)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Attribute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeIntegerValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeIntegerValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeStringValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/AttributeStringValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/EquipmentDBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/StorageDBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageDomain/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageDomain/Storage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Equipment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentDomain/Equipment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageDomain/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageDomain/Storage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageRepo/StorageRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageRepo/StorageRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeIntegerValueRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/AttributeIntegerValueRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/AttributeRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeStringValueRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/AttributeStringValueRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/ComponentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/EquipmentGroupRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/EquipmentGroupRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/EquipmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/EquipmentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepos/StorageRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/configuration/EquipmentDBConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/configuration/StorageDBConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/AttributeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/AttributeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/EquipmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/EquipmentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeIntegerValueRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeStringValueRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/EquipmentGroupRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/EquipmentRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageRepo/StorageRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/allEquipments.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/allEquipments.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,21 +81,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/SB/IdeaProjects/DataBase/src/main/java/resources/db/migrations/storage",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SB/IdeaProjects/DataBase/src/main/java/resources/db/migrations/storage&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\SB\IdeaProjects\DataBase\src\main\java\resources\db\migrations\storage" />
@@ -208,7 +223,31 @@
       <option name="project" value="LOCAL" />
       <updated>1688035786910</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="try to adding second database (almost working)">
+      <option name="closed" value="true" />
+      <created>1688143038284</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1688143038284</updated>
+    </task>
+    <task id="LOCAL-00014" summary="try to adding second database (almost working)">
+      <option name="closed" value="true" />
+      <created>1688143060549</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1688143060549</updated>
+    </task>
+    <task id="LOCAL-00015" summary="try to adding second database (almost working)">
+      <option name="closed" value="true" />
+      <created>1688143079152</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1688143079152</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,6 +286,7 @@
     <MESSAGE value="change Controllers (work)" />
     <MESSAGE value="change application.properties" />
     <MESSAGE value="try to adding second database (not working)" />
-    <option name="LAST_COMMIT_MESSAGE" value="try to adding second database (not working)" />
+    <MESSAGE value="try to adding second database (almost working)" />
+    <option name="LAST_COMMIT_MESSAGE" value="try to adding second database (almost working)" />
   </component>
 </project>

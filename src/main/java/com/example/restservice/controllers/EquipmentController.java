@@ -1,10 +1,8 @@
 package com.example.restservice.controllers;
 
-import com.example.restservice.equipmentData.equipmentDomain.Component;
-import com.example.restservice.equipmentData.equipmentDomain.EnumFirma;
-import com.example.restservice.equipmentData.equipmentDomain.EnumTypeOfEquipment;
-import com.example.restservice.equipmentData.equipmentDomain.Equipment;
-import com.example.restservice.equipmentData.equipmentRepo.EquipmentRepo;
+import com.example.restservice.equipmentData.equipmentDomain.*;
+import com.example.restservice.equipmentData.equipmentRepos.EquipmentGroupRepo;
+import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +16,8 @@ public class EquipmentController {
     @Autowired
     private EquipmentRepo equipmentRepo;
 
+    @Autowired
+    private EquipmentGroupRepo equipmentGroupRepo;
 
     @GetMapping("/equipment")
     public String equipment(Map<String, Object> model) {
@@ -27,6 +27,13 @@ public class EquipmentController {
 
         Iterable<EnumFirma> enumFirmas = List.of(EnumFirma.values());
         model.put("firmas", enumFirmas);
+
+        Iterable<EquipmentGroup> equipmentGroups = equipmentGroupRepo.findAll();
+        if (equipmentGroups != null) {
+            model.put("groups", equipmentGroups);
+        } else {
+            model.put("groups", "none");
+        }
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);

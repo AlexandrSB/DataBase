@@ -19,6 +19,7 @@ public class EquipmentGroup {
     private Integer id;
 
     @NonNull
+    @Column(name = "group_name")
     private String groupName;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

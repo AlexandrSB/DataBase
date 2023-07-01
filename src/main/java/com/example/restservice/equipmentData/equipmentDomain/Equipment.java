@@ -24,7 +24,7 @@ public class Equipment {
     @Column(name = "equipment_id", nullable = false)
     private Long id;
 
-    @Column(name = "firmName", nullable = false)
+    @Column(name = "firm_name", nullable = false)
     @Enumerated(EnumType.STRING)
     @NonNull
     private EnumFirma firmName;

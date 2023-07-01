@@ -2,8 +2,8 @@ package com.example.restservice.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Component;
 import com.example.restservice.equipmentData.equipmentDomain.Equipment;
-import com.example.restservice.equipmentData.equipmentRepo.ComponentRepo;
-import com.example.restservice.equipmentData.equipmentRepo.EquipmentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,10 +51,10 @@ public class ComponentController {
         if (equipment != null) {
             component.addOwner(equipment);
             component.getIsComposite();
-//            component.setIsComposite(false);
-            if (isMechanic) { component.setIsMechanic(isMechanic); }
+            component.getIsMechanic();
             if (isElectric) { component.setIsElectric(isElectric); }
             if (isElectronic) { component.setIsElectronic(isElectronic); }
+
             componentRepo.save(component);
         }
 

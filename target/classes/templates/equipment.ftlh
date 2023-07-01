@@ -26,16 +26,19 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="group" class="col-sm-1 col-form-label">Group : </label>
-                <div class="col-sm-6">
-                    <select class="form-control" id="type" name="group" class="form-control">
-                        <#list groups as group>
-                            <option>${group}</option>
-                        </#list>
-                    </select>
+            <#if groups??>
+                    <div class="form-group row">
+                        <label for="group" class="col-sm-1 col-form-label">Group : </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="type" name="group" class="form-control">
+                            <option value="">&ltnone&gt</option>
+                            <#list groups as group>
+                                <option>${group}</option>
+                            </#list>
+                        </select>
+                    </div>
                 </div>
-            </div>
+            </#if>
 
             <div class="form-group row">
                 <label for="model" class="col-sm-1 col-form-label">Model : </label>

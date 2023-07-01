@@ -2,8 +2,8 @@ package com.example.restservice.controllers;
 
 import java.util.Map;
 
-import com.example.restservice.equipmentData.equipmentRepo.ComponentRepo;
-import com.example.restservice.equipmentData.equipmentRepo.EquipmentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
