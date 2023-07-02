@@ -64,10 +64,10 @@ public class ComponentController {
     public String components(
             @RequestParam String myModel,
             @RequestParam String componentName,
-            @RequestParam String isComposite,
-            @RequestParam String isMechanic,
-            @RequestParam String isElectric,
-            @RequestParam String isElectronic,
+            @RequestParam(value = "isComposite", required = false) String isComposite,
+            @RequestParam (value="isMechanic", required = false) String isMechanic,
+            @RequestParam (value="isElectric", required = false) String isElectric,
+            @RequestParam (value="isElectronic", required = false) String isElectronic,
 
             Model model) {
 
@@ -75,23 +75,22 @@ public class ComponentController {
         Equipment equipment = equipmentRepo.findByModel(myModel).get(0);
         if (equipment != null) {
             component.addOwner(equipment);
-            System.out.println(isComposite);
-            if (!isComposite.isEmpty()) {
+            if (isComposite != null) {
                 component.setIsComposite(true);
             } else {
                 component.setIsComposite(false);
             }
-            if (!isMechanic.isEmpty()) {
+            if (isMechanic != null) {
                 component.setIsMechanic(true);
             } else {
                 component.setIsMechanic(false);
             }
-            if (isElectric.isEmpty()) {
+            if (isElectric != null) {
                 component.setIsElectric(true);
             } else {
                 component.setIsElectric(false);
             }
-            if (isElectronic.isEmpty()) {
+            if (isElectronic != null) {
                 component.setIsElectronic(true);
             } else {
                 component.setIsElectronic(false);
@@ -105,6 +104,9 @@ public class ComponentController {
 
         Iterable<Component> components = componentRepo.findAll();
         model.addAttribute("components", components);
+
+        Iterable<Attribute> attributes = attributeRepo.findAll();
+        model.addAttribute("attributes", attributes);
 
         return "component";
     }
