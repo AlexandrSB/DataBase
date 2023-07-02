@@ -1,5 +1,5 @@
 <#macro addComponent>
-    <form action="addComponent" method="post" id="equip">
+    <form action="components" method="post" id="equip">
         <div class="form-group row">
             <label for="myModel" class="col-sm-2 col-form-label">Equipment : </label>
             <div class="col-sm-6">
@@ -14,12 +14,13 @@
         <div class="form-group row">
             <label for="comp" class="col-sm-2 col-form-label">Parent : </label>
             <div class="col-sm-6">
-                <select class="form-control" id="model" name="comp">
-                    <option value="">&ltnone&gt</option>
+                <select class="form-control" id="model" name="parent">
                     <#list components as comps>
                         <#if comps.isComposite>
                             <option>${comps.name}</option>
                         </#if>
+                    <#else>
+                        <option>Not Parent</option>
                     </#list>
                 </select>
             </div>
@@ -28,23 +29,22 @@
         <div class="form-group row">
             <label for="component" class="col-sm-2 col-form-label">Component : </label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="name" placeholder="componentName" id="component">
+                <input class="form-control" type="text" name="componentName" placeholder="componentName" id="component">
             </div>
         </div>
 
-        <#if attributes??>
-            <div class="form-group row">
-                <label for="attr" class="col-sm-2 col-form-label">Attribute : </label>
-                <div class="col-sm-6">
-                    <select class="form-control" id="model" name="attr">
-                    <option value="">Choice Attrubute</option>
-                        <#list attributes as attr>
-                            <option>${attr.name}</option>
-                        </#list>
-                    </select>
-                </div>
+        <div class="form-group row">
+            <label for="attr" class="col-sm-2 col-form-label">Attribute : </label>
+            <div class="col-sm-6">
+                <select class="form-control" id="attribute" name="attr">
+                    <#list attributes as attr>
+                        <option>${attr.name}</option>
+                    <#else>
+                        <option>Not attributes</option>
+                    </#list>
+                </select>
             </div>
-        </#if>
+        </div>
 
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Description :</label>
@@ -54,30 +54,30 @@
         </div>
 
         <div class="form-group row my-2">
-            <label for="inputComposite" class="col-sm-2 col-form-label">Is composite :</label>
+            <label for="isComposite" class="col-sm-2 col-form-label">Is composite :</label>
             <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isComposite" id="inputComposite">
+                <input class="form-control" type="checkbox" name="isComposite" value="isComposite" id="inputComposite">
             </div>
         </div>
 
         <div class="form-group row">
             <label for="inputMechanic" class="col-sm-2 col-form-label">Is mechanic :</label>
             <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isMechanic" id="inputMechanic">
+                <input class="form-control" type="checkbox" name="isMechanic" value="isMechanic" id="inputMechanic">
             </div>
         </div>
 
         <div class="form-group row">
             <label for="inputElectric" class="col-sm-2 col-form-label">Is electric :</label>
             <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isElectric" id="inputElectric">
+                <input class="form-control" type="checkbox" name="isElectric" value="isElectric" id="inputElectric">
             </div>
         </div>
 
         <div class="form-group row">
             <label for="inputComposite" class="col-sm-2 col-form-label">Is electronic :</label>
             <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isElectronic" id="inputElectronic">
+                <input class="form-control" type="checkbox" name="isElectronic" value="isElectronic" id="inputElectronic">
             </div>
         </div>
 
@@ -95,6 +95,8 @@
                 <#if component.relationship??>
                     <#list component.relationship as rel>
                         <span>Parent : ${rel.name}<#sep>, </span>
+                    <#else>
+                        <span>Not Parent</span>
                     </#list>
                 </#if>
                 <span>${component.name}</span>

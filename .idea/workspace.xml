@@ -4,41 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="try to adding second database (almost working)">
+    <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="adding second database (working)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/resources/templates/compView.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/EquipmentDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/EquipmentDBConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/configuration/StorageDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/StorageDBConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/AttributeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/GreetingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/Equipment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentDomain/EquipmentGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeIntegerValueRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/AttributeIntegerValueRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/AttributeRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/AttributeStringValueRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/AttributeStringValueRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/ComponentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/EquipmentGroupRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/EquipmentGroupRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepo/EquipmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/equipmentData/equipmentRepos/EquipmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepo/StorageRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/storageData/storageRepos/StorageRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/allEquipments.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/equipment.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/configuration/EquipmentDBConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/configuration/StorageDBConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/AttributeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/AttributeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/elements.ftlh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/EquipmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/EquipmentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/GreetingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeIntegerValueRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/AttributeStringValueRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/ComponentRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/EquipmentGroupRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/equipmentData/equipmentRepo/EquipmentRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/storageData/storageRepo/StorageRepo.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/allEquipments.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/allEquipments.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/equipment.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/equipment.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/parts/componentParts.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/parts/componentParts.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/parts/elements.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1688143079152</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="adding second database (working)">
+      <option name="closed" value="true" />
+      <created>1688222450083</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1688222450083</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -287,6 +275,7 @@
     <MESSAGE value="change application.properties" />
     <MESSAGE value="try to adding second database (not working)" />
     <MESSAGE value="try to adding second database (almost working)" />
-    <option name="LAST_COMMIT_MESSAGE" value="try to adding second database (almost working)" />
+    <MESSAGE value="adding second database (working)" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding second database (working)" />
   </component>
 </project>

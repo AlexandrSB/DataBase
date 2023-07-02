@@ -6,7 +6,7 @@
     <button class="btn btn-primary my-2" onclick="location.href = '/equipment';">Add</button>
 
     <div>
-        <@e.equipCards />
+        <@e.equipTable />
     </div>
 
 </@c.page>

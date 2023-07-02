@@ -29,11 +29,7 @@ public class EquipmentController {
         model.put("firmas", enumFirmas);
 
         Iterable<EquipmentGroup> equipmentGroups = equipmentGroupRepo.findAll();
-        if (equipmentGroups != null) {
-            model.put("groups", equipmentGroups);
-        } else {
-            model.put("groups", "none");
-        }
+        model.put("groups", equipmentGroups);
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);

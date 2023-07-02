@@ -13,7 +13,34 @@
                 </div>
             </div>
         <#else>
-            No equipments!
+            <span>No equipments</span>
         </#list>
+    </div>
+</#macro>
+
+<#macro equipTable>
+    <div class="">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Firm name</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                <#list equipments as equip>
+                    <tr>
+                        <td><span>${equip.firmName}</span></td>
+                        <td><span>${equip.model}</span></td>
+                        <td><span>${equip.type}</span></td>
+                        <td><a href="/equipments/${equip.id}">view</a></td>
+                    <#else>
+                        <b>No components!</b>
+                    </tr>
+                </#list>
+            </tbody>
+        </table>
     </div>
 </#macro>
