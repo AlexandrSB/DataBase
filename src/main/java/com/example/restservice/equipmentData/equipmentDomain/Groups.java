@@ -1,22 +1,23 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
+@Data
 @NoArgsConstructor(force = true)
-@Table(name = "equipment_group", schema = "public")
-public class EquipmentGroup {
+@RequiredArgsConstructor
+@Table(name = "groups", schema = "public")
+public class Groups {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @Column(name = "group_id", nullable = false)
+    private Long id;
 
     @NonNull
     @Column(name = "group_name")

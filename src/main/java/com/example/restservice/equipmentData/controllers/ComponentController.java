@@ -1,4 +1,4 @@
-package com.example.restservice.controllers;
+package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Attribute;
 import com.example.restservice.equipmentData.equipmentDomain.Component;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.Attributes;
 
 @Controller
 public class ComponentController {

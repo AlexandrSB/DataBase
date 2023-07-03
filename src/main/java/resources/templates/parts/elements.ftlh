@@ -1,6 +1,3 @@
-
-
-
 <#macro equipCards>
     <div class="card-columns">
         <#list equipments as equip>

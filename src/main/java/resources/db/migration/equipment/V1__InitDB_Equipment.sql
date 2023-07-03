@@ -45,6 +45,7 @@ create table if not exists equipment (
     firm_name varchar(128) not null,
     model varchar(128) not null,
     type varchar(128),
+    group_id integer,
     primary key (equipment_id)
 );
 
@@ -54,10 +55,10 @@ create table if not exists equipment_component (
     primary key (comp_id, equip_id)
 );
 
-create table if not exists equipment_group (
-    id integer not null,
+create table if not exists groups (
+    group_id integer not null,
     group_name varchar(255),
-    primary key (id)
+    primary key (group_id)
 );
 
 alter table if exists attribute drop constraint if exists UK_hpwum0iq12fs4ej5d0tgy6wsn;
@@ -67,10 +68,11 @@ alter table if exists component add constraint UK_qkg4faf5v8maop4avw1y44cxp uniq
 alter table if exists equipment drop constraint if exists UK_brtfbdlnplo93o187lw1ffwch;
 alter table if exists equipment add constraint UK_brtfbdlnplo93o187lw1ffwch unique (model);
 
---create sequence attribute_seq start with 1 increment by 50;
---create sequence component_seq start with 1 increment by 50;
---create sequence equipment_group_seq start with 1 increment by 50;
---create sequence equipment_seq start with 1 increment by 50;
+create sequence if not exists attribute_seq start with 1 increment by 50;
+create sequence if not exists component_seq start with 1 increment by 50;
+create sequence if not exists equipment_group_seq start with 1 increment by 50;
+create sequence if not exists equipment_seq start with 1 increment by 50;
+create sequence if not exists groups_seq start with 1 increment by 50;
 
 --alter table if exists component_attribute
 --    add constraint FKa5ind1xk928ifei5b785k9bd

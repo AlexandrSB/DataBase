@@ -1,4 +1,4 @@
-package com.example.restservice.controllers;
+package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Attribute;
 import com.example.restservice.equipmentData.equipmentDomain.Component;

@@ -47,6 +47,9 @@ public class Equipment {
 //    @Cascade(CascadeType.ALL)
     private Set<Component> elements = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Groups group;
 
     public void addElement(Component element) {
         this.elements.add(element);

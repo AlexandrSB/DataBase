@@ -31,7 +31,8 @@
                 <div class="col-sm-6">
                     <select class="form-control" id="type" name="group" class="form-control">
                         <#list groups as group>
-                            <option>${group}</option>
+                            <option>&ltnone&gt</option>
+                            <option>${group.groupName}</option>
                         <#else>
                             <option>Not groups</option>
                         </#list>

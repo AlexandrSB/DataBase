@@ -1,4 +1,4 @@
-package com.example.restservice.controllers;
+package com.example.restservice.equipmentData.controllers;
 
 import java.util.Map;
 
