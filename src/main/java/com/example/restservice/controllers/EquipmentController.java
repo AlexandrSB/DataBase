@@ -64,6 +64,9 @@ public class EquipmentController {
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);
 
+        Iterable<EquipmentGroup> equipmentGroups = equipmentGroupRepo.findAll();
+        model.put("groups", equipmentGroups);
+
         return "equipment";
     }
 

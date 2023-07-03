@@ -17,6 +17,7 @@
                 <select class="form-control" id="model" name="parent">
                     <#list components as comps>
                         <#if comps.isComposite>
+                            <option>&ltnone&gt</option>
                             <option>${comps.name}</option>
                         </#if>
                     <#else>

@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bff41363-18f2-42ea-a80b-db318a6e293a" name="Changes" comment="adding second database (working)">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/ComponentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/restservice/controllers/ComponentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/restservice/controllers/EquipmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/templates/parts/componentParts.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,6 +239,21 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
