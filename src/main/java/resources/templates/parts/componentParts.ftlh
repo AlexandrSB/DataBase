@@ -90,9 +90,9 @@
     <div class="card-columns">
         <#list components as component>
             <div class="card my-3" style="width: 18rem;">
-                <#list component.owner as owner>
+                <#--<#list component.owner as owner>
                     <span>Equipment : ${owner.model}</span>
-                </#list>
+                </#list> -->
                 <#if component.relationship??>
                     <#list component.relationship as rel>
                         <span>Parent : ${rel.name}<#sep>, </span>

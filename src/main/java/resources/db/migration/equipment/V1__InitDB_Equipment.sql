@@ -45,7 +45,7 @@ create table if not exists equipment (
     firm_name varchar(128) not null,
     model varchar(128) not null,
     type varchar(128),
-    group_id integer,
+    gr_id integer,
     primary key (equipment_id)
 );
 
@@ -74,32 +74,32 @@ create sequence if not exists equipment_group_seq start with 1 increment by 50;
 create sequence if not exists equipment_seq start with 1 increment by 50;
 create sequence if not exists groups_seq start with 1 increment by 50;
 
---alter table if exists component_attribute
---    add constraint FKa5ind1xk928ifei5b785k9bd
---    foreign key (attr_id)
---    references attribute;
---
---alter table if exists component_attribute
---    add constraint FKsx6ga5rf0qp56i5qpoqfl8tl9
---    foreign key (comp_id)
---    references component;
---
---alter table if exists component_relationship
---    add constraint FK5yxq9pvdd4r6kms60skpii3ge
---    foreign key (child_id)
---    references component;
---
---alter table if exists component_relationship
---    add constraint FKpqrutnghvfevw4khdujy6d22b
---    foreign key (parent_id)
---    references component;
---
---alter table if exists equipment_component
---    add constraint FKce2uhg91nxk9npcnf88501ca4
---    foreign key (comp_id)
---    references component;
---
---alter table if exists equipment_component
---    add constraint FK4pnhrdnj55cgb8h8r5dtleqm6
---    foreign key (equip_id)
---    references equipment;
+alter table if exists component_attribute
+    add constraint FKa5ind1xk928ifei5b785k9bd
+    foreign key (attr_id)
+    references attribute;
+
+alter table if exists component_attribute
+    add constraint FKsx6ga5rf0qp56i5qpoqfl8tl9
+    foreign key (comp_id)
+    references component;
+
+alter table if exists component_relationship
+    add constraint FK5yxq9pvdd4r6kms60skpii3ge
+    foreign key (child_id)
+    references component;
+
+alter table if exists component_relationship
+    add constraint FKpqrutnghvfevw4khdujy6d22b
+    foreign key (parent_id)
+    references component;
+
+alter table if exists equipment_component
+    add constraint FKce2uhg91nxk9npcnf88501ca4
+    foreign key (comp_id)
+    references component;
+
+alter table if exists equipment_component
+    add constraint FK4pnhrdnj55cgb8h8r5dtleqm6
+    foreign key (equip_id)
+    references equipment;

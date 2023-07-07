@@ -48,7 +48,7 @@ public class Equipment {
     private Set<Component> elements = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "gr_id")
     private Groups group;
 
     public void addElement(Component element) {
