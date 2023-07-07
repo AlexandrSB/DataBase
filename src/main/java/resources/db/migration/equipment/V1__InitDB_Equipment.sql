@@ -59,7 +59,6 @@ CREATE TABLE IF NOT EXISTS public.equipment
     firm_name character varying(128) COLLATE pg_catalog."default" NOT NULL,
     model character varying(128) COLLATE pg_catalog."default" NOT NULL,
     type character varying(128) COLLATE pg_catalog."default",
-    gr_id integer,
     CONSTRAINT equipment_pkey PRIMARY KEY (equipment_id, gr_id),
     CONSTRAINT unique_equipment_model_constraint UNIQUE (model)
 );
@@ -122,9 +121,8 @@ ALTER TABLE IF EXISTS public.equipment_component
 
 ALTER TABLE IF EXISTS public.groups
     ADD CONSTRAINT group_id FOREIGN KEY (group_id)
-    REFERENCES public.equipment (gr_id) MATCH SIMPLE
+    REFERENCES public.equipment (equipment_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
-    NOT VALID;
 
 END;
