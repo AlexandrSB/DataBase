@@ -23,7 +23,7 @@ public class Groups {
     @Column(name = "group_name")
     private String groupName;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "gr_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Equipment> equipmentGroup = new HashSet<>();
 
     public void addEquipment(Equipment equipment) {
