@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.attribute
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     unit smallint,
     CONSTRAINT attribute_pkey PRIMARY KEY (attribute_id),
-    CONSTRAINT uk_hpwum0iq12fs4ej5d0tgy6wsn UNIQUE (name)
+    CONSTRAINT unique_attr_name_constraint UNIQUE (name)
 );
 
 CREATE TABLE IF NOT EXISTS public.attribute_integer_value
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS public.component
     is_mechanic boolean,
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT component_pkey PRIMARY KEY (component_id),
-    CONSTRAINT uk_qkg4faf5v8maop4avw1y44cxp UNIQUE (name)
+    CONSTRAINT unique_component_name_constraint UNIQUE (name)
 );
 
 CREATE TABLE IF NOT EXISTS public.component_attribute
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS public.equipment
     type character varying(128) COLLATE pg_catalog."default",
     gr_id integer,
     CONSTRAINT equipment_pkey PRIMARY KEY (equipment_id, gr_id),
-    CONSTRAINT uk_brtfbdlnplo93o187lw1ffwch UNIQUE (model)
+    CONSTRAINT unique_equipment_model_constraint UNIQUE (model)
 );
 
 CREATE TABLE IF NOT EXISTS public.equipment_component
@@ -79,42 +79,42 @@ CREATE TABLE IF NOT EXISTS public.groups
 );
 
 ALTER TABLE IF EXISTS public.component_attribute
-    ADD CONSTRAINT fka5ind1xk928ifei5b785k9bd FOREIGN KEY (attr_id)
+    ADD CONSTRAINT foreign_key_attr_id_constraint FOREIGN KEY (attr_id)
     REFERENCES public.attribute (attribute_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.component_attribute
-    ADD CONSTRAINT fksx6ga5rf0qp56i5qpoqfl8tl9 FOREIGN KEY (comp_id)
+    ADD CONSTRAINT foreign_key_comp_id_constraint FOREIGN KEY (comp_id)
     REFERENCES public.component (component_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.component_relationship
-    ADD CONSTRAINT fk5yxq9pvdd4r6kms60skpii3ge FOREIGN KEY (child_id)
+    ADD CONSTRAINT foreign_key_child_id_constraint FOREIGN KEY (child_id)
     REFERENCES public.component (component_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.component_relationship
-    ADD CONSTRAINT fkpqrutnghvfevw4khdujy6d22b FOREIGN KEY (parent_id)
+    ADD CONSTRAINT foreign_key_parent_id_constrain FOREIGN KEY (parent_id)
     REFERENCES public.component (component_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.equipment_component
-    ADD CONSTRAINT fk4pnhrdnj55cgb8h8r5dtleqm6 FOREIGN KEY (equip_id)
+    ADD CONSTRAINT foreign_key_equip_is_constraint FOREIGN KEY (equip_id)
     REFERENCES public.equipment (equipment_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.equipment_component
-    ADD CONSTRAINT fkce2uhg91nxk9npcnf88501ca4 FOREIGN KEY (comp_id)
+    ADD CONSTRAINT foreign_key_comp_id_constraint FOREIGN KEY (comp_id)
     REFERENCES public.component (component_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
