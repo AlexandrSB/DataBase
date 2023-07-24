@@ -43,9 +43,9 @@
 
     <h5 class="my-2">Addtion</div>
     <div class="card-columns">
-        <#list components as component>
+        <#list components as element>
             <div class="card my-3" style="width: 18rem;">
-            <span>${component.name}</span>
+            <span>${element.name}</span>
         </#list>
     </div>
 </@c.page>

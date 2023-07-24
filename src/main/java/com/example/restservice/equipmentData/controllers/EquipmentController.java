@@ -25,10 +25,10 @@ public class EquipmentController {
                 List.of(EnumTypeOfEquipment.values());
         model.put("types", enumTypeOfEquipments);
 
-        Iterable<EnumFirma> enumFirmas = List.of(EnumFirma.values());
+        Iterable<Firma> enumFirmas = List.of(Firma.values());
         model.put("firmas", enumFirmas);
 
-        Iterable<Groups> equipmentGroups = groupsRepo.findAll();
+        Iterable<Group> equipmentGroups = groupsRepo.findAll();
         model.put("groups", equipmentGroups);
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
@@ -48,14 +48,14 @@ public class EquipmentController {
                 List.of(EnumTypeOfEquipment.values());
         model.put("types", enumTypeOfEquipments);
 
-        Iterable<EnumFirma> enumFirmas = List.of(EnumFirma.values());
+        Iterable<Firma> enumFirmas = List.of(Firma.values());
         model.put("firmas", enumFirmas);
 
-        EnumFirma enumFirma = EnumFirma.valueOf(firmName);
+        Firma firma = Firma.valueOf(firmName);
         EnumTypeOfEquipment enumTypeOfEquipment =
                 EnumTypeOfEquipment.valueOf(type);
         try {
-            Equipment equipment = new Equipment(enumFirma, myModel, enumTypeOfEquipment);
+            Equipment equipment = new Equipment(firma, myModel, enumTypeOfEquipment);
             equipmentRepo.save(equipment);
         } catch (Exception e) {
             return "main";
@@ -64,7 +64,7 @@ public class EquipmentController {
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);
 
-        Iterable<Groups> equipmentGroups = groupsRepo.findAll();
+        Iterable<Group> equipmentGroups = groupsRepo.findAll();
         model.put("groups", equipmentGroups);
 
         return "equipment";
@@ -86,7 +86,7 @@ public class EquipmentController {
     ) {
         model.addAttribute("equip", equipment);
 
-        Iterable<Component> comp = equipment.getElements();
+        Iterable<Element> comp = equipment.getElements();
         model.addAttribute("component", comp);
 
         return "equipView";

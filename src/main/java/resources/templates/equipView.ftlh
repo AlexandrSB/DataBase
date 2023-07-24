@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <#list component as cp>
+                <#list element as cp>
                 <tr>
                     <td><span>${cp.name}</span></td>
                     <td>

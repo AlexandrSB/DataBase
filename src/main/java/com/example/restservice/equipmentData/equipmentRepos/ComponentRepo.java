@@ -1,8 +1,8 @@
 package com.example.restservice.equipmentData.equipmentRepos;
 
-import com.example.restservice.equipmentData.equipmentDomain.Component;
+import com.example.restservice.equipmentData.equipmentDomain.Element;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ComponentRepo extends CrudRepository<Component, Long> {
-    Component findByName(String compName);
+public interface ComponentRepo extends CrudRepository<Element, Long> {
+    Element findByName(String compName);
 }

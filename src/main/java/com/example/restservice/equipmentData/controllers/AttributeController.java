@@ -1,8 +1,8 @@
 package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Attribute;
-import com.example.restservice.equipmentData.equipmentDomain.Component;
-import com.example.restservice.equipmentData.equipmentDomain.EnumUnits;
+import com.example.restservice.equipmentData.equipmentDomain.Element;
+import com.example.restservice.equipmentData.equipmentDomain.Unit;
 import com.example.restservice.equipmentData.equipmentRepos.AttributeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,10 +25,10 @@ public class AttributeController {
     @GetMapping("/addAttribute")
     public String addAttributeGet(Model model) {
 
-        Iterable<Component> components = componentRepo.findAll();
+        Iterable<Element> components = componentRepo.findAll();
         model.addAttribute("components", components);
 
-        Iterable<EnumUnits> enumUnits = List.of(EnumUnits.values());
+        Iterable<Unit> enumUnits = List.of(Unit.values());
         model.addAttribute("units", enumUnits);
 
         return "addAttribute";
@@ -42,11 +42,11 @@ public class AttributeController {
             @RequestParam String un,
             Model model
     ) {
-        Component component = componentRepo.findByName(comp);
+        Element element = componentRepo.findByName(comp);
         Attribute attribute = new Attribute(attr);
-        attribute.addComponent(component);
+        attribute.addComponent(element);
         attribute.addValues(val);
-        attribute.setUnit(EnumUnits.valueOf(un));
+        attribute.setUnit(Unit.valueOf(un));
 
         attributeRepo.save(attribute);
 

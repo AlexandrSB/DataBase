@@ -1,6 +1,6 @@
 package com.example.restservice.equipmentData.controllers;
 
-import com.example.restservice.equipmentData.equipmentDomain.Groups;
+import com.example.restservice.equipmentData.equipmentDomain.Group;
 import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import com.example.restservice.equipmentData.equipmentRepos.GroupsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class GroupController {
     @GetMapping("/groups")
     public String showGroups(Model model) {
 
-        Iterable<Groups> groups = groupsRepo.findAll();
+        Iterable<Group> groups = groupsRepo.findAll();
         model.addAttribute("gr", groups);
 
         return "groups";
@@ -33,10 +33,10 @@ public class GroupController {
             @RequestParam String groupName,
             Model model) {
 
-        Groups newGroup = new Groups(groupName);
+        Group newGroup = new Group(groupName);
         groupsRepo.save(newGroup);
 
-        Iterable<Groups> groups = groupsRepo.findAll();
+        Iterable<Group> groups = groupsRepo.findAll();
         model.addAttribute("gr", groups);
 
         return "groups";

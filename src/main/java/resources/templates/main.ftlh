@@ -1,7 +1,7 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
-    <a href="/component">Component</a>
+    <a href="/element">Component</a>
     <br>
     <a href="/equipment">Equipment</a>
     <br>

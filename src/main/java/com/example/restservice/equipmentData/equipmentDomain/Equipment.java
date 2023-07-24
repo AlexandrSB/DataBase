@@ -11,8 +11,7 @@ import java.util.Set;
 //import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(of = {"id", "model", "type"})
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
@@ -25,16 +24,14 @@ public class Equipment {
     private Long id;
 
     @Column(name = "firm_name", nullable = false)
-    @Enumerated(EnumType.STRING)
     @NonNull
-    private EnumFirma firmName;
+    private Firma firmName;
 
     @Column(name = "model", nullable = false, unique = true)
     @NonNull
     private String model;
 
     @Column(name = "type")
-    @Enumerated(EnumType.STRING)
     @NonNull
     private EnumTypeOfEquipment type;
 
@@ -45,16 +42,16 @@ public class Equipment {
             inverseJoinColumns = {@JoinColumn(name = "comp_id")}
     )
 //    @Cascade(CascadeType.ALL)
-    private Set<Component> elements = new HashSet<>();
+    private Set<Element> elements = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "group")
-    private Groups group;
+    private Group group;
 
-    public void addElement(Component element) {
+    public void addElement(Element element) {
         this.elements.add(element);
     }
-    public void addElements(List<Component> elements) {
+    public void addElements(List<Element> elements) {
         this.elements.addAll(elements);
     }
 

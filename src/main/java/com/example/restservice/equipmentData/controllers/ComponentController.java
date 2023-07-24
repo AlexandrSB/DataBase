@@ -1,7 +1,7 @@
 package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Attribute;
-import com.example.restservice.equipmentData.equipmentDomain.Component;
+import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentDomain.Equipment;
 import com.example.restservice.equipmentData.equipmentRepos.AttributeRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ComponentRepo;
@@ -36,7 +36,7 @@ public class ComponentController {
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);
 
-        Iterable<Component> components = componentRepo.findAll();
+        Iterable<Element> components = componentRepo.findAll();
         model.put("components", components);
 
         Iterable<Attribute> attributes = attributeRepo.findAll();
@@ -47,12 +47,12 @@ public class ComponentController {
 
     @GetMapping("component/{component}")
     public String componentViewForm(
-            @PathVariable Component component,
+            @PathVariable Element element,
             Model model
     ) {
-        model.addAttribute("comp", component);
+        model.addAttribute("comp", element);
 
-        Set<Attribute> attr = component.getAttributes();
+        Set<Attribute> attr = element.getAttributes();
         model.addAttribute("attributes", attr);
 
         return "compView";
@@ -70,38 +70,38 @@ public class ComponentController {
 
             Model model) {
 
-        Component component = new Component(componentName);
+        Element element = new Element(componentName);
         Equipment equipment = equipmentRepo.findByModel(myModel).get(0);
-        if (equipment != null) {
-            component.addOwner(equipment);
-            if (isComposite != null) {
-                component.setIsComposite(true);
-            } else {
-                component.setIsComposite(false);
-            }
-            if (isMechanic != null) {
-                component.setIsMechanic(true);
-            } else {
-                component.setIsMechanic(false);
-            }
-            if (isElectric != null) {
-                component.setIsElectric(true);
-            } else {
-                component.setIsElectric(false);
-            }
-            if (isElectronic != null) {
-                component.setIsElectronic(true);
-            } else {
-                component.setIsElectronic(false);
-            }
+//        if (equipment != null) {
+//            element.addOwner(equipment);
+//            if (isComposite != null) {
+//                element.setIsComposite(true);
+//            } else {
+//                element.setIsComposite(false);
+//            }
+//            if (isMechanic != null) {
+//                element.setIsMechanic(true);
+//            } else {
+//                element.setIsMechanic(false);
+//            }
+//            if (isElectric != null) {
+//                element.setIsElectric(true);
+//            } else {
+//                element.setIsElectric(false);
+//            }
+//            if (isElectronic != null) {
+//                element.setIsElectronic(true);
+//            } else {
+//                element.setIsElectronic(false);
+//            }
 
-                componentRepo.save(component);
+                componentRepo.save(element);
         }
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.addAttribute("equipments", equipments);
 
-        Iterable<Component> components = componentRepo.findAll();
+        Iterable<Element> components = componentRepo.findAll();
         model.addAttribute("components", components);
 
         Iterable<Attribute> attributes = attributeRepo.findAll();

@@ -28,9 +28,9 @@
         </div>
 
         <div class="form-group row">
-            <label for="component" class="col-sm-2 col-form-label">Component : </label>
+            <label for="element" class="col-sm-2 col-form-label">Component : </label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="componentName" placeholder="componentName" id="component">
+                <input class="form-control" type="text" name="componentName" placeholder="componentName" id="element">
             </div>
         </div>
 
@@ -88,32 +88,32 @@
 
 <#macro componentCard>
     <div class="card-columns">
-        <#list components as component>
+        <#list components as element>
             <div class="card my-3" style="width: 18rem;">
-                <#--<#list component.owner as owner>
+                <#--<#list element.owner as owner>
                     <span>Equipment : ${owner.model}</span>
                 </#list> -->
-                <#if component.relationship??>
-                    <#list component.relationship as rel>
+                <#if element.relationship??>
+                    <#list element.relationship as rel>
                         <span>Parent : ${rel.name}<#sep>, </span>
                     <#else>
                         <span>Not Parent</span>
                     </#list>
                 </#if>
-                <span>${component.name}</span>
-                <#if component.description != "">
-                    <span>Description : ${component.description}</span>
+                <span>${element.name}</span>
+                <#if element.description != "">
+                    <span>Description : ${element.description}</span>
                 </#if>
-                <#if component.isComposite>
+                <#if element.isComposite>
                     <span>is composite</span>
                 </#if>
-                <#if component.isMechanic>
+                <#if element.isMechanic>
                     <span>is mechanic</span>
                 </#if>
-                <#if component.isElectric>
+                <#if element.isElectric>
                     <span>is electric</span>
                 </#if>
-                <#if component.isElectronic>
+                <#if element.isElectronic>
                     <span>is electronic</span>
                 </#if>
             </div>

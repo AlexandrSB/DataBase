@@ -17,43 +17,50 @@ public class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "attribute_id")
-    private Integer id;
+    private Long id;
 
     @NonNull
     @Setter
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @NonNull
-    @Setter
-    private EnumUnits unit;
+    @Column(name = "description")
+    private String description;
 
-    @ManyToMany
-    @JoinTable(
-            name = "component_attribute",
-            joinColumns = { @JoinColumn(name = "attr_id") },
-            inverseJoinColumns = { @JoinColumn(name = "comp_id") }
-    )
-    private Set<Component> components = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "attr_value_id")
+    private AttributeValue attr_value_id;
 
-    @Setter
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<AttributeStringValue> strValues;
-
-    @Setter
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<AttributeIntegerValue> intValues;
+////    @NonNull
+////    @Setter
+////    private Unit unit;
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "component_attribute",
+//            joinColumns = { @JoinColumn(name = "attr_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "comp_id") }
+//    )
+//    private Set<Element> elements = new HashSet<>();
+//
+//    @Setter
+//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<AttributeStringValue> strValues;
+//
+//    @Setter
+//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<AttributeIntegerValue> intValues;
 
     public Attribute(String n) {
         this.name = n;
     }
 
-    public void addComponent(Component comp) {
-        components.add(comp);
-    }
-
-    public void addValues(String str) {
-        AttributeStringValue attributeStringValue = new AttributeStringValue(str);
-        strValues.add(attributeStringValue);
-    }
+//    public void addComponent(Element comp) {
+//        elements.add(comp);
+//    }
+//
+//    public void addValues(String str) {
+//        AttributeStringValue attributeStringValue = new AttributeStringValue(str);
+//        strValues.add(attributeStringValue);
+//    }
 }
