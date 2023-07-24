@@ -30,10 +30,10 @@ CREATE TABLE IF NOT EXISTS public.component
 (
     component_id integer NOT NULL,
     description character varying(2048) COLLATE pg_catalog."default",
-    is_composite boolean,
-    is_electric boolean,
-    is_electronic boolean,
-    is_mechanic boolean,
+    is_composite boolean default false,
+    is_electric boolean default false,
+    is_electronic boolean default false,
+    is_mechanic boolean default false,
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT component_pkey PRIMARY KEY (component_id),
     CONSTRAINT unique_component_name_constraint UNIQUE (name)
