@@ -19,7 +19,7 @@ public class AttributeValue {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "attribute_value_id", nullable = false)
+    @Column(name = "attribute_value_id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "name")

@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Data
@@ -19,9 +22,12 @@ public class Firma {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "firma_id", nullable = false)
+    @Column(name = "firma_id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "firm_name")
+    @Column(name = "firm_name", nullable = false, unique = true)
     private String firm_name;
+
+    @ManyToMany(mappedBy = "firmas")
+    private Set<Element> elementSet = new HashSet<>();
 }

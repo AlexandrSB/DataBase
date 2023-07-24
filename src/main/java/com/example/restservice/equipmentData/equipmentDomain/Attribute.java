@@ -16,7 +16,7 @@ import java.util.Set;
 public class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "attribute_id")
+    @Column(name = "attribute_id", nullable = false, unique = true)
     private Long id;
 
     @NonNull

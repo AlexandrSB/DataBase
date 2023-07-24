@@ -18,9 +18,9 @@ public class Unit {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "unit_name")
+    @Column(name = "unit_name", nullable = false, unique = true)
     private String unit_name;
 }

@@ -19,7 +19,7 @@ public class Barcode {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @ManyToOne
-    @JoinColumn(name = "barcode_id", nullable = false)
+    @JoinColumn(name = "barcode_id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "barcode")

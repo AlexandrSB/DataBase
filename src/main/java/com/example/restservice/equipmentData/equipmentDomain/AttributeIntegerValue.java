@@ -14,7 +14,7 @@ public class AttributeIntegerValue {
     @Id
     @Column(name = "attr_int_id")
     @ManyToOne
-    @JoinColumn(name = "attr_value_id", nullable = false)
+    @JoinColumn(name = "attr_value_id", nullable = false, unique = true)
     private AttributeValue id;
 
     @Setter

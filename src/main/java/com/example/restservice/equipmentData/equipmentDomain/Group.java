@@ -12,7 +12,7 @@ public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "group_id", nullable = false)
+    @Column(name = "group_id", nullable = false, unique = true)
     private Long id;
 
     @NonNull

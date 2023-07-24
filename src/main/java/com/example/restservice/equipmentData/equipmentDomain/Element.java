@@ -14,7 +14,7 @@ import java.util.Set;
 public class Element {
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE)
-    @Column(name = "element_id")
+    @Column(name = "element_id", nullable = false, unique = true)
     private Long id;
 
 //    @ManyToMany
@@ -60,6 +60,14 @@ public class Element {
             inverseJoinColumns = {@JoinColumn(name = "elements_destination")}
     )
     private Set<Element> elements = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "element_firma",
+            joinColumns = @JoinColumn(name = "element_id"),
+            inverseJoinColumns = @JoinColumn(name = "firma_id")
+    )
+    private Set<Firma> firmas = new HashSet<>();
 
 
     public Element(String name) {

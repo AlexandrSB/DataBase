@@ -13,7 +13,7 @@ public class AttributeRealValue {
     @Id
     @Column(name = "attr_real_val")
     @ManyToOne
-    @JoinColumn(name = "attr_value_id", nullable = false)
+    @JoinColumn(name = "attr_value_id", nullable = false, unique = true)
     private AttributeValue id;
 
     @Setter
