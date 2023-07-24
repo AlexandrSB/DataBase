@@ -19,7 +19,6 @@ public class Attribute {
     @Column(name = "attribute_id", nullable = false, unique = true)
     private Long id;
 
-    @NonNull
     @Setter
     @Column(name = "name", unique = true, nullable = false)
     private String name;
