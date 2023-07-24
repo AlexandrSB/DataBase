@@ -1,7 +1,7 @@
 package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.*;
-import com.example.restservice.equipmentData.equipmentRepos.GroupsRepo;
+import com.example.restservice.equipmentData.equipmentRepos.GroupRepo;
 import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ public class EquipmentController {
     private EquipmentRepo equipmentRepo;
 
     @Autowired
-    private GroupsRepo groupsRepo;
+    private GroupRepo groupRepo;
 
     @GetMapping("/equipment")
     public String equipment(Map<String, Object> model) {
@@ -28,7 +28,7 @@ public class EquipmentController {
         Iterable<Firma> enumFirmas = List.of(Firma.values());
         model.put("firmas", enumFirmas);
 
-        Iterable<Group> equipmentGroups = groupsRepo.findAll();
+        Iterable<Group> equipmentGroups = groupRepo.findAll();
         model.put("groups", equipmentGroups);
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
@@ -64,7 +64,7 @@ public class EquipmentController {
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);
 
-        Iterable<Group> equipmentGroups = groupsRepo.findAll();
+        Iterable<Group> equipmentGroups = groupRepo.findAll();
         model.put("groups", equipmentGroups);
 
         return "equipment";

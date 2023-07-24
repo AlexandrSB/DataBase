@@ -2,7 +2,7 @@ package com.example.restservice.equipmentData.controllers;
 
 import java.util.Map;
 
-import com.example.restservice.equipmentData.equipmentRepos.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class GreetingController {
 	@Autowired
 	private EquipmentRepo equipmentRepo;
 	@Autowired
-	private ComponentRepo componentRepo;
+	private ElementRepo componentRepo;
 
 	@GetMapping("/greeting")
 	public String greeting(

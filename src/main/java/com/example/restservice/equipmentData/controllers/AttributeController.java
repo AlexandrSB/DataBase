@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.restservice.equipmentData.equipmentRepos.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class AttributeController {
     private AttributeRepo attributeRepo;
 
     @Autowired
-    private ComponentRepo componentRepo;
+    private ElementRepo componentRepo;
     @GetMapping("/addAttribute")
     public String addAttributeGet(Model model) {
 

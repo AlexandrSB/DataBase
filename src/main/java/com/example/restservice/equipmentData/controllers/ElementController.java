@@ -4,7 +4,7 @@ import com.example.restservice.equipmentData.equipmentDomain.Attribute;
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentDomain.Equipment;
 import com.example.restservice.equipmentData.equipmentRepos.AttributeRepo;
-import com.example.restservice.equipmentData.equipmentRepos.ComponentRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Controller
-public class ComponentController {
+public class ElementController {
 
     @Autowired
-    private ComponentRepo componentRepo;
+    private ElementRepo componentRepo;
 
     @Autowired
     private EquipmentRepo equipmentRepo;
@@ -50,10 +50,7 @@ public class ComponentController {
             @PathVariable Element element,
             Model model
     ) {
-        model.addAttribute("comp", element);
 
-        Set<Attribute> attr = element.getAttributes();
-        model.addAttribute("attributes", attr);
 
         return "compView";
     }
@@ -96,16 +93,16 @@ public class ComponentController {
 //            }
 
                 componentRepo.save(element);
-        }
-
-        Iterable<Equipment> equipments = equipmentRepo.findAll();
-        model.addAttribute("equipments", equipments);
-
-        Iterable<Element> components = componentRepo.findAll();
-        model.addAttribute("components", components);
-
-        Iterable<Attribute> attributes = attributeRepo.findAll();
-        model.addAttribute("attributes", attributes);
+//        }
+//
+////        Iterable<Equipment> equipments = equipmentRepo.findAll();
+//        model.addAttribute("equipments", equipments);
+//
+//        Iterable<Element> components = componentRepo.findAll();
+//        model.addAttribute("components", components);
+//
+//        Iterable<Attribute> attributes = attributeRepo.findAll();
+//        model.addAttribute("attributes", attributes);
 
         return "component";
     }
