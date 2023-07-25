@@ -6,7 +6,6 @@ import lombok.*;
 @Entity
 @Data
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @Table(name = "groups", schema = "public")
 public class Group {
 
@@ -20,21 +19,15 @@ public class Group {
     private String groupName;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    @Column(name = "parent_id")
-    private Long parent;
+    @JoinColumn(name = "parent_id")
+    private Group parent;
 
-//    @OneToMany
-//    @JoinColumn(name = "parent")
-//    Set<Groups> toParent = new HashSet<>();
-//
-//    public Set<Groups> addParent(Groups groups) {
-//        this.toParent.add(groups);
-//        return this.toParent;
-//    }
-//
-//    public Set<Groups> addParents(Set<Groups> groups) {
-//        this.toParent.addAll(groups);
-//        return this.toParent;
-//    }
+    public Group(@NonNull String groupName) {
+        this.groupName = groupName;
+    }
+
+    public Group(@NonNull String groupName, Group parent) {
+        this.groupName = groupName;
+        this.parent = parent;
+    }
 }

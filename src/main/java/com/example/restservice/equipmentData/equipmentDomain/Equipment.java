@@ -23,9 +23,9 @@ public class Equipment {
     @Column(name = "equipment_id", nullable = false)
     private Long id;
 
-    @Column(name = "firm_name", nullable = false)
-    @NonNull
-    private Firma firmName;
+//    @Column(name = "firm_name", nullable = false)
+//    @NonNull
+//    private Firma firmName;
 
     @Column(name = "model", nullable = false, unique = true)
     @NonNull

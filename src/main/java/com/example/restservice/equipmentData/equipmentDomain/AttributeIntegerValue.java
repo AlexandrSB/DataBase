@@ -7,15 +7,17 @@ import lombok.*;
 @Data
 @EqualsAndHashCode(of = {"id", "value"})
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @Table(name = "attribute_integer_name", schema = "public")
 public class AttributeIntegerValue {
 
     @Id
-    @Column(name = "attr_int_id")
-    @ManyToOne
-    @JoinColumn(name = "attr_value_id", nullable = false, unique = true)
-    private AttributeValue id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "attr_value_id", nullable = false, unique = true)
+    private Long id;
+
+    @NonNull
+    @OneToOne
+    private AttributeValue attributeValue;
 
     @Setter
     @NonNull

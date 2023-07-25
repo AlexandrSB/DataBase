@@ -64,10 +64,10 @@ public class Element {
     @ManyToMany
     @JoinTable(
             name = "element_firma",
-            joinColumns = @JoinColumn(name = "element_id"),
-            inverseJoinColumns = @JoinColumn(name = "firma_id")
+            joinColumns = { @JoinColumn(name = "element_id") },
+            inverseJoinColumns = {@JoinColumn(name = "firma_id")}
     )
-    private Set<Firma> firmas = new HashSet<>();
+    private Set<Firma> firmaSet = new HashSet<>();
 
 
     public Element(String name) {

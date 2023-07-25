@@ -5,7 +5,7 @@
 
 CREATE TABLE IF NOT EXISTS "public".barcode
 (
-    barcode_id  integer NOT NULL,
+    barcode_id bigint NOT NULL,
     barcode    integer NOT NULL,
     CONSTRAINT PK_barcode PRIMARY KEY ( barcode_id )
 );
@@ -13,9 +13,9 @@ CREATE TABLE IF NOT EXISTS "public".barcode
 
 CREATE TABLE IF NOT EXISTS "public".groups
 (
-    group_id   integer NOT NULL,
+    group_id   bigint NOT NULL,
     group_name character(50) NOT NULL,
-    parent_id  integer NULL,
+    parent_id  bigint NULL,
     CONSTRAINT PK_groups PRIMARY KEY ( group_id ),
     CONSTRAINT FK_10_1 FOREIGN KEY ( parent_id ) REFERENCES "public".groups ( group_id )
 );
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS "public".groups
 
 CREATE TABLE IF NOT EXISTS "public".firma
 (
-    firma_id  integer NOT NULL,
+    firma_id  bigint NOT NULL,
     firm_name character(50) NOT NULL,
     CONSTRAINT PK_1 PRIMARY KEY ( firma_id )
 );
@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS "public".firma
 
 CREATE TABLE IF NOT EXISTS "public".element
 (
-    element_id  integer NOT NULL,
+    element_id  bigint NOT NULL,
     name        character(50) NOT NULL,
-    description character NULL,
-    parent_id   integer NULL,
+    description character(800) NULL,
+    parent_id   bigint NULL,
     CONSTRAINT PK_component PRIMARY KEY ( element_id ),
     CONSTRAINT unique_component_name_constraint UNIQUE ( name ),
     CONSTRAINT FK_10 FOREIGN KEY ( parent_id ) REFERENCES "public".element ( element_id )
@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS "public".element
 
 CREATE TABLE IF NOT EXISTS "public".element_firma
 (
-    id         integer NOT NULL,
-    firma_id   integer NOT NULL,
-    element_id integer NOT NULL,
+    id         bigint NOT NULL,
+    firma_id   bigint NOT NULL,
+    element_id bigint NOT NULL,
     CONSTRAINT PK_element_firma PRIMARY KEY ( id ),
     CONSTRAINT FK_11_2 FOREIGN KEY ( firma_id ) REFERENCES "public".firma ( firma_id ),
     CONSTRAINT FK_12_1 FOREIGN KEY ( element_id ) REFERENCES "public".element ( element_id ),
@@ -79,9 +79,9 @@ CREATE TABLE IF NOT EXISTS "public".element_firma
 
 CREATE TABLE IF NOT EXISTS "public".element_groups
 (
-    id         integer NOT NULL,
-    element_id integer NULL,
-    group_id   integer NULL,
+    id         bigint NOT NULL,
+    element_id bigint NULL,
+    group_id   bigint NULL,
     CONSTRAINT PK_element_groups PRIMARY KEY ( id ),
     CONSTRAINT FK_11 FOREIGN KEY ( element_id ) REFERENCES "public"."element" ( element_id ),
     CONSTRAINT FK_12 FOREIGN KEY ( group_id ) REFERENCES "public".groups ( group_id )
@@ -100,9 +100,9 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
 
 CREATE TABLE IF NOT EXISTS "public".elements_composite
 (
-    id                  integer NOT NULL,
-    element_source      integer NULL,
-    element_destination integer NULL,
+    id                  bigint NOT NULL,
+    element_source      bigint NULL,
+    element_destination bigint NULL,
     CONSTRAINT PK_elements_composite PRIMARY KEY ( id ),
     CONSTRAINT FK_14 FOREIGN KEY ( element_source ) REFERENCES "public"."element" ( element_id ),
     CONSTRAINT FK_15 FOREIGN KEY ( element_destination ) REFERENCES "public"."element" ( element_id )
@@ -121,10 +121,10 @@ CREATE TABLE IF NOT EXISTS "public".elements_composite
 
 CREATE TABLE IF NOT EXISTS "public".attribute_value
 (
-    attr_value_id         integer NOT NULL,
+    attr_value_id         bigint NOT NULL,
     name                  character(50) NOT NULL,
-    group_attr_value_id   integer NULL,
-    element_attr_value_id integer NOT NULL,
+    group_attr_value_id   bigint NULL,
+    element_attr_value_id bigint NOT NULL,
     CONSTRAINT PK_attribute PRIMARY KEY ( attr_value_id ),
     CONSTRAINT unique_attr_name_constraint UNIQUE ( name ),
     CONSTRAINT FK_9_2 FOREIGN KEY ( group_attr_value_id ) REFERENCES "public".groups ( group_id ),
@@ -145,8 +145,8 @@ CREATE TABLE IF NOT EXISTS "public".attribute_value
 CREATE TABLE IF NOT EXISTS "public".attribute
 (
     name           character(50) NOT NULL,
-    attribute_id1  integer NOT NULL,
-    attribute_id   integer NOT NULL,
+    attribute_id1  bigint NOT NULL,
+    attribute_id   bigint NOT NULL,
     CONSTRAINT PK_attribute_1 PRIMARY KEY ( attribute_id ),
     CONSTRAINT FK_11_1 FOREIGN KEY ( attribute_id1 ) REFERENCES "public".attribute_value ( attr_value_id )
 );
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS "public".attribute
 
 CREATE TABLE IF NOT EXISTS "public".attribute_double_value
 (
-    id    integer NOT NULL,
+    id         bigint NOT NULL,
     value real NULL,
     CONSTRAINT PK_attribute_double_value PRIMARY KEY ( id ),
     CONSTRAINT FK_7_1 FOREIGN KEY ( id ) REFERENCES "public".attribute_value ( attr_value_id )
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS "public".attribute_double_value
 
 CREATE TABLE IF NOT EXISTS "public".attribute_integer_value
 (
-    attribute_id integer NOT NULL,
+    attribute_id bigint NOT NULL,
     value        integer NULL,
     CONSTRAINT PK_attr_integer_value PRIMARY KEY ( attribute_id ),
     CONSTRAINT FK_7_2 FOREIGN KEY ( attribute_id ) REFERENCES "public".attribute_value ( attr_value_id )
@@ -177,8 +177,8 @@ CREATE TABLE IF NOT EXISTS "public".attribute_integer_value
 
 CREATE TABLE IF NOT EXISTS "public".attribute_string_value
 (
-    attribute_id integer NOT NULL,
-    value        character NULL,
+    attribute_id bigint NOT NULL,
+    value        character(50) NULL,
     CONSTRAINT PK_attr_string_value PRIMARY KEY ( attribute_id ),
     CONSTRAINT FK_7_3 FOREIGN KEY ( attribute_id ) REFERENCES "public".attribute_value ( attr_value_id )
 );

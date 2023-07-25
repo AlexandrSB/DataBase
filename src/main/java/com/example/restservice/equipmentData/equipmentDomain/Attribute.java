@@ -11,7 +11,6 @@ import java.util.Set;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @Table(name = "attribute", schema = "public")
 public class Attribute {
     @Id

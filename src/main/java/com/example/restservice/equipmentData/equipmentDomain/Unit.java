@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @Data
 @EqualsAndHashCode(of = {"id", "unit_name"})
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @EnableAutoConfiguration
 @Table(name = "unit", schema = "public")
 public class Unit {

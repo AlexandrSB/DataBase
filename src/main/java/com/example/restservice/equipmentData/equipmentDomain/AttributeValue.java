@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @Data
 @EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @EnableAutoConfiguration
 @Table(name = "attribute_value", schema = "public")
 public class AttributeValue {

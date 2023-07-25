@@ -25,8 +25,8 @@ public class EquipmentController {
                 List.of(EnumTypeOfEquipment.values());
         model.put("types", enumTypeOfEquipments);
 
-        Iterable<Firma> enumFirmas = List.of(Firma.values());
-        model.put("firmas", enumFirmas);
+//        Iterable<Firma> enumFirmas = List.of(Firma.values());
+//        model.put("firmas", enumFirmas);
 
         Iterable<Group> equipmentGroups = groupRepo.findAll();
         model.put("groups", equipmentGroups);
@@ -48,18 +48,18 @@ public class EquipmentController {
                 List.of(EnumTypeOfEquipment.values());
         model.put("types", enumTypeOfEquipments);
 
-        Iterable<Firma> enumFirmas = List.of(Firma.values());
-        model.put("firmas", enumFirmas);
-
-        Firma firma = Firma.valueOf(firmName);
-        EnumTypeOfEquipment enumTypeOfEquipment =
-                EnumTypeOfEquipment.valueOf(type);
-        try {
-            Equipment equipment = new Equipment(firma, myModel, enumTypeOfEquipment);
-            equipmentRepo.save(equipment);
-        } catch (Exception e) {
-            return "main";
-        }
+//////        Iterable<Firma> enumFirmas = List.of(Firma.values());
+//////        model.put("firmas", enumFirmas);
+////
+////        Firma firma = Firma.valueOf(firmName);
+////        EnumTypeOfEquipment enumTypeOfEquipment =
+////                EnumTypeOfEquipment.valueOf(type);
+//        try {
+//            Equipment equipment = new Equipment(firma, myModel, enumTypeOfEquipment);
+//            equipmentRepo.save(equipment);
+//        } catch (Exception e) {
+//            return "main";
+//        }
 
         Iterable<Equipment> equipments = equipmentRepo.findAll();
         model.put("equipments", equipments);

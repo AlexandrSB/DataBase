@@ -15,7 +15,6 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(of = {"id", "firm_name"})
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @EnableAutoConfiguration
 @Table(name = "firma", schema = "public")
 public class Firma {
@@ -28,6 +27,6 @@ public class Firma {
     @Column(name = "firm_name", nullable = false, unique = true)
     private String firm_name;
 
-    @ManyToMany(mappedBy = "firmas")
+    @ManyToMany(mappedBy = "firmaSet")
     private Set<Element> elementSet = new HashSet<>();
 }

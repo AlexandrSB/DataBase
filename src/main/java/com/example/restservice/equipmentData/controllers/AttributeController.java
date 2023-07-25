@@ -28,8 +28,8 @@ public class AttributeController {
         Iterable<Element> components = componentRepo.findAll();
         model.addAttribute("components", components);
 
-        Iterable<Unit> enumUnits = List.of(Unit.values());
-        model.addAttribute("units", enumUnits);
+//        Iterable<Unit> enumUnits = List.of(Unit.values());
+//        model.addAttribute("units", enumUnits);
 
         return "addAttribute";
     }
@@ -44,9 +44,9 @@ public class AttributeController {
     ) {
         Element element = componentRepo.findByName(comp);
         Attribute attribute = new Attribute(attr);
-        attribute.addComponent(element);
-        attribute.addValues(val);
-        attribute.setUnit(Unit.valueOf(un));
+//        attribute.addComponent(element);
+//        attribute.addValues(val);
+//        attribute.setUnit(Unit.valueOf(un));
 
         attributeRepo.save(attribute);
 
