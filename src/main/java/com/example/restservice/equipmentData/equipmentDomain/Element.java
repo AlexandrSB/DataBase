@@ -43,7 +43,7 @@ public class Element {
 
     @Setter
     @Column(name = "parent_id")
-    private Long parent;
+    private Element parent;
 
     @ManyToMany
     @JoinTable(
@@ -67,6 +67,11 @@ public class Element {
 
     public Element(String name) {
         this.name = name;
+    }
+
+    public Element setParent(Element e) {
+        this.parent = e;
+        return this;
     }
 
 //    public String getOwnerModel(Equipment equip) {

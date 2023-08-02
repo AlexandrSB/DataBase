@@ -59,7 +59,7 @@ public class ElementController {
 
         Element element = new Element(elementName);
         if (parent != "<none>") {
-            element.setParent(parentId);
+            element.setParent(elementRepo.findByName(elementName));
         }
         elementRepo.save(element);
 
