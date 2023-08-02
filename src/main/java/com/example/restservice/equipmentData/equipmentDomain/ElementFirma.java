@@ -9,20 +9,22 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "barcode"})
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor(force = true)
 @EnableAutoConfiguration
-@Table(name = "barcode", schema = "public")
-public class Barcode {
+@Table(name = "element_firma", schema = "public")
+public class ElementFirma {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @Column(name = "equipment_id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "barcode_id", nullable = false, unique = true)
-    private ElementFirma elementFirma;
+    @ManyToOne
+    @JoinColumn(name = "element_id")
+    private Element element;
 
-    @Column(name = "barcode")
-    private String barcode;
+    @ManyToOne
+    @JoinColumn(name = "firma_id")
+    private Firma firma;
 }

@@ -61,13 +61,8 @@ public class Element {
     )
     private Set<Element> elements = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "element_firma",
-            joinColumns = { @JoinColumn(name = "element_id") },
-            inverseJoinColumns = {@JoinColumn(name = "firma_id")}
-    )
-    private Set<Firma> firmaSet = new HashSet<>();
+    @OneToMany
+    private Set<ElementFirma> firmaSet = new HashSet<>();
 
 
     public Element(String name) {

@@ -27,6 +27,6 @@ public class Firma {
     @Column(name = "firm_name", nullable = false, unique = true)
     private String firm_name;
 
-    @ManyToMany(mappedBy = "firmaSet")
-    private Set<Element> elementSet = new HashSet<>();
+    @OneToMany
+    private Set<ElementFirma> elementSet = new HashSet<>();
 }

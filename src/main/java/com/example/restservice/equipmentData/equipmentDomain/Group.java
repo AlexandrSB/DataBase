@@ -3,6 +3,8 @@ package com.example.restservice.equipmentData.equipmentDomain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Optional;
+
 @Entity
 @Data
 @NoArgsConstructor(force = true)
@@ -26,8 +28,13 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public Group(@NonNull String groupName, Group parent) {
+    public Group(@NonNull String groupName, @NonNull Group group) {
         this.groupName = groupName;
-        this.parent = parent;
+        this.parent = group;
+    }
+
+    public Group setParent(@NonNull Group group) {
+        this.parent = group;
+        return this;
     }
 }

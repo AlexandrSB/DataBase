@@ -31,10 +31,12 @@ public class GroupController {
     @PostMapping("/addGroup")
     public String addGroup(
             @RequestParam String groupName,
+            @RequestParam String parentGroup,
             Model model) {
 
         Group newGroup = new Group(groupName);
-        groupRepo.save(newGroup);
+        newGroup.setParent( groupRepo.getById(Long.valueOf(parentGroup)) );
+        groupRepo.save( newGroup );
 
         Iterable<Group> groups = groupRepo.findAll();
         model.addAttribute("gr", groups);
