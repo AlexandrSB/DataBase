@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @Data
 @EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
-@EnableAutoConfiguration
 @Table(name = "attribute_value", schema = "public")
 public class AttributeValue {
 
@@ -32,7 +31,7 @@ public class AttributeValue {
     @JoinColumn(name = "element_attr_value_id")
     private Element element;
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
+//    @ManyToOne
+//    @JoinColumn(name = "unit_id")
+//    private Unit unit;
 }

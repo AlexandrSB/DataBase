@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @Data
 @EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor(force = true)
-@EnableAutoConfiguration
 @Table(name = "element_firma", schema = "public")
 public class ElementFirma {
 

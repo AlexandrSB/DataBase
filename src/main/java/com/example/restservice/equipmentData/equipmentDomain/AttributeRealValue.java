@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor(force = true)
-@Table(name = "attribute_real_value", schema = "public")
+@Table(name = "attribute_double_value", schema = "public")
 public class AttributeRealValue {
 
     @Id

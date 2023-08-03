@@ -4,6 +4,7 @@ import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 
 @Configuration
 @PropertySource({ "classpath:application.properties" })
+@EnableAutoConfiguration
 @EnableJpaRepositories(
         basePackages = "com.example.restservice.storageData.storageRepos",
         entityManagerFactoryRef = "storageEntityManager",

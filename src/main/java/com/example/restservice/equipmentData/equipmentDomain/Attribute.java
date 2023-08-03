@@ -49,6 +49,7 @@ public class Attribute {
 //    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    private Set<AttributeIntegerValue> intValues;
 
+
     public Attribute(String n) {
         this.name = n;
     }

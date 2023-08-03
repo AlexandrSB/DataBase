@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @Data
 @EqualsAndHashCode(of = {"id", "barcode"})
 @NoArgsConstructor(force = true)
-@EnableAutoConfiguration
 @Table(name = "barcode", schema = "public")
 public class Barcode {
 

@@ -15,7 +15,6 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(of = {"id", "firm_name"})
 @NoArgsConstructor(force = true)
-@EnableAutoConfiguration
 @Table(name = "firma", schema = "public")
 public class Firma {
 

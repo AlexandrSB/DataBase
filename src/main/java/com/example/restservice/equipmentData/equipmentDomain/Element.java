@@ -18,7 +18,7 @@ public class Element {
     private Long id;
 
     @Setter
-//    @NonNull
+    @NonNull
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
@@ -42,29 +42,29 @@ public class Element {
     )
     private Set<Group> groups = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "elements_composite",
-            joinColumns = {
-                    @JoinColumn(name = "element_source")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "elements_destination")
-            }
-    )
-    private Set<Element> elements_source = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(
-            name = "elements_composite",
-            joinColumns = {
-                    @JoinColumn(name = "element_destination")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "element_source")
-            }
-    )
-    private Set<Element> elements_destination = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "elements_composite",
+//            joinColumns = {
+//                    @JoinColumn(name = "element_source")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "elements_destination")
+//            }
+//    )
+//    private Set<Element> elements_source = new HashSet<>();
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "elements_composite",
+//            joinColumns = {
+//                    @JoinColumn(name = "element_destination")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "element_source")
+//            }
+//    )
+//    private Set<Element> elements_destination = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -77,6 +77,7 @@ public class Element {
             }
     )
     private Set<ElementFirma> firmaSet = new HashSet<>();
+
 
     public Element(String name) {
         this.name = name;
