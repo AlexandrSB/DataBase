@@ -16,15 +16,13 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(of = {"id", "date", "type"})
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor(onConstructor = @__( @Autowired))
-@EnableAutoConfiguration
 @Table(name = "movement_goods", schema = "public")
 public class Goods {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
 
     @Column( name = "data" )
     private Date date;
@@ -34,9 +32,28 @@ public class Goods {
 
     @Column( name = "barcode" )
     private Integer barcode;
-    @ManyToMany( mappedBy = "id", cascade = { CascadeType.PERSIST })
+
+    @ManyToMany
+    @JoinTable(
+            name = "contragent_goods",
+            joinColumns = {
+                    @JoinColumn(name = "goods_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "contragent_id")
+            }
+    )
     private Set<Contragent> contragents = new HashSet<>();
 
-    @ManyToMany( mappedBy = "id", cascade = { CascadeType.PERSIST })
+    @ManyToMany
+    @JoinTable(
+            name = "goods_storage",
+            joinColumns = {
+                    @JoinColumn(name="goods_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name="storage_id")
+            }
+    )
     private Set< Storage > storage = new HashSet<>();
 }

@@ -1,9 +1,7 @@
 package com.example.restservice.storageData.storageDomain;
 
-import com.example.restservice.storageData.storageDomain.Equipment;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.util.Date;
@@ -15,8 +13,6 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode(of = {"id", "storageName", "description"})
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor(onConstructor = @__( @Autowired))
-@EnableAutoConfiguration
 @Table(name = "storage", schema = "public")
 public class Storage {
 
@@ -39,9 +35,6 @@ public class Storage {
 
     @Column( name = "descriprion" )
     private String description;
-
-    @Column( name = "equipment_id" )
-    private Equipment equipment;
 
     @ManyToMany
     @JoinTable(

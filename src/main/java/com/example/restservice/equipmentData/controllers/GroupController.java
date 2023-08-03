@@ -1,7 +1,6 @@
 package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Group;
-import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import com.example.restservice.equipmentData.equipmentRepos.GroupRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,8 @@ public class GroupController {
     @Autowired
     private GroupRepo groupRepo;
 
-    @Autowired
-    private EquipmentRepo equipmentRepo;
+//    @Autowired
+//    private EquipmentRepo equipmentRepo;
 
 
     @GetMapping("/groups")

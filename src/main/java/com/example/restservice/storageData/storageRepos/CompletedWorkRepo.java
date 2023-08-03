@@ -1,9 +1,9 @@
 package com.example.restservice.storageData.storageRepos;
 
-import com.example.restservice.storageData.storageDomain.Storage;
+import com.example.restservice.storageData.storageDomain.CompletedWork;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StorageRepo extends CrudRepository<Storage, Long> {
+public interface CompletedWorkRepo extends CrudRepository<CompletedWork, Long> {
 }

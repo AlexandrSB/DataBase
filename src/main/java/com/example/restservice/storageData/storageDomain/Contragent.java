@@ -15,8 +15,6 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(of = {"id", "name", "description"})
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor(onConstructor = @__( @Autowired))
-@EnableAutoConfiguration
 @Table(name = "contragent", schema = "public")
 public class Contragent {
 

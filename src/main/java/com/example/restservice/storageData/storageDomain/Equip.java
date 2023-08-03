@@ -5,27 +5,22 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "name", "description"})
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor(onConstructor = @__( @Autowired))
-@EnableAutoConfiguration
 @Table(name = "equipment", schema = "public")
-public class Equipment {
+public class Equip {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NonNull
     @Column( name = "name" )
     private String name;
 

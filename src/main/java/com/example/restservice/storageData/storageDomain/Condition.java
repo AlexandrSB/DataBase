@@ -10,11 +10,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "description"})
+@EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor(onConstructor = @__( @Autowired))
-@EnableAutoConfiguration
-@Table(name = "equipment", schema = "public")
+@Table(name = "condition", schema = "public")
 public class Condition {
 
     @Id
@@ -22,6 +20,6 @@ public class Condition {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column( name = "description" )
+    @Column( name = "name" )
     private String name;
 }

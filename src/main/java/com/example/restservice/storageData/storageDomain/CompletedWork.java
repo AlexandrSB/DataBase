@@ -14,8 +14,6 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor(onConstructor = @__( @Autowired ))
-@EnableAutoConfiguration
 @Table(name = "completed_work", schema = "public")
 public class CompletedWork {
 
@@ -24,9 +22,9 @@ public class CompletedWork {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column( name = "descriptipn" )
+    @Column( name = "description" )
     private String description;
 
-    @Column( name = "date" )
+    @Column( name = "data" )
     private Date date;
 }
