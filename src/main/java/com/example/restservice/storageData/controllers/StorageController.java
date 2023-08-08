@@ -14,7 +14,7 @@ public class StorageController {
     private StorageRepo storageRepo;
 
     @GetMapping("/storage")
-    public String getStorage(
+    public void getStorage(
             @RequestParam(
             name = "hello",
             required = false,
@@ -25,6 +25,6 @@ public class StorageController {
         String s = "Test Completed!";
         model.addAttribute("s", s);
 
-        return "storage";
+//        return "storage";
     }
 }

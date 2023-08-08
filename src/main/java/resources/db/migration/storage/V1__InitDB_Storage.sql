@@ -8,7 +8,7 @@ CREATE TABLE "equipment" (
     "id" int8   NOT NULL,
     "inventory_number" int8   NOT NULL,
     "description" character(800)   NULL,
-    "goods_id" UUID   NOT NULL,
+    "goods_id" int8   NOT NULL,
     "completed_work_id" int8   NOT NULL,
     "condition_id" int8   NOT NULL,
     CONSTRAINT "pk_equipment" PRIMARY KEY (
@@ -62,8 +62,8 @@ CREATE TABLE "contragent" (
 
 CREATE TABLE "goods" (
     -- Товар?
-    "id" UUID   NOT NULL,
-    "name" int8   NOT NULL,
+    "id" int8   NOT NULL,
+    "name" character(50)   NOT NULL,
     "description" character(800)   NOT NULL,
     "data" date   NOT NULL,
     "type" int8   NOT NULL,
@@ -77,8 +77,8 @@ CREATE TABLE "goods" (
 );
 
 CREATE TABLE "goods_storage" (
-    "id" UUID   NOT NULL,
-    "goods_id" UUID   NOT NULL,
+    "id" int8   NOT NULL,
+    "goods_id" int8   NOT NULL,
     "storage_id" int8   NOT NULL,
     CONSTRAINT "pk_goods_storage" PRIMARY KEY (
         "id"
@@ -97,7 +97,7 @@ CREATE TABLE "completed_work" (
 
 CREATE TABLE "contragent_goods" (
     "id" int8   NOT NULL,
-    "goods_id" UUID   NOT NULL,
+    "goods_id" int8   NOT NULL,
     "contragent_id" int8   NOT NULL,
     CONSTRAINT "pk_contragent_goods" PRIMARY KEY (
         "id"
@@ -115,7 +115,7 @@ CREATE TABLE "type_of_goods" (
 CREATE TABLE "documents" (
     "id" UUID   NOT NULL,
     "type" character(50)   NOT NULL,
-    "goods_storage_id" UUID   NOT NULL,
+    "goods_storage_id" int8   NOT NULL,
     "contragent_storage" int8   NOT NULL,
     CONSTRAINT "pk_documents" PRIMARY KEY (
         "id"
@@ -151,3 +151,15 @@ REFERENCES "goods_storage" ("id");
 
 ALTER TABLE "documents" ADD CONSTRAINT "fk_documents_contragent_storage" FOREIGN KEY("contragent_storage")
 REFERENCES "contragent_goods" ("id");
+
+-- SEQUENCE: public.contragent_seq
+
+-- DROP SEQUENCE IF EXISTS public.contragent_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.contragent_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 50
+    OWNED BY contragent.id;

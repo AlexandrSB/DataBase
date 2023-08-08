@@ -29,11 +29,15 @@ public class Contragent {
     @Column( name = "description" )
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contragent_goods",
-            joinColumns = { @JoinColumn( name = "goods_id" )},
-            inverseJoinColumns = { @JoinColumn( name = "contragent_id" )}
+            joinColumns = {
+                    @JoinColumn( name = "contragent_id" )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn( name = "goods_id" )
+            }
     )
-    private Set< Goods > goods = new HashSet<>();
+    private Set<Goods> goods = new HashSet<>();
 }

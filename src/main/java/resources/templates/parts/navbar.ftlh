@@ -1,25 +1,9 @@
-<div class="card text-center">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="/">Home</a>
-            </li>
+<#import "equipmentNavbar.ftlh" as eq_navbar>
+<#import "storageNavbar.ftlh" as st_navbar>
+<#global show_navbar = 1>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/storage">Storage</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/equipment">Equipments</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/element">Components</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/addAttribute">Attributes</a>
-            </li>
-        </ul>
-    </div>
-</div>
+<#if show_navbar = 1>
+    <@eq_navbar.equipment_navbar />
+<#else>
+    <@st_navbar.storage_navbar />
+</#if>
