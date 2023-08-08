@@ -35,7 +35,7 @@ public class Goods {
     private Date date;
 
     @Column( name = "type" )
-    private String type;
+    private Integer type;
 
     @Column( name = "barcode " )
     private Integer barcode;

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Controller
 public class GoodsController {
 
@@ -40,8 +43,11 @@ public class GoodsController {
             Model model
     ) {
         Goods goods = new Goods();
-        goods.setName(elem);
+        goods.setName(elementRepo.findByName(elem).getName().trim());
         goods.setDescription(description);
+        goods.setType(0);
+        goods.setDate( Date.valueOf( LocalDate.now() ));
+        goods.setBarcode(0);
 
         goodsRepo.save(goods);
 
