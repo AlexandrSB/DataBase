@@ -1,25 +1,15 @@
+<#import "description.ftlh" as descr>
+
 <#macro addComponent>
-    <form action="components" method="post" id="equip">
-        <div class="form-group row">
-            <label for="myModel" class="col-sm-2 col-form-label">Equipment : </label>
-            <div class="col-sm-6">
-                <select class="form-control" id="model" name="myModel">
-                    <#list equipments as equip>
-                        <option>${equip.model}</option>
-                    </#list>
-                </select>
-            </div>
-        </div>
+    <form action="add_element" method="post" id="equip">
 
         <div class="form-group row">
             <label for="comp" class="col-sm-2 col-form-label">Parent : </label>
             <div class="col-sm-6">
-                <select class="form-control" id="model" name="parent">
-                    <#list components as comps>
-                        <#if comps.isComposite>
-                            <option>&ltnone&gt</option>
-                            <option>${comps.name}</option>
-                        </#if>
+                <select class="form-control" id="elemParent" name="parent">
+                    <option>&ltnone&gt</option>
+                    <#list elements as elem>
+                        <option>${elem.name}</option>
                     <#else>
                         <option>Not Parent</option>
                     </#list>
@@ -30,57 +20,12 @@
         <div class="form-group row">
             <label for="element" class="col-sm-2 col-form-label">Component : </label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="componentName" placeholder="componentName" id="element">
+                <input class="form-control" type="text" name="elementName"
+                placeholder="componentName" id="element" >
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="attr" class="col-sm-2 col-form-label">Attribute : </label>
-            <div class="col-sm-6">
-                <select class="form-control" id="attribute" name="attr">
-                    <#list attributes as attr>
-                        <option>${attr.name}</option>
-                    <#else>
-                        <option>Not attributes</option>
-                    </#list>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="description" class="col-sm-2 col-form-label">Description :</label>
-            <div class="col-sm-6">
-                <input class="form-control" type="text" name="description" placeholder="Description" id="desk">
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <label for="isComposite" class="col-sm-2 col-form-label">Is composite :</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isComposite" value="isComposite" id="inputComposite">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="inputMechanic" class="col-sm-2 col-form-label">Is mechanic :</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isMechanic" value="isMechanic" id="inputMechanic">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="inputElectric" class="col-sm-2 col-form-label">Is electric :</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isElectric" value="isElectric" id="inputElectric">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="inputComposite" class="col-sm-2 col-form-label">Is electronic :</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="checkbox" name="isElectronic" value="isElectronic" id="inputElectronic">
-            </div>
-        </div>
+        <@descr.description />
 
         <button class="btn btn-primary my-2" type="submit">Add</button>
     </form>
@@ -88,37 +33,48 @@
 
 <#macro componentCard>
     <div class="card-columns">
-        <#list components as element>
+        <#list elements as element>
             <div class="card my-3" style="width: 18rem;">
-                <#--<#list element.owner as owner>
-                    <span>Equipment : ${owner.model}</span>
-                </#list> -->
-                <#if element.relationship??>
-                    <#list element.relationship as rel>
-                        <span>Parent : ${rel.name}<#sep>, </span>
-                    <#else>
-                        <span>Not Parent</span>
-                    </#list>
+                <#if element.parent??>
+                    <option>Parent : ${element.parent.name}</option>
                 </#if>
-                <span>${element.name}</span>
-                <#if element.description != "">
-                    <span>Description : ${element.description}</span>
-                </#if>
-                <#if element.isComposite>
-                    <span>is composite</span>
-                </#if>
-                <#if element.isMechanic>
-                    <span>is mechanic</span>
-                </#if>
-                <#if element.isElectric>
-                    <span>is electric</span>
-                </#if>
-                <#if element.isElectronic>
-                    <span>is electronic</span>
-                </#if>
+                <option>${element.name}</option>
             </div>
         <#else>
             <b>No components!</b>
         </#list>
     </div>
+</#macro>
+
+<#macro componentTable>
+
+    <div class="">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Element name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parent</th>
+                    <th scope="col">Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                <#list elements as e>
+                    <tr>
+                        <td><span>${e.name}</span></td>
+                        <td><span>${e.description}</span></td>
+                        <#if e.parent??>
+                            <td><span>${e.parent.name}</span></td>
+                        <#else>
+                            <td><span>&ltnone&gt</span></td>
+                        </#if>
+                        <td><a href="/elements/${e.id}">view</a></td>
+                    <#else>
+                        <b>No components!</b>
+                    </tr>
+                </#list>
+            </tbody>
+        </table>
+    </div>
+
 </#macro>

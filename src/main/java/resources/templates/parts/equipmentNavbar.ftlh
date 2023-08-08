@@ -12,10 +12,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/equipment">Equipments</a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link" href="/element">Components</a>
                 </li>
 

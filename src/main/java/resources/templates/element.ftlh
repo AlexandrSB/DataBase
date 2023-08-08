@@ -6,8 +6,17 @@
         <@cp.addComponent />
     </div>
 
+    <br>
+    <br>
+
+    <!--
     <h5 class"my-2">Addition</h5>
     <div>
         <@cp.componentCard />
+    </div>
+    // -->
+
+    <div>
+        <@cp.componentTable />
     </div>
 </@c.page>

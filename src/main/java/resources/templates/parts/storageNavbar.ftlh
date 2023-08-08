@@ -10,18 +10,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/equipment">Equipments</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/element">Components</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/addAttribute">Attributes</a>
-                </li>
             </ul>
         </div>
     </div>
