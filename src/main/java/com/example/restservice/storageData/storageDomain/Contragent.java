@@ -31,12 +31,12 @@ public class Contragent {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "contragent_goods",
+            name = "goods_contragent",
             joinColumns = {
                     @JoinColumn( name = "contragent_id" )
             },
             inverseJoinColumns = {
-                    @JoinColumn( name = "goods_id" )
+                    @JoinColumn( name = "goods_tracking_id" )
             }
     )
     private Set<Goods> goods = new HashSet<>();

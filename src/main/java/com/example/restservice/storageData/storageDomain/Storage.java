@@ -18,7 +18,7 @@ public class Storage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "storage_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "name")
@@ -27,13 +27,7 @@ public class Storage {
     @Column( name = "quantity")
     private Integer quantity;
 
-    @Column( name = "delivery_date" )
-    private Date deliveryDate;
-
-    @Column( name = "issue_date" )
-    private Date issueDate;
-
-    @Column( name = "descriprion" )
+    @Column( name = "description" )
     private String description;
 
     @ManyToMany
@@ -43,7 +37,19 @@ public class Storage {
                     @JoinColumn( name = "storage_id" )
             },
             inverseJoinColumns = {
-                    @JoinColumn( name = "goods_id" )
+                    @JoinColumn( name = "goods_tracking_id" )
+            }
+    )
+    private Set< GoodsTracking > goodsTrackings = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "storage_goods",
+            joinColumns = {
+                    @JoinColumn(name = "storage_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "goods_id")
             }
     )
     private Set< Goods > goods = new HashSet<>();

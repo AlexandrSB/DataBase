@@ -10,6 +10,17 @@ CREATE TABLE IF NOT EXISTS "public".barcode
     CONSTRAINT PK_barcode PRIMARY KEY ( barcode_id )
 );
 
+CREATE SEQUENCE IF NOT EXISTS public.barcode_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+--    OWNED BY barcode.barcode_id;
+
+ALTER SEQUENCE public.barcode_seq
+    OWNER TO admin;
+
 
 CREATE TABLE IF NOT EXISTS "public".groups
 (
@@ -25,6 +36,20 @@ CREATE TABLE IF NOT EXISTS "public".groups
         parent_id
     );
 
+-- SEQUENCE: public.groups_seq
+
+-- DROP SEQUENCE IF EXISTS public.groups_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.groups_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+--    OWNED BY groups.groups_id;
+
+ALTER SEQUENCE public.groups_seq
+    OWNER TO admin;
 
 CREATE TABLE IF NOT EXISTS "public".firma
 (
@@ -32,6 +57,17 @@ CREATE TABLE IF NOT EXISTS "public".firma
     firm_name character(50) NOT NULL,
     CONSTRAINT PK_1 PRIMARY KEY ( firma_id )
 );
+
+CREATE SEQUENCE IF NOT EXISTS public.firma_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+--    OWNED BY firma.firma_id;
+
+ALTER SEQUENCE public.firma_seq
+    OWNER TO admin;
 
 
 CREATE TABLE IF NOT EXISTS "public".element
@@ -49,6 +85,21 @@ CREATE TABLE IF NOT EXISTS "public".element
     (
         parent_id
     );
+
+-- SEQUENCE: public.element_seq
+
+-- DROP SEQUENCE IF EXISTS public.element_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.element_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+--    OWNED BY element.element_id;
+
+ALTER SEQUENCE public.element_seq
+    OWNER TO admin;
 
 
 CREATE TABLE IF NOT EXISTS "public".element_firma
@@ -156,6 +207,19 @@ CREATE TABLE IF NOT EXISTS "public".attribute
         attribute_id
     );
 
+-- SEQUENCE: public.attribute_seq
+
+-- DROP SEQUENCE IF EXISTS public.attribute_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.attribute_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.attribute_seq
+    OWNER TO admin;
 
 CREATE TABLE IF NOT EXISTS "public".attribute_double_value
 (

@@ -8,10 +8,57 @@
             <label for="myElem" class="col-sm-2 col-form-label">Element : </label>
             <div class="col-sm-6">
                 <select class="form-control" id="model" name="elem">
-                    <#list elem as e>
+                <#if elements??>
+                    <#list elements as e>
                         <option>${e.name}</option>
+                    <#else>
+                        <option>&ltnone&gt</option>
                     </#list>
+                </#if>
                 </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="condition" class="col-sm-2 col-form-label">Element : </label>
+            <div class="col-sm-6">
+                <select class="form-control" id="model" name="condition">
+                <#if conditions??>
+                    <#list conditions as cond>
+                        <option>${cond.name}</option>
+                    <#else>
+                        <option>&ltnone&gt</option>
+                    </#list>
+                </#if>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inventoryNumber" class="col-sm-2 col-form-label">Inventory number : </label>
+            <div class="col-sm-6">
+                <input
+                        type="text"
+                        name="inventoryNumber"
+                        id="inv_number"
+                        placeholder="Inventory number"
+                        pattern=^[A-Z][0-9]{6.}
+                        class="form-control"
+                >
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="barcode" class="col-sm-2 col-form-label">Barcode : </label>
+            <div class="col-sm-6">
+                <input
+                        type="text"
+                        name="barcode"
+                        id="barcode_id"
+                        placeholder="Barcode"
+                        pattern=[0-9]{6,}
+                        class="form-control"
+                >
             </div>
         </div>
 
@@ -26,7 +73,9 @@
                 <tr>
                     <th scope="col">id</th>
                     <th scope="col">name</th>
-                    <th scope="col">description</th>
+                    <th scope="col">inventory number</th>
+                    <th scope="col">barcode</th>
+                    <th scope="col">condition</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,8 +83,14 @@
                     <#list goods as obj>
                         <tr>
                             <td><span>${obj.id}</span></td>
-                            <td><span>${obj.type}</span></td>
-                            <td><span>${obj.barcode}</span></td>
+                            <td><span>${obj.name}</span></td>
+                            <td><span>${obj.inventoryNumber}</span></td>
+                            <#if obj.barcode??>
+                                <td><span>${obj.barcode}</span></td>
+                            <#else>
+                                <td><span>&ltnone&gt</span></td>
+                            </#if>
+                            <td><span>${obj.condition.name}</span></td>
                         </tr>
                     <#else>
                         <b>No components!</b>

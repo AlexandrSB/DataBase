@@ -6,7 +6,13 @@
         <div class="form-group row">
             <label for="element" class="col-sm-2 col-form-label">Name : </label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="name" placeholder="contragentName" id="contragent_id">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    placeholder="contragentName"
+                    pattern="[A-Za-zА-Яа-яЁё0-9]{3,}"
+                    id="contragent_id">
             </div>
         </div>
 
@@ -18,6 +24,7 @@
         </div>
 
         <button class="btn btn-primary my-2" type="submit">Add</button>
+
     </form>
 
     <div class="">

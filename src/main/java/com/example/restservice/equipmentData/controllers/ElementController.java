@@ -51,10 +51,10 @@ public class ElementController {
             Model model) {
 
         Element elem= new Element();
-        elem.setName(elementName);
-        elem.setDescription(description);
-        elem.setParent(elementRepo.findByName(parent));
-        elementRepo.save(elem);
+        elem.setName( elementName.trim() );
+        elem.setDescription( description.trim() );
+        elem.setParent(elementRepo.findByName( parent ));
+        elementRepo.save( elem );
 
 //        Iterable<Attribute> attributes = attributeRepo.findAll();
 //        model.addAttribute("attributes", attributes);

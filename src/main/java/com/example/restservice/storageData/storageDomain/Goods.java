@@ -15,53 +15,40 @@ import java.util.UUID;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "date", "type"})
+@EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
 @Table(name = "goods", schema = "public")
 public class Goods {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column( name = "id", nullable = false )
+    @Column( name = "id", nullable = false, unique = true )
     private Long id;
 
-    @Column(name = "name")
+    @Column( name = "name", nullable = false )
     private String name;
 
-    @Column(name = "description")
+    @Column( name = "inventory_number" )
+    private String inventoryNumber;
+
+    @Column( name = "description" )
     private String description;
 
-    @Column( name = "data" )
-    private Date date;
-
-    @Column( name = "type" )
-    private Integer type;
-
-    @Column( name = "barcode " )
+    @Column( name = "barcode" )
     private Integer barcode;
 
-
-    @ManyToMany
+    @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
-            name = "contragent_goods",
+            name = "storage_goods",
             joinColumns = {
                     @JoinColumn( name = "goods_id" )
             },
             inverseJoinColumns = {
-                    @JoinColumn( name = "contragent_id" )
+                    @JoinColumn( name = "storage_id" )
             }
     )
-    private Set <Contragent> contragents = new HashSet<>();
+    private Set<Storage> storages = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "goods_storage",
-            joinColumns = {
-                    @JoinColumn(name="goods_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name="storage_id")
-            }
-    )
-    private Set <Storage> storage = new HashSet<>();
+    @ManyToOne
+    private Condition condition;
 }
