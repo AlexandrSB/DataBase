@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "quantity"})
 @NoArgsConstructor(force = true)
 @Table(name = "goods_tracking", schema = "public")
 public class GoodsTracking {
@@ -24,9 +23,6 @@ public class GoodsTracking {
 
     @Column(name = "date")
     private Date date;
-
-    @Column(name = "quantity")
-    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "direction", nullable = false)

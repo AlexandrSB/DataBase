@@ -8,15 +8,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor(force = true)
-@Table(name = "direction", schema = "public")
-public class Direction {
+@Table(name = "barcode", schema = "public")
+public class Barcode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "type")
-    private String type;
-
+    @Column(name = "barcode")
+    private Integer barcode;
 }

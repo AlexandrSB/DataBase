@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "name", "description"})
 @NoArgsConstructor(force = true)
 @Table(name = "contragent", schema = "public")
 public class Contragent {

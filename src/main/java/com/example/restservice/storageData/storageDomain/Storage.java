@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "storageName", "description"})
 @NoArgsConstructor(force = true)
 @Table(name = "storage", schema = "public")
 public class Storage {
@@ -23,9 +22,6 @@ public class Storage {
 
     @Column(name = "name")
     private String storageName;
-
-    @Column( name = "quantity")
-    private Integer quantity;
 
     @Column( name = "description" )
     private String description;

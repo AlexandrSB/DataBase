@@ -4,18 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
 @Table(name = "goods", schema = "public")
 public class Goods {
@@ -28,14 +22,8 @@ public class Goods {
     @Column( name = "name", nullable = false )
     private String name;
 
-    @Column( name = "inventory_number" )
-    private String inventoryNumber;
-
-    @Column( name = "description" )
-    private String description;
-
-    @Column( name = "barcode" )
-    private Integer barcode;
+    @OneToOne
+    private Barcode barcode;
 
     @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
@@ -48,7 +36,4 @@ public class Goods {
             }
     )
     private Set<Storage> storages = new HashSet<>();
-
-    @ManyToOne
-    private Condition condition;
 }

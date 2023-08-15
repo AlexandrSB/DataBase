@@ -58,14 +58,8 @@ public class GoodsController {
             return "goods";
         }
 
-        Optional<Condition> cond = conditionRepo.findById(Long.valueOf( 0 ));
-
         Goods gs = new Goods();
         gs.setName( elementRepo.findByName(elem).getName().trim() );
-        gs.setDescription( description.trim() );
-        gs.setInventoryNumber( inventoryNumber.isEmpty()? "<none>" : inventoryNumber );
-        gs.setBarcode( barcode.isEmpty()? 0 : Integer.valueOf( barcode ));
-        cond.ifPresent(gs::setCondition);
 
         goodsRepo.save(gs);
 

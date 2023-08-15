@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
 @Table(name = "condition", schema = "public")
 public class Condition {
