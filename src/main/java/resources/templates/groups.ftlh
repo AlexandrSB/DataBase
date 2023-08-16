@@ -16,22 +16,16 @@
 
             <thead>
                 <tr>
-                   <th scope="col">Group ID</th>
                    <th scope="col">Group name</th>
-                   <th scope="col">Parent ID</th>
+                   <th scope="col">Level</th>
                 </tr>
             </thead>
 
             <tbody>
                 <#list gr as g>
                     <tr>
-                        <td><span>${g.id}</span></td>
-                        <td><span>${g.groupName}</span></td>
-                        <#if g.parent??>
-                            <td><span>${g.parent.id}</span></td>
-                        <#else>
-                            <td><span>0</span></td>
-                        </#if>
+                        <td><span>${""?left_pad((g.level-1)*15, ".")} ${g.name}</span></td>
+                        <td><span>${g.level}</span></td>
                     <#else>
                         <td><b>No groups!</b></td>
                     </tr>

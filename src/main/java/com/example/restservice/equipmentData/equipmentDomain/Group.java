@@ -1,9 +1,11 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-import java.util.Optional;
+import static com.example.restservice.equipmentData.SQL_queries.getRecursiveGroup;
 
 @Entity
 @Data
