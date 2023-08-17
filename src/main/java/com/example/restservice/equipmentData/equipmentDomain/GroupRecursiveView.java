@@ -20,4 +20,7 @@ public class GroupRecursiveView {
 
     @Column(name = "level")
     private Integer level;
+
+    @Column(name = "parent_id")
+    private Integer parent_id;
 }

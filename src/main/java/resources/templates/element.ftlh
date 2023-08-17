@@ -1,7 +1,7 @@
 <#import "parts/common.ftlh" as c>
 <#import "parts/componentParts.ftlh" as cp>
 
-<@c.page "Components">
+<@c.page "Elements">
     <div>
         <@cp.addComponent />
     </div>

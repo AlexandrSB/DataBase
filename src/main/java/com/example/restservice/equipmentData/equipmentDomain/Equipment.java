@@ -20,18 +20,14 @@ import java.util.Set;
 public class Equipment {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
-    @Column(name = "equipment_id", nullable = false)
+    @Column(name = "element_id", nullable = false)
     private Long id;
 
-//    @Column(name = "firm_name", nullable = false)
-//    @NonNull
-//    private Firma firmName;
-
-    @Column(name = "model", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     @NonNull
-    private String model;
+    private String name;
 
-    @Column(name = "type")
+    @Column(name = "description")
     @NonNull
     private EnumTypeOfEquipment type;
 

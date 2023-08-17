@@ -102,38 +102,11 @@ ALTER SEQUENCE public.element_seq
     OWNER TO admin;
 
 
-CREATE TABLE IF NOT EXISTS "public".element_firma
-(
-    id         bigint NOT NULL,
-    firma_id   bigint NOT NULL,
-    element_id bigint NOT NULL,
-    CONSTRAINT PK_element_firma PRIMARY KEY ( id ),
-    CONSTRAINT FK_11_2 FOREIGN KEY ( firma_id ) REFERENCES "public".firma ( firma_id ),
-    CONSTRAINT FK_12_1 FOREIGN KEY ( element_id ) REFERENCES "public".element ( element_id ),
-    CONSTRAINT FK_13 FOREIGN KEY ( id ) REFERENCES "public".barcode ( barcode_id )
-);
-
-    CREATE INDEX IF NOT EXISTS FK_Index_element_firma ON "public".element_firma
-    (
-        firma_id
-    );
-
-    CREATE INDEX IF NOT EXISTS FK_elemToFirma ON "public".element_firma
-    (
-        element_id
-    );
-
-    CREATE INDEX IF NOT EXISTS FK_3 ON "public".element_firma
-    (
-        id
-    );
-
 CREATE TABLE IF NOT EXISTS "public".element_groups
 (
-    id         bigint NOT NULL,
     element_id bigint NULL,
     group_id   bigint NULL,
-    CONSTRAINT PK_element_groups PRIMARY KEY ( id ),
+    CONSTRAINT PK_element_groups PRIMARY KEY ( element_id, group_id ),
     CONSTRAINT FK_11 FOREIGN KEY ( element_id ) REFERENCES "public"."element" ( element_id ),
     CONSTRAINT FK_12 FOREIGN KEY ( group_id ) REFERENCES "public".groups ( group_id )
 );
@@ -246,3 +219,38 @@ CREATE TABLE IF NOT EXISTS "public".attribute_string_value
     CONSTRAINT PK_attr_string_value PRIMARY KEY ( attribute_id ),
     CONSTRAINT FK_7_3 FOREIGN KEY ( attribute_id ) REFERENCES "public".attribute_value ( attr_value_id )
 );
+
+-- View: public.get_groups_with_recursion
+
+-- DROP VIEW public.get_groups_with_recursion;
+
+CREATE OR REPLACE VIEW public.get_groups_with_recursion
+ AS
+ WITH RECURSIVE temp_table AS (
+         SELECT g.group_id,
+            g.parent_id,
+            g.group_name,
+            1 AS level,
+            '/'::text || g.group_name::text AS path,
+            ARRAY[row_number() OVER (ORDER BY g.group_name)] AS path_sort
+           FROM groups g
+          WHERE g.parent_id IS NULL
+        UNION ALL
+         SELECT g.group_id,
+            g.parent_id,
+            g.group_name,
+            t_1.level + 1 AS level,
+            (t_1.path || '/'::text) || g.group_name::text AS path,
+            t_1.path_sort || row_number() OVER (PARTITION BY g.parent_id ORDER BY g.group_name) AS path_sort
+           FROM temp_table t_1,
+            groups g
+          WHERE g.parent_id = t_1.group_id
+        )
+ SELECT t.group_id,
+    lpad(''::text, (t.level - 1) * 8) || t.group_name::text AS name,
+    t.level, t.parent_id
+   FROM temp_table t
+  ORDER BY t.path_sort;
+
+ALTER TABLE public.get_groups_with_recursion
+    OWNER TO admin;

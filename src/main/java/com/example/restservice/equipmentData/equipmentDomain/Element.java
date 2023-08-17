@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -66,21 +67,25 @@ public class Element {
 //    )
 //    private Set<Element> elements_destination = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "element_firma",
-            joinColumns = {
-                    @JoinColumn(name = "element_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "firma_id")
-            }
-    )
-    private Set<ElementFirma> firmaSet = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "element_firma",
+//            joinColumns = {
+//                    @JoinColumn(name = "element_id")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "firma_id")
+//            }
+//    )
+//    private Set<ElementFirma> firmaSet = new HashSet<>();
 
 
     public Element(String name) {
         this.name = name;
+    }
+
+    public void addGroup(Optional<Group> group) {
+        this.groups.add(group.get());
     }
 
 //    public Element setParent(Element e) {

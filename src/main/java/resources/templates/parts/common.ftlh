@@ -8,14 +8,29 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/main.css">
 
         <title>${title}</title>
     </head>
+
     <body>
-        <#include "navbar.ftlh">
-        <div class = "container mt-4">
+        <#include "navbarEquipment.ftlh">
+
+        <main class="content-wrapper">
+          <div class="container-fluid">
+            <#include "navbar.ftlh">
             <#nested>
-        </div>
+          </div>
+        </main>
+
+        <footer class="footer">
+          <div class="container">
+              <div class="text-center">
+                  <span>Coded by <a href="https://si-dev.com/ru">SI-Dev</a>, 2018</span>
+              </div>
+          </div>
+        </footer>
+
          <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

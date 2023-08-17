@@ -5,16 +5,13 @@ INSERT INTO groups(group_id, group_name, parent_id)
 VALUES (1, 'Оргтехника', 0);
 
     INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (2, 'Принтер', 1);
+    VALUES (2, 'Принтеры и МФУ', 1);
 
         INSERT INTO groups(group_id, group_name, parent_id)
         VALUES (12, 'Kyocera Ecosys', 2);
 
         INSERT INTO groups(group_id, group_name, parent_id)
         VALUES (13, 'Canon i-Sensys', 2);
-
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (3, 'МФУ', 1);
 
     INSERT INTO groups(group_id, group_name, parent_id)
     VALUES (4, 'Плоттер', 1);

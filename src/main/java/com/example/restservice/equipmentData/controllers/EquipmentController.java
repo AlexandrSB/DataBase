@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/equipment1")
 public class EquipmentController {
     @Autowired
     private EquipmentRepo equipmentRepo;
@@ -19,7 +20,7 @@ public class EquipmentController {
     @Autowired
     private GroupRepo groupRepo;
 
-    @GetMapping("/equipment")
+    @GetMapping("/")
     public String equipment(Map<String, Object> model) {
 //        Iterable<EnumTypeOfEquipment> enumTypeOfEquipments =
 //                List.of(EnumTypeOfEquipment.values());
@@ -79,15 +80,15 @@ public class EquipmentController {
         return "allEquipments";
     }
 
-    @GetMapping("equipments/{equipment}")
+    @GetMapping("/{group_id}")
     public String equipmentViewForm(
-            @PathVariable Equipment equipment,
+            @PathVariable String group_id,
             Model model
     ) {
-        model.addAttribute("equip", equipment);
+        model.addAttribute("group", groupRepo.getById(Long.valueOf(group_id)));
 
-        Iterable<Element> comp = equipment.getElements();
-        model.addAttribute("component", comp);
+        Iterable<Equipment> equipment = equipmentRepo.findAll();
+        model.addAttribute("equipment", equipment);
 
         return "equipView";
     }

@@ -96,4 +96,9 @@ public class EquipmentDBConfig {
     public FlywayMigrationInitializer equipmentFlywayMigrationInitializer() {
         return new FlywayMigrationInitializer(equipmentflyway());
     }
+
+//    @Override
+//    public void configure(WebSecurity web) {
+//        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/extjs/**");
+//    }
 }

@@ -19,7 +19,7 @@ public class Group {
     private Long id;
 
     @NonNull
-    @Column(name = "group_name")
+    @Column(name = "group_name", unique = true)
     private String groupName;
 
     @ManyToOne

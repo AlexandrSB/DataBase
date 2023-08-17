@@ -2,12 +2,18 @@
 
 <@com.page>
     <div>
-        <form method = "GET" action = "http://localhost:8080/addComponent?name=${equip.id}">
+        <form method = "POST" action = "/equipment/${group.id}">
             <div class="form-row align-items-center">
 
                 <div class="col-sm-10">
-                    <h3 class="mb-2">${equip.type} ${equip.firmName} ${equip.model}</h3>
-                    <input name="eq" value="${equip.id?c}" type="hidden"/>
+                    <h3 class="mb-2">${group.group_name}</h3>
+                    <input name="gr" type="text" value="${group.id?c}" />
+                </div>
+                <div class="form-group row">
+                    <label for="equip_name" class="col-sm-2 col-form-label">Value : </label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="equip_name" id="equip">
+                    </div>
                 </div>
 
                 <div class="col-auto">
@@ -23,54 +29,15 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Composite</th>
-                    <th scope="col">Mechanic</th>
-                    <th scope="col">Electronic</th>
-                    <th scope="col">Electric</th>
                     <th scope="col">View</th>
                 </tr>
             </thead>
             <tbody>
-                <#list element as cp>
+                <#list equipment as eq>
                 <tr>
-                    <td><span>${cp.name}</span></td>
+                    <td><span>${eq.model}</span></td>
                     <td>
-                        <#if cp.description??>
-                            <span>${cp.description}</span>
-                        <#else>
-                            <none>
-                        </#if>
-                    </td>
-                    <td>
-                         <#if cp.isComposite>
-                             <span>True</span>
-                         <#else>
-                            <span>-</span>
-                         </#if>
-                    </td>
-                    <td>
-                         <#if cp.isMechanic>
-                             <span>True</span>
-                         <#else>
-                            <span>-</span>
-                         </#if>
-                    </td>
-                    <td>
-                         <#if cp.isElectronic>
-                             <span>True</span>
-                         <#else>
-                            <span>-</span>
-                         </#if>
-                    </td>
-                    <td>
-                         <#if cp.isElectric>
-                             <span>True</span>
-                         <#else>
-                            <span>-</span>
-                         </#if>
-                    </td>
-                    <td>
-                        <a href="/components/${cp.id}">view</a>
+                        <a href="/equipment/equip/${eq.id}">view</a>
                     </td>
                 <#else>
                     <b>No components!</b>
