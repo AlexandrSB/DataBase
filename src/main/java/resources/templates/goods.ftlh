@@ -84,13 +84,13 @@
                         <tr>
                             <td><span>${obj.id}</span></td>
                             <td><span>${obj.name}</span></td>
-                            <td><span>${obj.inventoryNumber}</span></td>
-                            <#if obj.barcode??>
-                                <td><span>${obj.barcode}</span></td>
+                            <td><span>${obj.inventoryNumber!"<none>"}</span></td>
+                            <td><span>${obj.barcode!"<none>"}</span></td>
+                            <#if obj.condition??>
+                                <td><span>${obj.condition.name!"<none>"}</span></td>
                             <#else>
-                                <td><span>&ltnone&gt</span></td>
+                                <td><span>&ltnone&gt<span></td>
                             </#if>
-                            <td><span>${obj.condition.name}</span></td>
                         </tr>
                     <#else>
                         <b>No components!</b>

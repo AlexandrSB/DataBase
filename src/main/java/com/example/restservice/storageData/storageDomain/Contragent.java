@@ -28,15 +28,7 @@ public class Contragent {
     @Column( name = "description" )
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "goods_contragent",
-            joinColumns = {
-                    @JoinColumn( name = "contragent_id" )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn( name = "goods_tracking_id" )
-            }
-    )
-    private Set<Goods> goods = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    private Set<GoodsTracking> goodsTrackings;
 }

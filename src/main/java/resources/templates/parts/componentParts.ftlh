@@ -94,8 +94,6 @@
                                 <td><span>&ltnone&gt</span></td>
                             </#if>
                             <td><a href="/elements/${e.id}">view</a></td>
-                        <#else>
-                            <b>No components!</b>
                         </tr>
                     </#if>
                     </#list>

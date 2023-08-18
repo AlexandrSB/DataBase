@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS "goods" (
     -- Товар
     "id" int8   NOT NULL,
     "name" character(50)   NOT NULL,
-    "fixed_card_id" int8   NOT NULL,
-    "barcode_id" int8   NOT NULL,
+    "fixed_card_id" int8   NULL,
+    "barcode_id" int8   NULL,
     CONSTRAINT "pk_goods" PRIMARY KEY (
         "id"
      ),

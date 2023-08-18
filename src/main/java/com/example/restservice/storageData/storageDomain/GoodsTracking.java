@@ -25,14 +25,14 @@ public class GoodsTracking {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "direction", nullable = false)
+    @JoinColumn(name = "direction_id", nullable = false)
     private Direction direction;
 
     @ManyToOne
-    @JoinColumn(name = "storage")
+    @JoinColumn(name = "storage_id")
     private Storage storage;
 
     @ManyToOne
-    @JoinColumn(name = "contragent")
+    @JoinColumn(name = "contragent_id")
     private Contragent contragent;
 }

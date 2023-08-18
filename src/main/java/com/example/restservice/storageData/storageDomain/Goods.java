@@ -25,6 +25,10 @@ public class Goods {
     @OneToOne
     private Barcode barcode;
 
+    @ManyToOne
+    @JoinColumn(name = "fixed_card_id")
+    private FixedCard fixedCard;
+
     @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
             name = "storage_goods",

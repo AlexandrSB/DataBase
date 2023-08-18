@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,11 +16,17 @@ public class ContragentController {
     @Autowired
     private ContragentRepo contragentRepo;
 
+    @ModelAttribute
+    private void addAttribute(Model model) {
+        Iterable<Contragent> contragents = contragentRepo.findAll();
+        model.addAttribute("contragents", contragents);
+    }
+
     @GetMapping("/contragent")
     public String showContragent(Model model) {
 
-        Iterable<Contragent> contragents = contragentRepo.findAll();
-        model.addAttribute("contragents", contragents);
+//        Iterable<Contragent> contragents = contragentRepo.findAll();
+//        model.addAttribute("contragents", contragents);
 
         return "contragent";
     }

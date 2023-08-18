@@ -73,6 +73,6 @@ public class ElementController {
 //        Iterable<Attribute> attributes = attributeRepo.findAll();
 //        model.addAttribute("attributes", attributes);
 
-        return "element";
+        return "element/"+group;
     }
 }

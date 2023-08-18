@@ -1,3 +1,5 @@
+<#import "navbarLeftShift.ftlh" as nls>
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="/">My Project</a>
   <button
@@ -18,6 +20,8 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
+
+      <@nls.navbar_left_shift />
 
       <#if group??>
         <#list group as g>

@@ -33,8 +33,6 @@
                         <td><span>${equip.model}</span></td>
                         <td><span>${equip.type}</span></td>
                         <td><a href="/equipments/${equip.id}">view</a></td>
-                    <#else>
-                        <b>No components!</b>
                     </tr>
                 </#list>
             </tbody>

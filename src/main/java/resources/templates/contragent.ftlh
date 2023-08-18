@@ -11,7 +11,7 @@
                     type="text"
                     name="name"
                     placeholder="contragentName"
-                    pattern="[A-Za-zА-Яа-яЁё0-9]{3,}"
+                    pattern="[A-Za-zА-Яа-яЁё0-9 ]{3,}"
                     id="contragent_id">
             </div>
         </div>
