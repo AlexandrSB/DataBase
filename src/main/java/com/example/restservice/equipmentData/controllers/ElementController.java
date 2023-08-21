@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/element")
@@ -46,8 +48,19 @@ public class ElementController {
         Optional<Group> group = groupRepo.findById(Long.valueOf(group_id));
         model.addAttribute("my_group", group.get());
 
-
         return "element";
+    }
+
+    @GetMapping("/view/{elem_id}")
+    public String showElement(
+            @PathVariable String elem_id,
+            Model model
+    ) {
+
+        Optional<Element> elem = elementRepo.findById(Long.valueOf(elem_id));
+        model.addAttribute("elem", elem.get());
+
+        return "compView";
     }
 
     @PostMapping("add_element")
@@ -55,7 +68,6 @@ public class ElementController {
             @RequestParam String group_name,
             @RequestParam String elementName,
             @RequestParam String description,
-            @RequestParam String parent,
             Model model) {
 
         Optional<Group> group = Optional.ofNullable(
@@ -63,16 +75,43 @@ public class ElementController {
         );
         model.addAttribute("my_group", group.get());
 
-        Element elem= new Element();
+        Element elem = new Element();
         elem.setName( elementName.trim() );
         elem.setDescription( description.trim() );
-        elem.setParent(elementRepo.findByName( parent ));
         elem.addGroup(group);
         elementRepo.save( elem );
 
-//        Iterable<Attribute> attributes = attributeRepo.findAll();
-//        model.addAttribute("attributes", attributes);
+        return "element";
+    }
 
-        return "element/"+group;
+//    @PostMapping("/view/{elem_id}")
+//    private String viewElement(
+//            @PathVariable String elem_id,
+//            Model model
+//    ) {
+//
+//        Optional<Element> elem = elementRepo.findById( Long.valueOf( elem_id ));
+//        model.addAttribute( "elem", elem.get() );
+//
+//        return "element";
+//    }
+
+    @PostMapping("/view/link_elements")
+    private String linkElements(
+            @RequestParam String elementName,
+            @RequestParam String thisElement,
+            Model model
+    ) {
+
+        Optional<Element> elementDestination =
+                Optional.of( elementRepo.findByName( elementName ));
+
+        Element thisElem = elementRepo.findById(Long.valueOf(thisElement)).get();
+        model.addAttribute("elem", thisElem);
+
+        thisElem.addElementDesination(elementDestination);
+        elementRepo.save(thisElem);
+
+        return "compView";
     }
 }

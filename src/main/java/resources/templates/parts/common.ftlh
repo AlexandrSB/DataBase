@@ -14,11 +14,11 @@
     </head>
 
     <body>
-        <#include "navbarEquipment.ftlh">
 
         <main class="content-wrapper">
           <div class="container-fluid">
-            <#include "navbar.ftlh">
+            <#include "navbarEquipment.ftlh">
+            <#-- <#include "navbar.ftlh"> -->
             <#nested>
           </div>
         </main>

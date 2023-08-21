@@ -43,29 +43,29 @@ public class Element {
     )
     private Set<Group> groups = new HashSet<>();
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "elements_composite",
-//            joinColumns = {
-//                    @JoinColumn(name = "element_source")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "elements_destination")
-//            }
-//    )
-//    private Set<Element> elements_source = new HashSet<>();
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "elements_composite",
-//            joinColumns = {
-//                    @JoinColumn(name = "element_destination")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "element_source")
-//            }
-//    )
-//    private Set<Element> elements_destination = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "elements_composite",
+            joinColumns = {
+                    @JoinColumn(name = "element_source")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "element_destination")
+            }
+    )
+    private Set<Element> elements_source = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "elements_composite",
+            joinColumns = {
+                    @JoinColumn(name = "element_destination")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "element_source")
+            }
+    )
+    private Set<Element> elements_destination = new HashSet<>();
 
 //    @ManyToMany
 //    @JoinTable(
@@ -88,6 +88,9 @@ public class Element {
         this.groups.add(group.get());
     }
 
+    public void addElementDesination(Optional<Element> element) {
+        this.elements_destination.add(element.get());
+    }
 //    public Element setParent(Element e) {
 //        this.parent = e;
 //        return this;

@@ -1,4 +1,5 @@
-<#macro navbar_left_shift>
+<#macro navbar_equip_left_shift>
+
 
     <#if group??>
         <#list group as g>

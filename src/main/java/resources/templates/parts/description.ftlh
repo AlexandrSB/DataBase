@@ -1,6 +1,6 @@
 <#macro description>
 
-        <div class="form-group row">
+        <div class="form-group row justify-content-center">
             <label for="description" class="col-sm-2 col-form-label">Description :</label>
             <div class="col-sm-6">
                 <textarea

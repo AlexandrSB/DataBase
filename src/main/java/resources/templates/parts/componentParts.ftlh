@@ -1,31 +1,14 @@
 <#import "description.ftlh" as descr>
 
 <#macro addComponent>
+    <h1 class="text-center">${my_group.groupName}</h1>
+    <br/>
+
     <form action="add_element" method="post" id="equip">
 
-        <div class="form-group row">
-            <label for="group_name" class="col-sm-2 col-form-label">Group : </label>
-            <div class="col-sm-6">
-                <select class="form-control" id="group_name" name="group_name">
-                    <option>${my_group.groupName}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="comp" class="col-sm-2 col-form-label">Parent : </label>
-            <div class="col-sm-6">
-                <select class="form-control" id="elemParent" name="parent">
-                    <option>&ltnone&gt</option>
-                    <#list elements as elem>
-                        <option>${elem.name}</option>
-                    <#else>
-                        <option>Not Parent</option>
-                    </#list>
-                </select>
-            </div>
-        </div>
+        <input type="text" name="group_name" value="${my_group.groupName}" hidden="hidden">
 
-        <div class="form-group row">
+        <div class="form-group row justify-content-center">
             <label for="element" class="col-sm-2 col-form-label">Component : </label>
             <div class="col-sm-6">
                 <input class="form-control" type="text" name="elementName"
@@ -35,7 +18,9 @@
 
         <@descr.description />
 
-        <button class="btn btn-primary my-2" type="submit">Add</button>
+        <div class="d-grid gap-2 col-4 mx-auto">
+            <button class="btn btn-primary my-2" type="submit">Add</button>
+        </div>
     </form>
 </#macro>
 
@@ -63,7 +48,7 @@
                     <th scope="col">Element name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Groups</th>
-                    <th scope="col">Parent</th>
+                    <#-- <th scope="col">Parent</th> -->
                     <th scope="col">Button</th>
                 </tr>
             </thead>
@@ -76,24 +61,30 @@
                             <td><span>${e.description}</span></td>
                             <#if e.groups??>
                                 <td>
-                                    <select id="table_group">
+                                    <#-- <select id="table_group"> -->
                                         <#list e.groups as gr>
-                                            <option>${gr.groupName}</option>
+                                            <ul>
+                                                <li>
+                                                    <span>${gr.groupName}</span>
+                                                </li>
+                                            </ul>
+                                            <#-- <option>${gr.groupName}</option> -->
                                         <#else>
                                             <option>No Groups</option>
                                         </#list>
-                                    </select>
+                                    <#-- </select> -->
                                 </td>
                             <#else>
                                 <td><span>&ltnone&gt</span></td>
                             </#if>
 
-                            <#if e.parent??>
+                            <#-- <#if e.parent??>
                                 <td><span>${e.parent.name}</span></td>
                             <#else>
                                 <td><span>&ltnone&gt</span></td>
-                            </#if>
-                            <td><a href="/elements/${e.id}">view</a></td>
+                            </#if> -->
+
+                            <td><a href="/element/view/${e.id}">view</a></td>
                         </tr>
                     </#if>
                     </#list>
