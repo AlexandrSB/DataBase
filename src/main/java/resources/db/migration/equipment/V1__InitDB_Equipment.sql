@@ -124,10 +124,9 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
 
 CREATE TABLE IF NOT EXISTS "public".elements_composite
 (
-    id                  bigint NOT NULL,
     element_source      bigint NULL,
     element_destination bigint NULL,
-    CONSTRAINT PK_elements_composite PRIMARY KEY ( id ),
+    CONSTRAINT PK_elements_composite PRIMARY KEY ( element_source, element_destination ),
     CONSTRAINT FK_14 FOREIGN KEY ( element_source ) REFERENCES "public"."element" ( element_id ),
     CONSTRAINT FK_15 FOREIGN KEY ( element_destination ) REFERENCES "public"."element" ( element_id )
 );

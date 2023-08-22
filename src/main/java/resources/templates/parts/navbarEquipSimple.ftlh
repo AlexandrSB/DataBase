@@ -11,34 +11,6 @@
                 href="#"
                 id="hasSubItems"
                 data-toggle="collapse"
-                data-target="#collapseSubItems5"
-                aria-controls="collapseSubItems5"
-                aria-expanded="false"
-        >Весы</a>
-
-        <ul class="nav-second-level collapse" id="collapseSubItems5" data-parent="#navAccordion">
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span class="nav-link-text">Item 2.1</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span class="nav-link-text">Item 2.2</span>
-                </a>
-            </li>
-
-        </ul>
-    </li>
-
-    <li class="nav-item">
-        <a
-                class="nav-link nav-link-collapse"
-                href="#"
-                id="hasSubItems"
-                data-toggle="collapse"
                 data-target="#collapseSubItems6"
                 aria-controls="collapseSubItems6"
                 aria-expanded="false"
@@ -47,14 +19,62 @@
         <ul class="nav-second-level collapse" id="collapseSubItems6" data-parent="#navAccordion">
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span class="nav-link-text">Item 2.1</span>
+                <a class="nav-link" href="/element/14"
+                    <span class="nav-link-text">AOC</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span class="nav-link-text">Item 2.2</span>
+                <a class="nav-link" href="/element/15">
+                    <span class="nav-link-text">Envision</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/16">
+                    <span class="nav-link-text">Acer</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/17">
+                    <span class="nav-link-text">Samsung</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/18">
+                    <span class="nav-link-text">Philips</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/19">
+                    <span class="nav-link-text">LG</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/20">
+                    <span class="nav-link-text">Asus</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/21">
+                    <span class="nav-link-text">Lenovo</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/22">
+                    <span class="nav-link-text">HP</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/23">
+                    <span class="nav-link-text">DNS</span>
                 </a>
             </li>
 
@@ -112,9 +132,95 @@
                 data-target="#collapseSubItems7"
                 aria-controls="collapseSubItems7"
                 aria-expanded="false"
-        >Компоненты</a>
+        >Торговое оборудование</a>
 
         <ul class="nav-second-level collapse" id="collapseSubItems7" data-parent="#navAccordion">
+
+            <li class="nav-item">
+                <a
+                    class="nav-link nav-link-collapse"
+                    href="#"
+                    id="hasSubItems"
+                    data-toggle="collapse"
+                    data-target="#collapseSubItems5"
+                    aria-controls="collapseSubItems5"
+                    aria-expanded="false"
+                >Весы</a>
+
+                <ul class="nav-third-level collapse" id="collapseSubItems7" data-parent="#navAccordion">
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/24">
+                    <span class="nav-link-text">Mettler Toledo</span>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/25">
+                    <span class="nav-link-text">Macca-K</span>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/26">
+                    <span class="nav-link-text">Aclas</span>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/27">
+                    <span class="nav-link-text">DP Falcon</span>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/28">
+                    <span class="nav-link-text">Digi</span>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/29">
+                                                              <span class="nav-link-text">Cas</span>
+                                                              </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="/element/30">
+                    <span class="nav-link-text">Mertech</span>
+                    </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/33">
+                    <span class="nav-link-text">Запайщики</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/element/34">
+                    <span class="nav-link-text">Горячие столы</span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+    <li class="nav-item">
+        <a
+                class="nav-link nav-link-collapse"
+                href="#"
+                id="hasSubItems"
+                data-toggle="collapse"
+                data-target="#collapseSubItems8"
+                aria-controls="collapseSubItems8"
+                aria-expanded="false"
+        >Компоненты</a>
+
+        <ul class="nav-second-level collapse" id="collapseSubItems8" data-parent="#navAccordion">
 
             <li class="nav-item">
                 <a class="nav-link" href="/element/10">
@@ -143,8 +249,8 @@
         </ul>
     </li>
 
-<li class="nav-item">
-        <a class="nav-link" href="#">Item 3</a>
+    <li class="nav-item">
+        <a class="nav-link" href="/element/31">ИБП</a>
     </li>
 
 </#macro>

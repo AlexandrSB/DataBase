@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.ToString;
 
 import static com.example.restservice.equipmentData.SQL_queries.getRecursiveGroup;
 
@@ -22,6 +23,7 @@ public class Group {
     @Column(name = "group_name", unique = true)
     private String groupName;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Group parent;

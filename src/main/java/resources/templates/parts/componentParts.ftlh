@@ -65,7 +65,7 @@
                                         <#list e.groups as gr>
                                             <ul>
                                                 <li>
-                                                    <span>${gr.groupName}</span>
+                                                    <a href="/element/${gr.id}">${gr.groupName}</a>
                                                 </li>
                                             </ul>
                                             <#-- <option>${gr.groupName}</option> -->

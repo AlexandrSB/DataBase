@@ -27,10 +27,12 @@ public class Element {
     @Column(name = "description", columnDefinition = "")
     private String description = "";
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Element parent;
 
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(
             name = "element_groups",
@@ -43,7 +45,8 @@ public class Element {
     )
     private Set<Group> groups = new HashSet<>();
 
-    @ManyToMany
+    @ToString.Exclude
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "elements_composite",
             joinColumns = {
@@ -55,7 +58,8 @@ public class Element {
     )
     private Set<Element> elements_source = new HashSet<>();
 
-    @ManyToMany
+    @ToString.Exclude
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "elements_composite",
             joinColumns = {
@@ -88,8 +92,12 @@ public class Element {
         this.groups.add(group.get());
     }
 
-    public void addElementDesination(Optional<Element> element) {
-        this.elements_destination.add(element.get());
+    public void addElementDesination( Optional<Element> element ) {
+        this.elements_destination.add( element.get() );
+    }
+
+    public void addElementSource( Optional<Element> element ) {
+        this.elements_source.add(element.get());
     }
 //    public Element setParent(Element e) {
 //        this.parent = e;

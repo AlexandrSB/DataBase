@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor(force = true)
 @Table(name = "attribute", schema = "public")
 public class Attribute {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "attribute_id", nullable = false, unique = true)

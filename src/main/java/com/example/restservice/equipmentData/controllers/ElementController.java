@@ -34,10 +34,12 @@ public class ElementController {
 
     @ModelAttribute
     public void addAttributes(Model model) {
+
         model.addAttribute("group", groupRecursiveRepo.findAll());
 
         Iterable<Element> elements = elementRepo.findAll();
         model.addAttribute("elements", elements);
+
     }
 
     @GetMapping("/{group_id}")
@@ -57,8 +59,8 @@ public class ElementController {
             Model model
     ) {
 
-        Optional<Element> elem = elementRepo.findById(Long.valueOf(elem_id));
-        model.addAttribute("elem", elem.get());
+        Optional<Element> elem = elementRepo.findById(Long.valueOf( elem_id ));
+        model.addAttribute("elem", elem.get() );
 
         return "compView";
     }
@@ -78,7 +80,7 @@ public class ElementController {
         Element elem = new Element();
         elem.setName( elementName.trim() );
         elem.setDescription( description.trim() );
-        elem.addGroup(group);
+        elem.addGroup( group );
         elementRepo.save( elem );
 
         return "element";
@@ -106,11 +108,13 @@ public class ElementController {
         Optional<Element> elementDestination =
                 Optional.of( elementRepo.findByName( elementName ));
 
-        Element thisElem = elementRepo.findById(Long.valueOf(thisElement)).get();
-        model.addAttribute("elem", thisElem);
+        Optional<Element> thisElem = elementRepo.findById(Long.valueOf(thisElement));
+        model.addAttribute( "elem", thisElem.get() );
 
-        thisElem.addElementDesination(elementDestination);
-        elementRepo.save(thisElem);
+        thisElem.get().addElementDesination( elementDestination );
+//        elementDestination.get().addElementSource( thisElem );
+        elementRepo.save( thisElem.get() );
+//        elementRepo.save( elementDestination.get() );
 
         return "compView";
     }
