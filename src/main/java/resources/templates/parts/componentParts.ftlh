@@ -1,27 +1,24 @@
-<#import "description.ftlh" as descr>
+<#import "constructor/simple_element.ftlh" as se>
 
 <#macro addComponent>
-    <h1 class="text-center">${my_group.groupName}</h1>
-    <br/>
+<!--    <form action="add_element" method="post" id="equip">-->
 
-    <form action="add_element" method="post" id="equip">
+<!--        <input type="text" name="group_name" value="${my_group.groupName}" hidden="hidden">-->
 
-        <input type="text" name="group_name" value="${my_group.groupName}" hidden="hidden">
+<!--        <div class="form-group row justify-content-center">-->
+<!--            <label for="element" class="col-sm-2 col-form-label">Component : </label>-->
+<!--            <div class="col-sm-6">-->
+<!--                <input class="form-control" type="text" name="elementName"-->
+<!--                placeholder="componentName" id="element" >-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="form-group row justify-content-center">
-            <label for="element" class="col-sm-2 col-form-label">Component : </label>
-            <div class="col-sm-6">
-                <input class="form-control" type="text" name="elementName"
-                placeholder="componentName" id="element" >
-            </div>
-        </div>
+<!--        <@se.description />-->
 
-        <@descr.description />
-
-        <div class="d-grid gap-2 col-4 mx-auto">
-            <button class="btn btn-primary my-2" type="submit">Add</button>
-        </div>
-    </form>
+<!--        <div class="d-grid gap-2 col-4 mx-auto">-->
+<!--            <button class="btn btn-primary my-2" type="submit">Add</button>-->
+<!--        </div>-->
+<!--    </form>-->
 </#macro>
 
 <#macro componentCard>
@@ -48,7 +45,6 @@
                     <th scope="col">Element name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Groups</th>
-                    <#-- <th scope="col">Parent</th> -->
                     <th scope="col">Button</th>
                 </tr>
             </thead>
@@ -61,28 +57,20 @@
                             <td><span>${e.description}</span></td>
                             <#if e.groups??>
                                 <td>
-                                    <#-- <select id="table_group"> -->
-                                        <#list e.groups as gr>
-                                            <ul>
-                                                <li>
-                                                    <a href="/element/${gr.id}">${gr.groupName}</a>
-                                                </li>
-                                            </ul>
-                                            <#-- <option>${gr.groupName}</option> -->
-                                        <#else>
-                                            <option>No Groups</option>
-                                        </#list>
-                                    <#-- </select> -->
+                                    <#list e.groups as gr>
+                                        <ul>
+                                            <li>
+                                                <a href="/element/${gr.id}">${gr.groupName}</a>
+                                            </li>
+                                        </ul>
+                                        <#-- <option>${gr.groupName}</option> -->
+                                    <#else>
+                                        <option>No Groups</option>
+                                    </#list>
                                 </td>
                             <#else>
                                 <td><span>&ltnone&gt</span></td>
                             </#if>
-
-                            <#-- <#if e.parent??>
-                                <td><span>${e.parent.name}</span></td>
-                            <#else>
-                                <td><span>&ltnone&gt</span></td>
-                            </#if> -->
 
                             <td><a href="/element/view/${e.id}">view</a></td>
                         </tr>

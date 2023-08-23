@@ -12,8 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/element")
@@ -47,8 +46,27 @@ public class ElementController {
         @PathVariable String group_id,
         Model model) {
 
-        Optional<Group> group = groupRepo.findById(Long.valueOf(group_id));
-        model.addAttribute("my_group", group.get());
+        Long id = Long.valueOf(Optional.of( group_id ).get());
+        Set<Group> groups = new HashSet<>();
+        List<Group> groups_breadcrumb = new LinkedList<>();
+
+        Optional<Group> group_optional = groupRepo.findById( id );
+        Group group = group_optional.get();
+
+        if (id != 0) {
+            groups.addAll(groupRepo.findAllByParentId( group.getId() ));
+            while (group.getId() != 0) {
+                groups_breadcrumb.add( group.getParent() );
+                group = group.getParent();
+            }
+            Collections.reverse( groups_breadcrumb );
+        } else {
+            groups.addAll( groupRepo.findAllByParentId( 0L ));
+        }
+
+        model.addAttribute("nav_breadcrumb", groups_breadcrumb );
+        model.addAttribute("nav", groups );
+        model.addAttribute("my_group", group_optional.get() );
 
         return "element";
     }
@@ -61,6 +79,10 @@ public class ElementController {
 
         Optional<Element> elem = elementRepo.findById(Long.valueOf( elem_id ));
         model.addAttribute("elem", elem.get() );
+
+        Set<Group> groups = new HashSet<>();
+        groups.addAll( groupRepo.findAllByParentId( 0L ));
+        model.addAttribute("nav", groups );
 
         return "compView";
     }

@@ -1,4 +1,7 @@
-<#macro page title="MyProject">
+<#macro page
+        title="MyProject"
+        navbar = "navbarEquipment.ftlh"
+    >
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -17,8 +20,7 @@
 
         <main class="content-wrapper">
           <div class="container-fluid">
-            <#include "navbarEquipment.ftlh">
-            <#-- <#include "navbar.ftlh"> -->
+            <#include navbar>
             <#nested>
           </div>
         </main>
