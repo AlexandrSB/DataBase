@@ -18,12 +18,10 @@ public class Element {
     @Column(name = "element_id", nullable = false, unique = true)
     private Long id;
 
-    @Setter
     @NonNull
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Setter
     @Column(name = "description", columnDefinition = "")
     private String description = "";
 
@@ -31,6 +29,10 @@ public class Element {
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Element parent;
+
+//    @ToString.Exclude
+//    @OneToMany
+//    Set<Unit> units = new HashSet<>();
 
     @ToString.Exclude
     @ManyToMany

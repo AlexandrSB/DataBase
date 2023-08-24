@@ -13,7 +13,7 @@
                 type="text"
                 name="${element_name}"
                 placeholder="${placeholder}"
-                pattern="[A-Za-zА-Яа-яЁё0-9 ]{5,}"
+                pattern="{5,}"
                 id="${element_id}" />
         </div>
     </div>
@@ -34,8 +34,12 @@
         <div class="col-sm-6">
             <select class="form-control" id="${element_id}" name="${element_name}">
                 <#list elements_array as e>
-                <#assign el = e?keys?seq_index_of(elements_attr)>
-                    <option>${e?values[el]}</option>
+                    <#if elements_attr == "">
+                        <option>${e}</option>
+                    <#else>
+                        <#assign el = e?keys?seq_index_of(elements_attr)>
+                        <option>${e?values[el]}</option>
+                    </#if>
                 </#list>
             </select>
         </div>
@@ -48,7 +52,7 @@
     <div class="form-group row justify-content-center">
         <label for="description" class="col-sm-2 col-form-label">Description :</label>
         <div class="col-sm-6">
-            <textarea class="form-control" id="description" rows="4"></textarea>
+            <textarea class="form-control" id="description" rows="4" name="description"></textarea>
         </div>
     </div>
 

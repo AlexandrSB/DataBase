@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor(force = true)
+@EqualsAndHashCode(of = {"id", "name"})
 @Table(name = "attribute", schema = "public")
 public class Attribute {
 
@@ -19,32 +19,13 @@ public class Attribute {
     @Column(name = "attribute_id", nullable = false, unique = true)
     private Long id;
 
-    @Setter
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "description")
-    private String description;
+//    @ManyToOne
+//    @JoinColumn(name = "attr_value_id")
+//    private AttributeValue attr_value_id;
 
-    @ManyToOne
-    @JoinColumn(name = "attr_value_id")
-    private AttributeValue attr_value_id;
-
-////    @NonNull
-////    @Setter
-////    private Unit unit;
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "component_attribute",
-//            joinColumns = { @JoinColumn(name = "attr_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "comp_id") }
-//    )
-//    private Set<Element> elements = new HashSet<>();
-//
-//    @Setter
-//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<AttributeStringValue> strValues;
 //
 //    @Setter
 //    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -54,13 +35,4 @@ public class Attribute {
     public Attribute(String n) {
         this.name = n;
     }
-
-//    public void addComponent(Element comp) {
-//        elements.add(comp);
-//    }
-//
-//    public void addValues(String str) {
-//        AttributeStringValue attributeStringValue = new AttributeStringValue(str);
-//        strValues.add(attributeStringValue);
-//    }
 }

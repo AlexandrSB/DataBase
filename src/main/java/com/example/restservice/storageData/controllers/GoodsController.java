@@ -2,7 +2,6 @@ package com.example.restservice.storageData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
-import com.example.restservice.equipmentData.equipmentRepos.EquipmentRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
 import com.example.restservice.storageData.storageDomain.Goods;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
@@ -13,10 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Optional;
 
 @Controller
 public class GoodsController {

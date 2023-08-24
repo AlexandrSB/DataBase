@@ -20,6 +20,6 @@ public class Unit {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "unit_name", nullable = false, unique = true)
-    private String unit_name;
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
 }

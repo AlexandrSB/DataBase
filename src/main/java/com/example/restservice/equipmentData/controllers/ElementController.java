@@ -1,11 +1,7 @@
 package com.example.restservice.equipmentData.controllers;
 
-import com.example.restservice.equipmentData.equipmentDomain.Element;
-import com.example.restservice.equipmentData.equipmentDomain.Group;
-import com.example.restservice.equipmentData.equipmentRepos.AttributeRepo;
-import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
-import com.example.restservice.equipmentData.equipmentRepos.GroupRecursiveRepo;
-import com.example.restservice.equipmentData.equipmentRepos.GroupRepo;
+import com.example.restservice.equipmentData.equipmentDomain.*;
+import com.example.restservice.equipmentData.equipmentRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +19,12 @@ public class ElementController {
 
     @Autowired
     private AttributeRepo attributeRepo;
+
+    @Autowired
+    private UnitRepo unitRepo;
+
+    @Autowired
+    private AttributeValueRepo attributeValueRepo;
 
     @Autowired
     private GroupRepo groupRepo;
@@ -78,11 +80,20 @@ public class ElementController {
     ) {
 
         Optional<Element> elem = elementRepo.findById(Long.valueOf( elem_id ));
-        model.addAttribute("elem", elem.get() );
+        model.addAttribute( "elem", elem.get() );
 
         Set<Group> groups = new HashSet<>();
         groups.addAll( groupRepo.findAllByParentId( 0L ));
-        model.addAttribute("nav", groups );
+        model.addAttribute( "nav", groups );
+
+        Iterable<Attribute> attributes = attributeRepo.findAll();
+        model.addAttribute( "attributes", attributes );
+
+        Iterable<Unit> units = unitRepo.findAll();
+        model.addAttribute( "units", units );
+
+        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
+        model.addAttribute( "attributeValues", attributeValues );
 
         return "compView";
     }
@@ -94,31 +105,68 @@ public class ElementController {
             @RequestParam String description,
             Model model) {
 
-        Optional<Group> group = Optional.ofNullable(
+        List<Group> groups_breadcrumb = new LinkedList<>();
+
+        Group group = Optional.ofNullable(
                 groupRepo.findByGroupName(group_name).get(0)
-        );
-        model.addAttribute("my_group", group.get());
+        ).get();
+        model.addAttribute("my_group", group );
 
         Element elem = new Element();
         elem.setName( elementName.trim() );
         elem.setDescription( description.trim() );
-        elem.addGroup( group );
+        elem.addGroup( Optional.of( group ));
         elementRepo.save( elem );
+
+
+        while (group.getId() != 0) {
+            groups_breadcrumb.add( group.getParent() );
+            group = group.getParent();
+        }
+        Collections.reverse( groups_breadcrumb );
+
+        model.addAttribute("nav_breadcrumb", groups_breadcrumb );
 
         return "element";
     }
 
-//    @PostMapping("/view/{elem_id}")
-//    private String viewElement(
-//            @PathVariable String elem_id,
-//            Model model
-//    ) {
-//
-//        Optional<Element> elem = elementRepo.findById( Long.valueOf( elem_id ));
-//        model.addAttribute( "elem", elem.get() );
-//
-//        return "element";
-//    }
+    @PostMapping("/view/add_attribute")
+    private String addAttribute(
+            @RequestParam String thisElement,
+            @RequestParam String attribute_name,
+            @RequestParam String attribute_value,
+            @RequestParam String unit_name,
+            Model model
+    ) {
+
+        Optional<Element> element = elementRepo.findById(Long.valueOf( thisElement ));
+        Optional<Attribute> attribute = Optional.ofNullable(attributeRepo.findByName(attribute_name));
+        Optional<Unit> unit = Optional.ofNullable(unitRepo.findByName(unit_name));
+
+        AttributeValue attributeValue = new AttributeValue();
+        attributeValue.setName( attribute_value );
+        attributeValue.setElement( element.get() );
+        attributeValue.setAttribute( attribute.get() );
+        attributeValue.setUnit( unit.get() );
+        attributeValueRepo.save( attributeValue );
+
+
+        model.addAttribute( "elem", element.get() );
+
+        Set<Group> groups = new HashSet<>();
+        groups.addAll( groupRepo.findAllByParentId( 0L ));
+        model.addAttribute( "nav", groups );
+
+        Iterable<Attribute> attributes = attributeRepo.findAll();
+        model.addAttribute( "attributes", attributes );
+
+        Iterable<Unit> units = unitRepo.findAll();
+        model.addAttribute( "units", units );
+
+        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
+        model.addAttribute( "attributeValues", attributeValues );
+        return "compView";
+    }
 
     @PostMapping("/view/link_elements")
     private String linkElements(
@@ -131,12 +179,27 @@ public class ElementController {
                 Optional.of( elementRepo.findByName( elementName ));
 
         Optional<Element> thisElem = elementRepo.findById(Long.valueOf(thisElement));
-        model.addAttribute( "elem", thisElem.get() );
 
         thisElem.get().addElementDesination( elementDestination );
 //        elementDestination.get().addElementSource( thisElem );
         elementRepo.save( thisElem.get() );
 //        elementRepo.save( elementDestination.get() );
+
+
+        Set<Group> groups = new HashSet<>();
+        groups.addAll( groupRepo.findAllByParentId( 0L ));
+        model.addAttribute( "nav", groups );
+
+        model.addAttribute( "elem", thisElem.get() );
+
+        Iterable<Attribute> attributes = attributeRepo.findAll();
+        model.addAttribute( "attributes", attributes );
+
+        Iterable<Unit> units = unitRepo.findAll();
+        model.addAttribute( "units", units );
+
+        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
+        model.addAttribute( "attributeValues", attributeValues );
 
         return "compView";
     }

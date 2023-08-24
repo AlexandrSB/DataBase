@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS "public".element
     name        character(50) NOT NULL,
     description character(800) NULL,
     parent_id   bigint NULL,
+    isEquipment boolean DEFAULT FALSE,
     CONSTRAINT PK_component PRIMARY KEY ( element_id ),
     CONSTRAINT unique_component_name_constraint UNIQUE ( name ),
     CONSTRAINT FK_10 FOREIGN KEY ( parent_id ) REFERENCES "public".element ( element_id )
@@ -142,17 +143,73 @@ CREATE TABLE IF NOT EXISTS "public".elements_composite
     );
 
 
-CREATE TABLE IF NOT EXISTS "public".attribute_value
-(
-    attr_value_id         bigint NOT NULL,
-    name                  character(50) NOT NULL,
-    group_attr_value_id   bigint NULL,
-    element_attr_value_id bigint NOT NULL,
-    CONSTRAINT PK_attribute PRIMARY KEY ( attr_value_id ),
-    CONSTRAINT unique_attr_name_constraint UNIQUE ( name ),
-    CONSTRAINT FK_9_2 FOREIGN KEY ( group_attr_value_id ) REFERENCES "public".groups ( group_id ),
-    CONSTRAINT FK_9_3 FOREIGN KEY ( element_attr_value_id ) REFERENCES "public"."element" ( element_id )
-);
+    CREATE TABLE IF NOT EXISTS public.unit
+    (
+        id bigint NOT NULL,
+        name character(50) COLLATE pg_catalog."default" NOT NULL,
+        CONSTRAINT unit_pkey PRIMARY KEY (id)
+    );
+
+    -- SEQUENCE: public.element_seq
+
+    -- DROP SEQUENCE IF EXISTS public.element_seq;
+
+    CREATE SEQUENCE IF NOT EXISTS public.unit_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY element.element_id;
+
+    ALTER SEQUENCE public.unit_seq
+        OWNER TO admin;
+
+
+    CREATE TABLE IF NOT EXISTS "public".attribute
+    (
+        name           character(50) NOT NULL,
+        attribute_id   bigint NOT NULL,
+        CONSTRAINT PK_attribute_1 PRIMARY KEY ( attribute_id )
+    );
+
+    CREATE INDEX IF NOT EXISTS FK_Index_attributeID ON "public".attribute
+    (
+        attribute_id
+    );
+
+    -- SEQUENCE: public.element_seq
+
+    -- DROP SEQUENCE IF EXISTS public.element_seq;
+
+    CREATE SEQUENCE IF NOT EXISTS public.attribute_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY element.element_id;
+
+    ALTER SEQUENCE public.attribute_seq
+        OWNER TO admin;
+
+
+    CREATE TABLE IF NOT EXISTS "public".attribute_value
+    (
+        attr_value_id         bigint NOT NULL,
+        name                  character(50) NOT NULL,
+        group_attr_value_id   bigint NULL,
+        element_attr_value_id bigint NOT NULL,
+        unit_attr_value_id    bigint NOT NULL,
+        attribute_attr_value_id bigint NOT NULL,
+        CONSTRAINT PK_attribute PRIMARY KEY ( attr_value_id ),
+        CONSTRAINT unique_attr_name_constraint UNIQUE ( name ),
+        CONSTRAINT FK_9_2 FOREIGN KEY ( group_attr_value_id ) REFERENCES "public".groups ( group_id ),
+        CONSTRAINT FK_unit FOREIGN KEY ( unit_attr_value_id ) REFERENCES "public".unit ( id ),
+        CONSTRAINT FK_attr FOREIGN KEY ( attribute_attr_value_id ) REFERENCES "public".attribute ( attribute_id )
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION
+    );
 
     CREATE INDEX IF NOT EXISTS FK_Index_attr_attr_valueID ON "public".attribute_value
     (
@@ -165,33 +222,20 @@ CREATE TABLE IF NOT EXISTS "public".attribute_value
     );
 
 
-CREATE TABLE IF NOT EXISTS "public".attribute
-(
-    name           character(50) NOT NULL,
-    attribute_id1  bigint NOT NULL,
-    attribute_id   bigint NOT NULL,
-    CONSTRAINT PK_attribute_1 PRIMARY KEY ( attribute_id ),
-    CONSTRAINT FK_11_1 FOREIGN KEY ( attribute_id1 ) REFERENCES "public".attribute_value ( attr_value_id )
-);
-
-    CREATE INDEX IF NOT EXISTS FK_Index_attributeID ON "public".attribute
-    (
-        attribute_id
-    );
-
 -- SEQUENCE: public.attribute_seq
 
 -- DROP SEQUENCE IF EXISTS public.attribute_seq;
 
-CREATE SEQUENCE IF NOT EXISTS public.attribute_seq
+CREATE SEQUENCE IF NOT EXISTS public.attribute_value_seq
     INCREMENT 50
     START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
 
-ALTER SEQUENCE public.attribute_seq
+ALTER SEQUENCE public.attribute_value_seq
     OWNER TO admin;
+
 
 CREATE TABLE IF NOT EXISTS "public".attribute_double_value
 (
