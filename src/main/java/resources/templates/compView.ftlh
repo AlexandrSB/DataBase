@@ -7,10 +7,10 @@
 
     <form action="link_elements" method="post" id="link_elements">
 
-        <input type="text" name="thisElement" value="${elem.id}" hidden="hidden" />
+        <input type="text" name="element_source_id" value="${elem.id}" hidden="hidden" />
 
         <@se.select_element
-            element_name = "elementName"
+            element_name = "element_destination"
             element_id = "element_id"
             label = "Component"
             placeholder = "Component Name"
@@ -73,9 +73,9 @@
     <br />
     <span>Содержит элементы : </span>
     <ul>
-        <#list elem.elements_source as es>
+        <#list elem_destination as ed>
                 <li>
-                    <a href="/element/view/${es.id}">${es.name}</a>
+                    <a href="/element/view/${ed.id}">${ed.name}</a>
                 </li>
         <#else>
             <li>Нет элементов</li>
@@ -85,9 +85,9 @@
     <br />
     <span>Элемент для : </span>
     <ul>
-        <#list elem.elements_destination as ed>
+        <#list elem_source as es>
                 <li>
-                    <a href="/element/view/${ed.id}">${ed.name}</a>
+                    <a href="/element/view/${es.id}">${es.name}</a>
                 </li>
         <#else>
             <li>Нет оборудования</li>

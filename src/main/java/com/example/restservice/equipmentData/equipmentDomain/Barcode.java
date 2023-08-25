@@ -18,10 +18,6 @@ public class Barcode {
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "barcode_id", nullable = false, unique = true)
-    private ElementFirma elementFirma;
-
     @Column(name = "barcode")
     private String barcode;
 }

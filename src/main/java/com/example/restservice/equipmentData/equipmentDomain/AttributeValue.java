@@ -1,10 +1,7 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 
@@ -17,7 +14,7 @@ public class AttributeValue {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "attr_value_id", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "name")
@@ -27,14 +24,17 @@ public class AttributeValue {
 //    @JoinColumn(name = "group_attr_value_id")
 //    private Group group;
 
+    @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "element_attr_value_id")
-    private Element element;
+    @JoinColumn(name = "proxy_attr_value_id")
+    private Proxy proxy;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "unit_attr_value_id")
     private Unit unit;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "attribute_attr_value_id")
     private Attribute attribute;

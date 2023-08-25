@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor(force = true)
 @Table(name = "element", schema = "public")
 public class Element {
+
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE)
     @Column(name = "element_id", nullable = false, unique = true)
@@ -25,14 +26,21 @@ public class Element {
     @Column(name = "description", columnDefinition = "")
     private String description = "";
 
+    @Column(name = "is_equipment", columnDefinition = "")
+    private Boolean isEquipment = false;
+
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Element parent;
 
-//    @ToString.Exclude
-//    @OneToMany
-//    Set<Unit> units = new HashSet<>();
+    @ToString.Exclude
+    @OneToMany(mappedBy = "element_source")
+    private Set<ElementsComposite> elementsSource = new HashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "element_destination")
+    private Set<ElementsComposite> elementsDestination = new HashSet<>();
 
     @ToString.Exclude
     @ManyToMany
@@ -47,59 +55,47 @@ public class Element {
     )
     private Set<Group> groups = new HashSet<>();
 
-    @ToString.Exclude
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "elements_composite",
-            joinColumns = {
-                    @JoinColumn(name = "element_source")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "element_destination")
-            }
-    )
-    private Set<Element> elements_source = new HashSet<>();
-
-    @ToString.Exclude
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "elements_composite",
-            joinColumns = {
-                    @JoinColumn(name = "element_destination")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "element_source")
-            }
-    )
-    private Set<Element> elements_destination = new HashSet<>();
-
-//    @ManyToMany
+//    @ToString.Exclude
+//    @ManyToMany(cascade = CascadeType.PERSIST)
 //    @JoinTable(
-//            name = "element_firma",
+//            name = "elements_composite",
 //            joinColumns = {
-//                    @JoinColumn(name = "element_id")
+//                    @JoinColumn(name = "element_source")
 //            },
 //            inverseJoinColumns = {
-//                    @JoinColumn(name = "firma_id")
+//                    @JoinColumn(name = "element_destination")
 //            }
 //    )
-//    private Set<ElementFirma> firmaSet = new HashSet<>();
+//    private Set<Element> elements_source = new HashSet<>();
+
+//    @ToString.Exclude
+//    @ManyToMany(cascade = CascadeType.PERSIST)
+//    @JoinTable(
+//            name = "elements_composite",
+//            joinColumns = {
+//                    @JoinColumn(name = "element_destination")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "element_source")
+//            }
+//    )
+//    private Set<Element> elements_destination = new HashSet<>();
 
 
-    public Element(String name) {
+    public Element( String name ) {
         this.name = name;
     }
 
-    public void addGroup(Optional<Group> group) {
-        this.groups.add(group.get());
+    public void addGroup( Group group ) {
+        this.groups.add( group );
     }
 
-    public void addElementDesination( Optional<Element> element ) {
-        this.elements_destination.add( element.get() );
+    public void addElementDesination( ElementsComposite element ) {
+        this.elementsDestination.add( element );
     }
 
-    public void addElementSource( Optional<Element> element ) {
-        this.elements_source.add(element.get());
+    public void addElementSource( ElementsComposite element ) {
+        this.elementsSource.add( element );
     }
 //    public Element setParent(Element e) {
 //        this.parent = e;

@@ -54,7 +54,7 @@ public class GoodsController {
         }
 
         Goods gs = new Goods();
-        gs.setName( elementRepo.findByName(elem).getName().trim() );
+        gs.setName( elementRepo.findByName(elem).get().getName().trim() );
 
         goodsRepo.save(gs);
 

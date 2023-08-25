@@ -10,16 +10,13 @@ CREATE TABLE IF NOT EXISTS "public".barcode
     CONSTRAINT PK_barcode PRIMARY KEY ( barcode_id )
 );
 
-CREATE SEQUENCE IF NOT EXISTS public.barcode_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
---    OWNED BY barcode.barcode_id;
-
-ALTER SEQUENCE public.barcode_seq
-    OWNER TO admin;
+    CREATE SEQUENCE IF NOT EXISTS public.barcode_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY barcode.barcode_id;
 
 
 CREATE TABLE IF NOT EXISTS "public".groups
@@ -40,35 +37,16 @@ CREATE TABLE IF NOT EXISTS "public".groups
 
 -- DROP SEQUENCE IF EXISTS public.groups_seq;
 
-CREATE SEQUENCE IF NOT EXISTS public.groups_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
---    OWNED BY groups.groups_id;
+    CREATE SEQUENCE IF NOT EXISTS public.groups_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY groups.groups_id;
 
-ALTER SEQUENCE public.groups_seq
-    OWNER TO admin;
-
-CREATE TABLE IF NOT EXISTS "public".firma
-(
-    firma_id  bigint NOT NULL,
-    firm_name character(50) NOT NULL,
-    CONSTRAINT PK_1 PRIMARY KEY ( firma_id )
-);
-
-CREATE SEQUENCE IF NOT EXISTS public.firma_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
---    OWNED BY firma.firma_id;
-
-ALTER SEQUENCE public.firma_seq
-    OWNER TO admin;
-
+    ALTER SEQUENCE public.groups_seq
+        OWNER TO admin;
 
 CREATE TABLE IF NOT EXISTS "public".element
 (
@@ -76,10 +54,11 @@ CREATE TABLE IF NOT EXISTS "public".element
     name        character(50) NOT NULL,
     description character(800) NULL,
     parent_id   bigint NULL,
-    isEquipment boolean DEFAULT FALSE,
+    is_equipment boolean DEFAULT FALSE,
     CONSTRAINT PK_component PRIMARY KEY ( element_id ),
     CONSTRAINT unique_component_name_constraint UNIQUE ( name ),
-    CONSTRAINT FK_10 FOREIGN KEY ( parent_id ) REFERENCES "public".element ( element_id )
+    CONSTRAINT FK_parent_id FOREIGN KEY ( parent_id )
+        REFERENCES "public".element ( element_id )
 );
 
     CREATE INDEX IF NOT EXISTS FK_2 ON "public".element
@@ -87,20 +66,20 @@ CREATE TABLE IF NOT EXISTS "public".element
         parent_id
     );
 
--- SEQUENCE: public.element_seq
+    -- SEQUENCE: public.element_seq
 
--- DROP SEQUENCE IF EXISTS public.element_seq;
+    -- DROP SEQUENCE IF EXISTS public.element_seq;
 
-CREATE SEQUENCE IF NOT EXISTS public.element_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
---    OWNED BY element.element_id;
+    CREATE SEQUENCE IF NOT EXISTS public.element_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY element.element_id;
 
-ALTER SEQUENCE public.element_seq
-    OWNER TO admin;
+    ALTER SEQUENCE public.element_seq
+        OWNER TO admin;
 
 
 CREATE TABLE IF NOT EXISTS "public".element_groups
@@ -112,12 +91,14 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
     CONSTRAINT FK_12 FOREIGN KEY ( group_id ) REFERENCES "public".groups ( group_id )
 );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_elementID ON element_groups
+    CREATE INDEX IF NOT EXISTS FK_Index_elementID
+        ON element_groups
     (
         element_id
     );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_groupID ON "public".element_groups
+    CREATE INDEX IF NOT EXISTS FK_Index_groupID
+        ON "public".element_groups
     (
         group_id
     );
@@ -125,30 +106,42 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
 
 CREATE TABLE IF NOT EXISTS "public".elements_composite
 (
-    element_source      bigint NULL,
-    element_destination bigint NULL,
-    CONSTRAINT PK_elements_composite PRIMARY KEY ( element_source, element_destination ),
-    CONSTRAINT FK_14 FOREIGN KEY ( element_source ) REFERENCES "public"."element" ( element_id ),
-    CONSTRAINT FK_15 FOREIGN KEY ( element_destination ) REFERENCES "public"."element" ( element_id )
+    id                  bigint NOT NULL,
+    element_source      bigint NOT NULL,
+    element_destination bigint NOT NULL,
+    CONSTRAINT PK_elements_composite PRIMARY KEY ( id ),
+    CONSTRAINT FK_element_source FOREIGN KEY ( element_source )
+        REFERENCES "public"."element" ( element_id ),
+    CONSTRAINT FK_element_destination FOREIGN KEY ( element_destination )
+        REFERENCES "public"."element" ( element_id )
 );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_element_source ON "public".elements_composite
+    CREATE SEQUENCE IF NOT EXISTS public.elements_composite_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+
+    CREATE INDEX IF NOT EXISTS FK_Index_element_source
+        ON "public".elements_composite
     (
         element_source
     );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_element_destination ON "public".elements_composite
+    CREATE INDEX IF NOT EXISTS FK_Index_element_destination
+        ON "public".elements_composite
     (
         element_destination
     );
 
 
-    CREATE TABLE IF NOT EXISTS public.unit
-    (
-        id bigint NOT NULL,
-        name character(50) COLLATE pg_catalog."default" NOT NULL,
-        CONSTRAINT unit_pkey PRIMARY KEY (id)
-    );
+CREATE TABLE IF NOT EXISTS public.unit
+(
+id bigint NOT NULL,
+name character(50) COLLATE pg_catalog."default" NOT NULL,
+CONSTRAINT unit_pkey PRIMARY KEY (id)
+);
 
     -- SEQUENCE: public.element_seq
 
@@ -166,14 +159,15 @@ CREATE TABLE IF NOT EXISTS "public".elements_composite
         OWNER TO admin;
 
 
-    CREATE TABLE IF NOT EXISTS "public".attribute
-    (
-        name           character(50) NOT NULL,
-        attribute_id   bigint NOT NULL,
-        CONSTRAINT PK_attribute_1 PRIMARY KEY ( attribute_id )
-    );
+CREATE TABLE IF NOT EXISTS "public".attribute
+(
+name           character(50) NOT NULL,
+attribute_id   bigint NOT NULL,
+CONSTRAINT PK_attribute_1 PRIMARY KEY ( attribute_id )
+);
 
-    CREATE INDEX IF NOT EXISTS FK_Index_attributeID ON "public".attribute
+    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
+        ON "public".attribute
     (
         attribute_id
     );
@@ -194,55 +188,126 @@ CREATE TABLE IF NOT EXISTS "public".elements_composite
         OWNER TO admin;
 
 
-    CREATE TABLE IF NOT EXISTS "public".attribute_value
-    (
-        attr_value_id         bigint NOT NULL,
-        name                  character(50) NOT NULL,
-        group_attr_value_id   bigint NULL,
-        element_attr_value_id bigint NOT NULL,
-        unit_attr_value_id    bigint NOT NULL,
-        attribute_attr_value_id bigint NOT NULL,
-        CONSTRAINT PK_attribute PRIMARY KEY ( attr_value_id ),
-        CONSTRAINT unique_attr_name_constraint UNIQUE ( name ),
-        CONSTRAINT FK_9_2 FOREIGN KEY ( group_attr_value_id ) REFERENCES "public".groups ( group_id ),
-        CONSTRAINT FK_unit FOREIGN KEY ( unit_attr_value_id ) REFERENCES "public".unit ( id ),
-        CONSTRAINT FK_attr FOREIGN KEY ( attribute_attr_value_id ) REFERENCES "public".attribute ( attribute_id )
-            ON UPDATE NO ACTION
-            ON DELETE NO ACTION
-    );
+CREATE TABLE IF NOT EXISTS "public".firma
+(
+    id  bigint NOT NULL,
+    firm_name character( 50 ) NOT NULL,
+    CONSTRAINT PK_firma PRIMARY KEY ( id )
+);
 
-    CREATE INDEX IF NOT EXISTS FK_Index_attr_attr_valueID ON "public".attribute_value
+    CREATE SEQUENCE IF NOT EXISTS public.firma_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY firma.firma_id;
+
+
+CREATE TABLE IF NOT EXISTS public.proxy
+(
+    id bigint NOT NULL,
+    name character(50) COLLATE pg_catalog."default" NOT NULL,
+    elements_composite_id bigint NULL,
+    firma_id bigint NULL,
+    CONSTRAINT PK_proxy PRIMARY KEY (id),
+    CONSTRAINT FK_proxy_elements_composite FOREIGN KEY ( elements_composite_id )
+        REFERENCES "public".elements_composite ( id )
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT FK_firma FOREIGN KEY ( firma_id )
+        REFERENCES "public".firma ( id )
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+    -- SEQUENCE: public.attribute_seq
+
+    -- DROP SEQUENCE IF EXISTS public.attribute_seq;
+
+    CREATE SEQUENCE IF NOT EXISTS public.proxy_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+
+
+CREATE TABLE IF NOT EXISTS public.element_proxy
+(
+    element_id bigint NOT NULL,
+    proxy_id bigint NOT NULL,
+    CONSTRAINT PK_element_proxy PRIMARY KEY (element_id, proxy_id),
+    CONSTRAINT FK_element FOREIGN KEY (element_id)
+        REFERENCES public.element (element_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT fk_proxy FOREIGN KEY (proxy_id)
+        REFERENCES public.proxy (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+
+CREATE TABLE IF NOT EXISTS "public".attribute_value
+(
+    id         bigint NOT NULL,
+    name                  character(50) NOT NULL,
+    group_attr_value_id   bigint NULL,
+    unit_attr_value_id    bigint NOT NULL,
+    attribute_attr_value_id bigint NOT NULL,
+    proxy_attr_value_id bigint NOT NULL,
+    CONSTRAINT PK_attribute PRIMARY KEY ( id ),
+    CONSTRAINT FK_group FOREIGN KEY ( group_attr_value_id )
+        REFERENCES "public".groups ( group_id ),
+    CONSTRAINT FK_unit FOREIGN KEY ( unit_attr_value_id )
+        REFERENCES "public".unit ( id ),
+    CONSTRAINT FK_attr FOREIGN KEY ( attribute_attr_value_id )
+        REFERENCES "public".attribute ( attribute_id )
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT FK_proxy FOREIGN KEY ( proxy_attr_value_id )
+        REFERENCES "public".proxy ( id )
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+    CREATE INDEX IF NOT EXISTS FK_Index_attr_attr_valueID
+        ON "public".attribute_value
     (
         group_attr_value_id
     );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_attr_elem_attr_valueID ON "public".attribute_value
+    CREATE INDEX IF NOT EXISTS FK_Index_attr_elem_attr_valueID
+        ON "public".attribute_value
     (
-        element_attr_value_id
+        proxy_attr_value_id
     );
 
+    -- SEQUENCE: public.attribute_seq
 
--- SEQUENCE: public.attribute_seq
+    -- DROP SEQUENCE IF EXISTS public.attribute_seq;
 
--- DROP SEQUENCE IF EXISTS public.attribute_seq;
+    CREATE SEQUENCE IF NOT EXISTS public.attribute_value_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
 
-CREATE SEQUENCE IF NOT EXISTS public.attribute_value_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.attribute_value_seq
-    OWNER TO admin;
+    ALTER SEQUENCE public.attribute_value_seq
+        OWNER TO admin;
 
 
 CREATE TABLE IF NOT EXISTS "public".attribute_double_value
 (
-    id         bigint NOT NULL,
-    value real NULL,
-    CONSTRAINT PK_attribute_double_value PRIMARY KEY ( id ),
-    CONSTRAINT FK_7_1 FOREIGN KEY ( id ) REFERENCES "public".attribute_value ( attr_value_id )
+    attribute_id bigint NOT NULL,
+    value        real NULL,
+    CONSTRAINT PK_attribute_double_value PRIMARY KEY ( attribute_id ),
+    CONSTRAINT FK_7_1 FOREIGN KEY ( attribute_id )
+        REFERENCES "public".attribute_value ( id )
 );
 
 
@@ -251,7 +316,8 @@ CREATE TABLE IF NOT EXISTS "public".attribute_integer_value
     attribute_id bigint NOT NULL,
     value        integer NULL,
     CONSTRAINT PK_attr_integer_value PRIMARY KEY ( attribute_id ),
-    CONSTRAINT FK_7_2 FOREIGN KEY ( attribute_id ) REFERENCES "public".attribute_value ( attr_value_id )
+    CONSTRAINT FK_7_2 FOREIGN KEY ( attribute_id )
+        REFERENCES "public".attribute_value ( id )
 );
 
 
@@ -260,7 +326,8 @@ CREATE TABLE IF NOT EXISTS "public".attribute_string_value
     attribute_id bigint NOT NULL,
     value        character(50) NULL,
     CONSTRAINT PK_attr_string_value PRIMARY KEY ( attribute_id ),
-    CONSTRAINT FK_7_3 FOREIGN KEY ( attribute_id ) REFERENCES "public".attribute_value ( attr_value_id )
+    CONSTRAINT FK_7_3 FOREIGN KEY ( attribute_id )
+        REFERENCES "public".attribute_value ( id )
 );
 
 -- View: public.get_groups_with_recursion

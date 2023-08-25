@@ -4,7 +4,9 @@ import com.example.restservice.equipmentData.equipmentDomain.Attribute;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AttributeRepo extends CrudRepository<Attribute, Long> {
-    Attribute findByName(String name);
+    Optional<Attribute> findByName(String name);
 }

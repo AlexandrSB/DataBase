@@ -18,6 +18,9 @@ public class ElementController {
     private ElementRepo elementRepo;
 
     @Autowired
+    private ElementsCompositeRepo elementsCompositeRepo;
+
+    @Autowired
     private AttributeRepo attributeRepo;
 
     @Autowired
@@ -31,6 +34,9 @@ public class ElementController {
 
     @Autowired
     private GroupRecursiveRepo groupRecursiveRepo;
+
+    @Autowired
+    private ProxyRepo proxyRepo;
 
 
     @ModelAttribute
@@ -82,6 +88,23 @@ public class ElementController {
         Optional<Element> elem = elementRepo.findById(Long.valueOf( elem_id ));
         model.addAttribute( "elem", elem.get() );
 
+        Iterable<ElementsComposite> ecSource = elem.get().getElementsSource();
+        Set<Element> elements_destination = new HashSet<>();
+        for (ElementsComposite ec : ecSource) {
+            elements_destination.add( ec.getElement_destination() );
+        }
+        model.addAttribute("elem_source", elements_destination);
+
+        Iterable<ElementsComposite> ecDestination = elem.get().getElementsDestination();
+        Set<Element> elements_source = new HashSet<>();
+        for (ElementsComposite ec : ecDestination) {
+            elements_source.add( ec.getElement_source() );
+        }
+        model.addAttribute("elem_destination", elements_source);
+
+        Iterable<Element> elements = elementRepo.findAll();
+        model.addAttribute("elements", elements);
+
         Set<Group> groups = new HashSet<>();
         groups.addAll( groupRepo.findAllByParentId( 0L ));
         model.addAttribute( "nav", groups );
@@ -115,7 +138,7 @@ public class ElementController {
         Element elem = new Element();
         elem.setName( elementName.trim() );
         elem.setDescription( description.trim() );
-        elem.addGroup( Optional.of( group ));
+        elem.addGroup( group );
         elementRepo.save( elem );
 
 
@@ -132,26 +155,26 @@ public class ElementController {
 
     @PostMapping("/view/add_attribute")
     private String addAttribute(
-            @RequestParam String thisElement,
+            @RequestParam String this_proxy,
             @RequestParam String attribute_name,
             @RequestParam String attribute_value,
             @RequestParam String unit_name,
             Model model
     ) {
 
-        Optional<Element> element = elementRepo.findById(Long.valueOf( thisElement ));
-        Optional<Attribute> attribute = Optional.ofNullable(attributeRepo.findByName(attribute_name));
-        Optional<Unit> unit = Optional.ofNullable(unitRepo.findByName(unit_name));
+        Optional<Proxy> proxy = proxyRepo.findById(Long.valueOf( this_proxy ));
+        Optional<Attribute> attribute = attributeRepo.findByName(attribute_name);
+        Optional<Unit> unit = unitRepo.findByName(unit_name);
 
         AttributeValue attributeValue = new AttributeValue();
         attributeValue.setName( attribute_value );
-        attributeValue.setElement( element.get() );
+        attributeValue.setProxy( proxy.get() );
         attributeValue.setAttribute( attribute.get() );
         attributeValue.setUnit( unit.get() );
         attributeValueRepo.save( attributeValue );
 
 
-        model.addAttribute( "elem", element.get() );
+        model.addAttribute( "proxy", proxy.get() );
 
         Set<Group> groups = new HashSet<>();
         groups.addAll( groupRepo.findAllByParentId( 0L ));
@@ -170,27 +193,28 @@ public class ElementController {
 
     @PostMapping("/view/link_elements")
     private String linkElements(
-            @RequestParam String elementName,
-            @RequestParam String thisElement,
+            @RequestParam String element_destination,
+            @RequestParam String element_source_id,
             Model model
     ) {
 
         Optional<Element> elementDestination =
-                Optional.of( elementRepo.findByName( elementName ));
+                 elementRepo.findByName( element_destination );
 
-        Optional<Element> thisElem = elementRepo.findById(Long.valueOf(thisElement));
+        Optional<Element> elementSource =
+                elementRepo.findById(Long.valueOf( element_source_id ));
 
-        thisElem.get().addElementDesination( elementDestination );
-//        elementDestination.get().addElementSource( thisElem );
-        elementRepo.save( thisElem.get() );
-//        elementRepo.save( elementDestination.get() );
+        ElementsComposite elementsComposite = new ElementsComposite();
+        elementsComposite.setElement_source( elementSource.get() );
+        elementsComposite.setElement_destination( elementDestination.get() );
+        elementsCompositeRepo.save( elementsComposite );
 
 
         Set<Group> groups = new HashSet<>();
         groups.addAll( groupRepo.findAllByParentId( 0L ));
         model.addAttribute( "nav", groups );
 
-        model.addAttribute( "elem", thisElem.get() );
+        model.addAttribute( "elem", elementSource.get() );
 
         Iterable<Attribute> attributes = attributeRepo.findAll();
         model.addAttribute( "attributes", attributes );
