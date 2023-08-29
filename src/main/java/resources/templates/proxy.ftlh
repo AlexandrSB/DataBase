@@ -6,6 +6,15 @@
 
     <form action="addProxy" method="post" id="addProxy">
 
+    <@se.select_element
+        element_name = "firma"
+        element_id = "firma"
+        label = "Firma"
+        placeholder = "Select firm"
+        elements_array = firms
+        elements_attr = "firmName"
+    />
+
     <@se.input_element
         element_name = "proxy_name"
         element_id = "proxy_name"
@@ -23,9 +32,9 @@
 
     <@se.select_element
         element_name = "proxy_name"
-        element_id = "proxies_id"
-        label = "Proxies"
-        placeholder = "Insert proxy"
+        element_id = "proxy_name_selected"
+        label = "Proxy"
+        placeholder = "Select proxy"
         elements_array = proxies
         elements_attr = "name"
     />

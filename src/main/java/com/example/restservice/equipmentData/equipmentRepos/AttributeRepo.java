@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface AttributeRepo extends CrudRepository<Attribute, Long> {
     Optional<Attribute> findByName(String name);
+
+    Iterable<Attribute> findAllById(Long id);
 }

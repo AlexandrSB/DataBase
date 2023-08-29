@@ -18,6 +18,16 @@
             elements_attr = "name"
         />
 
+        <@se.select_element
+        element_name = "proxy"
+        element_id = "proxy"
+        label = "Proxy of component"
+        placeholder = "Proxy Name"
+        elements_array = proxies
+        elements_attr = "name"
+        />
+
+
         <@se.button_send
             button_name = "Add equipment"
         />
@@ -26,35 +36,19 @@
 
     <form action="add_attribute" method="post" id="add_attributes">
 
-    <input type="text" name="thisElement" value="${elem.id}" hidden="hidden" />
+    <input type="text" name="thisElementId" value="${elem.id}" hidden="hidden" />
 
     <@se.select_element
-        element_name = "attribute_name"
-        element_id = "attribute_id"
-        label = "Attribute"
-        placeholder = "Insert attribute"
-        elements_array = attributes
-        elements_attr = "name"
-    />
-
-    <@se.input_element
-        element_name = "attribute_value"
-        element_id = "attribute_value"
-        label = "Value"
-        placeholder = "Insert attribute value"
-    />
-
-    <@se.select_element
-        element_name = "unit_name"
-        element_id = "unit_id"
-        label = "Unit"
-        placeholder = "Units"
-        elements_array = units
+        element_name = "proxy_name"
+        element_id = "proxy_name"
+        label = "Proxy select"
+        placeholder = "Insert proxy name"
+        elements_array = proxies_select
         elements_attr = "name"
     />
 
     <@se.button_send
-        button_name = "Add attribute"
+        button_name = "Add proxy"
     />
 
     </form>
@@ -74,9 +68,16 @@
     <span>Содержит элементы : </span>
     <ul>
         <#list elem_destination as ed>
-                <li>
-                    <a href="/element/view/${ed.id}">${ed.name}</a>
-                </li>
+            <li>
+                <a href="/element/view/${ed.id}">${ed.name}</a>
+            </li>
+            <#list ed.proxies as eproxy>
+                <ul>
+                    <li>${eproxy.name}</li>
+                </ul>
+            <#else>
+
+            </#list>
         <#else>
             <li>Нет элементов</li>
         </#list>
@@ -86,9 +87,16 @@
     <span>Элемент для : </span>
     <ul>
         <#list elem_source as es>
-                <li>
-                    <a href="/element/view/${es.id}">${es.name}</a>
-                </li>
+            <li>
+                <a href="/element/view/${es.id}">${es.name}</a>
+            </li>
+            <#list es.proxies as eproxy>
+                <ul>
+                    <li>${eproxy.name}</li>
+                </ul>
+            <#else>
+
+            </#list>
         <#else>
             <li>Нет оборудования</li>
         </#list>
@@ -97,10 +105,17 @@
     <br />
     <span>Аттрибуты : </span>
     <ul>
-        <#list attributeValues as av>
-                <li>
-                    <span>${av.attribute.name} ${av.name} ${av.unit.name}</span>
-                </li>
+        <#list proxies as p>
+            <li>
+                <#if p.firma??>
+                    <span>${p.firma.firmName}</span>
+                </#if>
+                <#list p.attributeValues as pV>
+                    <span>${pV.attribute.name} - ${pV.name} ${pV.unit.name}<#sep>; </span>
+                <#else>
+                    <li></li>
+                </#list>
+            </li>
         <#else>
             <li>Аттрибутов нет</li>
         </#list>

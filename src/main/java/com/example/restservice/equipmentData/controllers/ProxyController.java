@@ -1,9 +1,6 @@
 package com.example.restservice.equipmentData.controllers;
 
-import com.example.restservice.equipmentData.equipmentDomain.Attribute;
-import com.example.restservice.equipmentData.equipmentDomain.AttributeValue;
-import com.example.restservice.equipmentData.equipmentDomain.Proxy;
-import com.example.restservice.equipmentData.equipmentDomain.Unit;
+import com.example.restservice.equipmentData.equipmentDomain.*;
 import com.example.restservice.equipmentData.equipmentRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +30,9 @@ public class ProxyController {
     @Autowired
     private ProxyRepo proxyRepo;
 
+    @Autowired
+    private FirmaRepo firmaRepo;
+
 
     @ModelAttribute
     public void addAttr( Model model ) {
@@ -44,6 +44,9 @@ public class ProxyController {
     public String proxy(
             Model model
     ) {
+
+        Iterable<Firma> firms = firmaRepo.findAll();
+        model.addAttribute("firms", firms);
 
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
@@ -63,27 +66,19 @@ public class ProxyController {
 
     @PostMapping("addProxy")
     private String addProxy(
+        @RequestParam String firma,
         @RequestParam String proxy_name,
         Model model
     ) {
 
+        Firma firm = firmaRepo.findByFirmName( firma );
+
         Proxy proxy = new Proxy();
         proxy.setName( proxy_name );
+        proxy.setFirma( firm );
         proxyRepo.save( proxy );
 
-        Iterable<Proxy> proxies = proxyRepo.findAll();
-        model.addAttribute("proxies", proxies);
-
-        Iterable<Attribute> attributes = attributeRepo.findAll();
-        model.addAttribute( "attributes", attributes );
-
-        Iterable<Unit> units = unitRepo.findAll();
-        model.addAttribute( "units", units );
-
-        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
-        model.addAttribute( "attributeValues", attributeValues );
-
-        return "proxy";
+        return "redirect:/proxy";
     }
 
     @PostMapping("proxy_addAttribute")
@@ -106,19 +101,6 @@ public class ProxyController {
         attributeValue.setUnit( unit.get() );
         attributeValueRepo.save( attributeValue );
 
-
-        Iterable<Proxy> proxies = proxyRepo.findAll();
-        model.addAttribute("proxies", proxies);
-
-        Iterable<Attribute> attributes = attributeRepo.findAll();
-        model.addAttribute( "attributes", attributes );
-
-        Iterable<Unit> units = unitRepo.findAll();
-        model.addAttribute( "units", units );
-
-        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
-        model.addAttribute( "attributeValues", attributeValues );
-
-        return "proxy";
+        return "redirect:/proxy";
     }
 }

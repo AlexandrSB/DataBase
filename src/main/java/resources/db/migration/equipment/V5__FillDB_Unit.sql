@@ -12,3 +12,9 @@ VALUES (3, 'А');
 
 INSERT INTO unit(id, name)
 VALUES (4, 'Ом');
+
+INSERT INTO unit(id, name)
+VALUES (5, 'кг');
+
+INSERT INTO unit(id, name)
+VALUES (6, 'гр');

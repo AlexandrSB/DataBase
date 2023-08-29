@@ -25,9 +25,6 @@ public class ContragentController {
     @GetMapping("/contragent")
     public String showContragent(Model model) {
 
-//        Iterable<Contragent> contragents = contragentRepo.findAll();
-//        model.addAttribute("contragents", contragents);
-
         return "contragent";
     }
 
@@ -43,6 +40,6 @@ public class ContragentController {
 
         contragentRepo.save(contragent);
 
-        return "contragent";
+        return "redirect:/contragent";
     }
 }

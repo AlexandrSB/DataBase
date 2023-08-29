@@ -102,12 +102,15 @@ public class ElementController {
         }
         model.addAttribute("elem_destination", elements_source);
 
-        Iterable<Element> elements = elementRepo.findAll();
-        model.addAttribute("elements", elements);
-
         Set<Group> groups = new HashSet<>();
         groups.addAll( groupRepo.findAllByParentId( 0L ));
         model.addAttribute( "nav", groups );
+
+        Iterable<Proxy> proxies_select = proxyRepo.findAll();
+        model.addAttribute("proxies_select", proxies_select);
+
+        Iterable<Proxy> proxies = elem.get().getProxies();
+        model.addAttribute("proxies", proxies);
 
         Iterable<Attribute> attributes = attributeRepo.findAll();
         model.addAttribute( "attributes", attributes );
@@ -123,6 +126,7 @@ public class ElementController {
 
     @PostMapping("add_element")
     public String addElement(
+            @RequestParam( required = false ) String proxy_name,
             @RequestParam String group_name,
             @RequestParam String elementName,
             @RequestParam String description,
@@ -141,54 +145,24 @@ public class ElementController {
         elem.addGroup( group );
         elementRepo.save( elem );
 
-
-        while (group.getId() != 0) {
-            groups_breadcrumb.add( group.getParent() );
-            group = group.getParent();
-        }
-        Collections.reverse( groups_breadcrumb );
-
-        model.addAttribute("nav_breadcrumb", groups_breadcrumb );
-
-        return "element";
+        return "redirect:/element/" + group.getId();
     }
 
     @PostMapping("/view/add_attribute")
     private String addAttribute(
-            @RequestParam String this_proxy,
-            @RequestParam String attribute_name,
-            @RequestParam String attribute_value,
-            @RequestParam String unit_name,
+            @RequestParam String thisElementId,
+            @RequestParam String proxy_name,
             Model model
     ) {
 
-        Optional<Proxy> proxy = proxyRepo.findById(Long.valueOf( this_proxy ));
-        Optional<Attribute> attribute = attributeRepo.findByName(attribute_name);
-        Optional<Unit> unit = unitRepo.findByName(unit_name);
+        Optional<Proxy> proxy = proxyRepo.findByName( proxy_name );
+        Optional<Element> element = elementRepo.findById(
+                Long.valueOf(thisElementId)
+        );
+        element.get().addProxy(proxy.get());
+        elementRepo.save( element.get() );
 
-        AttributeValue attributeValue = new AttributeValue();
-        attributeValue.setName( attribute_value );
-        attributeValue.setProxy( proxy.get() );
-        attributeValue.setAttribute( attribute.get() );
-        attributeValue.setUnit( unit.get() );
-        attributeValueRepo.save( attributeValue );
-
-
-        model.addAttribute( "proxy", proxy.get() );
-
-        Set<Group> groups = new HashSet<>();
-        groups.addAll( groupRepo.findAllByParentId( 0L ));
-        model.addAttribute( "nav", groups );
-
-        Iterable<Attribute> attributes = attributeRepo.findAll();
-        model.addAttribute( "attributes", attributes );
-
-        Iterable<Unit> units = unitRepo.findAll();
-        model.addAttribute( "units", units );
-
-        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
-        model.addAttribute( "attributeValues", attributeValues );
-        return "compView";
+        return "redirect:/element/view/" + thisElementId;
     }
 
     @PostMapping("/view/link_elements")
@@ -209,22 +183,6 @@ public class ElementController {
         elementsComposite.setElement_destination( elementDestination.get() );
         elementsCompositeRepo.save( elementsComposite );
 
-
-        Set<Group> groups = new HashSet<>();
-        groups.addAll( groupRepo.findAllByParentId( 0L ));
-        model.addAttribute( "nav", groups );
-
-        model.addAttribute( "elem", elementSource.get() );
-
-        Iterable<Attribute> attributes = attributeRepo.findAll();
-        model.addAttribute( "attributes", attributes );
-
-        Iterable<Unit> units = unitRepo.findAll();
-        model.addAttribute( "units", units );
-
-        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
-        model.addAttribute( "attributeValues", attributeValues );
-
-        return "compView";
+        return "redirect:/element/view/" + element_source_id;
     }
 }

@@ -19,37 +19,34 @@ VALUES (1, 'Оргтехника', 0);
 
 
 INSERT INTO groups(group_id, group_name, parent_id)
-VALUES (6, 'Мониторы', 0);
+VALUES (6, 'Компьютеры', 0);
 
     INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (14, 'AOC', 6);
+    VALUES (14, 'Мониторы', 6);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (15, 'Envision', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (15, '27"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (16, 'Acer', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (16, '24"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (17, 'Samsung', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (17, '23"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (18, 'Philips', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (18, '22"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (19, 'LG', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (19, '19"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (20, 'Asus', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (20, '17"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (21, 'Lenovo', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (21, '14"', 14);
 
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (22, 'HP', 6);
-
-    INSERT INTO groups(group_id, group_name, parent_id)
-    VALUES (23, 'DNS', 6);
+        INSERT INTO groups(group_id, group_name, parent_id)
+        VALUES (22, '10"', 14);
 
 
 INSERT INTO groups(group_id, group_name, parent_id)

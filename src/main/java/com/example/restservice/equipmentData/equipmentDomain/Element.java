@@ -55,6 +55,19 @@ public class Element {
     )
     private Set<Group> groups = new HashSet<>();
 
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "element_proxy",
+            joinColumns = {
+                    @JoinColumn(name = "element_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "proxy_id")
+            }
+    )
+    private Set<Proxy> proxies = new HashSet<>();
+
 //    @ToString.Exclude
 //    @ManyToMany(cascade = CascadeType.PERSIST)
 //    @JoinTable(
@@ -101,4 +114,8 @@ public class Element {
 //        this.parent = e;
 //        return this;
 //    }
+
+    public void addProxy(Proxy proxy) {
+        this.proxies.add( proxy );
+    }
 }

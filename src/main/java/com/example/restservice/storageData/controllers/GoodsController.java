@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/goods")
 public class GoodsController {
 
     @Autowired
@@ -25,7 +27,7 @@ public class GoodsController {
     @Autowired
     private ConditionRepo conditionRepo;
 
-    @GetMapping("/goods")
+    @GetMapping("/")
     public String showGoods(Model model) {
 
         Iterable<Goods> goods = goodsRepo.findAll();
@@ -58,15 +60,6 @@ public class GoodsController {
 
         goodsRepo.save(gs);
 
-        Iterable<Goods> goods = goodsRepo.findAll();
-        model.addAttribute("goods", goods);
-
-        Iterable<Element> elements = elementRepo.findAll();
-        model.addAttribute("elements", elements);
-
-        Iterable<Condition> conditions = conditionRepo.findAll();
-        model.addAttribute("conditions", conditions);
-
-        return "goods";
+        return "redirect:/goods";
     }
 }

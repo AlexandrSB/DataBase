@@ -24,5 +24,5 @@ public class Firma {
     private Long id;
 
     @Column(name = "firm_name", nullable = false, unique = true)
-    private String firm_name;
+    private String firmName;
 }

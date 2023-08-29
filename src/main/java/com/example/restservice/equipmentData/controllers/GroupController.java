@@ -64,9 +64,6 @@ public class GroupController {
         newGroup.setParent( groupRepo.getById(Long.valueOf(parentGroup)) );
         groupRepo.save( newGroup );
 
-        Iterable<Group> groups = groupRepo.findAll();
-        model.addAttribute("gr", groups);
-
-        return "groups";
+        return "redirect:/groups";
     }
 }

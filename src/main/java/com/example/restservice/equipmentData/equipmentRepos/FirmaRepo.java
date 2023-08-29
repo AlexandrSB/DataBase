@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FirmaRepo extends CrudRepository<Firma, Long> {
+    Firma findByFirmName(String firma);
 }

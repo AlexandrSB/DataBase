@@ -16,3 +16,6 @@ VALUES (4, 'Ширина');
 INSERT INTO attribute(attribute_id, name)
 VALUES (5, 'Длина');
 
+INSERT INTO attribute(attribute_id, name)
+VALUES (6, 'Вес');
+
