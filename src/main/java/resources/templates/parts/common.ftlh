@@ -20,7 +20,7 @@
 
         <main class="content-wrapper">
           <div class="container-fluid">
-            <#include navbar>
+            <#include "navbarEquipment.ftlh">
             <#nested>
           </div>
         </main>

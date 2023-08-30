@@ -19,12 +19,12 @@
         />
 
         <@se.select_element
-        element_name = "proxy"
-        element_id = "proxy"
-        label = "Proxy of component"
-        placeholder = "Proxy Name"
-        elements_array = proxies
-        elements_attr = "name"
+            element_name = "proxy"
+            element_id = "proxy"
+            label = "Proxy of component"
+            placeholder = "Proxy Name"
+            elements_array = proxies
+            elements_attr = "name"
         />
 
 
@@ -56,9 +56,9 @@
     <span>Группы : </span>
     <ul>
         <#list elem.groups as g>
-                <li>
-                    <a href="/element/${g.id}">${g.groupName}</a>
-                </li>
+            <li>
+                <a href="/element/${g.id}">${g.groupName}</a>
+            </li>
         <#else>
             <li>Группы не найдены</li>
         </#list>

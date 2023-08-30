@@ -1,10 +1,7 @@
 package com.example.restservice.storageData.storageDomain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -28,7 +25,11 @@ public class Contragent {
     @Column( name = "description" )
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @ToString.Exclude
+    @OneToMany(
+            mappedBy = "contragent",
+            fetch = FetchType.EAGER
+    )
+
     private Set<GoodsTracking> goodsTrackings;
 }

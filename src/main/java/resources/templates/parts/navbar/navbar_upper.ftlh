@@ -1,5 +1,9 @@
 <li class="nav-item">
-    <a class="nav-link" href="/element/0">Общая</a>
+    <a class="nav-link" href="/element/0">Оборудование</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="/storage">Склад</a>
 </li>
 
 <#if nav??>

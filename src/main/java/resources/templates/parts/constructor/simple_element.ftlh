@@ -20,6 +20,29 @@
 
 </#macro>
 
+<#macro checkbox
+        checkbox_name
+        checkbox_id
+        label
+        checked
+    >
+
+<div class="form-group row justify-content-center ">
+    <label class="col-sm-2 form-check-label" for="${checkbox_name}">
+        ${label} :
+    </label>
+    <div class="col-sm-6">
+        <input class="form-check-input"
+               type="checkbox"
+               name="${checkbox_name}"
+               id="${checkbox_id}"
+               checked = ${checked}
+        />
+    </div>
+</div>
+
+        </#macro>
+
 <#macro select_element
         element_name
         element_id

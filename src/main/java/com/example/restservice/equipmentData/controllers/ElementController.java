@@ -126,7 +126,8 @@ public class ElementController {
 
     @PostMapping("add_element")
     public String addElement(
-            @RequestParam( required = false ) String proxy_name,
+//            @RequestParam( required = false ) String proxy_name,
+            @RequestParam(value = "is_equipment", required = false) String is_equipment,
             @RequestParam String group_name,
             @RequestParam String elementName,
             @RequestParam String description,
@@ -143,6 +144,11 @@ public class ElementController {
         elem.setName( elementName.trim() );
         elem.setDescription( description.trim() );
         elem.addGroup( group );
+        if(is_equipment != null) {
+            elem.setIsEquipment(true);
+        } else {
+            elem.setIsEquipment(false);
+        }
         elementRepo.save( elem );
 
         return "redirect:/element/" + group.getId();

@@ -1,7 +1,3 @@
-<!--<#import "navbarEquipLeftShift.ftlh" as nls>-->
-<!--<#import "navbarEquipCollapse.ftlh" as nec>-->
-<!--<#import "navbarEquipSimple.ftlh" as nes>-->
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="/">My Project</a>
 
@@ -25,10 +21,6 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
-
-      <!-- <@nls.navbar_equip_left_shift /> -->
-      <!-- <@nec.navbar_equip_collapse /> -->
-<!--      <@nes.navbar_equip_simple />-->
 
       <#include "navbar/navbar_upper.ftlh">
 

@@ -26,6 +26,13 @@
 
         <@se.description />
 
+        <@se.checkbox
+            checkbox_name = "is_equipment"
+            checkbox_id = "is_equipment_id"
+            label = "Is Equipment"
+            checked = "unchecked"
+        />
+
         <@se.button_send
             button_name = "Add"
         />
