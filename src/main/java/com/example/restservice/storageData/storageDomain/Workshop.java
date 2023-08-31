@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Data
-public class Storage {
+public class Workshop {
 
     @Id
     @GeneratedValue
@@ -21,9 +21,8 @@ public class Storage {
 
     private String description;
 
-    @OneToMany(mappedBy = "storage")
-    private Set<GoodsTrackingFromContragent> goodsTrackingFromContragents = new HashSet<>();
+    private String notice;
 
-    @OneToMany(mappedBy = "storage")
+    @OneToMany(mappedBy = "workshop")
     private Set<GoodsTrackingFromStorage> goodsTrackingFromStorages = new HashSet<>();
 }

@@ -2,22 +2,20 @@ package com.example.restservice.storageData.storageDomain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor(force = true)
-@Table(name = "barcode", schema = "public")
 public class Quantity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
     private Long id;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    private String dimension;
+
+    private Integer quantityInOne;
 
     @ManyToOne
-    private Dimension dimension;
+    @JoinColumn(name = "quantity_account_id")
+    private QuantityAccount quantityAccount;
 }

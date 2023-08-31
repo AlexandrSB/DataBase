@@ -1,35 +1,28 @@
 package com.example.restservice.storageData.storageDomain;
 
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor(force = true)
-@Table(name = "contragent", schema = "public")
+@NoArgsConstructor
 public class Contragent {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
     private Long id;
 
-    @Column( name = "name" )
     private String name;
 
-    @Column( name = "description" )
     private String description;
 
-    @ToString.Exclude
-    @OneToMany(
-            mappedBy = "contragent",
-            fetch = FetchType.EAGER
-    )
-
-    private Set<GoodsTracking> goodsTrackings;
+    @OneToMany(mappedBy = "contragent")
+    private Set<GoodsTrackingFromContragent> goodsTracingFromContragentSet = new HashSet<>();
 }

@@ -1,6 +1,8 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
+    <h1>Contragent</h1>
+
     <form action="add_contragent" method="post" id="contrnt">
 
         <div class="form-group row">

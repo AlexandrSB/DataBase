@@ -1,8 +1,8 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
-    <a href="/contragent">Contragent</a>
+    <a href="/storage/contragent">Contragent</a>
     <br>
-    <a href="/goods">Goods</a>
+    <a href="/storage/goods">Goods</a>
 
 </@c.page>

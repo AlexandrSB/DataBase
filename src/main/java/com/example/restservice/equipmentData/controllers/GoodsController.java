@@ -1,9 +1,9 @@
-package com.example.restservice.storageData.controllers;
+package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
-import com.example.restservice.storageData.storageDomain.Goods;
+import com.example.restservice.storageData.storageDomain.Good;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
 import com.example.restservice.storageData.storageRepos.GoodsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/storage/goods")
 public class GoodsController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class GoodsController {
     @GetMapping("/")
     public String showGoods(Model model) {
 
-        Iterable<Goods> goods = goodsRepo.findAll();
+        Iterable<Good> goods = goodsRepo.findAll();
         model.addAttribute("goods", goods);
 
         Iterable<Element> elements = elementRepo.findAll();
@@ -55,7 +55,7 @@ public class GoodsController {
             return "goods";
         }
 
-        Goods gs = new Goods();
+        Good gs = new Good();
         gs.setName( elementRepo.findByName(elem).get().getName().trim() );
 
         goodsRepo.save(gs);

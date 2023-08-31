@@ -1,5 +1,5 @@
-<#import "parts/common.ftlh" as c>
-<#import "parts/description.ftlh" as descr>
+<#import "parts/common.ftlh" as c />
+<#import "parts/constructor/simple_element.ftlh" as se />
 
 <@c.page>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group row">
-            <label for="condition" class="col-sm-2 col-form-label">Element : </label>
+            <label for="condition" class="col-sm-2 col-form-label">Condition : </label>
             <div class="col-sm-6">
                 <select class="form-control" id="model" name="condition">
                 <#if conditions??>
@@ -31,20 +31,6 @@
                     </#list>
                 </#if>
                 </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="inventoryNumber" class="col-sm-2 col-form-label">Inventory number : </label>
-            <div class="col-sm-6">
-                <input
-                        type="text"
-                        name="inventoryNumber"
-                        id="inv_number"
-                        placeholder="Inventory number"
-                        pattern=^[A-Z][0-9]{6.}
-                        class="form-control"
-                >
             </div>
         </div>
 
@@ -62,7 +48,7 @@
             </div>
         </div>
 
-        <@descr.description />
+        <@se.description />
 
         <button class="btn btn-primary my-2" type="submit">Add</button>
     </form>
@@ -73,9 +59,6 @@
                 <tr>
                     <th scope="col">id</th>
                     <th scope="col">name</th>
-                    <th scope="col">inventory number</th>
-                    <th scope="col">barcode</th>
-                    <th scope="col">condition</th>
                 </tr>
             </thead>
             <tbody>
@@ -84,13 +67,6 @@
                         <tr>
                             <td><span>${obj.id}</span></td>
                             <td><span>${obj.name}</span></td>
-                            <td><span>${obj.inventoryNumber!"<none>"}</span></td>
-                            <td><span>${obj.barcode!"<none>"}</span></td>
-                            <#if obj.condition??>
-                                <td><span>${obj.condition.name!"<none>"}</span></td>
-                            <#else>
-                                <td><span>&ltnone&gt<span></td>
-                            </#if>
                         </tr>
                     <#else>
                         <b>No components!</b>

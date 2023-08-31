@@ -49,32 +49,41 @@ public class ElementController {
 
     }
 
+    @GetMapping("/")
+    public String AllElements(Model model) {
+
+        Iterable<Element> elements = elementRepo.findAll();
+        model.addAttribute("elements", elements);
+
+        return "allElement";
+    }
+
     @GetMapping("/{group_id}")
     public String showElements(
-        @PathVariable String group_id,
-        Model model) {
+            @PathVariable String group_id,
+            Model model) {
 
-        Long id = Long.valueOf(Optional.of( group_id ).get());
+        Long id = Long.valueOf(Optional.of(group_id).get());
         Set<Group> groups = new HashSet<>();
         List<Group> groups_breadcrumb = new LinkedList<>();
 
-        Optional<Group> group_optional = groupRepo.findById( id );
+        Optional<Group> group_optional = groupRepo.findById(id);
         Group group = group_optional.get();
 
         if (id != 0) {
-            groups.addAll(groupRepo.findAllByParentId( group.getId() ));
+            groups.addAll(groupRepo.findAllByParentId(group.getId()));
             while (group.getId() != 0) {
-                groups_breadcrumb.add( group.getParent() );
+                groups_breadcrumb.add(group.getParent());
                 group = group.getParent();
             }
-            Collections.reverse( groups_breadcrumb );
+            Collections.reverse(groups_breadcrumb);
         } else {
-            groups.addAll( groupRepo.findAllByParentId( 0L ));
+            groups.addAll(groupRepo.findAllByParentId(0L));
         }
 
-        model.addAttribute("nav_breadcrumb", groups_breadcrumb );
-        model.addAttribute("nav", groups );
-        model.addAttribute("my_group", group_optional.get() );
+        model.addAttribute("nav_breadcrumb", groups_breadcrumb);
+        model.addAttribute("nav", groups);
+        model.addAttribute("my_group", group_optional.get());
 
         return "element";
     }

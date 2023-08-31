@@ -1,16 +1,14 @@
-package com.example.restservice.storageData.controllers;
+package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.storageData.storageDomain.Contragent;
 import com.example.restservice.storageData.storageRepos.ContragentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/storage/contragent")
 public class ContragentController {
 
     @Autowired
@@ -22,7 +20,7 @@ public class ContragentController {
         model.addAttribute("contragents", contragents);
     }
 
-    @GetMapping("/contragent")
+    @GetMapping("/")
     public String showContragent(Model model) {
 
         return "contragent";

@@ -13,11 +13,11 @@ public class MainController {
     private GroupRecursiveRepo groupRecursiveRepo;
 
 
-    @GetMapping({"/element", "/element/**", "/storage", "/storage/**"})
-    public void menyMode(Model model) {
-        model.addAttribute("group", groupRecursiveRepo.findAll());
-//        return "main";
-    }
+//    @GetMapping({"/element", "/element/**", "/storage", "/storage/**"})
+//    public void menyMode(Model model) {
+//        model.addAttribute("group", groupRecursiveRepo.findAll());
+////        return "main";
+//    }
 
     @GetMapping("/")
     public String main(Model model) {

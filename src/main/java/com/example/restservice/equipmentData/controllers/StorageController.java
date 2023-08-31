@@ -1,4 +1,4 @@
-package com.example.restservice.storageData.controllers;
+package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.storageData.storageRepos.StorageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("storage")
+@RequestMapping("/storage")
 public class StorageController {
 
     @Autowired
