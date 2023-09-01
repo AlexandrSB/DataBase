@@ -1,9 +1,6 @@
 package com.example.restservice.storageData.storageDomain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -21,9 +18,9 @@ public class Storage {
 
     private String description;
 
-    @OneToMany(mappedBy = "storage")
+    @OneToMany(mappedBy = "storage", fetch = FetchType.EAGER)
     private Set<GoodsTrackingFromContragent> goodsTrackingFromContragents = new HashSet<>();
 
-    @OneToMany(mappedBy = "storage")
+    @OneToMany(mappedBy = "storage", fetch = FetchType.EAGER)
     private Set<GoodsTrackingFromStorage> goodsTrackingFromStorages = new HashSet<>();
 }

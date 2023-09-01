@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS "public".groups
     group_name character(50) NOT NULL,
     parent_id  bigint NULL,
     CONSTRAINT PK_groups PRIMARY KEY ( group_id ),
-    CONSTRAINT FK_10_1 FOREIGN KEY ( parent_id ) REFERENCES "public".groups ( group_id )
+    CONSTRAINT FK_10_1 FOREIGN KEY ( parent_id )
+        REFERENCES "public".groups ( group_id )
 );
 
     CREATE INDEX IF NOT EXISTS FK_Index_parentID ON "public".groups
@@ -48,6 +49,26 @@ CREATE TABLE IF NOT EXISTS "public".groups
     ALTER SEQUENCE public.groups_seq
         OWNER TO admin;
 
+
+CREATE TABLE IF NOT EXISTS "public".element_type
+(
+    id bigint NOT NULL,
+    type character(50) NOT NULL,
+    CONSTRAINT PK_element_type_id PRIMARY KEY ( id )
+);
+
+    CREATE SEQUENCE IF NOT EXISTS public.element_type_seq
+        INCREMENT 50
+        START 1
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        CACHE 1;
+    --    OWNED BY element.element_id;
+
+    ALTER SEQUENCE public.element_type_seq
+        OWNER TO admin;
+
+
 CREATE TABLE IF NOT EXISTS "public".element
 (
     element_id  bigint NOT NULL,
@@ -55,10 +76,13 @@ CREATE TABLE IF NOT EXISTS "public".element
     description character(800) NULL,
     parent_id   bigint NULL,
     is_equipment boolean DEFAULT FALSE,
+    element_type_id bigint NOT NULL,
     CONSTRAINT PK_component PRIMARY KEY ( element_id ),
     CONSTRAINT unique_component_name_constraint UNIQUE ( name ),
     CONSTRAINT FK_parent_id FOREIGN KEY ( parent_id )
-        REFERENCES "public".element ( element_id )
+        REFERENCES "public".element ( element_id ),
+    CONSTRAINT FK_element_id FOREIGN KEY ( element_type_id )
+        REFERENCES "public".element_type ( id )
 );
 
     CREATE INDEX IF NOT EXISTS FK_2 ON "public".element
@@ -82,13 +106,16 @@ CREATE TABLE IF NOT EXISTS "public".element
         OWNER TO admin;
 
 
+
 CREATE TABLE IF NOT EXISTS "public".element_groups
 (
     element_id bigint NULL,
     group_id   bigint NULL,
     CONSTRAINT PK_element_groups PRIMARY KEY ( element_id, group_id ),
-    CONSTRAINT FK_11 FOREIGN KEY ( element_id ) REFERENCES "public"."element" ( element_id ),
-    CONSTRAINT FK_12 FOREIGN KEY ( group_id ) REFERENCES "public".groups ( group_id )
+    CONSTRAINT FK_11 FOREIGN KEY ( element_id )
+        REFERENCES "public"."element" ( element_id ),
+    CONSTRAINT FK_12 FOREIGN KEY ( group_id )
+        REFERENCES "public".groups ( group_id )
 );
 
     CREATE INDEX IF NOT EXISTS FK_Index_elementID

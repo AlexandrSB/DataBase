@@ -1,9 +1,6 @@
 package com.example.restservice.storageData.storageDomain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -11,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "workshop", schema = "public")
 public class Workshop {
 
     @Id

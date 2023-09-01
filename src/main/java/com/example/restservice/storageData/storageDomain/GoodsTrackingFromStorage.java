@@ -5,10 +5,15 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "goods_tracking_from_storage", schema = "public")
 public class GoodsTrackingFromStorage {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_of_goods_movement")
+    private TypeOfGoodsMovement typeOfGoodsMovement;
 
     @OneToOne(mappedBy = "goodsTrackingFromStorage", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

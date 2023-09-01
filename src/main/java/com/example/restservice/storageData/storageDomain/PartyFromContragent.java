@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "party_from_contragent", schema = "public")
 public class PartyFromContragent {
 
     @Id

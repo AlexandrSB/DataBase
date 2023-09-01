@@ -4,5 +4,7 @@
     <a href="/storage/contragent">Contragent</a>
     <br>
     <a href="/storage/goods">Goods</a>
+    <br>
+    <a href="/storage/storage">Storage</a>
 
 </@c.page>

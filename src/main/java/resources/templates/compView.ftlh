@@ -27,7 +27,6 @@
             elements_attr = "name"
         />
 
-
         <@se.button_send
             button_name = "Add equipment"
         />

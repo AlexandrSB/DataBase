@@ -1,9 +1,9 @@
 <li class="nav-item">
-    <a class="nav-link" href="/element/0">Оборудование</a>
+    <a class="nav-link" href="/storage">Склад</a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="/storage">Склад</a>
+    <a class="nav-link" href="/element/0">Оборудование</a>
 </li>
 
 <#if nav??>

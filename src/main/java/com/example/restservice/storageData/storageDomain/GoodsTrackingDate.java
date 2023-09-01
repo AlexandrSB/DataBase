@@ -1,9 +1,6 @@
 package com.example.restservice.storageData.storageDomain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "goods_tracking_date", schema = "public")
 public class GoodsTrackingDate {
 
     @Id
@@ -20,6 +18,7 @@ public class GoodsTrackingDate {
     private Long id;
 
     @CreationTimestamp
+    @Column(name = "created_on")
     private ZonedDateTime createdOn;
 
     @OneToMany(mappedBy = "goodsTrackingDate")

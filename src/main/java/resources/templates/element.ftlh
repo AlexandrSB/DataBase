@@ -24,6 +24,14 @@
                 placeholder = "Component Name"
         />
 
+        <@se.select_element
+            element_name = "element_type"
+            element_id = "element_type_id"
+            label = "Type"
+            placeholder = "Input element type"
+            elements_array = elements_type
+            elements_attr = "type"
+        />
         <@se.description />
 
         <@se.checkbox

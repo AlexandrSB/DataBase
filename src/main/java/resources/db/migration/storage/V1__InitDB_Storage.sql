@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS public.contragent
 (
     id bigint NOT NULL,
     description character varying(255) COLLATE pg_catalog."default",
-    name character varying(255) COLLATE pg_catalog."default",
+    name character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT contragent_pkey PRIMARY KEY (id)
 );
 
@@ -17,8 +17,15 @@ CREATE TABLE IF NOT EXISTS public.contragent
 CREATE TABLE IF NOT EXISTS public.equipment
 (
     id bigint NOT NULL,
-    inventory_number character varying(255) COLLATE pg_catalog."default",
+    inventory_number character varying(15) COLLATE pg_catalog."default",
     CONSTRAINT equipment_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.condition
+(
+    id bigint NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT condition_pkey PRIMARY KEY (id)
 );
 
 -- Table: public.good
@@ -28,8 +35,14 @@ CREATE TABLE IF NOT EXISTS public.equipment
 CREATE TABLE IF NOT EXISTS public.good
 (
     id bigint NOT NULL,
-    name character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT good_pkey PRIMARY KEY (id)
+    name character varying(50) COLLATE pg_catalog."default",
+    external_equip_id bigint NOT NULL,
+    condition_id bigint NOT NULL,
+    CONSTRAINT good_pkey PRIMARY KEY (id),
+    CONSTRAINT FK_condition_good FOREIGN KEY ( condition_id)
+        REFERENCES "public".condition ( id ) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 -- Table: public.good_equip
@@ -71,18 +84,29 @@ CREATE TABLE IF NOT EXISTS public.storage
 (
     id bigint NOT NULL,
     description character varying(255) COLLATE pg_catalog."default",
-    name character varying(255) COLLATE pg_catalog."default",
+    name character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT storage_pkey PRIMARY KEY (id)
 );
 
--- Table: public.goods_tracking_from_contragent
+-- Table: public.workshop
+-- DROP TABLE IF EXISTS public.workshop;
 
+CREATE TABLE IF NOT EXISTS public.workshop
+(
+    id bigint NOT NULL,
+    description character varying(255) COLLATE pg_catalog."default",
+    name character varying(50) COLLATE pg_catalog."default",
+    notice character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT workshop_pkey PRIMARY KEY (id)
+);
+
+-- Table: public.goods_tracking_from_contragent
 -- DROP TABLE IF EXISTS public.goods_tracking_from_contragent;
 
 CREATE TABLE IF NOT EXISTS public.goods_tracking_from_contragent
 (
     id bigint NOT NULL,
-    type_of_goods_movement character varying(255) COLLATE pg_catalog."default",
+    type_of_goods_movement character varying(50) COLLATE pg_catalog."default",
     contragent_id bigint,
     goods_tracking_date_id bigint,
     storage_id bigint,
@@ -99,20 +123,8 @@ CREATE TABLE IF NOT EXISTS public.goods_tracking_from_contragent
         REFERENCES public.goods_tracking_date (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT goods_tracking_from_contragent_type_of_goods_movement_check CHECK (type_of_goods_movement::text = ANY (ARRAY['ARRIVAL'::character varying, 'EXPENSE'::character varying]::text[]))
-);
-
--- Table: public.workshop
-
--- DROP TABLE IF EXISTS public.workshop;
-
-CREATE TABLE IF NOT EXISTS public.workshop
-(
-    id bigint NOT NULL,
-    description character varying(255) COLLATE pg_catalog."default",
-    name character varying(255) COLLATE pg_catalog."default",
-    notice character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT workshop_pkey PRIMARY KEY (id)
+    CONSTRAINT goods_tracking_from_contragent_type_of_goods_movement_check
+        CHECK (type_of_goods_movement::text = ANY (ARRAY['ARRIVAL'::character varying, 'EXPENSE'::character varying]::text[]))
 );
 
 -- Table: public.goods_tracking_from_storage
@@ -122,6 +134,7 @@ CREATE TABLE IF NOT EXISTS public.workshop
 CREATE TABLE IF NOT EXISTS public.goods_tracking_from_storage
 (
     id bigint NOT NULL,
+    type_of_goods_movement character varying(50) COLLATE pg_catalog."default",
     goods_tracking_date_id bigint,
     storage_id bigint,
     workshop_id bigint,
@@ -137,7 +150,9 @@ CREATE TABLE IF NOT EXISTS public.goods_tracking_from_storage
     CONSTRAINT fkg3p284y64j9n89f51wg4146w2 FOREIGN KEY (storage_id)
         REFERENCES public.storage (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT goods_tracking_from_storage_type_of_goods_movement_check
+        CHECK (type_of_goods_movement::text = ANY (ARRAY['ARRIVAL'::character varying, 'EXPENSE'::character varying]::text[]))
 );
 
 -- Table: public.quantity_account
@@ -182,7 +197,6 @@ CREATE TABLE IF NOT EXISTS public.party_from_contragent
 CREATE TABLE IF NOT EXISTS public.party_from_storage
 (
     id bigint NOT NULL,
-    type_of_goods_movement character varying(255) COLLATE pg_catalog."default",
     good_id bigint,
     quantity_account bigint,
     CONSTRAINT party_from_storage_pkey PRIMARY KEY (id),
@@ -197,8 +211,7 @@ CREATE TABLE IF NOT EXISTS public.party_from_storage
     CONSTRAINT fkmcwlkcag4tuk8npjkvkg63vfh FOREIGN KEY (quantity_account)
         REFERENCES public.quantity_account (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT party_from_storage_type_of_goods_movement_check CHECK (type_of_goods_movement::text = ANY (ARRAY['ARRIVAL'::character varying, 'EXPENSE'::character varying]::text[]))
+        ON DELETE NO ACTION
 );
 
 -- Table: public.quantity
@@ -208,7 +221,7 @@ CREATE TABLE IF NOT EXISTS public.party_from_storage
 CREATE TABLE IF NOT EXISTS public.quantity
 (
     id bigint NOT NULL,
-    dimension character varying(255) COLLATE pg_catalog."default",
+    dimension character varying(25) COLLATE pg_catalog."default",
     quantity_in_one integer,
     quantity_account_id bigint,
     CONSTRAINT quantity_pkey PRIMARY KEY (id),
@@ -216,13 +229,6 @@ CREATE TABLE IF NOT EXISTS public.quantity
         REFERENCES public.quantity_account (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-);
-
-CREATE TABLE IF NOT EXISTS public.condition
-(
-    id bigint NOT NULL,
-    name character varying(50) COLLATE pg_catalog."default",
-    CONSTRAINT condition_pkey PRIMARY KEY (id)
 );
 
 

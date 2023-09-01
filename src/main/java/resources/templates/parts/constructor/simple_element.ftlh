@@ -1,3 +1,7 @@
+<#macro header_1 title >
+    <h1 class="text-center">${title}</h1>
+</#macro>
+
 <#macro input_element
         element_name
         element_id

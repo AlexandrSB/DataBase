@@ -1,4 +1,4 @@
-package com.example.restservice.equipmentData.controllers;
+package com.example.restservice.storageData.controllers;
 
 import com.example.restservice.storageData.storageDomain.Contragent;
 import com.example.restservice.storageData.storageRepos.ContragentRepo;
@@ -20,24 +20,27 @@ public class ContragentController {
         model.addAttribute("contragents", contragents);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String showContragent(Model model) {
+
+        Iterable<Contragent> contragents = contragentRepo.findAll();
+        model.addAttribute("contragents", contragents );
 
         return "contragent";
     }
 
     @PostMapping("add_contragent")
     public String addContragent(
-            @RequestParam String name,
+            @RequestParam String contragent_name,
             @RequestParam String description
             ) {
 
         Contragent contragent = new Contragent();
-        contragent.setName(name);
+        contragent.setName(contragent_name);
         contragent.setDescription(description);
 
         contragentRepo.save(contragent);
 
-        return "redirect:/contragent";
+        return "redirect:/storage/contragent";
     }
 }

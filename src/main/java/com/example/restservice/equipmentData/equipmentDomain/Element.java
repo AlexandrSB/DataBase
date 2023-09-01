@@ -35,6 +35,11 @@ public class Element {
     private Element parent;
 
     @ToString.Exclude
+    @ManyToOne
+    @JoinColumn( name = "element_type_id" )
+    private ElementType elementType;
+
+    @ToString.Exclude
     @OneToMany(mappedBy = "element_source")
     private Set<ElementsComposite> elementsSource = new HashSet<>();
 

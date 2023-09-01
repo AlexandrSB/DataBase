@@ -5,14 +5,12 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name="party_from_storage", schema = "public")
 public class PartyFromStorage {
 
     @Id
     @GeneratedValue
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    private TypeOfGoodsMovement typeOfGoodsMovement;
 
     @OneToOne
     @MapsId

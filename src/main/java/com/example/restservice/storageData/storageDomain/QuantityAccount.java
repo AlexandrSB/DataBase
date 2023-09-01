@@ -1,9 +1,6 @@
 package com.example.restservice.storageData.storageDomain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -11,12 +8,14 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "quantity_account", schema = "public")
 public class QuantityAccount {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(name = "quantity")
     private Integer quantity;
 
     @OneToMany(mappedBy = "quantityAccount")

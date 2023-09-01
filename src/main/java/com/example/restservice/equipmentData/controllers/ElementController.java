@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 @Controller
@@ -38,6 +37,9 @@ public class ElementController {
     @Autowired
     private ProxyRepo proxyRepo;
 
+    @Autowired
+    private ElementTypeRepo elementTypeRepo;
+
 
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -49,13 +51,13 @@ public class ElementController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String AllElements(Model model) {
 
         Iterable<Element> elements = elementRepo.findAll();
         model.addAttribute("elements", elements);
 
-        return "allElement";
+        return "allElements";
     }
 
     @GetMapping("/{group_id}")
@@ -80,6 +82,9 @@ public class ElementController {
         } else {
             groups.addAll(groupRepo.findAllByParentId(0L));
         }
+
+        Iterable<ElementType> elementTypes = elementTypeRepo.findAll();
+        model.addAttribute("elements_type", elementTypes);
 
         model.addAttribute("nav_breadcrumb", groups_breadcrumb);
         model.addAttribute("nav", groups);
@@ -140,9 +145,12 @@ public class ElementController {
             @RequestParam String group_name,
             @RequestParam String elementName,
             @RequestParam String description,
+            @RequestParam String element_type,
             Model model) {
 
         List<Group> groups_breadcrumb = new LinkedList<>();
+
+        ElementType elementType = elementTypeRepo.findByType(element_type).get();
 
         Group group = Optional.ofNullable(
                 groupRepo.findByGroupName(group_name).get(0)
@@ -153,6 +161,7 @@ public class ElementController {
         elem.setName( elementName.trim() );
         elem.setDescription( description.trim() );
         elem.addGroup( group );
+        elem.setElementType( elementType );
         if(is_equipment != null) {
             elem.setIsEquipment(true);
         } else {

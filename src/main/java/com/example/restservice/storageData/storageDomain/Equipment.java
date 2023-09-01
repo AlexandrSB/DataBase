@@ -1,19 +1,19 @@
 package com.example.restservice.storageData.storageDomain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "equipment", schema = "public")
 public class Equipment {
 
     @Id
-    @GeneratedValue
     private Long id;
 
+    @Size(min = 6)
+    @Column(name = "inventory_number")
     private String inventoryNumber;
 
     @OneToOne(mappedBy = "equipment")

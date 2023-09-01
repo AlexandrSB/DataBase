@@ -8,13 +8,18 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "good", schema = "public")
 public class Good {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "external_equip_id")
+    private Long external_equip_id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(
@@ -28,6 +33,10 @@ public class Good {
     )
     private Equipment equipment;
 
-    @OneToMany(mappedBy = "good")
+    @OneToMany(mappedBy = "good", fetch = FetchType.EAGER)
     private Set<PartyFromContragent> parties = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "condition_id")
+    private Condition condition;
 }
