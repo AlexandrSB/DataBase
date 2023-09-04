@@ -2,12 +2,8 @@ package com.example.restservice.storageData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
-import com.example.restservice.storageData.storageDomain.Condition;
-import com.example.restservice.storageData.storageDomain.Equipment;
-import com.example.restservice.storageData.storageDomain.Good;
-import com.example.restservice.storageData.storageRepos.ConditionRepo;
-import com.example.restservice.storageData.storageRepos.EquipmentRepo;
-import com.example.restservice.storageData.storageRepos.GoodsRepo;
+import com.example.restservice.storageData.storageDomain.*;
+import com.example.restservice.storageData.storageRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
-@RequestMapping("/storage/goods")
+@RequestMapping("/storage")
 public class GoodsController {
 
     @Autowired
@@ -36,7 +30,21 @@ public class GoodsController {
     @Autowired
     private EquipmentRepo equipmentRepo;
 
-    @GetMapping
+    @Autowired
+    private ContragentRepo contragentRepo;
+
+    @Autowired
+    private StorageRepo storageRepo;
+
+    @Autowired
+    private WorkshopRepo workshopRepo;
+
+    @Autowired
+    private QuantityAccountRepo quantityAccountRepo;
+
+
+
+    @GetMapping("/goods")
     public String showGoods(Model model) {
 
         Iterable<Good> goods = goodsRepo.findAll();
@@ -49,6 +57,7 @@ public class GoodsController {
         model.addAttribute("conditions", conditions);
 
         Map<String, String> mapOfGoods = new HashMap<>();
+        List<Map<String, String>> listOfGoods = new ArrayList<>();
         String elem_type;
         Optional<String> gd_elem;
 
@@ -64,12 +73,52 @@ public class GoodsController {
 
 
             mapOfGoods.put("type", gd_elem.orElse("none"));
+            listOfGoods.add(mapOfGoods);
 
         }
-
         model.addAttribute("mapOfGoods", mapOfGoods );
 
         return "goods";
+    }
+
+    @GetMapping("/arrival")
+    public String arrivalGoods(
+            Model model
+    ) {
+
+        Iterable<Good> goods = goodsRepo.findAll();
+        model.addAttribute("goods", goods);
+
+        Iterable<Contragent> contragents = contragentRepo.findAll();
+        model.addAttribute("contragents", contragents);
+
+        Iterable<Storage> storages = storageRepo.findAll();
+        model.addAttribute("storages", storages);
+
+        Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
+        model.addAttribute("quantities", quantityAccount );
+
+        return "arrival";
+    }
+
+    @GetMapping("/expense")
+    public String expenseGoods(
+            Model model
+    ) {
+
+        Iterable<Good> goods = goodsRepo.findAll();
+        model.addAttribute("goods", goods);
+
+        Iterable<Workshop> workshops = workshopRepo.findAll();
+        model.addAttribute("workshops", workshops);
+
+        Iterable<Storage> storages = storageRepo.findAll();
+        model.addAttribute("storages", storages);
+
+        Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
+        model.addAttribute("quantities", quantityAccount );
+
+        return "expense";
     }
 
     @PostMapping("add_goods")

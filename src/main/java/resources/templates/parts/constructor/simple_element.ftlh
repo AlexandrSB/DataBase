@@ -15,8 +15,8 @@
             <input
                 class="form-control"
                 type="text"
-                name="${element_name}"
-                placeholder="${placeholder}"
+                name="${element_name!none}"
+                placeholder="${placeholder!none}"
                 pattern="{5,}"
                 id="${element_id}" />
         </div>
@@ -60,14 +60,18 @@
         <label for="${element_name}" class="col-sm-2 col-form-label">${label} : </label>
         <div class="col-sm-6">
             <select class="form-control" id="${element_id}" name="${element_name}">
-                <#list elements_array as e>
-                    <#if elements_attr == "">
-                        <option>${e}</option>
-                    <#else>
-                        <#assign el = e?keys?seq_index_of(elements_attr)>
-                        <option>${e?values[el]}</option>
-                    </#if>
-                </#list>
+                <#if elements_array??>
+                    <#list elements_array as e>
+                        <#if elements_attr == "">
+                            <option>${e!none}</option>
+                    <#else />
+                            <#assign el = e?keys?seq_index_of(elements_attr)>
+                            <option>${(e?values[el])!none}</option>
+                        </#if>
+                    </#list>
+                <#else />
+                    &ltnone&gt
+                </#if>
             </select>
         </div>
     </div>

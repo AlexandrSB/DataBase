@@ -8,7 +8,7 @@
         title = "Товары"
     />
 
-    <form action="/storage/goods/add_goods" method="post" id="equip">
+    <form action="/storage/add_goods" method="post" id="equip">
 
         <@se.select_element
             element_name = "element_name"
@@ -52,9 +52,9 @@
 
 
     <@ce.table_element
-            table_head = ["id", "Name", "Condition", "Type"]
-            table_body = mapOfGoods
-            table_columns = ["id", "name", "condition", "type"]
+            table_head = ["id", "Name", "Condition"]
+            table_body = goods
+            table_columns = ["id", "name", "condition"]
     />
 
 </@c.page>
