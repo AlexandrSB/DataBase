@@ -61,13 +61,13 @@ public class GoodsController {
         String elem_type;
         Optional<String> gd_elem;
 
-        for ( Good dg : goods ) {
-            mapOfGoods.put("id", String.valueOf(dg.getId()));
-            mapOfGoods.put("name", dg.getName());
-            mapOfGoods.put("condition", dg.getCondition().getName());
+        for ( Good good : goods ) {
+            mapOfGoods.put("id", String.valueOf(good.getId()));
+            mapOfGoods.put("name", good.getName());
+            mapOfGoods.put("condition", good.getCondition().getName());
             gd_elem = Optional.ofNullable(elementRepo.findById(
                     Long.valueOf(
-                            dg.getExternal_equip_id()
+                            good.getExternalEquipId()
                     )
             ).get().getElementType().getType());
 
@@ -144,7 +144,7 @@ public class GoodsController {
 
         Good good = new Good();
         good.setName( element.getName() );
-        good.setExternal_equip_id( element.getId() );
+        good.setExternalEquipId( element.getId() );
         good.setCondition( condition );
         goodsRepo.save(good);
 

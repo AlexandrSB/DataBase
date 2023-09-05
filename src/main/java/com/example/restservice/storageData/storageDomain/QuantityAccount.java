@@ -22,8 +22,5 @@ public class QuantityAccount {
     private Set<Quantity> quantities = new HashSet<>();
 
     @OneToMany(mappedBy = "quantityAccount")
-    private Set<PartyFromContragent> partyFromContragents = new HashSet<>();
-
-    @OneToMany(mappedBy = "quantityAccount")
-    private Set<PartyFromStorage> partyFromStorages = new HashSet<>();
+    private Set<Party> party = new HashSet<>();
 }

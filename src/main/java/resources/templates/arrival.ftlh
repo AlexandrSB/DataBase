@@ -10,31 +10,6 @@
         title = "Приход товара"
     />
 
-    <@fm.form_button
-        id = "form_add_to_party_id"
-        action = "addToParty"
-        method = "put"
-        button_name = "Add to party">
-
-        <@se.select_element
-            element_name = "good_name"
-            element_id = "good_name_id"
-            label = "Good"
-            placeholder = "Insert good name"
-            elements_array = goods
-            elements_attr = "name"
-        />
-
-        <@se.select_element
-            element_name = "quantity"
-            element_id = "quantity_id"
-            label = "Quantity"
-            placeholder = "Insert quantity"
-            elements_array = quantities
-            elements_attr = "quantity"
-        />
-    </@fm.form_button>
-
     <@ce.table_input
         table_head = ["Name", "Condition"]
     >

@@ -3,10 +3,14 @@ package com.example.restservice.storageData.storageDomain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
-@Table(name = "goods_tracking_from_storage", schema = "public")
+@Table(name = "goods_tracking_from_storage")
 public class GoodsTrackingFromStorage {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -15,9 +19,8 @@ public class GoodsTrackingFromStorage {
     @Column(name = "type_of_goods_movement")
     private TypeOfGoodsMovement typeOfGoodsMovement;
 
-    @OneToOne(mappedBy = "goodsTrackingFromStorage", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private PartyFromStorage partyFromStorage;
+    @OneToMany(mappedBy = "goodsTrackingFromStorage")
+    private Set<Party> parties = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "storage_id")

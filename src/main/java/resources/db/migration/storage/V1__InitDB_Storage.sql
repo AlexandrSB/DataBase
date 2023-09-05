@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS public.good
 (
     id bigint NOT NULL,
     name character varying(50) COLLATE pg_catalog."default",
+    proxy_id bigint NULL,
     external_equip_id bigint NOT NULL,
     condition_id bigint NOT NULL,
     CONSTRAINT good_pkey PRIMARY KEY (id),
@@ -166,53 +167,51 @@ CREATE TABLE IF NOT EXISTS public.quantity_account
     CONSTRAINT quantity_account_pkey PRIMARY KEY (id)
 );
 
--- Table: public.party_from_contragent
+-- Table: public.party
 
--- DROP TABLE IF EXISTS public.party_from_contragent;
+-- DROP TABLE IF EXISTS public.party;
 
-CREATE TABLE IF NOT EXISTS public.party_from_contragent
+CREATE TABLE IF NOT EXISTS public.party
 (
     id bigint NOT NULL,
-    good_id bigint,
-    quantity_account bigint,
-    CONSTRAINT party_from_contragent_pkey PRIMARY KEY (id),
-    CONSTRAINT fk2xonxu7qjnq98exrsyh8s2chs FOREIGN KEY (quantity_account)
+    name character varying(255) COLLATE pg_catalog."default",
+    goods_tracking_from_contragent_id bigint,
+    goods_tracking_from_storage_id bigint,
+    quantity_id bigint,
+    CONSTRAINT party_pkey PRIMARY KEY (id),
+    CONSTRAINT fkojaxlphr18snidg9m2aaxsxik FOREIGN KEY (quantity_id)
         REFERENCES public.quantity_account (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fkcmm8nkb2em4pjxnfg33iu8xxf FOREIGN KEY (id)
-        REFERENCES public.goods_tracking_from_contragent (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fkno7sec1378smteqtgilfcjgnj FOREIGN KEY (good_id)
-        REFERENCES public.good (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
--- Table: public.party_from_storage
-
--- DROP TABLE IF EXISTS public.party_from_storage;
-
-CREATE TABLE IF NOT EXISTS public.party_from_storage
-(
-    id bigint NOT NULL,
-    good_id bigint,
-    quantity_account bigint,
-    CONSTRAINT party_from_storage_pkey PRIMARY KEY (id),
-    CONSTRAINT fkilxo49xq77yssgfnttkqhh9l5 FOREIGN KEY (good_id)
-        REFERENCES public.good (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fkim5pwh35c0361xwhaqgoi1qok FOREIGN KEY (id)
+    CONSTRAINT fkabvi5brfdm2koepxnj96ppm4u FOREIGN KEY (goods_tracking_from_storage_id)
         REFERENCES public.goods_tracking_from_storage (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fkmcwlkcag4tuk8npjkvkg63vfh FOREIGN KEY (quantity_account)
-        REFERENCES public.quantity_account (id) MATCH SIMPLE
+    CONSTRAINT fks80bbx2j7wvegopgixw5sp37n FOREIGN KEY (goods_tracking_from_contragent_id)
+        REFERENCES public.goods_tracking_from_contragent (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
+
+-- Table: public.good_party_from_contragent
+
+-- DROP TABLE IF EXISTS public.good_party_from_contragent;
+
+CREATE TABLE IF NOT EXISTS public.goods_party
+(
+    good_id bigint NOT NULL,
+    party_id bigint NOT NULL,
+    CONSTRAINT good_party_from_contragent_pkey PRIMARY KEY (good_id, party_id),
+    CONSTRAINT fk5fkus1m8whmmflxnt6y5emi5a FOREIGN KEY (party_id)
+        REFERENCES public.party (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkiqbiuaqvapdabsorcosvpes9f FOREIGN KEY (good_id)
+        REFERENCES public.good (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
 
 -- Table: public.quantity
 
@@ -230,8 +229,6 @@ CREATE TABLE IF NOT EXISTS public.quantity
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
-
-
 
 -- Constraint: fk6d47h4u69brjwaqpc6r3bes37
 
@@ -465,33 +462,6 @@ CREATE SEQUENCE IF NOT EXISTS public.goods_tracking_from_storage_seq
 ALTER SEQUENCE public.goods_tracking_from_storage_seq
     OWNER TO admin;
 
--- SEQUENCE: public.party_from_contragent_seq
-
--- DROP SEQUENCE IF EXISTS public.party_from_contragent_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.party_from_contragent_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.party_from_contragent_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.party_from_storage_seq
-
--- DROP SEQUENCE IF EXISTS public.party_from_storage_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.party_from_storage_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.party_from_storage_seq
-    OWNER TO admin;
 
 -- SEQUENCE: public.party_seq
 

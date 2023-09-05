@@ -1,0 +1,61 @@
+<#import "parts/common.ftlh" as c />
+<#import "parts/constructor/simple_element.ftlh" as se />
+<#import "parts/constructor/composite_element.ftlh" as ce />
+<#import "parts/constructor/forms.ftlh" as fm>
+
+
+
+<@c.page>
+
+    <@se.header_1
+        title = "Формирование партии товара
+        от контрагента на склад"
+    />
+
+    <@fm.form_button
+            id = "form_add_to_party_id"
+            action = "addToParty"
+            method = "put"
+            button_name = "Add to party">
+
+        <@se.select_element
+            element_name = "good_name"
+            element_id = "good_name_id"
+            label = "Good"
+            placeholder = "Insert good name"
+            elements_array = goods
+            elements_attr = "name"
+        />
+
+        <@se.select_element
+            element_name = "quantity_dimension"
+            element_id = "quantity_dimension_id"
+            label = "Dimension"
+            placeholder = "Insert dimension"
+            elements_array = quantities
+            elements_attr = "dimension"
+        />
+
+        <@se.input_element
+            element_name = "quantity"
+            element_id = "quantity_id"
+            label = "Quantity"
+            placeholder = "Input goods quantity"
+        />
+    </@fm.form_button>
+
+    <@ce.table_input
+            table_head = ["Id", "Good", "Dimension", "Quantity"]
+        >
+        <#list partyFromContragents as pfc>
+            <tr>
+                <td>${(pfc.id)!none}</td>
+                <td>${(pfc.good)!none}</td>
+            </tr>
+        </#list>
+    </@ce.table_input>
+
+
+
+
+        </@c.page>

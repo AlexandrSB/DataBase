@@ -2,24 +2,30 @@ package com.example.restservice.storageData.storageDomain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "good", schema = "public")
+@NoArgsConstructor(force = true)
 public class Good {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private final Long id;
 
-    @Column(name = "name")
     private String name;
 
+    private String proxy_id;
+
     @Column(name = "external_equip_id")
-    private Long external_equip_id;
+    private Long externalEquipId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "condition_id")
+    private Condition condition;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(
@@ -33,10 +39,19 @@ public class Good {
     )
     private Equipment equipment;
 
-    @OneToMany(mappedBy = "good", fetch = FetchType.EAGER)
-    private Set<PartyFromContragent> parties = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "condition_id")
-    private Condition condition;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "goods_party",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "good_id"
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "party_id"
+                    )
+            }
+    )
+    private Set<Party> parties = new HashSet<>();
 }

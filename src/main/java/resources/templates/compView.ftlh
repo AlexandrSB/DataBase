@@ -3,7 +3,7 @@
 
 <@c.page>
 
-    <h1 class="text-center">${elem.name}</h1>
+    <@se.header_1 title = elem.name />
 
     <form action="link_elements" method="post" id="link_elements">
 

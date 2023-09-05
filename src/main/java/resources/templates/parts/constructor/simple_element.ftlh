@@ -57,20 +57,24 @@
     >
 
     <div class="form-group row justify-content-center">
-        <label for="${element_name}" class="col-sm-2 col-form-label">${label} : </label>
+        <label for=${element_name!"default"} class="col-sm-2 col-form-label">${label} : </label>
         <div class="col-sm-6">
-            <select class="form-control" id="${element_id}" name="${element_name}">
+            <select class="form-control" id=${element_id!"default_id"} name=${element_name!"default_name"}>
                 <#if elements_array??>
                     <#list elements_array as e>
                         <#if elements_attr == "">
-                            <option>${e!none}</option>
+                            <option>${e!"none"}</option>
                     <#else />
-                            <#assign el = e?keys?seq_index_of(elements_attr)>
-                            <option>${(e?values[el])!none}</option>
+                            <#if e != "none">
+                                <#assign el = e?keys?seq_index_of(elements_attr)>
+                                <option>${(e?values[el])}</option>
+                            <#else>
+                                <option>Null Pointer Exception!</option>
+                            </#if>
                         </#if>
                     </#list>
                 <#else />
-                    &ltnone&gt
+                    <option>&ltnone&gt</option>
                 </#if>
             </select>
         </div>

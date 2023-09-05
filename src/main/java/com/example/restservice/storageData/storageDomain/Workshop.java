@@ -21,6 +21,6 @@ public class Workshop {
 
     private String notice;
 
-    @OneToMany(mappedBy = "workshop")
+    @OneToMany( mappedBy = "workshop", fetch = FetchType.EAGER )
     private Set<GoodsTrackingFromStorage> goodsTrackingFromStorages = new HashSet<>();
 }
