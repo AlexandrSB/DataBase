@@ -15,7 +15,7 @@
     <@fm.form_button
             id = "form_add_to_party_id"
             action = "addToParty"
-            method = "put"
+            method = "post"
             button_name = "Add to party">
 
         <@se.select_element
@@ -24,6 +24,15 @@
             label = "Good"
             placeholder = "Insert good name"
             elements_array = goods
+            elements_attr = "name"
+        />
+
+        <@se.select_element
+            element_name = "proxy_name"
+            element_id = "proxy_name_id"
+            label = "Characteristik"
+            placeholder = "Choise characteristik"
+            elements_array = proxies!["none"]
             elements_attr = "name"
         />
 
@@ -50,7 +59,19 @@
         <#list partyFromContragents as pfc>
             <tr>
                 <td>${(pfc.id)!none}</td>
-                <td>${(pfc.good)!none}</td>
+                <td>
+                    <#list pfc.proxyList as pfl>
+                        <span>${pfl}</span>
+                    </#list>
+                </td>
+                <td>
+                    <#list pfc.quantityAccount as pfq>
+                        <span>${pfq!none}</span>
+                    <#else>
+                        <span>&ltnone&gt</span>
+                    </#list>
+                </td>
+                <td>${pfc.quantityAccount.quantity}</td>
             </tr>
         </#list>
     </@ce.table_input>

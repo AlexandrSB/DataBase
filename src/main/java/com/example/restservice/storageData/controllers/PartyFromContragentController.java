@@ -13,10 +13,7 @@ import com.example.restservice.storageData.storageRepos.QuantityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/storage")
@@ -62,17 +59,40 @@ public class PartyFromContragentController {
         return "contragentsParty";
     }
 
-    @PutMapping("addToParty")
+    @PostMapping("addToParty")
     private String addToParty (
             @RequestParam String good_name,
             @RequestParam String quantity_dimension,
             @RequestParam String quantity,
+            @RequestParam String proxy_name,
             Model model
     ) {
 
         Party party = new Party();
         QuantityAccount quantityAccount = new QuantityAccount();
-        Good good = goodsRepo.findByName( "good_name").get();
+        Quantity dimension = quantityRepo.
+                findByDimension(quantity_dimension)
+                .get();
+        quantityAccount.setQuantity(Integer.valueOf(quantity));
+        quantityAccount.addDimension(dimension);
+        Good good = null;
+        Proxy proxy = null;
+        try {
+            good = goodsRepo.findByName( good_name ).orElseThrow(
+                    () -> new Exception("good not found! " + good_name )
+            );
+            proxy = proxyRepo.findByName( proxy_name ).orElseThrow(
+                    () -> new Exception("proxy not found! " + proxy_name)
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        quantityAccount.addParty(party);
+        quantityAccountRepo.save(quantityAccount);
+        party.addProxy(proxy.getName());
+        party.addGood(good);
+
+        partyRepo.save(party);
 
         return "redirect:/storage/contragents_party";
     }

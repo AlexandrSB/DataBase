@@ -18,9 +18,21 @@ public class QuantityAccount {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToMany(mappedBy = "quantityAccount")
+    @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.EAGER)
     private Set<Quantity> quantities = new HashSet<>();
 
-    @OneToMany(mappedBy = "quantityAccount")
-    private Set<Party> party = new HashSet<>();
+    @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.EAGER)
+    private Set<Party> parties = new HashSet<>();
+
+    public Set<Quantity> addDimension(Quantity quantity) {
+        this.quantities.add(quantity);
+
+        return this.quantities;
+    }
+
+    public Set<Party> addParty(Party party) {
+        this.parties.add(party);
+
+        return this.parties;
+    }
 }

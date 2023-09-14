@@ -1,7 +1,9 @@
 package com.example.restservice.storageData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
+import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.*;
 import com.example.restservice.storageData.storageRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class GoodsController {
 
     @Autowired
     private QuantityAccountRepo quantityAccountRepo;
+
+    @Autowired
+    private ProxyRepo proxyRepo;
 
 
 
@@ -98,6 +103,9 @@ public class GoodsController {
         Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
         model.addAttribute("quantities", quantityAccount );
 
+        Iterable<Proxy> proxies = proxyRepo.findAll();
+        model.addAttribute("proxies", proxies);
+
         return "arrival";
     }
 
@@ -117,6 +125,9 @@ public class GoodsController {
 
         Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
         model.addAttribute("quantities", quantityAccount );
+
+        Iterable<Proxy> proxies = proxyRepo.findAll();
+        model.addAttribute("proxies", proxies);
 
         return "expense";
     }
@@ -143,7 +154,7 @@ public class GoodsController {
         Equipment equipment = new Equipment();
 
         Good good = new Good();
-        good.setName( element.getName() );
+        good.setName( element.getName().trim() );
         good.setExternalEquipId( element.getId() );
         good.setCondition( condition );
         goodsRepo.save(good);

@@ -18,7 +18,7 @@ public class Good {
 
     private String name;
 
-    private String proxy_id;
+    private Long proxy_id;
 
     @Column(name = "external_equip_id")
     private Long externalEquipId;
@@ -31,10 +31,12 @@ public class Good {
     @JoinTable(
             name = "good_equip",
             joinColumns = {
-                @JoinColumn(name = "good_id", referencedColumnName = "id")
+                @JoinColumn(
+                        name = "good_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
+                    @JoinColumn(
+                        name = "equipment_id", referencedColumnName = "id")
             }
     )
     private Equipment equipment;
