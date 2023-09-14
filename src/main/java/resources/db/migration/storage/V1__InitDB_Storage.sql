@@ -178,6 +178,7 @@ CREATE TABLE IF NOT EXISTS public.party
     goods_tracking_from_contragent_id bigint,
     goods_tracking_from_storage_id bigint,
     quantity_id bigint,
+    proxy_list character varying[] COLLATE pg_catalog."default",
     CONSTRAINT party_pkey PRIMARY KEY (id),
     CONSTRAINT fkojaxlphr18snidg9m2aaxsxik FOREIGN KEY (quantity_id)
         REFERENCES public.quantity_account (id) MATCH SIMPLE
@@ -503,4 +504,18 @@ CREATE SEQUENCE IF NOT EXISTS public.workshop_seq
     CACHE 1;
 
 ALTER SEQUENCE public.workshop_seq
+    OWNER TO admin;
+
+-- SEQUENCE: public.quantity_account_seq
+
+-- DROP SEQUENCE IF EXISTS public.quantity_account_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.quantity_account_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.quantity_account_seq
     OWNER TO admin;
