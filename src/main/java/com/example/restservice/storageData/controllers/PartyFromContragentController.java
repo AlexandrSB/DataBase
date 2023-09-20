@@ -2,14 +2,8 @@ package com.example.restservice.storageData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
-import com.example.restservice.storageData.storageDomain.Good;
-import com.example.restservice.storageData.storageDomain.Party;
-import com.example.restservice.storageData.storageDomain.Quantity;
-import com.example.restservice.storageData.storageDomain.QuantityAccount;
-import com.example.restservice.storageData.storageRepos.GoodsRepo;
-import com.example.restservice.storageData.storageRepos.PartyRepo;
-import com.example.restservice.storageData.storageRepos.QuantityAccountRepo;
-import com.example.restservice.storageData.storageRepos.QuantityRepo;
+import com.example.restservice.storageData.storageDomain.*;
+import com.example.restservice.storageData.storageRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +27,11 @@ public class PartyFromContragentController {
 
     @Autowired
     private ProxyRepo proxyRepo;
+
+    @Autowired
+    private ParcelRepo parcelRepo;
+
+
 
     @GetMapping("/contragents_party")
     private String contragentsParty(
@@ -59,8 +58,14 @@ public class PartyFromContragentController {
         return "contragentsParty";
     }
 
+    @GetMapping("/new_party")
+    private String newParty() {
+        return "newParty";
+    }
+
     @PostMapping("addToParty")
     private String addToParty (
+            @RequestParam String party_name,
             @RequestParam String good_name,
             @RequestParam String quantity_dimension,
             @RequestParam String quantity,
@@ -87,13 +92,15 @@ public class PartyFromContragentController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        quantityAccountRepo.save(quantityAccount);
-        party.setQuantityAccount(quantityAccount);
-        party.addProxy(proxy.getName());
-        party.addGood(good);
+//        quantityAccountRepo.save(quantityAccount);
+        party.setName(party_name);
 
-        partyRepo.save(party);
+//        partyRepo.save(party);
 
-        return "redirect:/storage/contragents_party";
+        Parcel parcel = new Parcel();
+        parcelRepo.save(parcel);
+
+
+        return "redirect:/storage/parcel/" + parcel.getId();
     }
 }

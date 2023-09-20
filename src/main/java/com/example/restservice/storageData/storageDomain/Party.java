@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -22,9 +19,6 @@ public class Party {
 
     private String name;
 
-    @Column(name = "proxy_list")
-    private List<String> proxyList = new ArrayList<>();
-
     @ManyToOne()
     @JoinColumn(name = "goods_tracking_from_contragent_id")
     private GoodsTrackingFromContragent goodsTrackingFromContragent;
@@ -33,22 +27,8 @@ public class Party {
     @JoinColumn(name = "goods_tracking_from_storage_id")
     private GoodsTrackingFromStorage goodsTrackingFromStorage;
 
-    @ManyToMany(mappedBy = "parties", fetch = FetchType.LAZY)
-    private Set<Good> goods = new HashSet<>();
-
     @ManyToOne
-    @JoinColumn(name = "quantity_id")
-    private QuantityAccount quantityAccount;
+    @JoinColumn(name = "parcel_id")
+    private Parcel parcel;
 
-    public List addProxy(String proxy_name) {
-        this.proxyList.add(proxy_name);
-
-        return this.proxyList;
-    }
-
-    public Set<Good> addGood(Good good) {
-        this.goods.add(good);
-
-        return this.goods;
-    }
 }

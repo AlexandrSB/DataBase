@@ -9,10 +9,4 @@ import java.util.List;
 
 @Repository
 public interface PartyRepo extends CrudRepository<Party, Long> {
-    @Query(name = "Party.findAllWithQuantities",
-           value = """
-                   SELECT p FROM Party p
-                   LEFT JOIN FETCH p.quantityAccount
-                   """)
-    List<Party> findFullParty();
 }

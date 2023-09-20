@@ -41,19 +41,7 @@ public class Good {
     )
     private Equipment equipment;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "goods_party",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "good_id"
-                    )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "party_id"
-                    )
-            }
-    )
-    private Set<Party> parties = new HashSet<>();
+    @OneToMany(mappedBy = "good", fetch = FetchType.EAGER)
+    private Set<Parcel> parcels = new HashSet<>();
+
 }

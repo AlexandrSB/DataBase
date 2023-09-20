@@ -23,18 +23,12 @@ public class QuantityAccount {
     @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.LAZY)
     private Set<Quantity> quantities = new HashSet<>();
 
-    @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.EAGER)
-    private Set<Party> parties = new HashSet<>();
+    @OneToMany(mappedBy = "quantityAccount")
+    private Set<Parcel> parcels = new HashSet<>();
 
     public Set<Quantity> addDimension(Quantity quantity) {
         this.quantities.add(quantity);
-
         return this.quantities;
     }
 
-    public Set<Party> addParty(Party party) {
-        this.parties.add(party);
-
-        return this.parties;
-    }
 }

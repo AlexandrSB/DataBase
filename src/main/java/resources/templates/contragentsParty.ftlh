@@ -15,7 +15,14 @@
             id = "form_add_to_party_id"
             action = "addToParty"
             method = "post"
-            button_name = "Add to party">
+            button_name = "Create new party">
+
+        <@se.input_element
+            element_name = "party_name"
+            element_id = "quantity_id"
+            label = "Name"
+            placeholder = "Input name of parties"
+        />
 
         <@se.select_element
             element_name = "good_name"
@@ -54,20 +61,21 @@
     </@fm.form_button>
 
     <@ce.table_input
-            table_head = ["Id", "Good", "Dimension", "Quantity"]
+            table_head = ["Id", "Name", "Good", "Dimension", "Quantity"]
         >
         <#list partyFromContragents as pfc>
             <tr>
-                <td>${(pfc.id)!none}</td>
+                <td>${(pfc.id)!"none"}</td>
+                <td>${pfc.name!"none"}</td>
                 <#list pfc.proxyList as pfl>
                     <td>
                         <span>${pfl}</span>
                     </td>
                 </#list>
-                    <td>
-                        <span>${pfc.quantityAccount!none}</span>
-                    </td>
-                    <td>${pfc.quantityAccount.quantity!none}</td>
+                <td>
+                    <span>${pfc.parcel!"none"}</span>
+                </td>
+                <td>${pfc.parcel!"none"}</td>
             </tr>
         </#list>
     </@ce.table_input>
