@@ -2,12 +2,14 @@ package com.example.restservice.storageData.storageDomain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor(force = true)
 @Table(name = "quantity_account", schema = "public")
 public class QuantityAccount {
 
@@ -18,7 +20,7 @@ public class QuantityAccount {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.LAZY)
     private Set<Quantity> quantities = new HashSet<>();
 
     @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.EAGER)

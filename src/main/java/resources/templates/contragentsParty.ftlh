@@ -8,8 +8,7 @@
 <@c.page>
 
     <@se.header_1
-        title = "Формирование партии товара
-        от контрагента на склад"
+        title = "Формирование партии товара"
     />
 
     <@fm.form_button
@@ -51,6 +50,7 @@
             label = "Quantity"
             placeholder = "Input goods quantity"
         />
+
     </@fm.form_button>
 
     <@ce.table_input
@@ -59,24 +59,17 @@
         <#list partyFromContragents as pfc>
             <tr>
                 <td>${(pfc.id)!none}</td>
-                <td>
-                    <#list pfc.proxyList as pfl>
+                <#list pfc.proxyList as pfl>
+                    <td>
                         <span>${pfl}</span>
-                    </#list>
-                </td>
-                <td>
-                    <#list pfc.quantityAccount as pfq>
-                        <span>${pfq!none}</span>
-                    <#else>
-                        <span>&ltnone&gt</span>
-                    </#list>
-                </td>
-                <td>${pfc.quantityAccount.quantity}</td>
+                    </td>
+                </#list>
+                    <td>
+                        <span>${pfc.quantityAccount!none}</span>
+                    </td>
+                    <td>${pfc.quantityAccount.quantity!none}</td>
             </tr>
         </#list>
     </@ce.table_input>
 
-
-
-
-        </@c.page>
+</@c.page>

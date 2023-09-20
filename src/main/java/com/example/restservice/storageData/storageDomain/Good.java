@@ -18,7 +18,7 @@ public class Good {
 
     private String name;
 
-    private Long proxy_id;
+    private Set<Long> proxy_id = new HashSet<>();
 
     @Column(name = "external_equip_id")
     private Long externalEquipId;

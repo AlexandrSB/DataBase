@@ -87,8 +87,8 @@ public class PartyFromContragentController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        quantityAccount.addParty(party);
         quantityAccountRepo.save(quantityAccount);
+        party.setQuantityAccount(quantityAccount);
         party.addProxy(proxy.getName());
         party.addGood(good);
 

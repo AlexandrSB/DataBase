@@ -33,7 +33,7 @@ public class Party {
     @JoinColumn(name = "goods_tracking_from_storage_id")
     private GoodsTrackingFromStorage goodsTrackingFromStorage;
 
-    @ManyToMany(mappedBy = "parties", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "parties", fetch = FetchType.LAZY)
     private Set<Good> goods = new HashSet<>();
 
     @ManyToOne
