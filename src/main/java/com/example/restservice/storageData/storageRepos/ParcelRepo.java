@@ -13,11 +13,15 @@ public interface ParcelRepo extends CrudRepository<Parcel, Long> {
     @Query("SELECT p FROM Parcel p LEFT JOIN FETCH p.parties")
     List<Parcel> findAllWithParties();
 
-//    @Query(value = """
-//            SELECT p
-//            FROM Parcel p
-//            LEFT JOIN FETCH p.parties
-//            WHERE p.parties.id == ?
-//            """)
-//    List<Parcel> findParcelsFromPartyId(Long id);
+    @Query(value = """
+            SELECT p
+            FROM Parcel p
+            LEFT JOIN FETCH p.parties
+            WHERE p.id = (
+              SELECT pt.parcel_id
+              FROM Party pt
+              WHERE pt.id = :id
+              )
+            """)
+    List<Parcel> findParcelsFromPartyId(Long id);
 }
