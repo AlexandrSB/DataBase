@@ -19,15 +19,15 @@ public class Party {
 
     private String name;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "goods_tracking_from_contragent_id")
     private GoodsTrackingFromContragent goodsTrackingFromContragent;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "goods_tracking_from_storage_id")
     private GoodsTrackingFromStorage goodsTrackingFromStorage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parcel_id")
     private Parcel parcel;
 

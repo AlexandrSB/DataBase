@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequestMapping("/storage")
 public class PartyFromContragentController {
@@ -32,7 +33,11 @@ public class PartyFromContragentController {
     private ParcelRepo parcelRepo;
 
 
-
+//    @GetMapping()
+//    private String storageDefault() {
+//        return "redirect:/storage/contragents_party";
+//    }
+//
     @GetMapping("/contragents_party")
     private String contragentsParty(
             Model model
@@ -43,9 +48,6 @@ public class PartyFromContragentController {
 
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
-
-        Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
-        model.addAttribute("quantities_account", quantityAccount );
 
         Iterable<Quantity> quantities = quantityRepo.findAll();
         model.addAttribute("quantities", quantities);
@@ -58,49 +60,20 @@ public class PartyFromContragentController {
         return "contragentsParty";
     }
 
-    @GetMapping("/new_party")
-    private String newParty() {
-        return "newParty";
-    }
-
     @PostMapping("addToParty")
     private String addToParty (
             @RequestParam String party_name,
-            @RequestParam String good_name,
-            @RequestParam String quantity_dimension,
-            @RequestParam String quantity,
-            @RequestParam String proxy_name,
             Model model
     ) {
 
-        Party party = new Party();
-        QuantityAccount quantityAccount = new QuantityAccount();
-        Quantity dimension = quantityRepo.
-                findByDimension(quantity_dimension)
-                .get();
-        quantityAccount.setQuantity(Integer.valueOf(quantity));
-        quantityAccount.addDimension(dimension);
-        Good good = null;
-        Proxy proxy = null;
-        try {
-            good = goodsRepo.findByName( good_name ).orElseThrow(
-                    () -> new Exception("good not found! " + good_name )
-            );
-            proxy = proxyRepo.findByName( proxy_name ).orElseThrow(
-                    () -> new Exception("proxy not found! " + proxy_name)
-            );
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (party_name.isBlank()) {
+            return "redirect:/storage/contragents_party";
         }
-//        quantityAccountRepo.save(quantityAccount);
+
+        Party party = new Party();
         party.setName(party_name);
+        partyRepo.save(party);
 
-//        partyRepo.save(party);
-
-        Parcel parcel = new Parcel();
-        parcelRepo.save(parcel);
-
-
-        return "redirect:/storage/parcel/" + parcel.getId();
+        return "redirect:/storage/parcel/" + party.getId();
     }
 }

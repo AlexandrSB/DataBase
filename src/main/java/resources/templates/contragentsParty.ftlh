@@ -8,7 +8,7 @@
 <@c.page>
 
     <@se.header_1
-        title = "Формирование партии товара"
+        title = "Партии товаров"
     />
 
     <@fm.form_button
@@ -24,40 +24,6 @@
             placeholder = "Input name of parties"
         />
 
-        <@se.select_element
-            element_name = "good_name"
-            element_id = "good_name_id"
-            label = "Good"
-            placeholder = "Insert good name"
-            elements_array = goods
-            elements_attr = "name"
-        />
-
-        <@se.select_element
-            element_name = "proxy_name"
-            element_id = "proxy_name_id"
-            label = "Characteristik"
-            placeholder = "Choise characteristik"
-            elements_array = proxies!["none"]
-            elements_attr = "name"
-        />
-
-        <@se.select_element
-            element_name = "quantity_dimension"
-            element_id = "quantity_dimension_id"
-            label = "Dimension"
-            placeholder = "Insert dimension"
-            elements_array = quantities
-            elements_attr = "dimension"
-        />
-
-        <@se.input_element
-            element_name = "quantity"
-            element_id = "quantity_id"
-            label = "Quantity"
-            placeholder = "Input goods quantity"
-        />
-
     </@fm.form_button>
 
     <@ce.table_input
@@ -67,15 +33,15 @@
             <tr>
                 <td>${(pfc.id)!"none"}</td>
                 <td>${pfc.name!"none"}</td>
-                <#list pfc.proxyList as pfl>
-                    <td>
-                        <span>${pfl}</span>
-                    </td>
-                </#list>
-                <td>
-                    <span>${pfc.parcel!"none"}</span>
-                </td>
-                <td>${pfc.parcel!"none"}</td>
+<#--                <#list pfc.proxyList as pfl>-->
+<#--                    <td>-->
+<#--                        <span>${pfl}</span>-->
+<#--                    </td>-->
+<#--                </#list>-->
+<#--                <td>-->
+<#--                    <span>${pfc.parcel!"none"}</span>-->
+<#--                </td>-->
+<#--                <td>${pfc.parcel!"none"}</td>-->
             </tr>
         </#list>
     </@ce.table_input>

@@ -140,13 +140,28 @@ CREATE TABLE IF NOT EXISTS public.goods_tracking_from_storage
         CHECK (type_of_goods_movement::text = ANY (ARRAY['ARRIVAL'::character varying, 'EXPENSE'::character varying]::text[]))
 );
 
+-- Table: public.quantity
+-- DROP TABLE IF EXISTS public.quantity;
+CREATE TABLE IF NOT EXISTS public.quantity
+(
+    id bigint NOT NULL,
+    dimension character varying(25) COLLATE pg_catalog."default",
+    quantity_in_one integer,
+    CONSTRAINT quantity_pkey PRIMARY KEY (id)
+);
+
 -- Table: public.quantity_account
 -- DROP TABLE IF EXISTS public.quantity_account;
 CREATE TABLE IF NOT EXISTS public.quantity_account
 (
     id bigint NOT NULL,
     quantity integer,
-    CONSTRAINT quantity_account_pkey PRIMARY KEY (id)
+    quantity_id bigint,
+    CONSTRAINT quantity_account_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_quantity_account_quantity FOREIGN KEY (quantity_id)
+        REFERENCES public.quantity (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 -- Table: public.parcel
@@ -208,21 +223,6 @@ CREATE TABLE IF NOT EXISTS public.goods_party
         ON DELETE NO ACTION
 );
 
-
--- Table: public.quantity
--- DROP TABLE IF EXISTS public.quantity;
-CREATE TABLE IF NOT EXISTS public.quantity
-(
-    id bigint NOT NULL,
-    dimension character varying(25) COLLATE pg_catalog."default",
-    quantity_in_one integer,
-    quantity_account_id bigint,
-    CONSTRAINT quantity_pkey PRIMARY KEY (id),
-    CONSTRAINT fk3rddwdsco18o8srt7ljybymyt FOREIGN KEY (quantity_account_id)
-        REFERENCES public.quantity_account (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
 
 
 -- Constraint: fk6d47h4u69brjwaqpc6r3bes37

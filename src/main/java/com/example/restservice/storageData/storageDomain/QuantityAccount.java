@@ -20,15 +20,11 @@ public class QuantityAccount {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToMany(mappedBy = "quantityAccount", fetch = FetchType.LAZY)
-    private Set<Quantity> quantities = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "quantity_id")
+    private Quantity dimension;
 
     @OneToMany(mappedBy = "quantityAccount")
     private Set<Parcel> parcels = new HashSet<>();
-
-    public Set<Quantity> addDimension(Quantity quantity) {
-        this.quantities.add(quantity);
-        return this.quantities;
-    }
 
 }

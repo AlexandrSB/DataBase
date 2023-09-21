@@ -3,6 +3,9 @@ package com.example.restservice.storageData.storageDomain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Table(name = "quantity", schema = "public")
@@ -18,7 +21,6 @@ public class Quantity {
     @Column(name = "quantity_in_one")
     private Integer quantityInOne;
 
-    @ManyToOne
-    @JoinColumn(name = "quantity_account_id")
-    private QuantityAccount quantityAccount;
+    @OneToMany(mappedBy = "dimension", fetch = FetchType.EAGER)
+    private Set<QuantityAccount> quantityAccounts = new HashSet<>();
 }
