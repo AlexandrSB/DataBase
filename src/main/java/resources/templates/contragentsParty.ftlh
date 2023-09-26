@@ -24,6 +24,24 @@
             placeholder = "Input name of parties"
         />
 
+        <@se.select_element
+            element_name = "contragent_name"
+            element_id = "contragent_id"
+            label = "From Contragent"
+            placeholder = "Insert contragent name"
+            elements_array = contragents
+            elements_attr = "name"
+        />
+
+        <@se.select_element
+            element_name = "storage_name"
+            element_id = "storage_id"
+            label = "To Storage"
+            placeholder = "Insert storage name"
+            elements_array = storages
+            elements_attr = "name"
+        />
+
     </@fm.form_button>
 
     <@ce.table_input

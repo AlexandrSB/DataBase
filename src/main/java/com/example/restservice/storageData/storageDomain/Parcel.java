@@ -17,15 +17,20 @@ public class Parcel {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "good_id")
     private Good good;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quantity_account_id")
     private QuantityAccount quantityAccount;
 
-    @OneToMany(mappedBy = "parcel")
-    private Set<Party> parties = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "party_id")
+    private Party party;
 
+    @Override
+    public String toString() {
+        return String.format("class Parcel id = %s", this.id);
+    }
 }

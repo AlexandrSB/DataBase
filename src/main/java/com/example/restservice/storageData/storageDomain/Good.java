@@ -23,7 +23,7 @@ public class Good {
     @Column(name = "external_equip_id")
     private Long externalEquipId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "condition_id")
     private Condition condition;
 
@@ -41,7 +41,16 @@ public class Good {
     )
     private Equipment equipment;
 
-    @OneToMany(mappedBy = "good", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
     private Set<Parcel> parcels = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "Good{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", proxy_id=" + proxy_id +
+                ", externalEquipId=" + externalEquipId +
+                '}';
+    }
 }

@@ -37,7 +37,7 @@
             label = "Good"
             placeholder = "Insert good name"
             elements_array = goods
-            elements_attr = "name"
+            elements_attr = ""
         />
 
         <@se.select_element
@@ -55,7 +55,7 @@
             label = "Dimension"
             placeholder = "Insert dimension"
             elements_array = quantities
-            elements_attr = "dimension"
+            elements_attr = ""
         />
 
         <@se.input_element
@@ -76,7 +76,7 @@
                 <td>${ps.id!"none"}</td>
 
                 <#if ps.good??>
-                    <td>${ps.good.name!"none"}</td>
+                    <td>${(ps.good.name)!"none"}</td>
                 <#else>
                     <td>none</td>
                 </#if>

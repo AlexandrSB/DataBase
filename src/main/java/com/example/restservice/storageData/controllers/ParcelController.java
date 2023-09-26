@@ -10,9 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.cert.Extension;
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/storage")
 public class ParcelController {
@@ -38,10 +35,10 @@ public class ParcelController {
 
     @ModelAttribute
     private void addAttributes(Model model) {
-        Iterable<Good> goods = goodsRepo.findAll();
+        Iterable<String> goods = goodsRepo.getGoodsNames();
         model.addAttribute("goods", goods);
 
-        Iterable<Quantity> quantities = quantityRepo.findAll();
+        Iterable<String> quantities = quantityRepo.getQuantitiesName();
         model.addAttribute("quantities", quantities);
 
         Iterable<Proxy> proxies = proxyRepo.findAll();
@@ -54,8 +51,13 @@ public class ParcelController {
             Model model
     ) {
 
-//        Iterable<Parcel> parcels = parcelRepo.findAllWithParties();
-        Iterable<Parcel> parcels = parcelRepo.findAllWithParties();
+        Long party_id = Long.valueOf(id);
+//        Iterable<Parcel> parcels = partyRepo
+//                .findAllParcelsWithPartyId(party_id);
+        Iterable<Parcel> parcels = parcelRepo
+                .findAllParcelsWithGoodAndQuandtityAccountAndParty(
+                        party_id
+                );
         model.addAttribute("parcels", parcels);
 
         model.addAttribute("party_id", id);
@@ -107,11 +109,9 @@ public class ParcelController {
 
         parcel.setGood( good );
         parcel.setQuantityAccount( quantityAccount );
+        parcel.setParty( party );
         parcelRepo.save( parcel );
 
-        party.setParcel(parcel);
-        partyRepo.save(party);
-
-        return "redirect:/storage/parcel/" + parcel.getId();
+        return "redirect:/storage/parcel/" + party.getId();
     }
 }

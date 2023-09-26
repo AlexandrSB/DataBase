@@ -30,27 +30,33 @@ public class PartyFromContragentController {
     private ProxyRepo proxyRepo;
 
     @Autowired
+    private ContragentRepo contragentRepo;
+
+    @Autowired
+    private StorageRepo storageRepo;
+
+    @Autowired
     private ParcelRepo parcelRepo;
 
-
-//    @GetMapping()
-//    private String storageDefault() {
-//        return "redirect:/storage/contragents_party";
-//    }
-//
     @GetMapping("/contragents_party")
     private String contragentsParty(
             Model model
     ) {
 
-        Iterable<Good> goods = goodsRepo.findAll();
-        model.addAttribute("goods", goods);
+//        Iterable<Good> goods = goodsRepo.findAll();
+//        model.addAttribute("goods", goods);
+//
+//        Iterable<Proxy> proxies = proxyRepo.findAll();
+//        model.addAttribute("proxies", proxies);
+//
+//        Iterable<Quantity> quantities = quantityRepo.findAll();
+//        model.addAttribute("quantities", quantities);
+//
+        Iterable<Contragent> contragents = contragentRepo.findAll();
+        model.addAttribute("contragents", contragents);
 
-        Iterable<Proxy> proxies = proxyRepo.findAll();
-        model.addAttribute("proxies", proxies);
-
-        Iterable<Quantity> quantities = quantityRepo.findAll();
-        model.addAttribute("quantities", quantities);
+        Iterable<Storage> storages = storageRepo.findAll();
+        model.addAttribute("storages", storages);
 
         Iterable<Party> partyFromContragents = partyRepo.findAll();
         model.addAttribute(

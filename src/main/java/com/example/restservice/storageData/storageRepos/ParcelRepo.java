@@ -6,22 +6,24 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface ParcelRepo extends CrudRepository<Parcel, Long> {
-    @Query("SELECT p FROM Parcel p LEFT JOIN FETCH p.parties")
-    List<Parcel> findAllWithParties();
+    @Query(value = """
+            SELECT p.parcels
+            FROM Party p
+            WHERE p.id = ?1
+            """)
+    Set<Parcel> findParcelsFromPartyId(Long party_id);
 
     @Query(value = """
-            SELECT p
-            FROM Parcel p
-            LEFT JOIN FETCH p.parties
-            WHERE p.id = (
-              SELECT pt.parcel_id
-              FROM Party pt
-              WHERE pt.id = :id
-              )
+            SELECT ps
+            FROM Parcel ps
+            LEFT JOIN FETCH ps.good
+            LEFT JOIN FETCH ps.quantityAccount
+            LEFT JOIN FETCH ps.party
+            WHERE ps.party.id = ?1
             """)
-    List<Parcel> findParcelsFromPartyId(Long id);
+    Set<Parcel> findAllParcelsWithGoodAndQuandtityAccountAndParty(Long party_id);
 }

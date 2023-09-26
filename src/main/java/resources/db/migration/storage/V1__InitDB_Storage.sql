@@ -164,24 +164,6 @@ CREATE TABLE IF NOT EXISTS public.quantity_account
         ON DELETE NO ACTION
 );
 
--- Table: public.parcel
--- DROP TABLE IF EXISTS public.parcel;
-CREATE TABLE IF NOT EXISTS public.parcel
-(
-    id bigint NOT NULL,
-    good_id bigint,
-    quantity_account_id bigint,
-    CONSTRAINT parcel_pkey PRIMARY KEY (id),
-    CONSTRAINT fk5egyo4nqpxbyq781kwxpj7slc FOREIGN KEY (quantity_account_id)
-        REFERENCES public.quantity_account (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fkei2fe1in8565eviv96ql24w43 FOREIGN KEY (good_id)
-        REFERENCES public.good (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
 -- Table: public.party
 -- DROP TABLE IF EXISTS public.party;
 CREATE TABLE IF NOT EXISTS public.party
@@ -190,18 +172,37 @@ CREATE TABLE IF NOT EXISTS public.party
     name character varying(255) COLLATE pg_catalog."default",
     goods_tracking_from_contragent_id bigint,
     goods_tracking_from_storage_id bigint,
-    parcel_id bigint,
     CONSTRAINT party_pkey PRIMARY KEY (id),
-    CONSTRAINT fkojaxlphr18snidg9m2aaxsxik FOREIGN KEY (parcel_id)
-        REFERENCES public.parcel (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
     CONSTRAINT fkabvi5brfdm2koepxnj96ppm4u FOREIGN KEY (goods_tracking_from_storage_id)
         REFERENCES public.goods_tracking_from_storage (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fks80bbx2j7wvegopgixw5sp37n FOREIGN KEY (goods_tracking_from_contragent_id)
         REFERENCES public.goods_tracking_from_contragent (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+-- Table: public.parcel
+-- DROP TABLE IF EXISTS public.parcel;
+CREATE TABLE IF NOT EXISTS public.parcel
+(
+    id bigint NOT NULL,
+    good_id bigint,
+    quantity_account_id bigint,
+    party_id bigint,
+    CONSTRAINT parcel_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_parcel_party FOREIGN KEY (party_id)
+        REFERENCES public.party (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk5egyo4nqpxbyq781kwxpj7slc
+        FOREIGN KEY (quantity_account_id)
+        REFERENCES public.quantity_account (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkei2fe1in8565eviv96ql24w43 FOREIGN KEY (good_id)
+        REFERENCES public.good (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
