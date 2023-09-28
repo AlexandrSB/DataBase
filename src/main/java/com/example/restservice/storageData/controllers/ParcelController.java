@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/storage")
+@RequestMapping("/storage/parcel")
 public class ParcelController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class ParcelController {
         model.addAttribute("proxies", proxies);
     }
 
-    @GetMapping("/parcel/{id}")
+    @GetMapping("{id}")
     private String newParcel(
             @PathVariable String id,
             Model model
@@ -65,7 +65,7 @@ public class ParcelController {
         return "newParty";
     }
 
-    @PostMapping("/parcel/addToParcel/{id}")
+    @PostMapping("addToParcel/{id}")
     private String addToParcel(
             @RequestParam String party_id,
             @RequestParam String good_name,
@@ -113,5 +113,11 @@ public class ParcelController {
         parcelRepo.save( parcel );
 
         return "redirect:/storage/parcel/" + party.getId();
+    }
+
+    @PostMapping("redirectToGoodsTrackingFromContragent")
+    public String redirectToGoodsTrackingFromContragent(Model model) {
+
+        return "redirect:/storage/goods_tracking_from_contragent";
     }
 }

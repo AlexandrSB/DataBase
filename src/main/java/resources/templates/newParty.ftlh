@@ -18,18 +18,18 @@
         button_name = "Add to Party">
 
 
-    <div class="form-group row justify-content-center">
-        <div class="col-sm-6">
-            <input
-                    class="form-control"
-                    type="hidden"
-                    name="party_id"
-                    placeholder=""
-                    id="party_id_id"
-                    value="${party_id}"
-            />
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6">
+                <input
+                        class="form-control"
+                        type="hidden"
+                        name="party_id"
+                        placeholder=""
+                        id="party_id_id"
+                        value="${party_id}"
+                />
+            </div>
         </div>
-    </div>
 
         <@se.select_element
             element_name = "good_name"
@@ -67,7 +67,15 @@
 
     </@fm.form_button>
 
-    <@ce.table_input
+    <@fm.form_button
+        id = "form_add_to_parcel_id"
+        action = "redirectToGoodsTrackingFromContragent"
+        method = "post"
+        button_name = "Next -->">
+
+    </@fm.form_button>
+
+<@ce.table_input
         table_head = ["Id", "Good", "Dimension", "Quantity"]
     >
 

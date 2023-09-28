@@ -82,4 +82,5 @@ public class PartyFromContragentController {
 
         return "redirect:/storage/parcel/" + party.getId();
     }
+
 }
