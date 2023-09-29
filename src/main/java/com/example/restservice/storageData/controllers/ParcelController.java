@@ -4,6 +4,7 @@ import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.*;
 import com.example.restservice.storageData.storageRepos.*;
+import jakarta.websocket.server.PathParam;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,10 @@ public class ParcelController {
 
     @Autowired
     private PartyRepo partyRepo;
+
+    @Autowired
+    private GoodsTrackingFromContragentRepo
+            goodsTrackingFromContragentRepo;
 
 
     @ModelAttribute
@@ -116,8 +121,22 @@ public class ParcelController {
     }
 
     @PostMapping("redirectToGoodsTrackingFromContragent")
-    public String redirectToGoodsTrackingFromContragent(Model model) {
+    private String redirectToGoodsTrackingFromContragent(
+            @RequestParam String party_id,
+            Model model) {
 
-        return "redirect:/storage/goods_tracking_from_contragent";
+        GoodsTrackingFromContragent goodsTrackingFromContragent =
+                new GoodsTrackingFromContragent();
+
+        Long id = Long.valueOf(party_id);
+        Party party = partyRepo.findById(id).get();
+
+        goodsTrackingFromContragent.addParty(party);
+        goodsTrackingFromContragentRepo.save(
+                goodsTrackingFromContragent
+        );
+
+        return "redirect:/storage/goods_tracking_from_contragent/" +
+                goodsTrackingFromContragent.getId();
     }
 }

@@ -33,4 +33,10 @@ public class GoodsTrackingFromContragent {
     @ManyToOne
     @JoinColumn(name = "goods_tracking_date_id")
     private GoodsTrackingDate goodsTrackingDate;
+
+    public Set<Party> addParty(Party party) {
+        this.parties.add(party);
+
+        return this.parties;
+    }
 }

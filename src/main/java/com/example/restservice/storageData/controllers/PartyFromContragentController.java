@@ -43,15 +43,6 @@ public class PartyFromContragentController {
             Model model
     ) {
 
-//        Iterable<Good> goods = goodsRepo.findAll();
-//        model.addAttribute("goods", goods);
-//
-//        Iterable<Proxy> proxies = proxyRepo.findAll();
-//        model.addAttribute("proxies", proxies);
-//
-//        Iterable<Quantity> quantities = quantityRepo.findAll();
-//        model.addAttribute("quantities", quantities);
-//
         Iterable<Contragent> contragents = contragentRepo.findAll();
         model.addAttribute("contragents", contragents);
 
