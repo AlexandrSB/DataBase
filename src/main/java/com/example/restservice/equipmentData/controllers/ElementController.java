@@ -193,18 +193,22 @@ public class ElementController {
     private String linkElements(
             @RequestParam String element_destination,
             @RequestParam String element_source_id,
+            @RequestParam String proxy_name,
             Model model
     ) {
 
-        Optional<Element> elementDestination =
-                 elementRepo.findByName( element_destination );
-
-        Optional<Element> elementSource =
-                elementRepo.findById(Long.valueOf( element_source_id ));
+        Element elementDestination =
+                 elementRepo.findByName( element_destination )
+                         .get();
+        Element elementSource =
+                elementRepo.findById(Long.valueOf( element_source_id ))
+                        .get();
+        Proxy proxy = proxyRepo.findByName(proxy_name).get();
 
         ElementsComposite elementsComposite = new ElementsComposite();
-        elementsComposite.setElement_source( elementSource.get() );
-        elementsComposite.setElement_destination( elementDestination.get() );
+        elementsComposite.setElement_source( elementSource );
+        elementsComposite.setElement_destination( elementDestination );
+        elementsComposite.setProxy(proxy);
         elementsCompositeRepo.save( elementsComposite );
 
         return "redirect:/element/view/" + element_source_id;

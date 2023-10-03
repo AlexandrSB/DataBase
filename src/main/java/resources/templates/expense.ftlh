@@ -51,9 +51,9 @@
                 title_2 = g.name
                 text = "This is a goods card"
                 href_1 = "#"
-                href_1_name = g.condition
+                href_1_name = "Persistent"
                 href_2 = "#"
-                href_2_name = g.condition.name
+                href_2_name = "Persistent name"
             />
         <#else>
             none

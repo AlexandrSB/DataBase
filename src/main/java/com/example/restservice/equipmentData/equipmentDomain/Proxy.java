@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor(force = true)
 @Table(name = "proxy", schema = "public")
 public class Proxy {
@@ -40,11 +39,6 @@ public class Proxy {
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "elements_composite_id")
-    private ElementsComposite elementsComposite;
-
-    @ToString.Exclude
-    @ManyToOne
     @JoinColumn(name = "firma_id")
     private Firma firma;
 
@@ -52,4 +46,8 @@ public class Proxy {
     @OneToMany(mappedBy = "proxy")
     private Set<AttributeValue> attributeValues = new HashSet<>();
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "proxy")
+    private Set<ElementsComposite> elementsComposites = new HashSet<>();
 }

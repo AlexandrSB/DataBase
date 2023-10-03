@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode
 @NoArgsConstructor(force = true)
 @Table(name = "elements_composite", schema = "public")
 public class ElementsComposite {
@@ -19,12 +19,20 @@ public class ElementsComposite {
     private Long id;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "element_source")
     private Element element_source;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "element_destination")
     private Element element_destination;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "proxy_id")
+    Proxy proxy;
 }

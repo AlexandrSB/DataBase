@@ -23,10 +23,6 @@ public class Good {
     @Column(name = "external_equip_id")
     private Long externalEquipId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "condition_id")
-    private Condition condition;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(
             name = "good_equip",

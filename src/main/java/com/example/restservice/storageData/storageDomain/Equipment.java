@@ -18,4 +18,9 @@ public class Equipment {
 
     @OneToOne(mappedBy = "equipment")
     private Good good;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "condition_id")
+    private Condition condition;
+
 }

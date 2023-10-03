@@ -10,14 +10,16 @@
 
     <form action="/storage/add_goods" method="post" id="equip">
 
-        <@se.select_element
+        <@se.select_list_element
             element_name = "element_name"
-            element_id = "element_name_id"
             label = "Element"
-            placeholder = "Insert element name"
-            elements_array = elements
-            elements_attr = "name"
-        />
+        >
+            <#list elements as e>
+                <option>${e}</option>
+            <#else>
+                <option>&ltnone&gt</option>
+            </#list>
+        </@se.select_list_element>
 
         <@se.select_element
             element_name = "condition_name"
@@ -54,7 +56,7 @@
     <@ce.table_element
             table_head = ["id", "Name", "Condition"]
             table_body = goods
-            table_columns = ["id", "name", "condition"]
+            table_columns = ["id", "name"]
     />
 
 </@c.page>

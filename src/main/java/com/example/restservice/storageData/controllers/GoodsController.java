@@ -55,30 +55,29 @@ public class GoodsController {
         Iterable<Good> goods = goodsRepo.findAll();
         model.addAttribute("goods", goods);
 
-        Iterable<Element> elements = elementRepo.findAll();
+        Iterable<Element> elements = elementRepo.findAllByName();
         model.addAttribute("elements", elements);
 
         Iterable<Condition> conditions = conditionRepo.findAll();
         model.addAttribute("conditions", conditions);
 
         Map<String, String> mapOfGoods = new HashMap<>();
-        List<Map<String, String>> listOfGoods = new ArrayList<>();
+//        List<Map<String, String>> listOfGoods = new ArrayList<>();
         String elem_type;
-        Optional<String> gd_elem;
+        String gd_elem;
 
         for ( Good good : goods ) {
             mapOfGoods.put("id", String.valueOf(good.getId()));
             mapOfGoods.put("name", good.getName());
-            mapOfGoods.put("condition", good.getCondition().getName());
-            gd_elem = Optional.ofNullable(elementRepo.findById(
+            gd_elem = elementRepo.findById(
                     Long.valueOf(
                             good.getExternalEquipId()
                     )
-            ).get().getElementType().getType());
+            ).get().getElementType().getType();
 
 
-            mapOfGoods.put("type", gd_elem.orElse("none"));
-            listOfGoods.add(mapOfGoods);
+            mapOfGoods.put("type", gd_elem);
+//            listOfGoods.add(mapOfGoods);
 
         }
         model.addAttribute("mapOfGoods", mapOfGoods );
@@ -156,7 +155,6 @@ public class GoodsController {
         Good good = new Good();
         good.setName( element.getName().trim() );
         good.setExternalEquipId( element.getId() );
-        good.setCondition( condition );
         goodsRepo.save(good);
 
         if ( !inventory_number.isEmpty() &&

@@ -24,6 +24,20 @@
 
 </#macro>
 
+<#macro input_hidden name value>
+    <div class="form-group row justify-content-center">
+        <div class="col-sm-6">
+            <input
+                    class="form-control"
+                    type="hidden"
+                    name=${name}
+            id="${name}_id"
+            value=${value}
+            />
+        </div>
+    </div>
+</#macro>
+
 <#macro checkbox
         checkbox_name
         checkbox_id
@@ -65,7 +79,7 @@
                         <#if elements_attr == "">
                             <option>${e!"none"}</option>
                     <#else />
-                            <#if e != "none">
+                            <#if e??>
                                 <#assign el = e?keys?seq_index_of(elements_attr)>
                                 <option>${(e?values[el])}</option>
                             <#else>
@@ -80,6 +94,21 @@
         </div>
     </div>
 
+</#macro>
+
+<#macro select_list_element
+        element_name
+        label
+        >
+
+    <div class="form-group row justify-content-center">
+        <label for=${element_name!"default"} class="col-sm-2 col-form-label">${label} : </label>
+        <div class="col-sm-6">
+            <select class="form-control" id=${element_name!"default_id"}_id name=${element_name!"default_name"}>
+                <#nested>
+            </select>
+        </div>
+    </div>
 </#macro>
 
 <#macro description>
@@ -100,3 +129,4 @@
     </div>
 
 </#macro>
+

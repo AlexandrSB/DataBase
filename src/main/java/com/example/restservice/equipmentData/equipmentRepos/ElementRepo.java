@@ -1,6 +1,7 @@
 package com.example.restservice.equipmentData.equipmentRepos;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,10 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
     Optional<Element> findById(Long aLong);
 
     Optional<Element> findByName(String compName);
+
+    @Query(value = """
+            SELECT e.name
+            FROM Element e
+            """)
+    Iterable<Element> findAllByName();
 }

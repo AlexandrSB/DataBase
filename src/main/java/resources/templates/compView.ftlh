@@ -19,8 +19,8 @@
         />
 
         <@se.select_element
-            element_name = "proxy"
-            element_id = "proxy"
+            element_name = "proxy_name"
+            element_id = "proxy_id"
             label = "Proxy of component"
             placeholder = "Proxy Name"
             elements_array = proxies
@@ -35,7 +35,11 @@
 
     <form action="add_attribute" method="post" id="add_attributes">
 
-    <input type="text" name="thisElementId" value="${elem.id}" hidden="hidden" />
+    <input type="text"
+           name="thisElementId"
+           value="${elem.id}"
+           hidden="hidden"
+    />
 
     <@se.select_element
         element_name = "proxy_name"
@@ -69,14 +73,8 @@
         <#list elem_destination as ed>
             <li>
                 <a href="/element/view/${ed.id}">${ed.name}</a>
+                <span>${(ed.proxy.name)!"none"}</span>
             </li>
-            <#list ed.proxies as eproxy>
-                <ul>
-                    <li>${eproxy.name}</li>
-                </ul>
-            <#else>
-
-            </#list>
         <#else>
             <li>Нет элементов</li>
         </#list>
@@ -84,18 +82,12 @@
 
     <br />
     <span>Элемент для : </span>
-    <ul>
+    <u>
         <#list elem_source as es>
             <li>
                 <a href="/element/view/${es.id}">${es.name}</a>
+                <span>${(es.proxy.name)!"none"}</span>
             </li>
-            <#list es.proxies as eproxy>
-                <ul>
-                    <li>${eproxy.name}</li>
-                </ul>
-            <#else>
-
-            </#list>
         <#else>
             <li>Нет оборудования</li>
         </#list>

@@ -11,12 +11,11 @@
     />
 
     <@ce.table_input
-        table_head = ["Name", "Condition"]
+        table_head = ["Name"]
     >
         <#list goods as goods>
             <tr>
                 <td>${goods.name}</td>
-                <td>${goods.condition.name}</td>
             </tr>
         </#list>
     </@ce.table_input>

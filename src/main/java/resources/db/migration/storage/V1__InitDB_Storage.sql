@@ -8,20 +8,25 @@ CREATE TABLE IF NOT EXISTS public.contragent
     CONSTRAINT contragent_pkey PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS public.condition
+(
+    id bigint NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT condition_pkey PRIMARY KEY (id)
+);
+
 -- Table: public.equipment
 -- DROP TABLE IF EXISTS public.equipment;
 CREATE TABLE IF NOT EXISTS public.equipment
 (
     id bigint NOT NULL,
     inventory_number character varying(15) COLLATE pg_catalog."default",
-    CONSTRAINT equipment_pkey PRIMARY KEY (id)
-);
-
-CREATE TABLE IF NOT EXISTS public.condition
-(
-    id bigint NOT NULL,
-    name character varying(50) COLLATE pg_catalog."default",
-    CONSTRAINT condition_pkey PRIMARY KEY (id)
+    condition_id bigint NOT NULL,
+    CONSTRAINT equipment_pkey PRIMARY KEY (id),
+    CONSTRAINT FK_condition_equipment FOREIGN KEY ( condition_id)
+        REFERENCES "public".condition ( id ) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 -- Table: public.good
@@ -32,12 +37,7 @@ CREATE TABLE IF NOT EXISTS public.good
     name character varying(50) COLLATE pg_catalog."default",
     proxy_id bigint[] NULL,
     external_equip_id bigint NOT NULL,
-    condition_id bigint NOT NULL,
-    CONSTRAINT good_pkey PRIMARY KEY (id),
-    CONSTRAINT FK_condition_good FOREIGN KEY ( condition_id)
-        REFERENCES "public".condition ( id ) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    CONSTRAINT good_pkey PRIMARY KEY (id)
 );
 
 -- Table: public.good_equip
@@ -508,3 +508,16 @@ CREATE SEQUENCE IF NOT EXISTS public.parcel_seq
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
+
+-- SEQUENCE: public.goods_tracking_date_seq
+-- DROP SEQUENCE IF EXISTS public.goods_tracking_date_seq;
+CREATE SEQUENCE IF NOT EXISTS public.goods_tracking_date_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.goods_tracking_date_seq
+    OWNER TO admin;
+
