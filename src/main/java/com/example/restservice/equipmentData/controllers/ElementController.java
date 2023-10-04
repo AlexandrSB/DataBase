@@ -102,19 +102,24 @@ public class ElementController {
         Optional<Element> elem = elementRepo.findById(Long.valueOf( elem_id ));
         model.addAttribute( "elem", elem.get() );
 
-        Iterable<ElementsComposite> ecSource = elem.get().getElementsSource();
-        Set<Element> elements_destination = new HashSet<>();
-        for (ElementsComposite ec : ecSource) {
-            elements_destination.add( ec.getElement_destination() );
-        }
-        model.addAttribute("elem_source", elements_destination);
+//        Iterable<ElementsComposite> ecSource = elem.get().getElementsSource();
+//        Set<Element> elements_destination = new HashSet<>();
+//        for (ElementsComposite ec : ecSource) {
+//            elements_destination.add( ec.getElement_destination() );
+//        }
+        Iterable<String> elements_source =
+                elementRepo.findElementSource(elem.get().getId());
+        model.addAttribute("elem_source", elements_source);
 
-        Iterable<ElementsComposite> ecDestination = elem.get().getElementsDestination();
-        Set<Element> elements_source = new HashSet<>();
-        for (ElementsComposite ec : ecDestination) {
-            elements_source.add( ec.getElement_source() );
-        }
-        model.addAttribute("elem_destination", elements_source);
+//        Iterable<ElementsComposite> ecDestination = elem.get()
+//                .getElementsDestination();
+//        Set<Element> elements_source = new HashSet<>();
+//        for (ElementsComposite ec : ecDestination) {
+//            elements_source.add( ec.getElement_source() );
+//        }
+        Iterable<String> elements_destination =
+                elementRepo.findElementDestination(elem.get().getId());
+        model.addAttribute("elem_destination", elements_destination);
 
         Set<Group> groups = new HashSet<>();
         groups.addAll( groupRepo.findAllByParentId( 0L ));

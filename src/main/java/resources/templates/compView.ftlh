@@ -56,10 +56,66 @@
 
     </form>
 
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#elements_source">Содержит элементы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#elements_destination">Элемент для</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#characteristics">Характеристики</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="element_source">
+            <ul class="nav nav-tabs">
+                <#list elem_destination as ed>
+                    <li class="nav-item">
+                        <a href="/element/view/${ed[2]!}">${ed[3]!}</a>
+                        <span>${(ed[5])!"none"}</span>
+                    </li>
+                <#else>
+                    <li>Нет элементов</li>
+                </#list>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="element_destination">
+            <ul>
+                <#list elem_source as es>
+                    <li>
+                        <a href="/element/view/${es[2]!}">${es[3]!}</a>
+                        <span>${(es[5])!"none"}</span>
+                    </li>
+                <#else>
+                    <li>Нет оборудования</li>
+                </#list>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="charackteristics">
+            <ul>
+                <#list proxies as p>
+                    <li>
+                        <#if p.firma??>
+                        <span>${p.firma.firmName}</span>
+                        </#if>
+                    <#list p.attributeValues as pV>
+                        <span>${pV.attribute.name} - ${pV.name} ${pV.unit.name}<#sep>; </span>
+                    <#else>
+                        <li></li>
+                    </#list>
+                    </li>
+                <#else>
+                    <li>Аттрибутов нет</li>
+                </#list>
+            </ul>
+        </div>
+    </div>
+
     <span>Группы : </span>
-    <ul>
+    <ul class="nav nav-tabs">
         <#list elem.groups as g>
-            <li>
+            <li class="nav-item">
                 <a href="/element/${g.id}">${g.groupName}</a>
             </li>
         <#else>
@@ -67,48 +123,4 @@
         </#list>
     </ul>
 
-    <br />
-    <span>Содержит элементы : </span>
-    <ul>
-        <#list elem_destination as ed>
-            <li>
-                <a href="/element/view/${ed.id}">${ed.name}</a>
-                <span>${(ed.proxy.name)!"none"}</span>
-            </li>
-        <#else>
-            <li>Нет элементов</li>
-        </#list>
-    </ul>
-
-    <br />
-    <span>Элемент для : </span>
-    <u>
-        <#list elem_source as es>
-            <li>
-                <a href="/element/view/${es.id}">${es.name}</a>
-                <span>${(es.proxy.name)!"none"}</span>
-            </li>
-        <#else>
-            <li>Нет оборудования</li>
-        </#list>
-    </ul>
-
-    <br />
-    <span>Аттрибуты : </span>
-    <ul>
-        <#list proxies as p>
-            <li>
-                <#if p.firma??>
-                    <span>${p.firma.firmName}</span>
-                </#if>
-                <#list p.attributeValues as pV>
-                    <span>${pV.attribute.name} - ${pV.name} ${pV.unit.name}<#sep>; </span>
-                <#else>
-                    <li></li>
-                </#list>
-            </li>
-        <#else>
-            <li>Аттрибутов нет</li>
-        </#list>
-    </ul>
 </@c.page>
