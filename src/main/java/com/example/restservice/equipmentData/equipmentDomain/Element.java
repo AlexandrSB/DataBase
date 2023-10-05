@@ -115,6 +115,7 @@ public class Element {
     public void addElementSource( ElementsComposite element ) {
         this.elementsSource.add( element );
     }
+
 //    public Element setParent(Element e) {
 //        this.parent = e;
 //        return this;
