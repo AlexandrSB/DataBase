@@ -1,4 +1,4 @@
-package com.example.restservice.storageData;
+package com.example.restservice.workshopData;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,32 +25,32 @@ import java.util.HashMap;
 @PropertySource({ "classpath:application.properties" })
 @EnableAutoConfiguration
 @EnableJpaRepositories(
-        basePackages = "com.example.restservice.storageData.storageRepos",
-        entityManagerFactoryRef = "storageEntityManager",
-        transactionManagerRef = "storageTransactionManager"
+        basePackages = "com.example.restservice.workshopData.workshopRepos",
+        entityManagerFactoryRef = "workshopEntityManager",
+        transactionManagerRef = "workshopTransactionManager"
 )
-public class StorageDBConfig {
+public class WorkshopDBConfig {
 
     @Autowired
     private Environment env;
 
-    @Value("${storage.flyway.locations}")
+    @Value("${workshop.flyway.locations}")
     private String flywayLocations;
 
     @Bean
-    @Qualifier("storageDataSource")
-    @ConfigurationProperties(prefix="storage.datasource")
-    public DataSource storageDataSource() {
+    @Qualifier("workshopDataSource")
+    @ConfigurationProperties(prefix="workshop.datasource")
+    public DataSource workshopDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean storageEntityManager() {
+    public LocalContainerEntityManagerFactoryBean workshopEntityManager() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(storageDataSource());
+        em.setDataSource(workshopDataSource());
         em.setPackagesToScan(
-                new String[] { "com.example.restservice.storageData.storageDomain" });
+                new String[] { "com.example.restservice.workshopData.workshopDomain" });
 
         HibernateJpaVendorAdapter vendorAdapter
                 = new HibernateJpaVendorAdapter();
@@ -66,19 +66,19 @@ public class StorageDBConfig {
     }
 
     @Bean
-    public PlatformTransactionManager storageTransactionManager() {
+    public PlatformTransactionManager workshopTransactionManager() {
 
         JpaTransactionManager transactionManager
                 = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(
-                storageEntityManager().getObject());
+                workshopEntityManager().getObject());
         return transactionManager;
     }
 
     @Bean
-    public Flyway storageflyway() {
+    public Flyway workshopFlyway() {
         return Flyway.configure()
-                .dataSource(storageDataSource())
+                .dataSource(workshopDataSource())
                 .locations(flywayLocations)
                 .baselineVersion("0.0")
                 .baselineOnMigrate(true)
@@ -86,7 +86,7 @@ public class StorageDBConfig {
     }
 
     @Bean
-    public FlywayMigrationInitializer storageFlywayMigrationInitializer() {
-        return new FlywayMigrationInitializer(storageflyway());
+    public FlywayMigrationInitializer workshopFlywayMigrationInitializer() {
+        return new FlywayMigrationInitializer(workshopFlyway());
     }
 }

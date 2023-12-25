@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 		"com.example.restservice.equipmentData",
-		"com.example.restservice.storageData"
+		"com.example.restservice.storageData",
+		"com.example.restservice.workshopData"
 })
 //@EnableJpaRepositories
 public class RestServiceApplication {
