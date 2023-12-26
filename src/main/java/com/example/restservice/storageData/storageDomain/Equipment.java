@@ -3,6 +3,7 @@ package com.example.restservice.storageData.storageDomain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 @Data
@@ -10,13 +11,18 @@ import lombok.Data;
 public class Equipment {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Size(min = 6)
-    @Column(name = "inventory_number")
+    @Column(
+            name = "inventory_number",
+            unique = true
+    )
     private String inventoryNumber;
 
-    @OneToOne(mappedBy = "equipment")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "good_id")
     private Good good;
 
     @ManyToOne(fetch = FetchType.LAZY)

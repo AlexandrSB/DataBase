@@ -1,6 +1,12 @@
 <#macro header_1 title >
-    <h1 class="text-center">${title}</h1>
+    <h1 class="text-center mt-1 mb-4">${title}</h1>
 </#macro>
+
+
+<#macro header_2 title >
+    <h2 class="text-center mr-2 mb-3">${title}</h2>
+</#macro>
+
 
 <#macro input_element
         element_name
@@ -24,6 +30,7 @@
 
 </#macro>
 
+
 <#macro input_hidden name value>
     <div class="form-group row justify-content-center">
         <div class="col-sm-6">
@@ -38,6 +45,7 @@
     </div>
 </#macro>
 
+
 <#macro checkbox
         checkbox_name
         checkbox_id
@@ -45,21 +53,22 @@
         checked
     >
 
-<div class="form-group row justify-content-center ">
-    <label class="col-sm-2 form-check-label" for="${checkbox_name}">
-        ${label} :
-    </label>
-    <div class="col-sm-6">
-        <input class="form-check-input"
-               type="checkbox"
-               name="${checkbox_name}"
-               id="${checkbox_id}"
-               checked = ${checked}
-        />
+    <div class="form-group row justify-content-center ">
+        <label class="col-sm-2 form-check-label" for="${checkbox_name}">
+            ${label} :
+        </label>
+        <div class="col-sm-6">
+            <input class="form-check-input"
+                   type="checkbox"
+                   name="${checkbox_name}"
+                   id="${checkbox_id}"
+                   checked = ${checked}
+            />
+        </div>
     </div>
-</div>
 
-        </#macro>
+</#macro>
+
 
 <#macro select_element
         element_name

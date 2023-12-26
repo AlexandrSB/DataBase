@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/storage/workshop")
-public class WorkshopController {
+public class StorageWorkshopController {
 
     @Autowired
     private WorkshopRepo workshopRepo;

@@ -13,8 +13,8 @@
         element_id = "good_name_id"
         label = "Good"
         placeholder = "Insert good name"
-        elements_array = goods!["none"]
-        elements_attr = "name"
+        elements_array = goods_names!["none"]
+        elements_attr = ""
     />
 
     <@se.select_element
@@ -45,10 +45,10 @@
     />
 
     <div class="card-columns">
-        <#list goods as g>
+        <#list goods_names as g>
             <@ce.card_element
-                title_1 = g.name
-                title_2 = g.name
+                title_1 = g
+                title_2 = g
                 text = "This is a goods card"
                 href_1 = "#"
                 href_1_name = "Persistent"

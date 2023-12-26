@@ -23,19 +23,20 @@ public class Good {
     @Column(name = "external_equip_id")
     private Long externalEquipId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "good_equip",
-            joinColumns = {
-                @JoinColumn(
-                        name = "good_id", referencedColumnName = "id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                        name = "equipment_id", referencedColumnName = "id")
-            }
-    )
-    private Equipment equipment;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "good_equip",
+//            joinColumns = {
+//                @JoinColumn(
+//                        name = "good_id", referencedColumnName = "id")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(
+//                        name = "equipment_id", referencedColumnName = "id")
+//            }
+//    )
+    @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
+    private Set<Equipment> equipment = new HashSet<>();
 
     @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
     private Set<Parcel> parcels = new HashSet<>();

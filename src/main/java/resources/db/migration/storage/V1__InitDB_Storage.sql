@@ -15,20 +15,6 @@ CREATE TABLE IF NOT EXISTS public.condition
     CONSTRAINT condition_pkey PRIMARY KEY (id)
 );
 
--- Table: public.equipment
--- DROP TABLE IF EXISTS public.equipment;
-CREATE TABLE IF NOT EXISTS public.equipment
-(
-    id bigint NOT NULL,
-    inventory_number character varying(15) COLLATE pg_catalog."default",
-    condition_id bigint NOT NULL,
-    CONSTRAINT equipment_pkey PRIMARY KEY (id),
-    CONSTRAINT FK_condition_equipment FOREIGN KEY ( condition_id)
-        REFERENCES "public".condition ( id ) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
 -- Table: public.good
 -- DROP TABLE IF EXISTS public.good;
 CREATE TABLE IF NOT EXISTS public.good
@@ -40,20 +26,21 @@ CREATE TABLE IF NOT EXISTS public.good
     CONSTRAINT good_pkey PRIMARY KEY (id)
 );
 
--- Table: public.good_equip
--- DROP TABLE IF EXISTS public.good_equip;
-CREATE TABLE IF NOT EXISTS public.good_equip
+-- Table: public.equipment
+-- DROP TABLE IF EXISTS public.equipment;
+CREATE TABLE IF NOT EXISTS public.equipment
 (
-    equipment_id bigint,
+    id bigint NOT NULL,
+    inventory_number character varying(15) UNIQUE COLLATE pg_catalog."default",
+    condition_id bigint NOT NULL,
     good_id bigint NOT NULL,
-    CONSTRAINT good_equip_pkey PRIMARY KEY (good_id),
-    CONSTRAINT uk_e1wljic2wnfdjk740gsupj5xa UNIQUE (equipment_id),
-    CONSTRAINT fk6d47h4u69brjwaqpc6r3bes37 FOREIGN KEY (good_id)
-        REFERENCES public.good (id) MATCH SIMPLE
+    CONSTRAINT equipment_pkey PRIMARY KEY (id),
+    CONSTRAINT FK_condition_equipment FOREIGN KEY ( condition_id )
+        REFERENCES "public".condition ( id ) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fkfv8mtvlykh7mba3luni11y7ok FOREIGN KEY (equipment_id)
-        REFERENCES public.equipment (id) MATCH SIMPLE
+    CONSTRAINT FK_good_equipment FOREIGN KEY ( good_id )
+        REFERENCES "public".good ( id ) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -425,6 +412,17 @@ CREATE SEQUENCE IF NOT EXISTS public.good_seq
 ALTER SEQUENCE public.good_seq
     OWNER TO admin;
 
+-- SEQUENCE: public.equipment_seq
+-- DROP SEQUENCE IF EXISTS public.good_seq;
+CREATE SEQUENCE IF NOT EXISTS public.equipment_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.equipment_seq
+    OWNER TO admin;
 
 -- SEQUENCE: public.goods_tracking_from_contragent_seq
 -- DROP SEQUENCE IF EXISTS public.goods_tracking_from_contragent_seq;

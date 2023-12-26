@@ -48,7 +48,6 @@ public class GoodsController {
     private ProxyRepo proxyRepo;
 
 
-
     @GetMapping("/goods")
     public String showGoods(Model model) {
 
@@ -63,10 +62,10 @@ public class GoodsController {
 
         Map<String, String> mapOfGoods = new HashMap<>();
 //        List<Map<String, String>> listOfGoods = new ArrayList<>();
-        String elem_type;
+//        String elem_type;
         String gd_elem;
 
-        for ( Good good : goods ) {
+        for (Good good : goods) {
             mapOfGoods.put("id", String.valueOf(good.getId()));
             mapOfGoods.put("name", good.getName());
             gd_elem = elementRepo.findById(
@@ -80,9 +79,22 @@ public class GoodsController {
 //            listOfGoods.add(mapOfGoods);
 
         }
-        model.addAttribute("mapOfGoods", mapOfGoods );
+        model.addAttribute("mapOfGoods", mapOfGoods);
 
-        return "goods";
+        return "storageGoods";
+    }
+
+    @GetMapping("/equipment")
+    public String equipment(Model model) {
+
+        Iterable<Good> goods = goodsRepo.findAll();
+        model.addAttribute("goods", goods);
+
+        Iterable<Equipment> equipment = equipmentRepo.findAll();
+        model.addAttribute("equipment", equipment);
+
+
+        return "storageEquipment";
     }
 
     @GetMapping("/arrival")
@@ -100,7 +112,7 @@ public class GoodsController {
         model.addAttribute("storages", storages);
 
         Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
-        model.addAttribute("quantities", quantityAccount );
+        model.addAttribute("quantities", quantityAccount);
 
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
@@ -113,8 +125,8 @@ public class GoodsController {
             Model model
     ) {
 
-        Iterable<Good> goods = goodsRepo.findAll();
-        model.addAttribute("goods", goods);
+        List<String> goodsNames = goodsRepo.getGoodsNames();
+        model.addAttribute("goods_names", goodsNames);
 
         Iterable<Workshop> workshops = workshopRepo.findAll();
         model.addAttribute("workshops", workshops);
@@ -123,7 +135,7 @@ public class GoodsController {
         model.addAttribute("storages", storages);
 
         Iterable<QuantityAccount> quantityAccount = quantityAccountRepo.findAll();
-        model.addAttribute("quantities", quantityAccount );
+        model.addAttribute("quantities", quantityAccount);
 
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
@@ -134,37 +146,48 @@ public class GoodsController {
     @PostMapping("add_goods")
     public String addGoogs(
             @RequestParam String element_name,
-            @RequestParam( required = false ) String description,
-            @RequestParam( required = false ) String inventory_number,
-            @RequestParam( required = false ) String barcode,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String inventory_number,
+            @RequestParam(required = false) String barcode,
             @RequestParam String condition_name,
             Model model
     ) {
-        if ( element_name.isEmpty() ) {
-            return "goods";
+        if (element_name.isEmpty()) {
+            return "storageGoods";
         }
 
         Condition condition =
                 conditionRepo.findByName(condition_name).get();
 
         Element element =
-                elementRepo.findByName( element_name ).get();
+                elementRepo.findByName(element_name).get();
 
         Equipment equipment = new Equipment();
 
-        Good good = new Good();
-        good.setName( element.getName().trim() );
-        good.setExternalEquipId( element.getId() );
+//        Good good = new Good();
+//        good.setName( element.getName().trim() );
+//        good.setExternalEquipId( element.getId() );
+//        goodsRepo.save(good);
+
+        Good good = goodsRepo.findByName(element_name)
+                .orElse(new Good());
+        good.setName(element.getName().trim());
+        good.setExternalEquipId(element.getId());
         goodsRepo.save(good);
 
-        if ( !inventory_number.isEmpty() &&
-                inventory_number.length() > 5 ) {
-            equipment.setId( good.getId() );
-            equipment.setInventoryNumber( inventory_number);
-            equipment.setGood( good );
-            equipmentRepo.save( equipment );
+        if (!inventory_number.isEmpty() &&
+                inventory_number.length() > 5) {
+//            equipment.setId( good.getId() );
+            equipment.setInventoryNumber(inventory_number);
+            equipment.setGood(good);
+            equipment.setCondition(condition);
+            equipmentRepo.save(equipment);
+//            good.setEquipment( equipment );
         }
+
+//        goodsRepo.save(good);
 
         return "redirect:/storage/goods";
     }
+
 }
