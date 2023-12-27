@@ -11,29 +11,50 @@
             title = "Оборудование в ремонте"
         />
         <div class="row">
-            <@ce.card_element_1
+            <@ce.card_element_2
                 title_1 = "Ремонт"
                 title_2 = "Оборудование в ремонте"
-                text = "Описание оборудования в ремонте"
                 href_1 = "/workshop/repair"
                 href_1_name = "Ремонт"
-            />
+            >
+                <#list in_repairs as ir>
+                    <p>${ir["inventoryNumber"]} -- ${ir["good"].name} <a href="/workshop/repair_card/${ir.id}">card</a></p>
+                <#else>
+                    <p>&ltnone&gt</p>
+                </#list>
 
-            <@ce.card_element_1
+            </@ce.card_element_2>
+
+            <@ce.card_element_2
                 title_1 = "Диагностика"
                 title_2 = "Оборудование на диагностике"
-                text = "Описание диагностики"
                 href_1 = "/workshop/diagnostics"
                 href_1_name = "Диагностика"
-            />
+            >
 
-            <@ce.card_element_1
+                <#list in_diagnostics as id>
+                    <p>${id["inventoryNumber"]} -- ${id["good"].name}</p>
+                <#else>
+                    <p>&ltnone&gt</p>
+                </#list>
+
+            </@ce.card_element_2>
+
+            <@ce.card_element_2
                 title_1 = "Чистка"
                 title_2 = "Оборудование на чистке"
-                text = "Описание процедуры очистки"
                 href_1 = "/workshop/clearing"
                 href_1_name = "Чистка"
-            />
+            >
+
+                <#list in_clearing as ic>
+                    <p>${ic["inventoryNumber"]} -- ${ic["good"].name}</p>
+                <#else>
+                    <p>&ltnone&gt</p>
+                </#list>
+
+            </@ce.card_element_2>
+
         </div>
 
         <div>
@@ -47,9 +68,9 @@
 
                 <#list awaiting_repairs as ar>
                     <tr>
-                        <td>${ar.id}!"none"</td>
-                        <td>${ar.inventoryNumber}!"none"</td>
-                        <td>${ar.good.name}!"none"</td>
+                        <td>${ar.id!"none"}</td>
+                        <td>${ar.inventoryNumber!"none"}</td>
+                        <td>${ar.good.name!"none"}</td>
                         <td>
                             <div>
                                 <@f.form

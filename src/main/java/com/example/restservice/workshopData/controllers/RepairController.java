@@ -3,7 +3,6 @@ package com.example.restservice.workshopData.controllers;
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
-import com.example.restservice.storageData.storageDomain.Contragent;
 import com.example.restservice.storageData.storageDomain.Equipment;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
 import com.example.restservice.storageData.storageRepos.EquipmentRepo;
@@ -13,12 +12,7 @@ import com.example.restservice.workshopData.workshopRepos.WorkshopEquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/workshop")
@@ -45,6 +39,18 @@ public class RepairController {
 
     @GetMapping
     public String workshop(Model model) {
+//        """
+//            Condition
+//            0 -- Исправные
+//            1 -- В ремонте
+//            2 -- В ожидании ремонта
+//            3 -- Донор
+//            4 -- Списано
+//            5 -- Закуп
+//            6 -- На диагностике
+//            7 -- В чистке
+//            8 -- На кеше
+//        """
 
 //        Iterable<Equipment> equipment = equipmentRepo.findAll();
         Iterable<Long> equipmentsId = equipmentRepo.getAllId();
@@ -52,10 +58,34 @@ public class RepairController {
         model.addAttribute("workshop_equipment", element);
 
         Iterable<Equipment> awaitingRepairs =
-                storageEquipmentRepo.getEquipmentByAwaitingRepairs();
+                storageEquipmentRepo.getEquipmentByCondition(2L);
         model.addAttribute("awaiting_repairs", awaitingRepairs);
 
+        Iterable<Equipment> inRepairs =
+                storageEquipmentRepo.getEquipmentByCondition(1L);
+        model.addAttribute("in_repairs", inRepairs);
+
+        Iterable<Equipment> inDiagnostics =
+                storageEquipmentRepo.getEquipmentByCondition(6L);
+        model.addAttribute("in_diagnostics", inDiagnostics);
+
+        Iterable<Equipment> inClearing =
+                storageEquipmentRepo.getEquipmentByCondition(7L);
+        model.addAttribute("in_clearing", inClearing);
+
+
         return "workshopWorkshop";
+    }
+
+    @GetMapping("/repair_card/{id}")
+    public String repairCard(
+            Model model,
+            @PathVariable String id
+    ) {
+
+
+
+        return "workshopRepairCard";
     }
 
     @GetMapping("/repair")
@@ -82,14 +112,20 @@ public class RepairController {
             @RequestParam String elem_id
     ) {
 
-        Optional<Condition> optionalCondition = conditionRepo.findById(1L);
-        Condition condition = optionalCondition.orElseThrow();
+        Condition condition = conditionRepo.findById(1L).orElseThrow();
 
-        Optional<Equipment> optionalEquipment = storageEquipmentRepo.findById(Long.valueOf(elem_id));
-        Equipment equipment = optionalEquipment.orElseThrow();
+        Equipment equipment = storageEquipmentRepo
+                .findById(Long.valueOf(elem_id))
+                .orElseThrow();
 
         equipment.setCondition(condition);
         storageEquipmentRepo.save(equipment);
+
+        com.example.restservice.workshopData.workshopDomain.Equipment equipment1 =
+                equipmentRepo.findById(equipment.getId())
+                        .orElse(new com.example.restservice.workshopData.workshopDomain.Equipment());
+        equipment1.setId(equipment.getId() );
+        equipmentRepo.save(equipment1);
 
         return "redirect:/workshop";
     }

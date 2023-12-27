@@ -9,10 +9,7 @@ import com.example.restservice.storageData.storageRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -82,6 +79,20 @@ public class GoodsController {
         model.addAttribute("mapOfGoods", mapOfGoods);
 
         return "storageGoods";
+    }
+
+    @GetMapping("/goods/{id}")
+    public String goodsView(
+            Model model,
+            @PathVariable String id
+    ) {
+
+        Iterable<Equipment> equipment =
+                equipmentRepo.getEquipmentByGood(
+                        Long.valueOf(id));
+        model.addAttribute("goods_view", equipment);
+
+        return "storageGoodsView";
     }
 
     @GetMapping("/equipment")
@@ -190,4 +201,21 @@ public class GoodsController {
         return "redirect:/storage/goods";
     }
 
+    @PostMapping("goods/in_repair")
+    public String moveGoodInRepair(
+            @RequestParam String elem_id
+    ) {
+
+        Long equip_id = Long.valueOf(elem_id);
+
+        Equipment equipment = equipmentRepo
+                .findById(equip_id)
+                .orElseThrow();
+
+        Condition condition = conditionRepo.findById(2L).orElseThrow();
+        equipment.setCondition(condition);
+        equipmentRepo.save(equipment);
+
+        return "redirect:/storage/goods/" + equipment.getGood().getId();
+    }
 }

@@ -53,10 +53,13 @@
     </form>
 
 
-    <@ce.table_element
-            table_head = ["id", "Name", "Condition"]
+    <@ce.table_link_element
+            table_head = ["id", "Name", "View"]
             table_body = goods
             table_columns = ["id", "name"]
+            link = "/storage/goods/"
+            link_link = "id"
+            link_name = "view"
     />
 
 </@c.page>

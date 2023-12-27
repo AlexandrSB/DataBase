@@ -124,7 +124,7 @@
 <#macro card_element_1
         title_1 = ""
         title_2 = ""
-        text = ""
+        text = [""]
         href_1 = ""
         href_1_name = ""
         >
@@ -134,10 +134,34 @@
             <div class="card-body">
                 <h5 class="card-title">${title_1}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">${title_2}</h6>
-                <p class="card-text">${text}</p>
+                <#list text as t>
+                    <p class="card-text">${t}</p>
+                <#else>
+                    <p class="card-text">none</p>
+                </#list>
                 <a href="${href_1}" class="card-link">${href_1_name}</a>
             </div>
         </div>
     </div>
+
+</#macro>
+
+<#macro card_element_2
+        title_1 = ""
+        title_2 = ""
+        href_1 = ""
+        href_1_name = ""
+        >
+
+    <div class="col-sm-4">
+    <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">${title_1}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${title_2}</h6>
+        <#nested>
+        <a href="${href_1}" class="card-link">${href_1_name}</a>
+    </div>
+    </div>
+        </div>
 
 </#macro>

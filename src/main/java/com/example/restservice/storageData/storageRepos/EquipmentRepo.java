@@ -15,7 +15,16 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
                 FROM Equipment e
                 LEFT JOIN FETCH e.condition
                 LEFT JOIN FETCH e.good
-                WHERE e.condition.id = 2
+                WHERE e.condition.id = ?1
             """)
-    List<Equipment> getEquipmentByAwaitingRepairs();
+    List<Equipment> getEquipmentByCondition(Long condition_id);
+
+    @Query(value = """
+            SELECT e
+            FROM Equipment e
+                LEFT JOIN FETCH e.condition
+                LEFT JOIN FETCH e.good
+                WHERE e.good.id = ?1
+            """)
+    List<Equipment> getEquipmentByGood(Long good_id);
 }
