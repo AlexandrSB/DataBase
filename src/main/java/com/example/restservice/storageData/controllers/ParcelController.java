@@ -50,6 +50,16 @@ public class ParcelController {
         model.addAttribute("proxies", proxies);
     }
 
+    @GetMapping
+    public String getParcels(Model model) {
+
+        Iterable<Parcel> parcels = parcelRepo.findAllParcelsWithGood();
+        model.addAttribute("parcels", parcels);
+
+        return "storageParcels";
+    }
+
+
     @GetMapping("{id}")
     private String newParcel(
             @PathVariable String id,

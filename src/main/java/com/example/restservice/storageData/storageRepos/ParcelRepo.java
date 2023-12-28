@@ -18,12 +18,19 @@ public interface ParcelRepo extends CrudRepository<Parcel, Long> {
     Set<Parcel> findParcelsFromPartyId(Long party_id);
 
     @Query(value = """
-            SELECT ps
-            FROM Parcel ps
-            LEFT JOIN FETCH ps.good
-            LEFT JOIN FETCH ps.quantityAccount
-            LEFT JOIN FETCH ps.party
-            WHERE ps.party.id = ?1
+            SELECT p
+            FROM Parcel p
+                LEFT JOIN FETCH p.good
+                LEFT JOIN FETCH p.quantityAccount
+                LEFT JOIN FETCH p.party
+            WHERE p.party.id = ?1
             """)
     Set<Parcel> findAllParcelsWithGoodAndQuandtityAccountAndParty(Long party_id);
+
+    @Query(value = """
+            SELECT p
+            FROM Parcel p
+                LEFT JOIN FETCH p.good
+            """)
+    List<Parcel> findAllParcelsWithGood();
 }

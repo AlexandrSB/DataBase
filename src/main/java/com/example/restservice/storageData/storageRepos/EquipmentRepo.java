@@ -13,8 +13,8 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
     @Query(value = """
                 SELECT e
                 FROM Equipment e
-                LEFT JOIN FETCH e.condition
-                LEFT JOIN FETCH e.good
+                    LEFT JOIN FETCH e.condition
+                    LEFT JOIN FETCH e.good
                 WHERE e.condition.id = ?1
             """)
     List<Equipment> getEquipmentByCondition(Long condition_id);
@@ -24,7 +24,7 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
             FROM Equipment e
                 LEFT JOIN FETCH e.condition
                 LEFT JOIN FETCH e.good
-                WHERE e.good.id = ?1
+            WHERE e.good.id = ?1
             """)
     List<Equipment> getEquipmentByGood(Long good_id);
 }

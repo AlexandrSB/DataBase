@@ -8,6 +8,8 @@
         title = "Товары"
     />
 
+    <a href="/storage/parcel">Расходники</a>
+
     <form action="/storage/add_goods" method="post" id="equip">
 
         <@se.select_list_element
