@@ -1,6 +1,7 @@
 <#import "parts/common.ftlh" as c />
 <#import "parts/constructor/simple_element.ftlh" as se />
 <#import "parts/constructor/composite_element.ftlh" as ce />
+<#import "parts/constructor/forms.ftlh" as f/>
 
 <@c.page>
 
@@ -9,50 +10,23 @@
     />
 
     <a href="/storage/parcel">Расходники</a>
+    <a href="/storage/equipment">Оборудование</a>
 
-    <form action="/storage/add_goods" method="post" id="equip">
-
-        <@se.select_list_element
-            element_name = "element_name"
-            label = "Element"
+    <@f.form_button
+        id = "form_equipment_id"
+        action = "exportEquipment"
+        method = "post"
+        button_name = "Export Equipment"
         >
-            <#list elements as e>
-                <option>${e}</option>
-            <#else>
-                <option>&ltnone&gt</option>
-            </#list>
-        </@se.select_list_element>
+    </@f.form_button>
 
-        <@se.select_element
-            element_name = "condition_name"
-            element_id = "condition_id"
-            label = "Condition"
-            placeholder = "Insert condition of element"
-            elements_array = conditions
-            elements_attr = "name"
-        />
-
-        <@se.input_element
-            element_name = "inventory_number"
-            element_id = "inventory_number_id"
-            label = "Inventory number"
-            placeholder = "Input inventory number"
-        />
-
-        <@se.input_element
-            element_name = "barcode"
-            element_id = "barcode_id"
-            label = "Barcode"
-            placeholder = "Input barcode"
-        />
-
-        <@se.description />
-
-        <@se.button_send
-            button_name = "Add good"
-        />
-
-    </form>
+    <@f.form_button
+        id = "form_equipment_id"
+        action = "exportParcels"
+        method = "post"
+        button_name = "Export Parcels"
+        >
+    </@f.form_button>
 
 
     <@ce.table_link_element

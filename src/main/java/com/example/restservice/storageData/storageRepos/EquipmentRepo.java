@@ -27,4 +27,13 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
             WHERE e.good.id = ?1
             """)
     List<Equipment> getEquipmentByGood(Long good_id);
+
+    @Query(value= """
+            SELECT e
+            FROM Equipment e
+                LEFT JOIN FETCH e.condition c
+                LEFT JOIN FETCH e.good g
+            """)
+    Iterable<Equipment> findAllWithLazy();
+
 }

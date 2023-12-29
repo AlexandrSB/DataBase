@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS public.good
     id bigint NOT NULL,
     name character varying(50) COLLATE pg_catalog."default",
     proxy_id bigint[] NULL,
-    external_equip_id bigint NOT NULL,
+    is_equipment boolean DEFAULT false,
     CONSTRAINT good_pkey PRIMARY KEY (id)
 );
 

@@ -51,32 +51,28 @@ public class GoodsController {
         Iterable<Good> goods = goodsRepo.findAll();
         model.addAttribute("goods", goods);
 
-        Iterable<String> elements = elementRepo.findEquipmentsOnlyName();
-        model.addAttribute("elements", elements);
+        Iterable<Element> elements_name = elementRepo.findAllOnlyName();
+        model.addAttribute("elements_name", elements_name);
 
-        Iterable<Condition> conditions = conditionRepo.findAll();
-        model.addAttribute("conditions", conditions);
-
-        Map<String, String> mapOfGoods = new HashMap<>();
+//        Map<String, String> mapOfGoods = new HashMap<>();
 //        List<Map<String, String>> listOfGoods = new ArrayList<>();
 //        String elem_type;
-        String gd_elem;
+//        String gd_elem;
 
-        for (Good good : goods) {
-            mapOfGoods.put("id", String.valueOf(good.getId()));
-            mapOfGoods.put("name", good.getName());
-            gd_elem = elementRepo.findById(
-                    Long.valueOf(
-                            good.getExternalEquipId()
-                    )
-            ).get().getElementType().getType();
+////        for (Good good : goods) {
+////            mapOfGoods.put("id", String.valueOf(good.getId()));
+////            mapOfGoods.put("name", good.getName());
+//////            gd_elem = elementRepo.findById(
+//////                    Long.valueOf(
+//////                            good.getExternalEquipId()
+////                    )
+////            ).get().getElementType().getType();
 
 
-            mapOfGoods.put("type", gd_elem);
-//            listOfGoods.add(mapOfGoods);
+//            mapOfGoods.put("type", gd_elem);
 
-        }
-        model.addAttribute("mapOfGoods", mapOfGoods);
+//        }
+//        model.addAttribute("mapOfGoods", mapOfGoods);
 
         return "storageGoods";
     }
@@ -93,19 +89,6 @@ public class GoodsController {
         model.addAttribute("goods_view", equipment);
 
         return "storageGoodsView";
-    }
-
-    @GetMapping("/equipment")
-    public String equipment(Model model) {
-
-        Iterable<Good> goods = goodsRepo.findAll();
-        model.addAttribute("goods", goods);
-
-        Iterable<Equipment> equipment = equipmentRepo.findAll();
-        model.addAttribute("equipment", equipment);
-
-
-        return "storageEquipment";
     }
 
     @GetMapping("/arrival")
@@ -154,52 +137,52 @@ public class GoodsController {
         return "expense";
     }
 
-    @PostMapping("add_goods")
-    public String addGoogs(
-            @RequestParam String element_name,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) String inventory_number,
-            @RequestParam(required = false) String barcode,
-            @RequestParam String condition_name,
-            Model model
-    ) {
-        if (element_name.isEmpty()) {
-            return "storageGoods";
-        }
-
-        Condition condition =
-                conditionRepo.findByName(condition_name).get();
-
-        Element element =
-                elementRepo.findByName(element_name).get();
-
-        Equipment equipment = new Equipment();
-
-//        Good good = new Good();
-//        good.setName( element.getName().trim() );
-//        good.setExternalEquipId( element.getId() );
+//    @PostMapping("add_goods")
+//    public String addGoogs(
+//            @RequestParam String element_name,
+//            @RequestParam(required = false) String description,
+//            @RequestParam(required = false) String inventory_number,
+//            @RequestParam(required = false) String barcode,
+//            @RequestParam String condition_name,
+//            Model model
+//    ) {
+//        if (element_name.isEmpty()) {
+//            return "storageGoods";
+//        }
+//
+//        Condition condition =
+//                conditionRepo.findByName(condition_name).get();
+//
+//        Element element =
+//                elementRepo.findByName(element_name).get();
+//
+//        Equipment equipment = new Equipment();
+//
+////        Good good = new Good();
+////        good.setName( element.getName().trim() );
+////        good.setExternalEquipId( element.getId() );
+////        goodsRepo.save(good);
+//
+//        Good good = goodsRepo.findByName(element_name)
+//                .orElse(new Good());
+//        good.setName(element.getName().trim());
+//        good.setExternalEquipId(element.getId());
 //        goodsRepo.save(good);
-
-        Good good = goodsRepo.findByName(element_name)
-                .orElse(new Good());
-        good.setName(element.getName().trim());
-        good.setExternalEquipId(element.getId());
-        goodsRepo.save(good);
-
-        if (!inventory_number.isEmpty() &&
-                inventory_number.length() > 5) {
-//            equipment.setId( good.getId() );
-            equipment.setInventoryNumber(inventory_number);
-            equipment.setGood(good);
-            equipment.setCondition(condition);
-            equipmentRepo.save(equipment);
-//            good.setEquipment( equipment );
-        }
-
-//        goodsRepo.save(good);
-
-        return "redirect:/storage/goods";
-    }
+//
+//        if (!inventory_number.isEmpty() &&
+//                inventory_number.length() > 5) {
+////            equipment.setId( good.getId() );
+//            equipment.setInventoryNumber(inventory_number);
+//            equipment.setGood(good);
+//            equipment.setCondition(condition);
+//            equipmentRepo.save(equipment);
+////            good.setEquipment( equipment );
+//        }
+//
+////        goodsRepo.save(good);
+//
+//        return "redirect:/storage/goods";
+//    }
 
     @PostMapping("goods/in_repair")
     public String moveGoodInRepair(
@@ -217,5 +200,48 @@ public class GoodsController {
         equipmentRepo.save(equipment);
 
         return "redirect:/storage/goods/" + equipment.getGood().getId();
+    }
+
+    @PostMapping("exportEquipment")
+    public String exportEquipment() {
+
+        Set<Good> goods = new HashSet<>();
+
+
+        Iterable<Element> equipment = elementRepo.findAllEquipment();
+
+        for (Element e : equipment) {
+            Good good = new Good();
+            good.setId(e.getId());
+            good.setName(e.getName());
+            good.setIsEquipment(true);
+//            good.setExternalEquipId(e.getId());
+            goods.add(good);
+        }
+
+        goodsRepo.saveAll(goods);
+
+        return "redirect:/storage/goods";
+    }
+
+    @PostMapping("exportParcels")
+    public String exportParcels() {
+
+        Set<Good> goods = new HashSet<>();
+
+        Iterable<Element> parcels = elementRepo.findAllParcels();
+
+        for (Element e : parcels) {
+            Good good = new Good();
+            good.setId(e.getId());
+            good.setName(e.getName());
+//            good.setExternalEquipId(e.getId());
+            goods.add(good);
+        }
+
+        goodsRepo.saveAll(goods);
+
+
+        return "redirect:/storage/goods";
     }
 }

@@ -13,15 +13,18 @@ import java.util.Set;
 public class Good {
 
     @Id
-    @GeneratedValue
-    private final Long id;
+//    @GeneratedValue
+    private Long id;
 
     private String name;
 
     private Set<Long> proxy_id = new HashSet<>();
 
-    @Column(name = "external_equip_id")
-    private Long externalEquipId;
+    @Column(name = "is_equipment")
+    private Boolean isEquipment = false;
+
+//    @Column(name = "external_equip_id")
+//    private Long externalEquipId;
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinTable(
@@ -47,7 +50,8 @@ public class Good {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", proxy_id=" + proxy_id +
-                ", externalEquipId=" + externalEquipId +
+//                ", externalEquipId=" + externalEquipId +
                 '}';
     }
+
 }

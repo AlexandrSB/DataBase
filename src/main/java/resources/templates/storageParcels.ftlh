@@ -12,7 +12,7 @@
         element_name = "element_name"
         label = "Parcels"
     >
-        <#list parcels as p>
+        <#list parcelsWithGoods as p>
             <option>${p}</option>
         <#else>
             <option>&ltnone&gt</option>
