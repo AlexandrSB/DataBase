@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface ElementRepo extends CrudRepository<Element, Long> {
@@ -18,7 +19,7 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             SELECT e.name
             FROM Element e
             """)
-    Iterable<Element> findAllByName();
+    Iterable<Element> findAllOnlyName();
 
     @Query(value = """
             SELECT  e.id, e.name,
@@ -51,4 +52,18 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             GROUP BY e.id, es.id, px.id         
             """)
     Iterable<String> findElementSource(Long id);
+
+    @Query(value= """
+            SELECT e.name
+            FROM Element e
+            WHERE e.isEquipment = true
+            """)
+    Set<String> findEquipmentsOnlyName();
+
+    @Query(value= """
+            SELECT e.name
+            FROM Element e
+            WHERE e.isEquipment = false
+            """)
+    Set<String> findParcelsOnlyName();
 }

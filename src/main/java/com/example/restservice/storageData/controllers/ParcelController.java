@@ -54,7 +54,7 @@ public class ParcelController {
     public String getParcels(Model model) {
 
         Iterable<Parcel> parcels = parcelRepo.findAllParcelsWithGood();
-        model.addAttribute("parcels", parcels);
+        model.addAttribute("parcelsWithGoods", parcels);
 
         return "storageParcels";
     }

@@ -8,12 +8,14 @@ CREATE TABLE IF NOT EXISTS public.contragent
     CONSTRAINT contragent_pkey PRIMARY KEY (id)
 );
 
+
 CREATE TABLE IF NOT EXISTS public.condition
 (
     id bigint NOT NULL,
     name character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT condition_pkey PRIMARY KEY (id)
 );
+
 
 -- Table: public.good
 -- DROP TABLE IF EXISTS public.good;
@@ -178,13 +180,13 @@ CREATE TABLE IF NOT EXISTS public.parcel
     good_id bigint,
     quantity_account_id bigint,
     party_id bigint,
+    proxy_id bigint,
     CONSTRAINT parcel_pkey PRIMARY KEY (id),
     CONSTRAINT fk_parcel_party FOREIGN KEY (party_id)
         REFERENCES public.party (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fk5egyo4nqpxbyq781kwxpj7slc
-        FOREIGN KEY (quantity_account_id)
+    CONSTRAINT fk5egyo4nqpxbyq781kwxpj7slc FOREIGN KEY (quantity_account_id)
         REFERENCES public.quantity_account (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,

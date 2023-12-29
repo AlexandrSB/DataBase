@@ -51,7 +51,7 @@ public class GoodsController {
         Iterable<Good> goods = goodsRepo.findAll();
         model.addAttribute("goods", goods);
 
-        Iterable<Element> elements = elementRepo.findAllByName();
+        Iterable<String> elements = elementRepo.findEquipmentsOnlyName();
         model.addAttribute("elements", elements);
 
         Iterable<Condition> conditions = conditionRepo.findAll();
