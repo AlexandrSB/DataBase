@@ -49,7 +49,7 @@ public class RepairNotationController {
         modelRepo.save(model);
         repairNotationRepo.save(repairNotation);
 
-        return "redirect:/workshop/repair_card/" + equipment_id;
+        return "redirect:/workshop/repair_card/" + equipment.getInventoryNumber();
     }
 
 }
