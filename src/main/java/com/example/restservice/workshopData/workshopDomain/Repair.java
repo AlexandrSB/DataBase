@@ -20,6 +20,7 @@ public class Repair {
     @CurrentTimestamp
     private Timestamp timestamp;
 
+    @Column(name = "repair_type")
     private RepairType repairType;
 
     @ManyToMany

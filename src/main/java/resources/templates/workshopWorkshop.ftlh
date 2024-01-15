@@ -18,7 +18,7 @@
                 href_1_name = "Ремонт"
             >
                 <#list in_repairs as ir>
-                    <p>${ir["inventoryNumber"]} -- ${ir["good"].name} <a href="/workshop/repair_card/${ir.id}">card</a></p>
+                    <p>${ir["inventoryNumber"]} -- ${ir["good"].name} <a href="/workshop/repair_card/${ir['inventoryNumber']}">card</a></p>
                 <#else>
                     <p>&ltnone&gt</p>
                 </#list>

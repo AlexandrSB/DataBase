@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "repair_notation")
 public class RepairNotation {
 
     @Id
@@ -32,4 +33,8 @@ public class RepairNotation {
             inverseJoinColumns = @JoinColumn(name = "repair_id")
     )
     private Set<Repair> repairSet = new HashSet<>();
+
+    public void addModel(Model model) {
+        models.add(model);
+    }
 }

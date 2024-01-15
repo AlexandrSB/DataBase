@@ -206,7 +206,7 @@ public class GoodsController {
         equipment.setCondition(condition);
         equipmentRepo.save(equipment);
 
-        return "redirect:/storage/goods/" + equipment.getGood().getId();
+        return "redirect:/storage/equipment";
     }
 
     @PostMapping("exportEquipment")

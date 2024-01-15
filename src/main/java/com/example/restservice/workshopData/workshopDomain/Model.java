@@ -11,7 +11,10 @@ import java.util.Set;
 public class Model {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    private String name;
 
     @ManyToMany
     @JoinTable(

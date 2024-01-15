@@ -5,13 +5,17 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Equipment {
+public class Module {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "inventory_number")
-    private String inventoryNumber;
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Module parent;
 
     @ManyToOne
     @JoinColumn(name = "model_id")

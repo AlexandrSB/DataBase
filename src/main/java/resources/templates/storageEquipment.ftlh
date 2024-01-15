@@ -68,7 +68,7 @@
                     <div>
                         <@f.form
                             id = "btnRepairId"
-                            action = "in_repair"
+                            action = "/storage/goods/in_repair"
                             method = "post"
                         >
                             <input type="number" name="elem_id"  value=${ge.id} hidden="hidden" />

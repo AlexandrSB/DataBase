@@ -17,11 +17,33 @@ CREATE TABLE IF NOT EXISTS public.equipment
 (
     id bigint NOT NULL,
     inventory_number character varying(255) COLLATE pg_catalog."default",
-    name character varying(255) COLLATE pg_catalog."default",
     model_id bigint,
     CONSTRAINT equipment_pkey PRIMARY KEY (id),
     CONSTRAINT fkgfycjdthonudivh0bqj65ewcp FOREIGN KEY (model_id)
         REFERENCES public.model (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+TABLESPACE pg_default;
+ALTER TABLE IF EXISTS public.equipment
+    OWNER to admin;
+
+
+-- Table: public.module
+-- DROP TABLE IF EXISTS public.module;
+CREATE TABLE IF NOT EXISTS public.module
+(
+    id bigint NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default",
+    parent_id bigint,
+    model_id bigint,
+    CONSTRAINT module_pkey PRIMARY KEY (id),
+    CONSTRAINT fkgfycjdthonudivh0bqj65ewcp FOREIGN KEY (model_id)
+        REFERENCES public.model (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT module_parent_constraint FOREIGN KEY (parent_id)
+        REFERENCES public.module (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
@@ -164,4 +186,27 @@ CREATE SEQUENCE IF NOT EXISTS public.repair_seq
     MAXVALUE 9223372036854775807
     CACHE 1;
 ALTER SEQUENCE public.repair_seq
+    OWNER TO admin;
+
+
+-- SEQUENCE: public.model_seq
+-- DROP SEQUENCE IF EXISTS public.model_seq;
+CREATE SEQUENCE IF NOT EXISTS public.model_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+ALTER SEQUENCE public.model_seq
+    OWNER TO admin;
+
+-- SEQUENCE: public.module_seq
+-- DROP SEQUENCE IF EXISTS public.module_seq;
+CREATE SEQUENCE IF NOT EXISTS public.module_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+ALTER SEQUENCE public.module_seq
     OWNER TO admin;
