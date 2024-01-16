@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Module {
+@Table(name = "module")
+public class WorkshopModule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -15,7 +16,7 @@ public class Module {
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Module parent;
+    private WorkshopModule parent;
 
     @ManyToOne
     @JoinColumn(name = "model_id")

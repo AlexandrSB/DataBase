@@ -1,13 +1,15 @@
 package com.example.restservice.workshopData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
+import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
 import com.example.restservice.storageData.storageDomain.Equipment;
-import com.example.restservice.storageData.storageDomain.Good;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
 import com.example.restservice.storageData.storageRepos.EquipmentRepo;
 import com.example.restservice.storageData.storageRepos.GoodsRepo;
+import com.example.restservice.workshopData.workshopDomain.WorkshopModule;
 import com.example.restservice.workshopData.workshopDomain.RepairNotation;
 import com.example.restservice.workshopData.workshopRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,12 @@ public class RepairController {
 
     @Autowired
     private ModelRepo modelRepo;
+
+    @Autowired
+    private ModuleRepo moduleRepo;
+
+    @Autowired
+    private ProxyRepo proxyRepo;
 
     @GetMapping
     public String workshop(Model model) {
@@ -113,6 +121,35 @@ public class RepairController {
         return "workshopRepairCard";
     }
 
+    @GetMapping("/repair_card/{inventory_number}/{module_id}")
+    public String moduleRepair(
+            @PathVariable String inventory_number,
+            @PathVariable String module_id
+    ) {
+        Long moduleId = Long.valueOf(module_id);
+
+        Proxy proxy = proxyRepo.findById(moduleId)
+                .orElseThrow();
+
+        Equipment equipment = storageEquipmentRepo.findByInventoryNumber(inventory_number)
+                .orElseThrow();
+
+        com.example.restservice.workshopData.workshopDomain.Model model
+                = modelRepo.findByName(
+                        equipment.getGood().getName()
+        ).orElseThrow();
+
+        WorkshopModule workshopModule = moduleRepo.findById(moduleId)
+                .orElse(new WorkshopModule());
+        if (workshopModule.getName() == null) {
+            workshopModule.setName(proxy.getName());
+            workshopModule.setModel(model);
+            moduleRepo.save(workshopModule);
+        }
+
+        return "workshopOperation";
+    }
+
     @GetMapping("/repair")
     public String repair(Model model) {
 
@@ -156,10 +193,12 @@ public class RepairController {
         com.example.restservice.workshopData.workshopDomain.Equipment workshopEquipment =
                 equipmentRepo.findById(equipment.getId())
                         .orElse(new com.example.restservice.workshopData.workshopDomain.Equipment());
-        workshopEquipment.setId(equipment.getId() );
-        workshopEquipment.setInventoryNumber(equipment.getInventoryNumber());
-        workshopEquipment.setModel(workshopModel);
-        equipmentRepo.save(workshopEquipment);
+        if(workshopEquipment.getId() == null) {
+            workshopEquipment.setId(equipment.getId());
+            workshopEquipment.setInventoryNumber(equipment.getInventoryNumber());
+            workshopEquipment.setModel(workshopModel);
+            equipmentRepo.save(workshopEquipment);
+        }
 
         return "redirect:/workshop";
     }
