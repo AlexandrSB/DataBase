@@ -147,7 +147,7 @@
                         <span>${p.firma.firmName}</span>
                     </#if>
                     <#list p.attributeValues as pV>
-                        <span>${pV.attribute.name} - ${pV.name} ${pV.unit.name}<#sep>; </span>
+                        <span>${pV.attribute.name} - ${pV.name} ${pV.workshopUnit.name}<#sep>; </span>
                     <#else>
                         <li></li>
                     </#list>

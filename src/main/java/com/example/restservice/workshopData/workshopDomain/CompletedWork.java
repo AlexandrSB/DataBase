@@ -5,33 +5,34 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
-@Table(name = "workshop_module")
-public class WorkshopModule {
+@Table(name = "completed_work")
+public class CompletedWork {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
+    private String notation;
 
-    @ManyToOne
-    @JoinColumn(name = "consumption_of_materials_id")
+    @OneToMany
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private ConsumptionOfMaterials consumptionOfMaterials;
+    private Set<ConsumptionOfMaterials> consumptionOfMaterials;
 
-    @ManyToOne
-    @JoinColumn(name = "repair_card_id")
+    @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private RepairCard repairCard;
+    private Set<TypeOfOperation> typeOfOperations = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @JoinColumn(name = "type_of_repair_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private WorkshopUnit workshopUnit;
+    private TypeOfRepair typeOfRepair;
 
 }

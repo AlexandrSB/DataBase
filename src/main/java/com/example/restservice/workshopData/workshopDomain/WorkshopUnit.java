@@ -5,10 +5,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
-@Table(name = "workshop_module")
-public class WorkshopModule {
+@Table(name = "unit")
+public class WorkshopUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -16,22 +19,19 @@ public class WorkshopModule {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "consumption_of_materials_id")
+    @OneToMany(mappedBy = "workshopUnit")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private ConsumptionOfMaterials consumptionOfMaterials;
+    private Set<TypeOfOperation> typeOfOperations = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "repair_card_id")
+    @OneToMany(mappedBy = "workshopUnit")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private RepairCard repairCard;
+    private Set<SparePart> spareParts = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @OneToMany(mappedBy = "workshopUnit")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private WorkshopUnit workshopUnit;
+    private Set<WorkshopModule> workshopModules = new HashSet<>();
 
 }

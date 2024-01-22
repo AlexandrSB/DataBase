@@ -1,11 +1,11 @@
 package com.example.restservice.workshopData.controllers;
 
-import com.example.restservice.storageData.storageDomain.Equipment;
-import com.example.restservice.storageData.storageRepos.EquipmentRepo;
-import com.example.restservice.workshopData.workshopDomain.Model;
-import com.example.restservice.workshopData.workshopDomain.RepairNotation;
-import com.example.restservice.workshopData.workshopRepos.ModelRepo;
-import com.example.restservice.workshopData.workshopRepos.RepairNotationRepo;
+import com.example.restservice.workshopData.workshopDomain.RepairCard;
+import com.example.restservice.workshopData.workshopDomain.WorkshopModule;
+import com.example.restservice.workshopData.workshopDomain.WorkshopUnit;
+import com.example.restservice.workshopData.workshopRepos.WorkshopUnitRepo;
+import com.example.restservice.workshopData.workshopRepos.WorkshopModuleRepo;
+import com.example.restservice.workshopData.workshopRepos.RepairCardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,39 +17,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RepairNotationController {
 
     @Autowired
-    private RepairNotationRepo repairNotationRepo;
+    private RepairCardRepo repairCardRepo;
 
     @Autowired
-    private ModelRepo modelRepo;
+    private WorkshopUnitRepo workshopUnitRepo;
 
     @Autowired
-    private EquipmentRepo equipmentRepo;
+    private WorkshopModuleRepo workshopModuleRepo;
 
     @PostMapping("add_repair_notation")
     private String addRepairNotation(
-            @RequestParam String equipment_id,
+            @RequestParam String workshop_module_id,
+            @RequestParam String equipment_inventory_number,
             @RequestParam String repair_notation_name
     ) {
 
-        Equipment equipment = equipmentRepo.findById(
-                Long.valueOf(equipment_id)
-        ).orElseThrow();
+        Long workshopModuleId = Long.valueOf(workshop_module_id);
 
-        RepairNotation repairNotation = new RepairNotation();
-        repairNotation.setNotation(repair_notation_name);
+        WorkshopModule workshopModule = workshopModuleRepo
+                .findById(workshopModuleId)
+                .orElseThrow();
 
-        Model model = modelRepo.findByName(equipment_id)
-                .orElse(new Model());
-        if (model.getName() == null) {
-            model.setName(equipment.getGood().getName());
-        }
+        RepairCard repairCard = new RepairCard();
+//        repairCard.setWorkshopModules(repair_notation_name);
 
-        repairNotation.addModel(model);
+        repairCard.setWorkshopModules(
+                workshopModule.getWorkshopUnit().getWorkshopModules()
+        );
+        repairCardRepo.save(repairCard);
 
-        modelRepo.save(model);
-        repairNotationRepo.save(repairNotation);
-
-        return "redirect:/workshop/repair_card/" + equipment.getInventoryNumber();
+        return "redirect:/workshop/repair_card/"
+                + equipment_inventory_number +"/"
+                + workshop_module_id;
     }
 
 }

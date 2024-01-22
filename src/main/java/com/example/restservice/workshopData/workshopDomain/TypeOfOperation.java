@@ -7,31 +7,22 @@ import lombok.ToString;
 
 @Entity
 @Data
-@Table(name = "workshop_module")
-public class WorkshopModule {
+@Table(name = "type_of_operation")
+public class TypeOfOperation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
-
     @ManyToOne
-    @JoinColumn(name = "consumption_of_materials_id")
+    @JoinColumn(name = "completed_work_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private ConsumptionOfMaterials consumptionOfMaterials;
-
-    @ManyToOne
-    @JoinColumn(name = "repair_card_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private RepairCard repairCard;
+    private CompletedWork completedWork;
 
     @ManyToOne
     @JoinColumn(name = "unit_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private WorkshopUnit workshopUnit;
-
 }

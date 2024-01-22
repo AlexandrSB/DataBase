@@ -1,7 +1,6 @@
 package com.example.restservice.workshopData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Element;
-import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
@@ -9,26 +8,27 @@ import com.example.restservice.storageData.storageDomain.Equipment;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
 import com.example.restservice.storageData.storageRepos.EquipmentRepo;
 import com.example.restservice.storageData.storageRepos.GoodsRepo;
+import com.example.restservice.workshopData.workshopDomain.RepairCard;
+import com.example.restservice.workshopData.workshopDomain.WorkshopEquipment;
 import com.example.restservice.workshopData.workshopDomain.WorkshopModule;
-import com.example.restservice.workshopData.workshopDomain.RepairNotation;
+import com.example.restservice.workshopData.workshopDomain.WorkshopUnit;
 import com.example.restservice.workshopData.workshopRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/workshop")
 public class RepairController {
 
     @Autowired
-    private RepairRepo repairRepo;
+    private RepairCardRepo repairCardRepo;
 
     @Autowired
-    private RepairNotationRepo repairNotationRepo;
-
-    @Autowired
-    private WorkshopEquipmentRepo equipmentRepo;
+    private WorkshopEquipmentRepo workshopEquipmentRepo;
 
     @Autowired
     private EquipmentRepo storageEquipmentRepo;
@@ -40,16 +40,16 @@ public class RepairController {
     private ElementRepo elementRepo;
 
     @Autowired
-    private SparesRepo sparesRepo;
+    private SparePartRepo sparePartRepo;
 
     @Autowired
     private GoodsRepo goodsRepo;
 
     @Autowired
-    private ModelRepo modelRepo;
+    private WorkshopUnitRepo workshopUnitRepo;
 
     @Autowired
-    private ModuleRepo moduleRepo;
+    private WorkshopModuleRepo workshopModuleRepo;
 
     @Autowired
     private ProxyRepo proxyRepo;
@@ -70,7 +70,7 @@ public class RepairController {
 //        """
 
 //        Iterable<Equipment> equipment = equipmentRepo.findAll();
-        Iterable<Long> equipmentsId = equipmentRepo.getAllId();
+        Iterable<Long> equipmentsId = workshopEquipmentRepo.getAllId();
         Iterable<Element> element = elementRepo.findAllById(equipmentsId);
         model.addAttribute("workshop_equipment", element);
 
@@ -114,38 +114,64 @@ public class RepairController {
                 elementRepo.findElementDestinationAll(element.getId());
         model.addAttribute("elem_destination", elements_destination);
 
-        Iterable<RepairNotation> repairNotations = repairNotationRepo
-                .findAllByModel(equipment.getGood().getName());
-        model.addAttribute("repair_notation", repairNotations);
+        Iterable<RepairCard> repairCard = repairCardRepo
+                .findAllByModelName(equipment.getGood().getName());
+        model.addAttribute("repair_card", repairCard);
 
         return "workshopRepairCard";
     }
 
-    @GetMapping("/repair_card/{inventory_number}/{module_id}")
+    @GetMapping("/repair_card/{inventory_number}/{element_id}")
     public String moduleRepair(
+            Model model,
             @PathVariable String inventory_number,
-            @PathVariable String module_id
+            @PathVariable String element_id
     ) {
-        Long moduleId = Long.valueOf(module_id);
+        Long elementId = Long.valueOf(element_id);
+        Equipment equipment = null;
+        Element element = null;
 
-        Proxy proxy = proxyRepo.findById(moduleId)
-                .orElseThrow();
+        Optional<Equipment> optionalEquipment = storageEquipmentRepo
+                .findByInventoryNumber(inventory_number);
 
-        Equipment equipment = storageEquipmentRepo.findByInventoryNumber(inventory_number)
-                .orElseThrow();
-
-        com.example.restservice.workshopData.workshopDomain.Model model
-                = modelRepo.findByName(
-                        equipment.getGood().getName()
-        ).orElseThrow();
-
-        WorkshopModule workshopModule = moduleRepo.findById(moduleId)
-                .orElse(new WorkshopModule());
-        if (workshopModule.getName() == null) {
-            workshopModule.setName(proxy.getName());
-            workshopModule.setModel(model);
-            moduleRepo.save(workshopModule);
+        if (optionalEquipment.isPresent()) {
+            equipment = optionalEquipment.get();
+        } else {
+            return "redirect:/workshop";
         }
+        model.addAttribute("equipment", equipment);
+
+        Optional<Element> optionalElement = elementRepo.findById(elementId);
+        if (optionalElement.isPresent()) {
+            element = optionalElement.get();
+        } else {
+            return "redirect:/workshop";
+        }
+
+        WorkshopUnit workshopUnit = workshopUnitRepo.findById(element.getId())
+                .orElse(new WorkshopUnit());
+        if (workshopUnit.getName() == null) {
+            workshopUnit.setId(element.getId());
+            workshopUnit.setName(element.getName());
+            workshopUnitRepo.save(workshopUnit);
+        }
+
+        WorkshopModule workshopModule = workshopModuleRepo.findById(elementId)
+                .orElse(new WorkshopModule());
+        if (workshopModule.getId() == null) {
+            workshopModule.setId(elementId);
+            workshopModule.setWorkshopUnit(workshopUnit);
+            workshopModuleRepo.save(workshopModule);
+        }
+        model.addAttribute("workshop_module", workshopModule);
+
+        Iterable<RepairCard> repairCards = repairCardRepo
+                .findAllByModelName(workshopUnit.getName());
+        model.addAttribute("repair_card", repairCards);
+
+        Iterable<Element> elements_destination =
+                elementRepo.findElementDestinationAll(element.getId());
+        model.addAttribute("elements_destination", elements_destination);
 
         return "workshopOperation";
     }
@@ -182,22 +208,21 @@ public class RepairController {
         equipment.setCondition(condition);
         storageEquipmentRepo.save(equipment);
 
-        com.example.restservice.workshopData.workshopDomain.Model workshopModel =
-                modelRepo.findByName(equipment.getGood().getName())
-                        .orElse(new com.example.restservice.workshopData.workshopDomain.Model());
-        if (workshopModel.getName() == null) {
-            workshopModel.setName(equipment.getGood().getName());
-            modelRepo.save(workshopModel);
+        WorkshopUnit workshopUnit = workshopUnitRepo.findByName(equipment.getGood().getName())
+                .orElse(new WorkshopUnit());
+        if (workshopUnit.getName() == null) {
+            workshopUnit.setName(equipment.getGood().getName());
+            workshopUnitRepo.save(workshopUnit);
         }
 
-        com.example.restservice.workshopData.workshopDomain.Equipment workshopEquipment =
-                equipmentRepo.findById(equipment.getId())
-                        .orElse(new com.example.restservice.workshopData.workshopDomain.Equipment());
+        WorkshopEquipment workshopEquipment =
+                workshopEquipmentRepo.findById(equipment.getId())
+                        .orElse(new WorkshopEquipment());
         if(workshopEquipment.getId() == null) {
             workshopEquipment.setId(equipment.getId());
             workshopEquipment.setInventoryNumber(equipment.getInventoryNumber());
-            workshopEquipment.setModel(workshopModel);
-            equipmentRepo.save(workshopEquipment);
+            workshopEquipment.setModel(workshopUnit.getName());
+            workshopEquipmentRepo.save(workshopEquipment);
         }
 
         return "redirect:/workshop";

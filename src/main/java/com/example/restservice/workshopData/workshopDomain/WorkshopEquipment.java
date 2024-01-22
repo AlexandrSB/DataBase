@@ -5,15 +5,20 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Equipment {
+@Table(name = "workshop_equipment")
+public class WorkshopEquipment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    private String model;
+
+    private String type;
 
     @Column(name = "inventory_number")
     private String inventoryNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private Model model;
+    @OneToOne
+    private RepairCard repairCard;
 }
