@@ -29,7 +29,7 @@ public class RepairNotationController {
     @Autowired
     private RepairCardOfEquipmentRepo repairCardOfEquipmentRepo;
 
-    @PostMapping("add_repair_notation")
+    @PostMapping("add_equipment_card")
     private String addRepairNotation(
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
@@ -65,4 +65,25 @@ public class RepairNotationController {
                 + unit_id;
     }
 
+    @PostMapping("add_module_card")
+    private String addModuleForm(
+            @RequestParam String repair_card_id,
+            @RequestParam String unit_id,
+            @RequestParam String ...onCheckboxes
+    ) {
+        UUID repairCardUUID = UUID.fromString(repair_card_id);
+        Long unitId = Long.valueOf(unit_id);
+
+        RepairCardOfModule repairCardOfModule = repairCardOfModuleRepo
+                .findByUnitId(repairCardUUID, unitId)
+                .orElse(new RepairCardOfModule());
+
+        ConsumptionOfMaterial consumptionOfMaterial =
+                new ConsumptionOfMaterial();
+
+
+        return "redirect:/workshop/repair_card"
+                + repair_card_id
+                + unit_id;
+    }
 }

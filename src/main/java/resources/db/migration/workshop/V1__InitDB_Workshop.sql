@@ -102,11 +102,16 @@ ALTER TABLE IF EXISTS public.repair_card_of_equipment
 -- DROP TABLE IF EXISTS public.workshop_module;
 CREATE TABLE IF NOT EXISTS public.workshop_module
 (
-    id bigint NOT NULL,
+    id uuid NOT NULL,
     name character varying(255) COLLATE pg_catalog."default",
-    unit_id bigint,
+    workshop_equipment_id bigint,
+    workshop_unit_id bigint,
     CONSTRAINT workshop_module_pkey PRIMARY KEY (id),
-    CONSTRAINT fkth7wd6uclr811wbg0al43i49h FOREIGN KEY (unit_id)
+    CONSTRAINT fk8icbrhomuq1odnfc13dpg9lg6 FOREIGN KEY (workshop_equipment_id)
+            REFERENCES public.workshop_equipment (id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION,
+    CONSTRAINT fkth7wd6uclr811wbg0al43i49h FOREIGN KEY (workshop_unit_id)
         REFERENCES public.workshop_unit (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
@@ -122,7 +127,7 @@ CREATE TABLE IF NOT EXISTS public.repair_card_of_module
 (
     id uuid NOT NULL,
     repair_card_of_equipment_id uuid,
-    workshop_module_id bigint,
+    workshop_module_id uuid,
     CONSTRAINT repair_card_of_module_pkey PRIMARY KEY (id),
     CONSTRAINT fkdca1yvw5ao8s9ob08k31so169 FOREIGN KEY (repair_card_of_equipment_id)
         REFERENCES public.repair_card_of_equipment (id) MATCH SIMPLE
@@ -147,7 +152,7 @@ CREATE TABLE IF NOT EXISTS public.consumption_of_material
     completed_work_id bigint,
     repair_card_of_module_id uuid,
     type_of_spare_part_id bigint,
-    workshop_module_id bigint,
+    workshop_module_id uuid,
     CONSTRAINT consumption_of_material_pkey PRIMARY KEY (id),
     CONSTRAINT fk5bt0087bqlft5c91urjg7u0o9 FOREIGN KEY (type_of_spare_part_id)
         REFERENCES public.type_of_spare_part (id) MATCH SIMPLE

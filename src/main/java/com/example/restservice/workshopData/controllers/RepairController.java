@@ -165,8 +165,7 @@ public class RepairController {
         WorkshopModule workshopModule = workshopModuleRepo
                 .findById(unitId)
                 .orElse(new WorkshopModule());
-        if (workshopModule.getId() == null) {
-            workshopModule.setId(unitId);
+        if (workshopModule.getName() == null) {
             workshopModule.setName(workshopUnit.getName());
             workshopModule.setWorkshopUnit(workshopUnit);
             workshopModuleRepo.save(workshopModule);

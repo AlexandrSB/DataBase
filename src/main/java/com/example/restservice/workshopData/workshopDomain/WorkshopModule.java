@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -13,15 +14,22 @@ import java.util.Set;
 public class WorkshopModule {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @JoinColumn(name = "workshop_unit_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private WorkshopUnit workshopUnit;
+
+    @ManyToOne
+    @JoinColumn(name = "workshop_equipment_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkshopEquipment workshopEquipment;
 
     @OneToMany(mappedBy = "workshopModule")
     @ToString.Exclude

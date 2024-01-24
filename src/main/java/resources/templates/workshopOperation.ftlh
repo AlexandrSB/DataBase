@@ -44,7 +44,7 @@
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        <form class="row g-6" action="/repair_notation/add_repair_notation" method="post">
+                        <form class="row g-6" action="/repair_notation/add_equipment_card" method="post">
                             <@se.input_hidden
                                 name = "repair_card_id"
                                 value = repair_card.id
@@ -64,7 +64,17 @@
                             </div>
                         </form>
 
-                        <form class="row g-6" action="#" method="post">
+                        <form class="row g-6" action="/repair_notation/add_module_card" method="post">
+                            <@se.input_hidden
+                                name = "repair_card_id"
+                                value = repair_card.id
+                                />
+
+                            <@se.input_hidden
+                                name = "unit_id"
+                                value = unit.id
+                                />
+
                             <div class="col-auto">
                                 <#list completed_works as cw>
                                     <div class="form-check form-switch">
@@ -75,7 +85,7 @@
                             </div>
 
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary mb-3">Add</button>
+                                <button type="submit" class="btn btn-primary mb-3">Write</button>
                             </div>
                         </form>
                     </div>

@@ -27,4 +27,9 @@ public class WorkshopEquipment {
     @EqualsAndHashCode.Exclude
     private Set<RepairCardOfEquipment> repairCardOfEquipments;
 
+    @OneToMany(mappedBy = "workshopEquipment")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<WorkshopModule> workshopModules;
+
 }
