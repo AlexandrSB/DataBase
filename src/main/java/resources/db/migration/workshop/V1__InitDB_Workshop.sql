@@ -1,16 +1,3 @@
--- Table: public.type_of_repair
--- DROP TABLE IF EXISTS public.type_of_repair;
-CREATE TABLE IF NOT EXISTS public.type_of_repair
-(
-    id bigint NOT NULL,
-    repair_type character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT type_of_repair_pkey PRIMARY KEY (id)
-)
-TABLESPACE pg_default;
-ALTER TABLE IF EXISTS public.type_of_repair
-    OWNER to admin;
-
-
 -- Table: public.completed_work
 -- DROP TABLE IF EXISTS public.completed_work;
 CREATE TABLE IF NOT EXISTS public.completed_work
@@ -18,12 +5,8 @@ CREATE TABLE IF NOT EXISTS public.completed_work
     id bigint NOT NULL,
     notation character varying(255) COLLATE pg_catalog."default",
     consumption_of_materials_id bigint,
-    type_of_repair_id bigint,
-    CONSTRAINT completed_work_pkey PRIMARY KEY (id),
-    CONSTRAINT fk4mdjx5p94xexph75gcxq85wxf FOREIGN KEY (type_of_repair_id)
-        REFERENCES public.type_of_repair (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    repair_type character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT completed_work_pkey PRIMARY KEY (id)
 )
 TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.completed_work
@@ -53,6 +36,21 @@ ALTER TABLE IF EXISTS public.consumption_of_materials
     OWNER to admin;
 
 
+-- Table: public.workshop_equipment
+-- DROP TABLE IF EXISTS public.workshop_equipment;
+CREATE TABLE IF NOT EXISTS public.workshop_equipment
+(
+    id bigint NOT NULL,
+    inventory_number character varying(255) COLLATE pg_catalog."default",
+    model character varying(255) COLLATE pg_catalog."default",
+    type character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT workshop_equipment_pkey PRIMARY KEY (id)
+)
+TABLESPACE pg_default;
+ALTER TABLE IF EXISTS public.workshop_equipment
+    OWNER to admin;
+
+
 -- Table: public.repair_card
 -- DROP TABLE IF EXISTS public.repair_card;
 CREATE TABLE IF NOT EXISTS public.repair_card
@@ -62,32 +60,16 @@ CREATE TABLE IF NOT EXISTS public.repair_card
     end_repair_timestamp timestamp(6) with time zone,
     repair_type smallint,
     workshop_equipment_id bigint,
+    CONSTRAINT uk_ojak2jh63cc7aboagc6q4b0cj UNIQUE (workshop_equipment_id),
+    CONSTRAINT repair_card_workshop_equipment_fkey FOREIGN KEY (workshop_equipment_id)
+        REFERENCES public.workshop_equipment (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
     CONSTRAINT repair_card_pkey PRIMARY KEY (id),
     CONSTRAINT repair_card_repair_type_check CHECK (repair_type >= 0 AND repair_type <= 4)
 )
 TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.repair_card
-    OWNER to admin;
-
-
--- Table: public.workshop_equipment
--- DROP TABLE IF EXISTS public.workshop_equipment;
-CREATE TABLE IF NOT EXISTS public.workshop_equipment
-(
-    id bigint NOT NULL,
-    inventory_number character varying(255) COLLATE pg_catalog."default",
-    model character varying(255) COLLATE pg_catalog."default",
-    type character varying(255) COLLATE pg_catalog."default",
-    repair_card_id bigint,
-    CONSTRAINT workshop_equipment_pkey PRIMARY KEY (id),
-    CONSTRAINT uk_ojak2jh63cc7aboagc6q4b0cj UNIQUE (repair_card_id),
-    CONSTRAINT fkm29fptmt6ay4arydkl742g465 FOREIGN KEY (repair_card_id)
-        REFERENCES public.repair_card (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-TABLESPACE pg_default;
-ALTER TABLE IF EXISTS public.workshop_equipment
     OWNER to admin;
 
 
@@ -126,14 +108,15 @@ ALTER TABLE IF EXISTS public.spare_part
 CREATE TABLE IF NOT EXISTS public.type_of_operation
 (
     id bigint NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default",
     completed_work_id bigint,
-    unit bigint,
+    unit_id bigint,
     CONSTRAINT type_of_operation_pkey PRIMARY KEY (id),
     CONSTRAINT fkev3fp57pjke5v6jgt2uqwrpry FOREIGN KEY (completed_work_id)
         REFERENCES public.completed_work (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fko3465d4c8oglu6tduubas14es FOREIGN KEY (unit)
+    CONSTRAINT fko3465d4c8oglu6tduubas14es FOREIGN KEY (unit_id)
         REFERENCES public.unit (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION

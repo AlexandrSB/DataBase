@@ -7,6 +7,10 @@
     <h2 class="text-center mr-2 mb-3">${title}</h2>
 </#macro>
 
+<#macro header_3 title >
+    <h3 class="text-center mr-2 mb-3">${title}</h3>
+</#macro>
+
 
 <#macro input_element
         element_name

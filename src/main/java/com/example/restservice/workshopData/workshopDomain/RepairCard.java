@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.TimeZoneStorage;
+import org.hibernate.annotations.TimeZoneStorageType;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
@@ -25,7 +27,7 @@ public class RepairCard {
     @Column(name = "begin_repair_timestamp")
     private ZonedDateTime beginRepairTimestamp;
 
-    @CurrentTimestamp
+    @TimeZoneStorage(TimeZoneStorageType.NATIVE)
     @Column(name = "end_repair_timestamp")
     private ZonedDateTime endRepairTimestamp;
 
@@ -33,4 +35,8 @@ public class RepairCard {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<WorkshopModule> workshopModules;
+
+    @OneToOne
+    @JoinColumn(name = "workshop_equipment_id")
+    private WorkshopEquipment workshopEquipment;
 }

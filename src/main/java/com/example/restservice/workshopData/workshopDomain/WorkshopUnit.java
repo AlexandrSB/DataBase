@@ -14,7 +14,6 @@ import java.util.Set;
 public class WorkshopUnit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;

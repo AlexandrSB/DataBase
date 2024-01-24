@@ -7,19 +7,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RepairCardRepo extends CrudRepository<RepairCard, Long> {
-
     @Query(value = """
-            SELECT rc
-            FROM RepairCard rc
+            SELECT rp
+            FROM RepairCard rp
                 LEFT JOIN FETCH workshopModules wm
+                LEFT JOIN FETCH workshopEquipment we
+            WHERE endRepairTimestamp is NULL
             """)
-    Iterable<RepairCard> findAll();
-
-    @Query(value = """
-            SELECT rc
-            FROM RepairCard rc
-                LEFT JOIN FETCH workshopModules wm
-            WHERE wm.name in :module_name
-            """)
-    Iterable<RepairCard> findAllByModelName(String module_name);
+    Iterable<RepairCard> getCardInRepair();
 }

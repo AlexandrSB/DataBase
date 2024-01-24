@@ -10,6 +10,7 @@
         <@se.header_2
             title = "Оборудование в ремонте"
         />
+
         <div class="row">
             <@ce.card_element_2
                 title_1 = "Ремонт"
@@ -18,8 +19,8 @@
                 href_1_name = "Ремонт"
             >
                 <#list in_repairs as ir>
-                    <p>${ir["inventoryNumber"]} -- ${ir["good"].name}
-                        <a href="/workshop/repair_card/${ir['inventoryNumber']}">card</a>
+                    <p>${ir.workshopEquipment.inventoryNumber} -- ${ir.workshopEquipment.model}
+                        <a href="/workshop/repair_card/${ir.id}">card</a>
                     </p>
                 <#else>
                     <p>&ltnone&gt</p>

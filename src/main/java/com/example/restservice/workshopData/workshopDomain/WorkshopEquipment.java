@@ -9,7 +9,6 @@ import lombok.Data;
 public class WorkshopEquipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String model;
@@ -19,6 +18,4 @@ public class WorkshopEquipment {
     @Column(name = "inventory_number")
     private String inventoryNumber;
 
-    @OneToOne
-    private RepairCard repairCard;
 }

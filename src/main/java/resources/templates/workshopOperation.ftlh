@@ -5,19 +5,23 @@
 
 <@c.page>
 
-<@se.header_1
+    <@se.header_1
         title = "Ремонт комплектующих"
         />
 
-<@se.header_2
-        title = workshop_module.model.name
+    <@se.header_2
+        title = workshop_module.name
+        />
+
+    <@se.header_3
+        title = "Вид ремонта: " + repair_card.repairType
         />
 
     <#if elements_destination[0][1]?has_content>
         <ul>
             <#list elements_destination as ed>
                 <li>
-                    <a href="/workshop/repair_card/${equipment.inventoryNumber}/${ed[1].id}">Ремонт модуля -- ${ed[1].name!"none"}</a>
+                    <a href="/workshop/repair_card/${repair_card.id}/${ed[1].id}">Ремонт модуля -- ${ed[1].name!"none"}</a>
                 </li>
             <#else>
                 <li>
@@ -42,13 +46,13 @@
                     <div class="card-body">
                         <form class="row g-6" action="/repair_notation/add_repair_notation" method="post">
                             <@se.input_hidden
-                                name = "workshop_module_id"
-                                value = workshop_module.id
+                                name = "repair_card_id"
+                                value = repair_card.id
                                 />
 
                             <@se.input_hidden
-                                name = "equipment_inventory_number"
-                                value = equipment.inventoryNumber
+                                name = "unit_id"
+                                value = unit.id
                                 />
 
                             <div class="col-auto">
@@ -61,12 +65,14 @@
                         </form>
 
                         <form class="row g-6" action="#" method="post">
-                            <#list repair_notation as rn>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name=${rn.id}>
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">${rn.notation!"none"}</label>
-                                </div>
-                            </#list>
+                            <div class="col-auto">
+                                <#list completed_works as cw>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name=${cw.id}>
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
+                                    </div>
+                                </#list>
+                            </div>
 
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary mb-3">Add</button>

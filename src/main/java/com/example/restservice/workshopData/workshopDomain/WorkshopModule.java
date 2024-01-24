@@ -11,7 +11,6 @@ import lombok.ToString;
 public class WorkshopModule {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;

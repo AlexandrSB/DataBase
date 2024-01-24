@@ -1,54 +1,64 @@
 package com.example.restservice.workshopData.controllers;
 
-import com.example.restservice.workshopData.workshopDomain.RepairCard;
-import com.example.restservice.workshopData.workshopDomain.WorkshopModule;
-import com.example.restservice.workshopData.workshopDomain.WorkshopUnit;
-import com.example.restservice.workshopData.workshopRepos.WorkshopUnitRepo;
-import com.example.restservice.workshopData.workshopRepos.WorkshopModuleRepo;
-import com.example.restservice.workshopData.workshopRepos.RepairCardRepo;
+import com.example.restservice.workshopData.workshopDomain.*;
+import com.example.restservice.workshopData.workshopRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("repair_notation")
 public class RepairNotationController {
 
     @Autowired
-    private RepairCardRepo repairCardRepo;
+    private CompletedWorkRepo completedWorkRepo;
+
+    @Autowired
+    private TypeOfOperationRepo typeOfOperationRepo;
 
     @Autowired
     private WorkshopUnitRepo workshopUnitRepo;
 
     @Autowired
-    private WorkshopModuleRepo workshopModuleRepo;
+    private RepairCardRepo repairCardRepo;
 
     @PostMapping("add_repair_notation")
     private String addRepairNotation(
-            @RequestParam String workshop_module_id,
-            @RequestParam String equipment_inventory_number,
+            @RequestParam String repair_card_id,
+            @RequestParam String unit_id,
             @RequestParam String repair_notation_name
     ) {
 
-        Long workshopModuleId = Long.valueOf(workshop_module_id);
+        Long repairCardId = Long.valueOf(repair_card_id);
+        Long unitId = Long.valueOf(unit_id);
 
-        WorkshopModule workshopModule = workshopModuleRepo
-                .findById(workshopModuleId)
+        RepairCard repairCard = repairCardRepo
+                .findById(repairCardId)
                 .orElseThrow();
 
-        RepairCard repairCard = new RepairCard();
-//        repairCard.setWorkshopModules(repair_notation_name);
+        WorkshopUnit workshopUnit = workshopUnitRepo
+                .findById(unitId)
+                .orElseThrow();
 
-        repairCard.setWorkshopModules(
-                workshopModule.getWorkshopUnit().getWorkshopModules()
-        );
-        repairCardRepo.save(repairCard);
+        CompletedWork completedWork = new CompletedWork();
+        completedWork.setNotation(repair_notation_name);
+//        completedWork.setConsumptionOfMaterials();
+        completedWork.setRepairType(repairCard.getRepairType());
+        completedWorkRepo.save(completedWork);
+
+        TypeOfOperation typeOfOperation = new TypeOfOperation();
+        typeOfOperation.setName(OperationType.REPAIR);
+        typeOfOperation.setCompletedWork(completedWork);
+        typeOfOperation.setWorkshopUnit(workshopUnit);
+        typeOfOperationRepo.save(typeOfOperation);
 
         return "redirect:/workshop/repair_card/"
-                + equipment_inventory_number +"/"
-                + workshop_module_id;
+                + repair_card_id +"/"
+                + unit_id;
     }
 
 }

@@ -19,7 +19,7 @@ public class CompletedWork {
 
     private String notation;
 
-    @OneToMany
+    @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<ConsumptionOfMaterials> consumptionOfMaterials;
@@ -29,10 +29,7 @@ public class CompletedWork {
     @EqualsAndHashCode.Exclude
     private Set<TypeOfOperation> typeOfOperations = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "type_of_repair_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private TypeOfRepair typeOfRepair;
+    @Column(name = "repair_type")
+    private RepairType repairType;
 
 }

@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface WorkshopEquipmentRepo extends CrudRepository<WorkshopEquipment, Long> {
@@ -14,4 +15,11 @@ public interface WorkshopEquipmentRepo extends CrudRepository<WorkshopEquipment,
             FROM WorkshopEquipment e
             """)
     List<Long> getAllId();
+
+    @Query(value = """
+            SELECT we
+            FROM WorkshopEquipment we
+            WHERE we.inventoryNumber = :inventoryNumber
+            """)
+    Optional<WorkshopEquipment> findByInventoryNumber(String inventoryNumber);
 }
