@@ -19,17 +19,17 @@ public class CompletedWork {
 
     private String notation;
 
+    @Column(name = "repair_type")
+    private RepairType repairType;
+
     @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<ConsumptionOfMaterials> consumptionOfMaterials;
+    private Set<ConsumptionOfMaterial> consumptionOfMaterials;
 
     @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<TypeOfOperation> typeOfOperations = new HashSet<>();
-
-    @Column(name = "repair_type")
-    private RepairType repairType;
 
 }

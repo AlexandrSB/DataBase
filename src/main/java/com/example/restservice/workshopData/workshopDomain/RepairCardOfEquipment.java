@@ -1,24 +1,25 @@
 package com.example.restservice.workshopData.workshopDomain;
 
+import com.example.restservice.workshopData.workshopRepos.RepairCardOfModuleRepo;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.CurrentTimestamp;
-import org.hibernate.annotations.TimeZoneStorage;
-import org.hibernate.annotations.TimeZoneStorageType;
+import org.hibernate.annotations.TimeZoneColumn;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "repair_card")
-public class RepairCard {
+@Table(name = "repair_card_of_equipment")
+public class RepairCardOfEquipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(name = "repair_type")
     private  RepairType repairType;
@@ -27,16 +28,16 @@ public class RepairCard {
     @Column(name = "begin_repair_timestamp")
     private ZonedDateTime beginRepairTimestamp;
 
-    @TimeZoneStorage(TimeZoneStorageType.NATIVE)
+    @TimeZoneColumn
     @Column(name = "end_repair_timestamp")
     private ZonedDateTime endRepairTimestamp;
 
-    @OneToMany(mappedBy = "repairCard")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<WorkshopModule> workshopModules;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "workshop_equipment_id")
     private WorkshopEquipment workshopEquipment;
+
+    @OneToMany(mappedBy = "repairCardOfEquipment")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<RepairCardOfModule> repairCardOfModules;
 }

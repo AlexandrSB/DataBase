@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Entity
 @Data
 @Table(name = "workshop_module")
@@ -16,21 +18,18 @@ public class WorkshopModule {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "consumption_of_materials_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private ConsumptionOfMaterials consumptionOfMaterials;
-
-    @ManyToOne
-    @JoinColumn(name = "repair_card_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private RepairCard repairCard;
-
-    @ManyToOne
     @JoinColumn(name = "unit_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private WorkshopUnit workshopUnit;
 
+    @OneToMany(mappedBy = "workshopModule")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<ConsumptionOfMaterial> consumptionOfMaterials;
+
+    @OneToMany(mappedBy = "workshopModule")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<RepairCardOfModule> repairCardOfModules;
 }

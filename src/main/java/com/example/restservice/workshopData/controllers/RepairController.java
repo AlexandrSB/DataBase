@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/workshop")
@@ -43,7 +44,10 @@ public class RepairController {
     private ProxyRepo proxyRepo;
 
     @Autowired
-    private RepairCardRepo repairCardRepo;
+    private RepairCardOfModuleRepo repairCardOfModuleRepo;
+
+    @Autowired
+    private RepairCardOfEquipmentRepo repairCardOfEquipmentRepo;
 
     @Autowired
     private SparePartRepo sparePartRepo;
@@ -80,8 +84,8 @@ public class RepairController {
                 storageEquipmentRepo.getEquipmentByCondition(2L);
         model.addAttribute("awaiting_repairs", awaitingRepairs);
 
-        Iterable<RepairCard> inRepairs =
-                repairCardRepo.getCardInRepair();
+        Iterable<RepairCardOfEquipment> inRepairs =
+                repairCardOfEquipmentRepo.getCardInRepair();
         model.addAttribute("in_repairs", inRepairs);
 
         Iterable<Equipment> inDiagnostics =
@@ -102,13 +106,15 @@ public class RepairController {
             @PathVariable String repair_card_id
     ) {
 
-        Long repairCardId = Long.valueOf(repair_card_id);
+        UUID repairCardId = UUID.fromString(repair_card_id);
 
-        RepairCard repairCard = repairCardRepo.findById(repairCardId)
+        RepairCardOfEquipment repairCardOfEquipment =
+                repairCardOfEquipmentRepo
+                .findById(repairCardId)
                 .orElseThrow();
-        model.addAttribute("repair_card", repairCard);
+        model.addAttribute("repair_card", repairCardOfEquipment);
 
-        WorkshopEquipment equipment = repairCard.getWorkshopEquipment();
+        WorkshopEquipment equipment = repairCardOfEquipment.getWorkshopEquipment();
         model.addAttribute("equipment", equipment);
 
         Element element = elementRepo.findByName(equipment
@@ -130,12 +136,12 @@ public class RepairController {
             @PathVariable String unit_id
     ) {
         Long unitId = Long.valueOf(unit_id);
-        Long repairCardId = Long.valueOf(repair_card_id);
+        UUID repairCardId = UUID.fromString(repair_card_id);
 
-        RepairCard repairCard = repairCardRepo
+        RepairCardOfEquipment repairCardOfEquipment = repairCardOfEquipmentRepo
                 .findById(repairCardId)
                 .orElseThrow();
-        model.addAttribute("repair_card", repairCard);
+        model.addAttribute("repair_card", repairCardOfEquipment);
 
         Element element = null;
 
@@ -204,8 +210,8 @@ public class RepairController {
 
         Condition condition = conditionRepo.findById(1L).orElseThrow();
 
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(
-                LocalDateTime.now(), ZoneId.of("UTC+8"));
+//        ZonedDateTime zonedDateTime = ZonedDateTime.of(
+//                LocalDateTime.now(), ZoneId.of("UTC+8"));
 
         Equipment storageEquipment = storageEquipmentRepo
                 .findById(Long.valueOf(elem_id))
@@ -234,10 +240,10 @@ public class RepairController {
             workshopEquipmentRepo.save(workshopEquipment);
         }
 
-        RepairCard repairCard = new RepairCard();
-        repairCard.setWorkshopEquipment(workshopEquipment);
-        repairCard.setRepairType(RepairType.ТЕХОБСЛУЖИВАНИЕ);
-        repairCardRepo.save(repairCard);
+        RepairCardOfEquipment repairCardOfEquipment = new RepairCardOfEquipment();
+        repairCardOfEquipment.setWorkshopEquipment(workshopEquipment);
+        repairCardOfEquipment.setRepairType(RepairType.ТЕХОБСЛУЖИВАНИЕ);
+        repairCardOfEquipmentRepo.save(repairCardOfEquipment);
 
         return "redirect:/workshop";
     }

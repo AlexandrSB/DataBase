@@ -14,7 +14,7 @@ public interface TypeOfOperationRepo extends CrudRepository<TypeOfOperation, Lon
     @Query(value = """
             SELECT too
             FROM TypeOfOperation too
-            WHERE too.name = :operationType
+            WHERE too.operationType = :operationType
             """)
     Optional<TypeOfOperation> findByOperationType(OperationType operationType);
 }

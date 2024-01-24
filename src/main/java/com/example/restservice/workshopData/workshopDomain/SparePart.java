@@ -14,13 +14,12 @@ import java.util.Set;
 public class SparePart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @JoinColumn(name = "workshop_unit_id")
     private WorkshopUnit workshopUnit;
 
     @OneToMany(mappedBy = "sparePart")

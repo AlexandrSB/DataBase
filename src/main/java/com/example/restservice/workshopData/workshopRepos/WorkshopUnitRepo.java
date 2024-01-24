@@ -1,6 +1,5 @@
 package com.example.restservice.workshopData.workshopRepos;
 
-import com.example.restservice.equipmentData.equipmentDomain.Unit;
 import com.example.restservice.workshopData.workshopDomain.WorkshopUnit;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

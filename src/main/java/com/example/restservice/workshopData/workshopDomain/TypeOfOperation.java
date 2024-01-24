@@ -14,7 +14,8 @@ public class TypeOfOperation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private OperationType name;
+    @Column(name = "operation_type")
+    private OperationType operationType;
 
     @ManyToOne
     @JoinColumn(name = "completed_work_id")
@@ -27,5 +28,4 @@ public class TypeOfOperation {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private WorkshopUnit workshopUnit;
-
 }

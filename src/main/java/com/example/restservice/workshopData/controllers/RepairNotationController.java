@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("repair_notation")
@@ -24,7 +24,10 @@ public class RepairNotationController {
     private WorkshopUnitRepo workshopUnitRepo;
 
     @Autowired
-    private RepairCardRepo repairCardRepo;
+    private RepairCardOfModuleRepo repairCardOfModuleRepo;
+
+    @Autowired
+    private RepairCardOfEquipmentRepo repairCardOfEquipmentRepo;
 
     @PostMapping("add_repair_notation")
     private String addRepairNotation(
@@ -33,10 +36,11 @@ public class RepairNotationController {
             @RequestParam String repair_notation_name
     ) {
 
-        Long repairCardId = Long.valueOf(repair_card_id);
+        UUID repairCardId = UUID.fromString(repair_card_id);
         Long unitId = Long.valueOf(unit_id);
 
-        RepairCard repairCard = repairCardRepo
+        RepairCardOfEquipment repairCardOfEquipment =
+                 repairCardOfEquipmentRepo
                 .findById(repairCardId)
                 .orElseThrow();
 
@@ -47,11 +51,11 @@ public class RepairNotationController {
         CompletedWork completedWork = new CompletedWork();
         completedWork.setNotation(repair_notation_name);
 //        completedWork.setConsumptionOfMaterials();
-        completedWork.setRepairType(repairCard.getRepairType());
+        completedWork.setRepairType(repairCardOfEquipment.getRepairType());
         completedWorkRepo.save(completedWork);
 
         TypeOfOperation typeOfOperation = new TypeOfOperation();
-        typeOfOperation.setName(OperationType.REPAIR);
+        typeOfOperation.setOperationType(OperationType.REPAIR);
         typeOfOperation.setCompletedWork(completedWork);
         typeOfOperation.setWorkshopUnit(workshopUnit);
         typeOfOperationRepo.save(typeOfOperation);

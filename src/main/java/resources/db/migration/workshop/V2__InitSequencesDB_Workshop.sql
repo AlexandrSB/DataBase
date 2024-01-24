@@ -22,18 +22,6 @@ ALTER SEQUENCE public.consumption_of_materials_seq
     OWNER TO admin;
 
 
--- SEQUENCE: public.repair_card_seq
--- DROP SEQUENCE IF EXISTS public.repair_card_seq;
-CREATE SEQUENCE IF NOT EXISTS public.repair_card_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-ALTER SEQUENCE public.repair_card_seq
-    OWNER TO admin;
-
-
 -- SEQUENCE: public.spare_part_seq
 -- DROP SEQUENCE IF EXISTS public.spare_part_seq;
 CREATE SEQUENCE IF NOT EXISTS public.spare_part_seq
@@ -58,18 +46,6 @@ ALTER SEQUENCE public.type_of_operation_seq
     OWNER TO admin;
 
 
--- SEQUENCE: public.type_of_repair_seq
--- DROP SEQUENCE IF EXISTS public.type_of_repair_seq;
-CREATE SEQUENCE IF NOT EXISTS public.type_of_repair_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-ALTER SEQUENCE public.type_of_repair_seq
-    OWNER TO admin;
-
-
 -- SEQUENCE: public.type_of_spare_part_seq
 -- DROP SEQUENCE IF EXISTS public.type_of_spare_part_seq;
 CREATE SEQUENCE IF NOT EXISTS public.type_of_spare_part_seq
@@ -84,13 +60,13 @@ ALTER SEQUENCE public.type_of_spare_part_seq
 
 -- SEQUENCE: public.unit_seq
 -- DROP SEQUENCE IF EXISTS public.unit_seq;
-CREATE SEQUENCE IF NOT EXISTS public.unit_seq
+CREATE SEQUENCE IF NOT EXISTS public.workshop_unit_seq
     INCREMENT 50
     START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
-ALTER SEQUENCE public.unit_seq
+ALTER SEQUENCE public.workshop_unit_seq
     OWNER TO admin;
 
 

@@ -2,6 +2,8 @@ package com.example.restservice.workshopData.workshopDomain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -9,12 +11,13 @@ import lombok.Data;
 public class TypeOfSparePart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "spare_part")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private SparePart sparePart;
 }
