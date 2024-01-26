@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -18,11 +20,16 @@ public class RepairNotationController {
     private CompletedWorkRepo completedWorkRepo;
 
     @Autowired
+    private ConsumptionOfMaterialRepo consumptionOfMaterialRepo;
+
+    @Autowired
     private TypeOfOperationRepo typeOfOperationRepo;
 
     @Autowired
     private WorkshopUnitRepo workshopUnitRepo;
 
+    @Autowired
+    private WorkshopModuleRepo workshopModuleRepo;
     @Autowired
     private RepairCardOfModuleRepo repairCardOfModuleRepo;
 
@@ -69,21 +76,55 @@ public class RepairNotationController {
     private String addModuleForm(
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
-            @RequestParam String ...onCheckboxes
+            @RequestParam(required = false) List<String> my_checkboxes
     ) {
         UUID repairCardUUID = UUID.fromString(repair_card_id);
         Long unitId = Long.valueOf(unit_id);
+        List<ConsumptionOfMaterial> consumptionOfMaterialSet = new ArrayList<>();
+        Long comId;
+
+        RepairCardOfEquipment repairCardOfEquipment =
+                repairCardOfEquipmentRepo
+                        .findById(repairCardUUID)
+                        .orElseThrow();
+
+        WorkshopModule workshopModule = workshopModuleRepo
+                .findModule(repairCardOfEquipment
+                        .getWorkshopEquipment()
+                        .getId(),
+                        unitId)
+                .orElseThrow();
 
         RepairCardOfModule repairCardOfModule = repairCardOfModuleRepo
-                .findByUnitId(repairCardUUID, unitId)
+                .findByUnitId(repairCardUUID, workshopModule.getId())
                 .orElse(new RepairCardOfModule());
+        if (repairCardOfModule.getRepairCardOfEquipment() == null) {
+            repairCardOfModule.setWorkshopModule(workshopModule);
+            repairCardOfModule.setRepairCardOfEquipment(repairCardOfEquipment);
+            repairCardOfModuleRepo.save(repairCardOfModule);
+        }
 
-        ConsumptionOfMaterial consumptionOfMaterial =
-                new ConsumptionOfMaterial();
+        CompletedWork completedWork = null;
 
+        for (String s : my_checkboxes) {
+            comId = Long.valueOf(s);
 
-        return "redirect:/workshop/repair_card"
-                + repair_card_id
+            completedWork = completedWorkRepo
+                    .findById(comId)
+                    .orElseThrow();
+
+            ConsumptionOfMaterial consumptionOfMaterial =
+                    new ConsumptionOfMaterial();
+            consumptionOfMaterial.setCompletedWork(completedWork);
+            consumptionOfMaterial.setWorkshopModule(workshopModule);
+            consumptionOfMaterial.setRepairCardOfModule(repairCardOfModule);
+
+            consumptionOfMaterialSet.add(consumptionOfMaterial);
+        }
+        consumptionOfMaterialRepo.saveAll(consumptionOfMaterialSet);
+
+        return "redirect:/workshop/repair_card/"
+                + repair_card_id + "/"
                 + unit_id;
     }
 }

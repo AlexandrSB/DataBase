@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "public".element_type
 CREATE TABLE IF NOT EXISTS "public".element
 (
     element_id              bigint NOT NULL,
-    name                    character varying(50) NOT NULL,
+    name                    character varying(250) NOT NULL,
     description             character varying(800) NULL,
     parent_id               bigint NULL,
     is_equipment            boolean DEFAULT FALSE,
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
 CREATE TABLE IF NOT EXISTS public.unit
 (
 id                          bigint NOT NULL,
-name                        character varying(50)
+name                        character varying(250)
     COLLATE pg_catalog."default" NOT NULL,
 CONSTRAINT unit_pkey PRIMARY KEY (id)
 );
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS "public".firma
 CREATE TABLE IF NOT EXISTS public.proxy
 (
     id                      bigint NOT NULL,
-    name                    character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    name                    character varying(250) COLLATE pg_catalog."default" NOT NULL,
     firma_id                bigint NULL,
     CONSTRAINT PK_proxy PRIMARY KEY (id),
     CONSTRAINT FK_firma FOREIGN KEY ( firma_id )

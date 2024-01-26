@@ -12,13 +12,13 @@ ALTER SEQUENCE public.completed_work_seq
 
 -- SEQUENCE: public.consumption_of_materials_seq
 -- DROP SEQUENCE IF EXISTS public.consumption_of_materials_seq;
-CREATE SEQUENCE IF NOT EXISTS public.consumption_of_materials_seq
+CREATE SEQUENCE IF NOT EXISTS public.consumption_of_material_seq
     INCREMENT 50
     START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
-ALTER SEQUENCE public.consumption_of_materials_seq
+ALTER SEQUENCE public.consumption_of_material_seq
     OWNER TO admin;
 
 

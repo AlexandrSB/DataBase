@@ -54,13 +54,29 @@
                                 name = "unit_id"
                                 value = unit.id
                                 />
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <label for="inputPassword2" class="visually-hidden">Добавить операцию</label>
+                                    <input type="text" class="form-control" id="inputPassword2" name="repair_notation_name" placeholder="Добавить операцию" />
+                                </div>
 
-                            <div class="col-auto">
-                                <label for="inputPassword2" class="visually-hidden">Добавить операцию</label>
-                                <input type="text" class="form-control" id="inputPassword2" name="repair_notation_name" placeholder="Добавить операцию" />
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-primary mb-3">Add</button>
+                                <#if elements_destination[1]?has_content>
+                                    <div class="col-4">
+                                        <#list elements_destination as ed>
+                                            <span>${ed[1]}</span>
+                                        </#list>
+                                    </div>
+
+                                    <div class="col-1">
+                                        <label for="quantity" class="visually-hidden">Количество</label>
+                                        <input type="text" class="form-control" id="quantity" name="quantity_of_spare" placeholder="Количество" />
+                                    </div>
+                                </#if>
+
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-primary mb-3">Add</button>
+                                </div>
+
                             </div>
                         </form>
 
@@ -78,7 +94,7 @@
                             <div class="col-auto">
                                 <#list completed_works as cw>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name=${cw.id}>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="my_checkboxes" value=${cw.id}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
                                     </div>
                                 </#list>

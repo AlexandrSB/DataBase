@@ -30,7 +30,7 @@ public class ConsumptionOfMaterial {
     private WorkshopModule workshopModule;
 
     @ManyToOne
-    @JoinColumn(name = "completed_work_id")
+    @JoinColumn(name = "completed_work_id", unique = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private CompletedWork completedWork;

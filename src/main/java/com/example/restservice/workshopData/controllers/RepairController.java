@@ -163,14 +163,27 @@ public class RepairController {
         model.addAttribute("unit", workshopUnit);
 
         WorkshopModule workshopModule = workshopModuleRepo
-                .findById(unitId)
+                .findModule(
+                        repairCardOfEquipment
+                                .getWorkshopEquipment()
+                                .getId(),
+                        workshopUnit.getId()
+                )
                 .orElse(new WorkshopModule());
         if (workshopModule.getName() == null) {
             workshopModule.setName(workshopUnit.getName());
             workshopModule.setWorkshopUnit(workshopUnit);
+            workshopModule.setWorkshopEquipment(
+                    repairCardOfEquipment
+                            .getWorkshopEquipment()
+            );
             workshopModuleRepo.save(workshopModule);
         }
         model.addAttribute("workshop_module", workshopModule);
+
+//        SparePart sparePart = sparePartRepo.findById(
+//                element.getProxies()
+//        )
 
         Iterable<CompletedWork> completedWorks = completedWorkRepo
                 .findAllByUnitId(workshopUnit.getId());

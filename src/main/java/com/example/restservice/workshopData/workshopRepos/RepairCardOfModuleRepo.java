@@ -16,8 +16,8 @@ public interface RepairCardOfModuleRepo extends CrudRepository<RepairCardOfModul
             FROM RepairCardOfModule rcom
                 LEFT JOIN FETCH repairCardOfEquipment rcoe
                 LEFT JOIN FETCH workshopModule wm
-            WHERE wm.id = :unitId 
+            WHERE wm.id = :moduleId 
             AND rcoe.id = :repairCardUUID
             """)
-    Optional<RepairCardOfModule> findByUnitId(UUID repairCardUUID, Long unitId);
+    Optional<RepairCardOfModule> findByUnitId(UUID repairCardUUID, UUID moduleId);
 }
