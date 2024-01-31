@@ -3,6 +3,8 @@ package com.example.restservice.storageData.storageDomain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
@@ -23,10 +25,14 @@ public class Equipment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "good_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Good good;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "condition_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Condition condition;
 
 }

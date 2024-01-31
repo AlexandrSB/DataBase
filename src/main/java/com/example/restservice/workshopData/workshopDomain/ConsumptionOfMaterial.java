@@ -17,25 +17,19 @@ public class ConsumptionOfMaterial {
     @Column(name = "quantity_of_material")
     private Integer quantityOfMaterial;
 
-    @ManyToOne
-    @JoinColumn(name = "type_of_spare_part_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private TypeOfSparePart typeOfSparePart;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workshop_module_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private WorkshopModule workshopModule;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "completed_work_id", unique = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private CompletedWork completedWork;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "repair_card_of_module_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

@@ -22,6 +22,12 @@ public class CompletedWork {
     @Column(name = "repair_type")
     private RepairType repairType;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "type_of_spare_part_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TypeOfSparePart typeOfSparePart;
+
     @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

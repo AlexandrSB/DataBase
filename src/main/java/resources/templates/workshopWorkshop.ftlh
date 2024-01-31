@@ -75,12 +75,23 @@
                         <td>${ar.inventoryNumber!"none"}</td>
                         <td>${ar.good.name!"none"}</td>
                         <td>
-                            <div>
+                            <div class="row">
                                 <@f.form
                                 id = "btnRepairId"
                                 action = "workshop/set_repair"
                                 method = "post"
                                 >
+                                    <div class="col">
+                                        <@se.select_list_element
+                                        element_name = "repair_type"
+                                        label = "Тип ремонта"
+                                        >
+                                            <#list repair_types as rt>
+                                                <option>${rt}</option>
+                                            </#list>
+
+                                        </@se.select_list_element>
+                                    </div>
                                     <input type="number" name="elem_id"  value=${ar.id} hidden="hidden" />
                                     <button class="btn btn-sm btn-primary" type="submit">В ремонт</button>
                                 </@f.form>

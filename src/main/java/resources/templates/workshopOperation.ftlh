@@ -44,7 +44,7 @@
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        <form class="row g-6" action="/repair_notation/add_equipment_card" method="post">
+                        <form class="row g-6" action="/repair_notation/add_operation" method="post">
                             <@se.input_hidden
                                 name = "repair_card_id"
                                 value = repair_card.id
@@ -54,22 +54,43 @@
                                 name = "unit_id"
                                 value = unit.id
                                 />
+
                             <div class="row justify-content-start">
                                 <div class="col-3">
-                                    <label for="inputPassword2" class="visually-hidden">Добавить операцию</label>
-                                    <input type="text" class="form-control" id="inputPassword2" name="repair_notation_name" placeholder="Добавить операцию" />
+                                    <label for="input_repair_notation_id" class="visually-hidden">Добавить операцию</label>
+                                    <input type="text" class="form-control" id="input_repair_notation_id" name="repair_notation_name" placeholder="Добавить операцию" />
                                 </div>
 
-                                <#if elements_destination[1]?has_content>
-                                    <div class="col-4">
-                                        <#list elements_destination as ed>
-                                            <span>${ed[1]}</span>
-                                        </#list>
+                                <#if elements_proxy?has_content>
+                                    <div class="col-3">
+                                        <select class="form-control" id="proxy_id" name="proxy_name">
+                                            <option>&ltnone&gt</option>
+                                            <#if elements_proxy??>
+                                                <#list elements_proxy as e>
+                                                    <#if e??>
+                                                        <option>${e.name}</option>
+                                                    </#if>
+                                                <#else>
+                                                    <option>&ltnone&gt</option>
+                                                </#list>
+                                            </#if>
+                                        </select>
                                     </div>
+                                </#if>
 
-                                    <div class="col-1">
-                                        <label for="quantity" class="visually-hidden">Количество</label>
-                                        <input type="text" class="form-control" id="quantity" name="quantity_of_spare" placeholder="Количество" />
+                                <#if operation_type?has_content>
+                                    <div class="col-3">
+                                        <select class="form-control" id="operation_type_name" name="operation_type_name">
+                                            <#if operation_type??>
+                                                <#list operation_type as ot>
+                                                    <#if ot??>
+                                                        <option>${ot}</option>
+                                                    </#if>
+                                                <#else>
+                                                    <option>&ltnone&gt</option>
+                                                </#list>
+                                            </#if>
+                                        </select>
                                     </div>
                                 </#if>
 
@@ -80,7 +101,7 @@
                             </div>
                         </form>
 
-                        <form class="row g-6" action="/repair_notation/add_module_card" method="post">
+                        <form class="row g-6" action="/repair_notation/check_operation" method="post">
                             <@se.input_hidden
                                 name = "repair_card_id"
                                 value = repair_card.id
@@ -91,22 +112,62 @@
                                 value = unit.id
                                 />
 
-                            <div class="col-auto">
+                            <div class="row col-auto">
                                 <#list completed_works as cw>
                                     <div class="form-check form-switch">
+<!--                                     <!-- //TODO my_checkboxes разделить на "выполненные работы" и "количество запчастей" -->
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="my_checkboxes" value=${cw.id}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" class="form-control" id="quantity" name="my_checkboxes" placeholder="Количество" value="0"/>
                                     </div>
                                 </#list>
                             </div>
 
-                            <div class="col-auto">
+                            <div class="col-sm-2">
                                 <button type="submit" class="btn btn-primary mb-3">Write</button>
                             </div>
                         </form>
+
+                        <ul>
+                            <#if elements_proxy??>
+                                <#list elements_proxy as p>
+                                    <#if p??>
+                                        <li>proxy: ${p}</li>
+                                    </#if>
+                                <#else>
+                                    <li>&ltnone&gt</li>
+                                </#list>
+                            </#if>
+                        </ul>
+
                     </div>
                 </div>
             </div>
         </div>
+
+        <div>
+            <@ce.table_input
+                table_head = ["Operation type", "Spare part", "Quantity"]
+                >
+            <#list consumption_of_materials as com>
+                <tr>
+                    <td>
+                        <span>${com[1].notation!"none"}</span>
+                    </td>
+                    <td>
+                        <#assign type_of_spare_part=com[1].typeOfSparePart>
+                        <span>${com[1].typeOfSparePart!"none"}</span>
+                    </td>
+                    <td>
+                        <span>${com[0].quantityOfMaterial!"none"}</span>
+                    </td>
+                </tr>
+            </#list>
+
+            </@ce.table_input>
+        </div>
+
     </div>
 </@c.page>

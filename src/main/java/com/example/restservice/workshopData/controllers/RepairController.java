@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,6 +31,9 @@ public class RepairController {
 
     @Autowired
     private ConditionRepo conditionRepo;
+
+    @Autowired
+    private ConsumptionOfMaterialRepo consumptionOfMaterialRepo;
 
     @Autowired
     private EquipmentRepo storageEquipmentRepo;
@@ -95,6 +99,9 @@ public class RepairController {
         Iterable<Equipment> inClearing =
                 storageEquipmentRepo.getEquipmentByCondition(7L);
         model.addAttribute("in_clearing", inClearing);
+
+        Iterable<RepairType> repairTypes = List.of(RepairType.values());
+        model.addAttribute("repair_types", repairTypes);
 
 
         return "workshopWorkshop";
@@ -193,6 +200,19 @@ public class RepairController {
                 elementRepo.findElementDestinationAll(element.getId());
         model.addAttribute("elements_destination", elements_destination);
 
+        Iterable<Element> elements_proxy =
+                elementRepo.findAllProxy(element.getId());
+        model.addAttribute("elements_proxy", elements_proxy);
+
+        Iterable<ConsumptionOfMaterial> consumptionOfMaterials =
+                consumptionOfMaterialRepo.findAllWithLazy(
+                        workshopModule.getId()
+                );
+        model.addAttribute("consumption_of_materials", consumptionOfMaterials);
+
+        OperationType[] operationType = OperationType.values();
+        model.addAttribute("operation_type", operationType);
+
         return "workshopOperation";
     }
 
@@ -217,13 +237,12 @@ public class RepairController {
     @PostMapping("set_repair")
     private String setRepair(
             Model model,
-            @RequestParam String elem_id
+            @RequestParam String elem_id,
+            @RequestParam String repair_type
     ) {
+        RepairType repairType = RepairType.valueOf(repair_type);
 
         Condition condition = conditionRepo.findById(1L).orElseThrow();
-
-//        ZonedDateTime zonedDateTime = ZonedDateTime.of(
-//                LocalDateTime.now(), ZoneId.of("UTC+8"));
 
         Equipment storageEquipment = storageEquipmentRepo
                 .findById(Long.valueOf(elem_id))
@@ -254,7 +273,72 @@ public class RepairController {
 
         RepairCardOfEquipment repairCardOfEquipment = new RepairCardOfEquipment();
         repairCardOfEquipment.setWorkshopEquipment(workshopEquipment);
-        repairCardOfEquipment.setRepairType(RepairType.ТЕХОБСЛУЖИВАНИЕ);
+        repairCardOfEquipment.setRepairType(repairType);
+        repairCardOfEquipmentRepo.save(repairCardOfEquipment);
+
+        return "redirect:/workshop";
+    }
+
+    @PostMapping("/repair_card/endRepair")
+    private String endRepair(
+//        @ModelAttribute("repair_card") RepairCardOfEquipment repair_card
+        @RequestParam String repair_card_id,
+        @RequestParam String storage_equipment_id
+    ) {
+
+        Long storageEquipmentId = Long.valueOf(storage_equipment_id);
+        Condition condition = conditionRepo.findById(0L).orElseThrow();
+
+        Equipment storageEquipment =
+                storageEquipmentRepo.findById(storageEquipmentId)
+                        .orElseThrow();
+        storageEquipment.setCondition(condition);
+        storageEquipmentRepo.save(storageEquipment);
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(
+                LocalDateTime.now(), ZoneId.of("UTC+8"));
+
+
+        UUID repairCardUUID = UUID.fromString(repair_card_id);
+        RepairCardOfEquipment repairCardOfEquipment =
+                repairCardOfEquipmentRepo.findById(repairCardUUID)
+                        .orElseThrow();
+
+        repairCardOfEquipment.setEndRepairTimestamp(
+                zonedDateTime
+        );
+        repairCardOfEquipmentRepo.save(repairCardOfEquipment);
+
+        return "redirect:/workshop";
+    }
+
+    @PostMapping("/repair_card/writeOff")
+    private String writeOffEquipment(
+            @RequestParam String repair_card_id,
+            @RequestParam String storage_equipment_id
+    ) {
+
+        Long storageEquipmentId = Long.valueOf(storage_equipment_id);
+        Condition condition = conditionRepo.findById(4L).orElseThrow();
+
+        Equipment storageEquipment =
+                storageEquipmentRepo.findById(storageEquipmentId)
+                        .orElseThrow();
+        storageEquipment.setCondition(condition);
+        storageEquipmentRepo.save(storageEquipment);
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(
+                LocalDateTime.now(), ZoneId.of("UTC+8"));
+
+
+        UUID repairCardUUID = UUID.fromString(repair_card_id);
+        RepairCardOfEquipment repairCardOfEquipment =
+                repairCardOfEquipmentRepo.findById(repairCardUUID)
+                        .orElseThrow();
+
+        repairCardOfEquipment.setEndRepairTimestamp(
+                zonedDateTime
+        );
         repairCardOfEquipmentRepo.save(repairCardOfEquipment);
 
         return "redirect:/workshop";

@@ -1,5 +1,7 @@
 package com.example.restservice.workshopData.controllers;
 
+import com.example.restservice.equipmentData.equipmentDomain.Proxy;
+import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.workshopData.workshopDomain.*;
 import com.example.restservice.workshopData.workshopRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -23,8 +26,13 @@ public class RepairNotationController {
     private ConsumptionOfMaterialRepo consumptionOfMaterialRepo;
 
     @Autowired
+    private ProxyRepo proxyRepo;
+
+    @Autowired
     private TypeOfOperationRepo typeOfOperationRepo;
 
+    @Autowired
+    private TypeOfSparePartRepo typeOfSparePartRepo;
     @Autowired
     private WorkshopUnitRepo workshopUnitRepo;
 
@@ -36,15 +44,18 @@ public class RepairNotationController {
     @Autowired
     private RepairCardOfEquipmentRepo repairCardOfEquipmentRepo;
 
-    @PostMapping("add_equipment_card")
+    @PostMapping("add_operation")
     private String addRepairNotation(
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
-            @RequestParam String repair_notation_name
+            @RequestParam String repair_notation_name,
+            @RequestParam String proxy_name,
+            @RequestParam String operation_type_name
     ) {
 
         UUID repairCardId = UUID.fromString(repair_card_id);
         Long unitId = Long.valueOf(unit_id);
+        OperationType operationType = OperationType.valueOf(operation_type_name);
 
         RepairCardOfEquipment repairCardOfEquipment =
                  repairCardOfEquipmentRepo
@@ -55,14 +66,29 @@ public class RepairNotationController {
                 .findById(unitId)
                 .orElseThrow();
 
+        Optional<Proxy> proxy = proxyRepo
+                .findByName(proxy_name);
+
+        TypeOfSparePart typeOfSparePart = null;
+        if(proxy.isPresent()) {
+            typeOfSparePart = typeOfSparePartRepo
+                    .findByName(proxy.get().getName())
+                    .orElse(new TypeOfSparePart());
+            if (typeOfSparePart.getName() == null) {
+                typeOfSparePart.setId(proxy.get().getId());
+                typeOfSparePart.setName(proxy.get().getName());
+                typeOfSparePartRepo.save(typeOfSparePart);
+            }
+        }
+
         CompletedWork completedWork = new CompletedWork();
         completedWork.setNotation(repair_notation_name);
-//        completedWork.setConsumptionOfMaterials();
+        completedWork.setTypeOfSparePart(typeOfSparePart);
         completedWork.setRepairType(repairCardOfEquipment.getRepairType());
         completedWorkRepo.save(completedWork);
 
         TypeOfOperation typeOfOperation = new TypeOfOperation();
-        typeOfOperation.setOperationType(OperationType.REPAIR);
+        typeOfOperation.setOperationType(operationType);
         typeOfOperation.setCompletedWork(completedWork);
         typeOfOperation.setWorkshopUnit(workshopUnit);
         typeOfOperationRepo.save(typeOfOperation);
@@ -72,11 +98,12 @@ public class RepairNotationController {
                 + unit_id;
     }
 
-    @PostMapping("add_module_card")
-    private String addModuleForm(
+    @PostMapping("check_operation")
+    private String checkOperation(
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
-            @RequestParam(required = false) List<String> my_checkboxes
+            @RequestParam(required = false) List<String> my_checkboxes,
+            @RequestParam(required = false) List<String> quantity_of_spare
     ) {
         UUID repairCardUUID = UUID.fromString(repair_card_id);
         Long unitId = Long.valueOf(unit_id);
@@ -106,8 +133,13 @@ public class RepairNotationController {
 
         CompletedWork completedWork = null;
 
-        for (String s : my_checkboxes) {
-            comId = Long.valueOf(s);
+        //TODO правильно обработать массив
+        // (выполненные_работы_id, количество запчастей ...)
+//        for (String s : my_checkboxes) {
+        int j = 0;
+        for(int i = 0; i < my_checkboxes.size(); i += 2) {
+            j = i;
+            comId = Long.valueOf(my_checkboxes.get(i));
 
             completedWork = completedWorkRepo
                     .findById(comId)
@@ -118,6 +150,9 @@ public class RepairNotationController {
             consumptionOfMaterial.setCompletedWork(completedWork);
             consumptionOfMaterial.setWorkshopModule(workshopModule);
             consumptionOfMaterial.setRepairCardOfModule(repairCardOfModule);
+            consumptionOfMaterial.setQuantityOfMaterial(
+                    Integer.valueOf(my_checkboxes.get(++j))
+            );
 
             consumptionOfMaterialSet.add(consumptionOfMaterial);
         }

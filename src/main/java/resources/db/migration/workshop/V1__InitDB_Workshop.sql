@@ -1,17 +1,3 @@
--- Table: public.completed_work
--- DROP TABLE IF EXISTS public.completed_work;
-CREATE TABLE IF NOT EXISTS public.completed_work
-(
-    id bigint NOT NULL,
-    notation character varying(255) COLLATE pg_catalog."default",
-    consumption_of_materials_id bigint,
-    repair_type character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT completed_work_pkey PRIMARY KEY (id)
-)
-TABLESPACE pg_default;
-ALTER TABLE IF EXISTS public.completed_work
-    OWNER to admin;
-
 
 -- Table: public.workshop_unit
 -- DROP TABLE IF EXISTS public.workshop_unit;
@@ -50,15 +36,35 @@ CREATE TABLE IF NOT EXISTS public.type_of_spare_part
 (
     id bigint NOT NULL,
     name character varying(255) COLLATE pg_catalog."default",
-    spare_part bigint,
+    spare_part_id bigint,
     CONSTRAINT type_of_spare_part_pkey PRIMARY KEY (id),
-    CONSTRAINT fke4ns7fqrgn2flgyxh1jmkl05q FOREIGN KEY (spare_part)
+    CONSTRAINT fke4ns7fqrgn2flgyxh1jmkl05q FOREIGN KEY (spare_part_id)
         REFERENCES public.spare_part (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
 TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.type_of_spare_part
+    OWNER to admin;
+
+
+-- Table: public.completed_work
+-- DROP TABLE IF EXISTS public.completed_work;
+CREATE TABLE IF NOT EXISTS public.completed_work
+(
+    id bigint NOT NULL,
+    notation character varying(255) COLLATE pg_catalog."default",
+    type_of_spare_part_id bigint,
+    consumption_of_materials_id bigint,
+    repair_type character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT completed_work_pkey PRIMARY KEY (id),
+    CONSTRAINT fk5bt0087bqlft5c91urjg7u0o9 FOREIGN KEY (type_of_spare_part_id)
+        REFERENCES public.type_of_spare_part (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+TABLESPACE pg_default;
+ALTER TABLE IF EXISTS public.completed_work
     OWNER to admin;
 
 
@@ -151,13 +157,8 @@ CREATE TABLE IF NOT EXISTS public.consumption_of_material
     quantity_of_material integer,
     completed_work_id bigint,
     repair_card_of_module_id uuid,
-    type_of_spare_part_id bigint,
     workshop_module_id uuid,
     CONSTRAINT consumption_of_material_pkey PRIMARY KEY (id),
-    CONSTRAINT fk5bt0087bqlft5c91urjg7u0o9 FOREIGN KEY (type_of_spare_part_id)
-        REFERENCES public.type_of_spare_part (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
     CONSTRAINT fk67eueksxfhwp6ektn4gtrnk6d FOREIGN KEY (completed_work_id)
         REFERENCES public.completed_work (id) MATCH SIMPLE
         ON UPDATE NO ACTION

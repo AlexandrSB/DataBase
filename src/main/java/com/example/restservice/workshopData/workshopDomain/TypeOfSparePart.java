@@ -16,7 +16,7 @@ public class TypeOfSparePart {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "spare_part")
+    @JoinColumn(name = "spare_part_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private SparePart sparePart;

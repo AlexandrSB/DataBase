@@ -31,7 +31,7 @@ public class WorkshopModule {
     @EqualsAndHashCode.Exclude
     private WorkshopEquipment workshopEquipment;
 
-    @OneToMany(mappedBy = "workshopModule")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "workshopModule")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<ConsumptionOfMaterial> consumptionOfMaterials;

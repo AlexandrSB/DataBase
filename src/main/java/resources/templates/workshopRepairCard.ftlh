@@ -15,6 +15,45 @@
         " [" + equipment.model + "]"
         />
 
+    <span>Начало ремонта: ${repair_card.beginRepairTimestamp!"none"}</span></br>
+    <span>Окончание ремонта: ${repair_card.endRepairTimestamp!"none"}</span>
+
+    <form class="row g-6" action="endRepair" method="post">
+        <@se.input_hidden
+            name = "repair_card_id"
+            value = repair_card.id
+            />
+
+        <@se.input_hidden
+            name = "storage_equipment_id"
+            value = equipment.id
+            />
+
+
+        <div class="col-4">
+            <button type="submit" class="btn btn-primary mb-3">Завершить ремонт</button>
+        </div>
+    </form>
+
+
+    <form class="row g-6" action="writeOff" method="post">
+
+        <@se.input_hidden
+                name = "repair_card_id"
+                value = repair_card.id
+                />
+
+        <@se.input_hidden
+                name = "storage_equipment_id"
+                value = equipment.id
+                />
+
+
+        <div class="col-4">
+        <button type="submit" class="btn btn-primary mb-3">Списать оборудование</button>
+        </div>
+    </form>
+
     <#if elem_destination[0][1]?has_content>
         <ul>
         <#list elem_destination as ed>

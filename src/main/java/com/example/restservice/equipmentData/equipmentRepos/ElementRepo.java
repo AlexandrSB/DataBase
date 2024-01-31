@@ -116,4 +116,16 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             """)
     Iterable<Long> findAllParcelsId();
 
+    @Query(value = """
+            SELECT px       
+            	FROM Element e
+            LEFT JOIN FETCH ElementsComposite ec
+            	ON e = ec.element_destination
+            LEFT JOIN FETCH Proxy px
+            	ON ec.proxy = px
+            LEFT JOIN FETCH Element ed
+            	ON ec.element_source = ed
+            WHERE e.id = :id
+            """)
+    Iterable<Element> findAllProxy(Long id);
 }
