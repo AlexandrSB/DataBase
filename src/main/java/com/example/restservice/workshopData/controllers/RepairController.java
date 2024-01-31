@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -132,6 +133,14 @@ public class RepairController {
         Iterable<Element> elements_destination =
                 elementRepo.findElementDestinationAll(element.getId());
         model.addAttribute("elem_destination", elements_destination);
+
+        Iterable<RepairCardOfModule> repairCardOfModules =
+                repairCardOfModuleRepo.findByRepairCardId(repairCardId);
+        model.addAttribute("repair_cards_of_modules", repairCardOfModules);
+
+        Iterable<ConsumptionOfMaterial> consumptionOfMaterials =
+                consumptionOfMaterialRepo.findAll();
+        model.addAttribute("consumption_of_materials", consumptionOfMaterials);
 
         return "workshopRepairCard";
     }

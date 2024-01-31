@@ -3,14 +3,14 @@
 
 -- ************************************** barcode
 
-CREATE TABLE IF NOT EXISTS "public".barcode
+CREATE TABLE IF NOT EXISTS "public".element_label
 (
-    barcode_id              bigint NOT NULL,
-    barcode                 integer NOT NULL,
-    CONSTRAINT PK_barcode PRIMARY KEY ( barcode_id )
+    id              bigint NOT NULL,
+    vendor_code     character varying(100) NOT NULL,
+    CONSTRAINT PK_element_label PRIMARY KEY ( element_label_id )
 );
 
-    CREATE SEQUENCE IF NOT EXISTS public.barcode_seq
+    CREATE SEQUENCE IF NOT EXISTS public.element_label_seq
         INCREMENT 50
         START 1
         MINVALUE 1
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "public".barcode
 CREATE TABLE IF NOT EXISTS "public".groups
 (
     group_id                bigint NOT NULL,
-    group_name              character varying(50) NOT NULL,
+    group_name              character varying(100) NOT NULL,
     parent_id               bigint NULL,
     CONSTRAINT PK_groups PRIMARY KEY ( group_id ),
     CONSTRAINT FK_10_1 FOREIGN KEY ( parent_id )
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS "public".element
 (
     element_id              bigint NOT NULL,
     name                    character varying(250) NOT NULL,
-    description             character varying(800) NULL,
+    description             character varying(5000) NULL,
     parent_id               bigint NULL,
     is_equipment            boolean DEFAULT FALSE,
     element_type_id         bigint NOT NULL,
@@ -151,7 +151,7 @@ CONSTRAINT unit_pkey PRIMARY KEY (id)
 
 CREATE TABLE IF NOT EXISTS "public".attribute
 (
-name                        character varying(50) NOT NULL,
+name                        character varying(250) NOT NULL,
 attribute_id                bigint NOT NULL,
 CONSTRAINT PK_attribute_1 PRIMARY KEY ( attribute_id )
 );
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS public.element_proxy
 CREATE TABLE IF NOT EXISTS "public".attribute_value
 (
     id                      bigint NOT NULL,
-    name                    character varying(50) NOT NULL,
+    name                    character varying(250) NOT NULL,
     group_attr_value_id     bigint NULL,
     unit_attr_value_id      bigint NOT NULL,
     attribute_attr_value_id bigint NOT NULL,
@@ -338,7 +338,7 @@ CREATE TABLE IF NOT EXISTS "public".attribute_integer_value
 CREATE TABLE IF NOT EXISTS "public".attribute_string_value
 (
     attribute_id            bigint NOT NULL,
-    value                   character varying(50) NULL,
+    value                   character varying(100) NULL,
     CONSTRAINT PK_attr_string_value PRIMARY KEY ( attribute_id ),
     CONSTRAINT FK_7_3 FOREIGN KEY ( attribute_id )
         REFERENCES "public".attribute_value ( id )

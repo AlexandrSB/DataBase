@@ -20,4 +20,14 @@ public interface RepairCardOfModuleRepo extends CrudRepository<RepairCardOfModul
             AND rcoe.id = :repairCardUUID
             """)
     Optional<RepairCardOfModule> findByUnitId(UUID repairCardUUID, UUID moduleId);
+
+
+    @Query(value = """
+            SELECT rcom
+            FROM RepairCardOfModule rcom
+                LEFT JOIN FETCH repairCardOfEquipment rcoe
+                LEFT JOIN FETCH workshopModule wm
+            WHERE rcoe.id = :repairCardUUID 
+            """)
+    Iterable<RepairCardOfModule> findByRepairCardId(UUID repairCardUUID);
 }

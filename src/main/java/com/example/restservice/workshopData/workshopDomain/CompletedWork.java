@@ -26,7 +26,7 @@ public class CompletedWork {
     @JoinColumn(name = "type_of_spare_part_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private TypeOfSparePart typeOfSparePart;
+    public TypeOfSparePart typeOfSparePart;
 
     @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude

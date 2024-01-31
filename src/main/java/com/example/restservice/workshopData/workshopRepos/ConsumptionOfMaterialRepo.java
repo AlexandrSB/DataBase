@@ -20,4 +20,14 @@ public interface ConsumptionOfMaterialRepo extends CrudRepository<ConsumptionOfM
             WHERE wm.id = :moduleId
             """)
     Iterable<ConsumptionOfMaterial> findAllWithLazy(UUID moduleId);
+
+    @Query(value = """
+            SELECT com
+            FROM ConsumptionOfMaterial com
+               LEFT JOIN FETCH com.workshopModule AS wm
+               LEFT JOIN FETCH com.completedWork AS cw
+               LEFT JOIN FETCH com.repairCardOfModule AS rcom
+            WHERE rcom.id = :moduleId
+            """)
+    Iterable<ConsumptionOfMaterial> findAllByRepairCardOfModuleId(Iterable<UUID> moduleId);
 }

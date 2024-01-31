@@ -64,4 +64,27 @@
         </ul>
     </#if>
 
+    <#if repair_cards_of_modules?has_content>
+
+        <@se.header_2
+            title = "Выполненные работы"
+            />
+
+        <ul>
+            <#list repair_cards_of_modules as rcom>
+                <li>
+                    <span>${rcom.workshopModule.name}</span>
+                    <ul>
+                        <#list consumption_of_materials as com>
+                            <#if com.workshopModule.name == rcom.workshopModule.name>
+                                <li><span>${com} ${com.workshopModule.name}</span></li>
+                            </#if>
+                        </#list>
+                    </ul>
+                </li>
+            </#list>
+        </ul>
+    </#if>
+
+
 </@c.page>

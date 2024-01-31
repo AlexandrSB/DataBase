@@ -73,33 +73,6 @@ public class Element {
     )
     private Set<Proxy> proxies = new HashSet<>();
 
-//    @ToString.Exclude
-//    @ManyToMany(cascade = CascadeType.PERSIST)
-//    @JoinTable(
-//            name = "elements_composite",
-//            joinColumns = {
-//                    @JoinColumn(name = "element_source")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "element_destination")
-//            }
-//    )
-//    private Set<Element> elements_source = new HashSet<>();
-
-//    @ToString.Exclude
-//    @ManyToMany(cascade = CascadeType.PERSIST)
-//    @JoinTable(
-//            name = "elements_composite",
-//            joinColumns = {
-//                    @JoinColumn(name = "element_destination")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "element_source")
-//            }
-//    )
-//    private Set<Element> elements_destination = new HashSet<>();
-
-
     public Element( String name ) {
         this.name = name;
     }

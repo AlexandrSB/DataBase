@@ -6,11 +6,11 @@
 <@c.page>
 
     <@se.header_1
-        title = "Ремонт комплектующих"
+        title = "Ремонт комплектующих: " + repair_card.workshopEquipment.model
         />
 
     <@se.header_2
-        title = workshop_module.name
+        title = "Модуль: " + workshop_module.name
         />
 
     <@se.header_3
@@ -101,46 +101,45 @@
                             </div>
                         </form>
 
-                        <form class="row g-6" action="/repair_notation/check_operation" method="post">
-                            <@se.input_hidden
-                                name = "repair_card_id"
-                                value = repair_card.id
-                                />
+                        <#if completed_works?has_content>
+                        <div class="container">
+                            <form class="row g-6" action="/repair_notation/check_operation" method="post">
+                                <div class="row justify-content-start"
+                                    <@se.input_hidden
+                                        name = "repair_card_id"
+                                        value = repair_card.id
+                                        />
 
-                            <@se.input_hidden
-                                name = "unit_id"
-                                value = unit.id
-                                />
+                                    <@se.input_hidden
+                                        name = "unit_id"
+                                        value = unit.id
+                                        />
 
-                            <div class="row col-auto">
-                                <#list completed_works as cw>
-                                    <div class="form-check form-switch">
-<!--                                     <!-- //TODO my_checkboxes разделить на "выполненные работы" и "количество запчастей" -->
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="my_checkboxes" value=${cw.id}>
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="text" class="form-control" id="quantity" name="my_checkboxes" placeholder="Количество" value="0"/>
-                                    </div>
-                                </#list>
-                            </div>
+                                    <#list completed_works as cw>
+                                        <div class="row g-1">
+                                            <div class="col-3 ">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="my_checkboxes" value=${cw.id}>
+                                                    <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <#if cw.typeOfSparePart?has_content>
+                                                    <label class="col-auto" for="quantity" >${cw.typeOfSparePart.name}</label>
+                                                </#if>
+                                                <input type="text" class="form-control" id="quantity" name="my_checkboxes" placeholder="Количество" value="0"/>
+                                            </div>
+                                        </div>
+                                    </#list>
 
-                            <div class="col-sm-2">
-                                <button type="submit" class="btn btn-primary mb-3">Write</button>
-                            </div>
-                        </form>
+                                </div>
 
-                        <ul>
-                            <#if elements_proxy??>
-                                <#list elements_proxy as p>
-                                    <#if p??>
-                                        <li>proxy: ${p}</li>
-                                    </#if>
-                                <#else>
-                                    <li>&ltnone&gt</li>
-                                </#list>
-                            </#if>
-                        </ul>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-primary mb-3">Write</button>
+                                </div>
+                            </form>
+                        </div>
+                        </#if>
 
                     </div>
                 </div>
@@ -157,8 +156,9 @@
                         <span>${com[1].notation!"none"}</span>
                     </td>
                     <td>
-                        <#assign type_of_spare_part=com[1].typeOfSparePart>
-                        <span>${com[1].typeOfSparePart!"none"}</span>
+                        <#if com[1].typeOfSparePart?has_content>
+                            <span>${com[1].typeOfSparePart.name!"none"}</span>
+                        </#if>
                     </td>
                     <td>
                         <span>${com[0].quantityOfMaterial!"none"}</span>
