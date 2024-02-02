@@ -28,7 +28,7 @@
         />
 
         <@se.button_send
-            button_name = "Add equipment"
+            button_name = "Add owner"
         />
 
     </form>
@@ -71,16 +71,18 @@
         />
 
         <@se.button_send
-            button_name = "Add new proxy"
+            button_name = "Create proxy"
         />
     </form>
 
+<a href="/proxy">Edit Proxy</a></br>
 
-<span>Группы : </span>
+
+    <span>Группы : </span>
     <ul class="nav nav-tabs">
         <#list elem.groups as g>
             <li class="nav-item">
-                <a href="/element/${g.id}">${g.groupName}</a>
+                <a href="/element/${g.id}">${g.name}</a>
             </li>
         <#else>
             <li>Группы не найдены</li>

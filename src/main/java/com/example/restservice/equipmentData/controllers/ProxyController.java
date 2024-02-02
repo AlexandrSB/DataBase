@@ -16,10 +16,10 @@ import java.util.Optional;
 public class ProxyController {
 
     @Autowired
-    private AttributeRepo attributeRepo;
+    private AttributeGroupRepo attributeGroupRepo;
 
     @Autowired
-    private UnitRepo unitRepo;
+    private AttributeRepo attributeRepo;
 
     @Autowired
     private AttributeValueRepo attributeValueRepo;
@@ -31,7 +31,7 @@ public class ProxyController {
     private ProxyRepo proxyRepo;
 
     @Autowired
-    private FirmaRepo firmaRepo;
+    private UnitRepo unitRepo;
 
 
     @ModelAttribute
@@ -45,9 +45,6 @@ public class ProxyController {
             Model model
     ) {
 
-        Iterable<Firma> firms = firmaRepo.findAll();
-        model.addAttribute("firms", firms);
-
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
 
@@ -60,8 +57,11 @@ public class ProxyController {
         Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
         model.addAttribute( "attributeValues", attributeValues );
 
-        return "proxy";
+        Iterable<AttributeGroup> attributeGroups = attributeGroupRepo.findAll();
+        model.addAttribute("attr_groups", attributeGroups);
 
+
+        return "element_proxy";
     }
 
     @PostMapping("addProxy")
@@ -72,13 +72,8 @@ public class ProxyController {
         Model model
     ) {
 
-        Firma firm = firmaRepo.findByFirmName( firma );
-
         Proxy proxy = new Proxy();
         proxy.setName( proxy_name );
-        if(firma != null) {
-            proxy.setFirma(firm);
-        }
         proxyRepo.save( proxy );
 
         return "redirect:"+path;
@@ -104,6 +99,6 @@ public class ProxyController {
         attributeValue.setUnit( unit.get() );
         attributeValueRepo.save( attributeValue );
 
-        return "redirect:/proxy";
+        return "redirect:/element_proxy";
     }
 }

@@ -33,22 +33,6 @@ public class GroupController {
     public String showGroups(Model model) {
 
         Iterable<GroupRecursiveView> groups = groupRecursiveRepo.findAll();
-
-//        List<Group> sortedGroup = new ArrayList<>();
-//        List<Group> myGroup = new ArrayList<>();
-//        myGroup.addAll((Collection<? extends Group>) groups);
-//        sortedGroup.add((Group) myGroup.stream()
-//                .filter(group -> group.getId() == 0));
-
-//        for (Group g : sortedGroup) {
-//            if (g.getParent() != null) {
-//                System.out.println("ID : " + g.getId() + " Группа : " + g.getGroupName() + " " +
-//                        g.getParent().getId());
-//            } else {
-//                System.out.println("Группа : " + g.getGroupName() + " <null>");
-//            }
-//        }
-
         model.addAttribute("gr", groups);
 
         return "groups";

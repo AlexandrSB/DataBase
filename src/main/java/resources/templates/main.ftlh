@@ -5,6 +5,8 @@
     <br>
     <a href="/storage">Storage</a>
     <br>
+    <a href="/workshop">Workshop</a>
+    <br>
     <a href="/proxy">Proxy</a>
     <br>
 </@c.page>

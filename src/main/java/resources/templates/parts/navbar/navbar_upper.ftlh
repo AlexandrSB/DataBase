@@ -1,3 +1,29 @@
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle"
+       href="/element/0"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false"
+    >Оборудование</a>
+
+    <ul class="dropdown-menu dropdown-menu-dark">
+        <li>
+            <a class="dropdown-item" href="/element/0">Все оборудование</a>
+        </li>
+        <#if nav??>
+            <#list nav as n>
+                <li>
+                    <a class="dropdown-item" href="/element/${n.id}">${n.name}</a>
+                </li>
+            <#else>
+                <span>***</span>
+            </#list>
+        </#if>
+    </ul>
+</li>
+
+
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle"
        href="/storage"
@@ -34,31 +60,6 @@
         <li>
             <a class="dropdown-item" href="/storage/contragents_party">Contragents party</a>
         </li>
-    </ul>
-</li>
-
-
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle"
-       href="/element/0"
-       role="button"
-       data-bs-toggle="dropdown"
-       aria-expanded="false"
-    >Оборудование</a>
-
-    <ul class="dropdown-menu dropdown-menu-dark">
-        <li>
-            <a class="dropdown-item" href="/element/0">Все оборудование</a>
-        </li>
-        <#if nav??>
-            <#list nav as n>
-                <li>
-                    <a class="dropdown-item" href="/element/${n.id}">${n.groupName}</a>
-                </li>
-            <#else>
-                <span>***</span>
-            </#list>
-        </#if>
     </ul>
 </li>
 

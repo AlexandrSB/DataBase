@@ -54,8 +54,11 @@ public class ElementController {
     @GetMapping
     public String AllElements(Model model) {
 
-        Iterable<Element> elements = elementRepo.findAll();
-        model.addAttribute("elements", elements);
+        model.addAttribute("my_group",
+                groupRepo
+                .findById(0L)
+                .orElseThrow()
+        );
 
         return "allElements";
     }
@@ -65,14 +68,16 @@ public class ElementController {
             @PathVariable String group_id,
             Model model) {
 
-        Long id = Long.valueOf(group_id);
+        Long groupId = Long.valueOf(group_id);
         Set<Group> groups = new HashSet<>();
         List<Group> groups_breadcrumb = new LinkedList<>();
 
-        Group group= groupRepo.findById(id)
+        Group group= groupRepo.findById(groupId)
+                .orElseThrow();
+        Group myGroup = groupRepo.findById(groupId)
                 .orElseThrow();
 
-        if (id != 0) {
+        if (groupId != 0) {
             groups.addAll(groupRepo.findAllByParentId(group.getId()));
             while (group.getId() != 0) {
                 groups_breadcrumb.add(group.getParent());
@@ -92,7 +97,7 @@ public class ElementController {
 
         model.addAttribute("nav_breadcrumb", groups_breadcrumb);
         model.addAttribute("nav", groups);
-        model.addAttribute("my_group", group);
+        model.addAttribute("my_group", myGroup);
 
         return "element";
     }
@@ -137,6 +142,19 @@ public class ElementController {
         return "compView";
     }
 
+//    @GetMapping("/proxy/edit_proxy")
+//    private String editProxy(
+//            Model model
+//    ) {
+//
+//        Iterable<Proxy> proxies = proxyRepo.findAll();
+//        model.addAttribute("proxes", proxies);
+//
+//
+//
+//        return "equipment_edit_proxy";
+//    }
+//
     @PostMapping("add_element")
     public String addElement(
 //            @RequestParam( required = false ) String proxy_name,
@@ -201,6 +219,10 @@ public class ElementController {
                 elementRepo.findById(Long.valueOf( element_source_id ))
                         .get();
         Proxy proxy = proxyRepo.findByName(proxy_name).get();
+
+        if (element_destination.equals(elementSource)) {
+            return "redirect:/element/view/" + element_source_id;
+        }
 
         ElementsComposite elementsComposite = new ElementsComposite();
         elementsComposite.setElement_source( elementSource );

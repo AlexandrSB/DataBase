@@ -52,32 +52,21 @@
             </thead>
             <tbody>
                 <#list elements as e>
-                    <#list e.groups as e_gr>
+                    <#list e.groups as gr>
+                        <#if gr.id == my_group.id || my_group.id == 0>
                         <tr>
                             <td><span>${e.name}</span></td>
                             <td><span>${e.description}</span></td>
-                            <#if e.groups??>
-                                <td>
-                                    <#list e.groups as gr>
-                                        <ul>
-                                            <li>
-                                                <a href="/element/${gr.id}">${gr.groupName}</a>
-                                            </li>
-                                        </ul>
-                                        <#-- <option>${gr.groupName}</option> -->
-                                    <#else>
-                                        <option>No Groups</option>
-                                    </#list>
-                                </td>
-                            <#else>
-                                <td><span>&ltnone&gt</span></td>
-                            </#if>
+                            <td>
+                                <a href="/element/${gr.id}">${gr.name}</a>
+                            </td>
 
                             <td>${e.elementType.type}</td>
                             <td>${e.category}</td>
 
                             <td><a href="/element/view/${e.id}">view</a></td>
                         </tr>
+                        </#if>
                     </#list>
                 </#list>
             </tbody>

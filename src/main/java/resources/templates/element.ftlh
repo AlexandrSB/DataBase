@@ -5,15 +5,17 @@
 <@c.page "Elements">
     <#include "parts/navbar/navbar_breadcramb.ftlh" />
 
-    <h1 class="text-center">${my_group.groupName}</h1>
-    <br/>
+    <@se.header_1
+        title = ${my_group.name}
+        />
 
-    <form action="add_element" method="post" id="equip">
+
+<form action="add_element" method="post" id="equip">
 
         <input
                 type="text"
                 name="group_name"
-                value="${my_group.groupName}"
+                value="${my_group.name}"
                 hidden="hidden"
         />
 
