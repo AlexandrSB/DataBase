@@ -93,7 +93,6 @@ public class ProxyController {
         Optional<Proxy> proxy = proxyRepo.findByName( proxy_name );
 
         AttributeValue attributeValue = new AttributeValue();
-        attributeValue.setName( attribute_value.trim() );
         attributeValue.setUnit( unit.get() );
         attributeValueRepo.save( attributeValue );
 

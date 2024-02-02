@@ -82,8 +82,8 @@
         <li>
             <span>${pr.name}</span>
             <ul>
-                <#list pr.attributeValues as av>
-                    <span>${av.attribute.name} - ${av.name}${av.workshopUnit.name}; </span>
+                <#list pr.attributeGroups as ag>
+                    <li>${ag.attribute.name} - ${ag.name}; </li>
                 </#list>
             </ul>
         </li>

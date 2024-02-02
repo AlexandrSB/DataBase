@@ -23,7 +23,7 @@ public class AttributeGroup {
     private Proxy proxy;
 
     @ManyToOne
-    @JoinColumn(name = "attr_id")
+    @JoinColumn(name = "attribute_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Attribute attribute;
