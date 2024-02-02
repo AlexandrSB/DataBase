@@ -1,6 +1,6 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
-public enum TypeOfElement {
+public enum Category {
     ОБОРУДОВАНИЕ,
     МОДУЛЬ,
     ЗАПЧАСТЬ

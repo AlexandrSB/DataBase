@@ -1,11 +1,9 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
-
-import lombok.*;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -16,21 +14,15 @@ public class Attribute {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "attribute_id", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn(name = "attr_value_id")
-//    private AttributeValue attr_value_id;
-
-//
-//    @Setter
-//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<AttributeIntegerValue> intValues;
-
+    @ManyToOne
+    @JoinColumn(name = "attribute_group_id")
+    private AttributeGroup attributeGroup;
 
     public Attribute(String n) {
         this.name = n;

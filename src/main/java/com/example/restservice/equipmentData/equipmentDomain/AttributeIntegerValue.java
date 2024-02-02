@@ -11,15 +11,18 @@ import lombok.*;
 public class AttributeIntegerValue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "attr_value_id", nullable = false, unique = true)
     private Long id;
-
-    @NonNull
-    @OneToOne
-    private AttributeValue attributeValue;
 
     @Setter
     @NonNull
     private Integer value;
+
+    @NonNull
+    @OneToOne
+    @MapsId
+    @ToString.Exclude
+    private AttributeValue attributeValue;
+
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Repository
 public interface GroupRepo extends CrudRepository<Group, Long> {
-    List<Group> findByGroupName(String groupName);
+    List<Group> findByName(String name);
 
     Group getById(Long group_id);
 

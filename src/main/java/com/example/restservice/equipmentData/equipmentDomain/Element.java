@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,7 @@ public class Element {
 
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE)
-    @Column(name = "element_id", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @NonNull
@@ -27,7 +26,7 @@ public class Element {
     private String description = "";
 
     @Column(name = "type_of_element", columnDefinition = "")
-    private TypeOfElement typeOfElement;
+    private Category category;
 
     @ToString.Exclude
     @ManyToOne

@@ -11,15 +11,17 @@ import lombok.*;
 public class AttributeStringValue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "attr_value_id", nullable = false, unique = true)
     private Long id;
-
-    @NonNull
-    @OneToOne
-    private AttributeValue attributeValue;
 
     @Setter
     @NonNull
     private String value;
+
+    @NonNull
+    @OneToOne
+    @MapsId
+    private AttributeValue attributeValue;
+
 }

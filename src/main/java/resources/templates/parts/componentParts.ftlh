@@ -74,7 +74,7 @@
                             </#if>
 
                             <td>${e.elementType.type}</td>
-                            <td>${e.typeOfElement}</td>
+                            <td>${e.category}</td>
 
                             <td><a href="/element/view/${e.id}">view</a></td>
                         </tr>

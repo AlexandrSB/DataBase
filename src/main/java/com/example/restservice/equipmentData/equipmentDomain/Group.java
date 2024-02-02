@@ -6,34 +6,32 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
-import static com.example.restservice.equipmentData.SQL_queries.getRecursiveGroup;
-
 @Entity
 @Data
 @NoArgsConstructor(force = true)
-@Table(name = "groups", schema = "public")
+@Table(name = "elements_group", schema = "public")
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "group_id", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @NonNull
-    @Column(name = "group_name", unique = true)
-    private String groupName;
+    @Column(name = "name", unique = true)
+    private String name;
 
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Group parent;
 
-    public Group(@NonNull String groupName) {
-        this.groupName = groupName;
+    public Group(@NonNull String name) {
+        this.name = name;
     }
 
-    public Group(@NonNull String groupName, @NonNull Group group) {
-        this.groupName = groupName;
+    public Group(@NonNull String name, @NonNull Group group) {
+        this.name = name;
         this.parent = group;
     }
 

@@ -20,22 +20,18 @@ public class AttributeValue {
     @Column(name = "name")
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn(name = "group_attr_value_id")
-//    private Group group;
-
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "proxy_attr_value_id")
+    @JoinColumn(name = "proxy_id")
     private Proxy proxy;
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "unit_attr_value_id")
+    @JoinColumn(name = "unit_id")
     private Unit unit;
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "attribute_attr_value_id")
+    @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 }

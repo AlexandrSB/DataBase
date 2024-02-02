@@ -86,9 +86,9 @@ public class ElementController {
         Iterable<ElementType> elementTypes = elementTypeRepo.findAll();
         model.addAttribute("elements_type", elementTypes);
 
-        Iterable<TypeOfElement> typeOfElements =
-                List.of(TypeOfElement.values());
-        model.addAttribute("type_of_elements", typeOfElements);
+        Iterable<Category> categories =
+                List.of(Category.values());
+        model.addAttribute("type_of_elements", categories);
 
         model.addAttribute("nav_breadcrumb", groups_breadcrumb);
         model.addAttribute("nav", groups);
@@ -140,20 +140,20 @@ public class ElementController {
     @PostMapping("add_element")
     public String addElement(
 //            @RequestParam( required = false ) String proxy_name,
-            @RequestParam String type_of_element,
+            @RequestParam String this_category,
             @RequestParam String group_name,
             @RequestParam String elementName,
             @RequestParam String description,
             @RequestParam String element_type,
             Model model) {
 
-        TypeOfElement typeOfElement = TypeOfElement.valueOf(type_of_element);
+        Category category = Category.valueOf(this_category);
         List<Group> groups_breadcrumb = new LinkedList<>();
 
         ElementType elementType = elementTypeRepo.findByType(element_type).get();
 
         Group group = groupRepo
-                .findByGroupName(group_name)
+                .findByName(group_name)
                 .get(0);
         model.addAttribute("my_group", group );
 
@@ -162,7 +162,7 @@ public class ElementController {
         elem.setDescription( description.trim() );
         elem.addGroup( group );
         elem.setElementType( elementType );
-        elem.setTypeOfElement( typeOfElement );
+        elem.setCategory(category);
 
         elementRepo.save( elem );
 

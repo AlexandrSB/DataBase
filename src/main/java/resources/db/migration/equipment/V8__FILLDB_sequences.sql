@@ -67,7 +67,7 @@ SELECT pg_catalog.setval('public.firma_seq', 1, false);
 -- Name: groups_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.groups_seq', 1, false);
+SELECT pg_catalog.setval('public.elements_group_seq', 1, false);
 
 
 --
