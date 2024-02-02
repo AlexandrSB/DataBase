@@ -19,10 +19,10 @@ SELECT pg_catalog.setval('public.attribute_value_seq', 1, false);
 --
 -- TOC entry 3486 (class 0 OID 0)
 -- Dependencies: 216
--- Name: barcode_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: element_label_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.barcode_seq', 1, false);
+SELECT pg_catalog.setval('public.element_label_seq', 1, false);
 
 
 --

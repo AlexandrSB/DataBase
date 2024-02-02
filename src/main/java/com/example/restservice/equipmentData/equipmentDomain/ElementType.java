@@ -6,6 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "element_type", schema = "public")
+//TODO определиться с записью типа элемента
 public class ElementType {
 
     @Id

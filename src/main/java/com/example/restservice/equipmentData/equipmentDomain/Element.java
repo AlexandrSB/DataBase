@@ -26,8 +26,8 @@ public class Element {
     @Column(name = "description", columnDefinition = "")
     private String description = "";
 
-    @Column(name = "is_equipment", columnDefinition = "")
-    private Boolean isEquipment = false;
+    @Column(name = "type_of_element", columnDefinition = "")
+    private TypeOfElement typeOfElement;
 
     @ToString.Exclude
     @ManyToOne

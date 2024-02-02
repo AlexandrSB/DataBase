@@ -7,6 +7,7 @@ import lombok.ToString;
 
 @Entity
 @Data
+//TODO определиться где хранить тип элемента: здесь или в enum
 public class ElementLabel {
 
     @Id

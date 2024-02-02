@@ -84,35 +84,35 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
     @Query(value= """
             SELECT e.name
             FROM Element e
-            WHERE e.isEquipment = true
+            WHERE e.typeOfElement = 0
             """)
     Set<String> findEquipmentsOnlyName();
 
     @Query(value= """
             SELECT e.name
             FROM Element e
-            WHERE e.isEquipment = false
+            WHERE e.typeOfElement = 1
             """)
     Set<String> findParcelsOnlyName();
 
     @Query(value= """
             SELECT e
             FROM Element e
-            WHERE e.isEquipment = true
+            WHERE e.typeOfElement = 0 
             """)
     Iterable<Element> findAllEquipment();
 
     @Query(value= """
             SELECT e
             FROM Element e
-            WHERE e.isEquipment = false
+            WHERE e.typeOfElement = 1
             """)
     Iterable<Element> findAllParcels();
 
     @Query(value = """
             SELECT e.id
             FROM Element e
-            WHERE e.isEquipment = false
+            WHERE e.typeOfElement = 1
             """)
     Iterable<Long> findAllParcelsId();
 

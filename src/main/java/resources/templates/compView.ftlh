@@ -57,7 +57,26 @@
     </form>
 
 
-    <span>Группы : </span>
+    <form action="/addProxy" method="post" id="addProxyId">
+        <@se.input_hidden
+            name = "path"
+            value = "/element/view/" + elem.id
+        />
+
+        <@se.input_element
+            element_name = "proxy_name"
+            element_id = "proxy_name_id"
+            label = "Proxy name"
+            placeholder = "Input proxy name"
+        />
+
+        <@se.button_send
+            button_name = "Add new proxy"
+        />
+    </form>
+
+
+<span>Группы : </span>
     <ul class="nav nav-tabs">
         <#list elem.groups as g>
             <li class="nav-item">

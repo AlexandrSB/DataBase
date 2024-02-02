@@ -73,6 +73,33 @@
 
 </#macro>
 
+<#macro simple_list
+    name
+    label
+    this_list
+    column_length
+    justify_content
+    >
+
+    <div class="form-group row ${justify_content}">
+        <#if this_list?has_content>
+            <label for=${name!"default"} class="col-sm-2 col-form-label">${label} : </label>
+            <div class="col-${column_length}">
+                <select class="form-control" id="${name}+_id" name="${name}">
+                    <#if this_list??>
+                        <#list this_list as l>
+                            <#if l??>
+                                <option>${l}</option>
+                            </#if>
+                        <#else>
+                            <option>&ltnone&gt</option>
+                        </#list>
+                    </#if>
+                </select>
+            </div>
+        </#if>
+    </div>
+</#macro>
 
 <#macro select_element
         element_name

@@ -65,12 +65,12 @@ public class ElementController {
             @PathVariable String group_id,
             Model model) {
 
-        Long id = Long.valueOf(Optional.of(group_id).get());
+        Long id = Long.valueOf(group_id);
         Set<Group> groups = new HashSet<>();
         List<Group> groups_breadcrumb = new LinkedList<>();
 
-        Optional<Group> group_optional = groupRepo.findById(id);
-        Group group = group_optional.get();
+        Group group= groupRepo.findById(id)
+                .orElseThrow();
 
         if (id != 0) {
             groups.addAll(groupRepo.findAllByParentId(group.getId()));
@@ -86,9 +86,13 @@ public class ElementController {
         Iterable<ElementType> elementTypes = elementTypeRepo.findAll();
         model.addAttribute("elements_type", elementTypes);
 
+        Iterable<TypeOfElement> typeOfElements =
+                List.of(TypeOfElement.values());
+        model.addAttribute("type_of_elements", typeOfElements);
+
         model.addAttribute("nav_breadcrumb", groups_breadcrumb);
         model.addAttribute("nav", groups);
-        model.addAttribute("my_group", group_optional.get());
+        model.addAttribute("my_group", group);
 
         return "element";
     }
@@ -103,21 +107,10 @@ public class ElementController {
                 .orElseThrow();
         model.addAttribute( "elem", elem );
 
-//        Iterable<ElementsComposite> ecSource = elem.get().getElementsSource();
-//        Set<Element> elements_destination = new HashSet<>();
-//        for (ElementsComposite ec : ecSource) {
-//            elements_destination.add( ec.getElement_destination() );
-//        }
         Iterable<String> elements_source =
                 elementRepo.findElementSource(elem.getId());
         model.addAttribute("elem_source", elements_source);
 
-//        Iterable<ElementsComposite> ecDestination = elem.get()
-//                .getElementsDestination();
-//        Set<Element> elements_source = new HashSet<>();
-//        for (ElementsComposite ec : ecDestination) {
-//            elements_source.add( ec.getElement_source() );
-//        }
         Iterable<String> elements_destination =
                 elementRepo.findElementDestination(elem.getId());
         model.addAttribute("elem_destination", elements_destination);
@@ -147,20 +140,21 @@ public class ElementController {
     @PostMapping("add_element")
     public String addElement(
 //            @RequestParam( required = false ) String proxy_name,
-            @RequestParam(value = "is_equipment", required = false) String is_equipment,
+            @RequestParam String type_of_element,
             @RequestParam String group_name,
             @RequestParam String elementName,
             @RequestParam String description,
             @RequestParam String element_type,
             Model model) {
 
+        TypeOfElement typeOfElement = TypeOfElement.valueOf(type_of_element);
         List<Group> groups_breadcrumb = new LinkedList<>();
 
         ElementType elementType = elementTypeRepo.findByType(element_type).get();
 
-        Group group = Optional.ofNullable(
-                groupRepo.findByGroupName(group_name).get(0)
-        ).get();
+        Group group = groupRepo
+                .findByGroupName(group_name)
+                .get(0);
         model.addAttribute("my_group", group );
 
         Element elem = new Element();
@@ -168,11 +162,8 @@ public class ElementController {
         elem.setDescription( description.trim() );
         elem.addGroup( group );
         elem.setElementType( elementType );
-        if(is_equipment != null) {
-            elem.setIsEquipment(true);
-        } else {
-            elem.setIsEquipment(false);
-        }
+        elem.setTypeOfElement( typeOfElement );
+
         elementRepo.save( elem );
 
         return "redirect:/element/" + group.getId();

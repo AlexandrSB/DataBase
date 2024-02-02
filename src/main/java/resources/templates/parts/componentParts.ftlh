@@ -36,8 +36,8 @@
     </div>
 </#macro>
 
-<#macro componentTable>
 
+<#macro componentTable>
     <div class="">
         <table class="table table-striped table-hover">
             <thead>
@@ -45,13 +45,14 @@
                     <th scope="col">Element name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Groups</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Button</th>
                 </tr>
             </thead>
             <tbody>
                 <#list elements as e>
                     <#list e.groups as e_gr>
-                    <#if my_group.id == e_gr.id || my_group.id == 0>
                         <tr>
                             <td><span>${e.name}</span></td>
                             <td><span>${e.description}</span></td>
@@ -72,13 +73,14 @@
                                 <td><span>&ltnone&gt</span></td>
                             </#if>
 
+                            <td>${e.elementType.type}</td>
+                            <td>${e.typeOfElement}</td>
+
                             <td><a href="/element/view/${e.id}">view</a></td>
                         </tr>
-                    </#if>
                     </#list>
                 </#list>
             </tbody>
         </table>
     </div>
-
 </#macro>

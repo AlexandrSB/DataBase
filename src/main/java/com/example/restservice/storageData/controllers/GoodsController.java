@@ -222,7 +222,6 @@ public class GoodsController {
             good.setId(e.getId());
             good.setName(e.getName());
             good.setIsEquipment(true);
-//            good.setExternalEquipId(e.getId());
             goods.add(good);
         }
 

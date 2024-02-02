@@ -66,8 +66,9 @@ public class ProxyController {
 
     @PostMapping("addProxy")
     private String addProxy(
-        @RequestParam String firma,
+        @RequestParam(required = false) String firma,
         @RequestParam String proxy_name,
+        @RequestParam String path,
         Model model
     ) {
 
@@ -75,10 +76,12 @@ public class ProxyController {
 
         Proxy proxy = new Proxy();
         proxy.setName( proxy_name );
-        proxy.setFirma( firm );
+        if(firma != null) {
+            proxy.setFirma(firm);
+        }
         proxyRepo.save( proxy );
 
-        return "redirect:/proxy";
+        return "redirect:"+path;
     }
 
     @PostMapping("proxy_addAttribute")

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "public".element_label
 (
     id              bigint NOT NULL,
     vendor_code     character varying(100) NOT NULL,
-    CONSTRAINT PK_element_label PRIMARY KEY ( element_label_id )
+    CONSTRAINT PK_element_label PRIMARY KEY ( id )
 );
 
     CREATE SEQUENCE IF NOT EXISTS public.element_label_seq
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS "public".element_label
 
 CREATE TABLE IF NOT EXISTS "public".groups
 (
-    group_id                bigint NOT NULL,
-    group_name              character varying(100) NOT NULL,
+    group_id                bigint NOT NULL UNIQUE,
+    group_name              character varying(100) NOT NULL UNIQUE,
     parent_id               bigint NULL,
     CONSTRAINT PK_groups PRIMARY KEY ( group_id ),
     CONSTRAINT FK_10_1 FOREIGN KEY ( parent_id )
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS "public".groups
 
 CREATE TABLE IF NOT EXISTS "public".element_type
 (
-    id                      bigint NOT NULL,
+    id                      bigint NOT NULL UNIQUE,
     type                    character varying(50) NOT NULL,
     CONSTRAINT PK_element_type_id PRIMARY KEY ( id )
 );
@@ -69,11 +69,11 @@ CREATE TABLE IF NOT EXISTS "public".element_type
 
 CREATE TABLE IF NOT EXISTS "public".element
 (
-    element_id              bigint NOT NULL,
-    name                    character varying(250) NOT NULL,
+    element_id              bigint NOT NULL UNIQUE,
+    name                    character varying(250) NOT NULL UNIQUE,
     description             character varying(5000) NULL,
     parent_id               bigint NULL,
-    is_equipment            boolean DEFAULT FALSE,
+    type_of_element         smallint,
     element_type_id         bigint NOT NULL,
     CONSTRAINT PK_component PRIMARY KEY ( element_id ),
     CONSTRAINT unique_component_name_constraint UNIQUE ( name ),
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS "public".element
 
 CREATE TABLE IF NOT EXISTS "public".element_groups
 (
-    element_id              bigint NULL,
+    element_id              bigint NULL UNIQUE,
     group_id                bigint NULL,
     CONSTRAINT PK_element_groups PRIMARY KEY ( element_id, group_id ),
     CONSTRAINT FK_11 FOREIGN KEY ( element_id )

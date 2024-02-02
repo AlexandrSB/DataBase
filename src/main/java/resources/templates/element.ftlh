@@ -27,19 +27,21 @@
         <@se.select_element
             element_name = "element_type"
             element_id = "element_type_id"
-            label = "Type"
+            label = "Equipment"
             placeholder = "Input element type"
             elements_array = elements_type
             elements_attr = "type"
         />
-        <@se.description />
 
-        <@se.checkbox
-            checkbox_name = "is_equipment"
-            checkbox_id = "is_equipment_id"
-            label = "Is Equipment"
-            checked = "unchecked"
+        <@se.simple_list
+            name = "type_of_element"
+            label = "Type:"
+            this_list = type_of_elements
+            column_length = "sm-6"
+            justify_content = "justify-content-center"
         />
+
+        <@se.description />
 
         <@se.button_send
             button_name = "Add"
