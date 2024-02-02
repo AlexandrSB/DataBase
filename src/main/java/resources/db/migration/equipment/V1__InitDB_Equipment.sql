@@ -91,37 +91,6 @@ CONSTRAINT unit_pkey PRIMARY KEY (id)
 );
 
 
-CREATE TABLE IF NOT EXISTS "public".attribute
-(
-id                          bigint NOT NULL,
-name                        character varying(250) NOT NULL,
-attribute_group_id          bigint,
-CONSTRAINT PK_attribute PRIMARY KEY ( id ),
-CONSTRAINT attr_group_FK FOREIGN KEY ( attribute_group_id )
-    REFERENCES "public".attribute ( id )
-);
-
-    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
-        ON "public".attribute
-    (
-        id
-    );
-
-
-CREATE TABLE IF NOT EXISTS "public".attribute_group
-(
-id                          bigint NOT NULL,
-name                        character varying(250) NOT NULL,
-CONSTRAINT PK_attribute_group PRIMARY KEY ( id )
-);
-
-    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
-        ON "public".attribute_group
-    (
-        id
-    );
-
-
 CREATE TABLE IF NOT EXISTS "public".firma
 (
     id  bigint              NOT NULL,
@@ -192,27 +161,51 @@ CREATE TABLE IF NOT EXISTS public.element_proxy
 CREATE TABLE IF NOT EXISTS "public".attribute_value
 (
     id                      bigint NOT NULL,
-    name                    character varying(250) NOT NULL,
     unit_id      bigint NOT NULL,
-    attribute_id bigint NOT NULL,
-    proxy_id     bigint NOT NULL,
     CONSTRAINT PK_attribute_value PRIMARY KEY ( id ),
     CONSTRAINT FK_unit FOREIGN KEY ( unit_id )
-        REFERENCES "public".unit ( id ),
-    CONSTRAINT FK_attr FOREIGN KEY ( attribute_id )
-        REFERENCES "public".attribute ( id )
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
-        REFERENCES "public".proxy ( id )
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        REFERENCES "public".unit ( id )
 );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_attr_elem_attr_valueID
-        ON "public".attribute_value
+
+CREATE TABLE IF NOT EXISTS "public".attribute
+(
+id                          bigint NOT NULL,
+name                        character varying(250) NOT NULL,
+attr_value_id               bigint,
+CONSTRAINT PK_attribute PRIMARY KEY ( id ),
+CONSTRAINT attr_value_FK FOREIGN KEY ( attr_value_id )
+    REFERENCES "public".attribute_value ( id )
+);
+
+    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
+        ON "public".attribute
     (
-        proxy_id
+        id
+    );
+
+
+CREATE TABLE IF NOT EXISTS "public".attribute_group
+(
+id                          bigint NOT NULL,
+name                        character varying(250) NOT NULL,
+proxy_id                    bigint,
+attribute_id                bigint,
+CONSTRAINT PK_attribute_group PRIMARY KEY ( id ),
+CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
+    REFERENCES "public".proxy ( id )
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
+CONSTRAINT FK_attribute FOREIGN KEY ( attribute_id )
+    REFERENCES "public".attribute ( id )
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+);
+
+    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
+        ON "public".attribute_group
+    (
+        id
     );
 
 

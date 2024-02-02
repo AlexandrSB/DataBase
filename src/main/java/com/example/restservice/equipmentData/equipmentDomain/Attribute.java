@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor(force = true)
-@EqualsAndHashCode(of = {"id", "name"})
 @Table(name = "attribute", schema = "public")
 public class Attribute {
 
@@ -20,9 +23,16 @@ public class Attribute {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
+    @OneToMany(mappedBy = "attribute")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<AttributeGroup> attributeGroups = new HashSet<>();
+
     @ManyToOne
-    @JoinColumn(name = "attribute_group_id")
-    private AttributeGroup attributeGroup;
+    @JoinColumn(name = "attr_value_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AttributeValue attributeValue;
 
     public Attribute(String n) {
         this.name = n;

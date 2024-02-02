@@ -1,10 +1,9 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -16,4 +15,16 @@ public class AttributeGroup {
     private Long id;
 
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "proxy_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Proxy proxy;
+
+    @ManyToOne
+    @JoinColumn(name = "attr_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Attribute attribute;
 }

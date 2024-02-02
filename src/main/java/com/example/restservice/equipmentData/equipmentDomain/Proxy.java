@@ -43,11 +43,12 @@ public class Proxy {
     private Firma firma;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "proxy")
-    private Set<AttributeValue> attributeValues = new HashSet<>();
+    private Set<ElementsComposite> elementsComposites = new HashSet<>();
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "proxy")
-    private Set<ElementsComposite> elementsComposites = new HashSet<>();
+    private Set<AttributeGroup> attributeGroups = new HashSet<>();
 }

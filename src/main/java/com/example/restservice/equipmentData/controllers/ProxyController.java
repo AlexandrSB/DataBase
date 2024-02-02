@@ -94,8 +94,6 @@ public class ProxyController {
 
         AttributeValue attributeValue = new AttributeValue();
         attributeValue.setName( attribute_value.trim() );
-        attributeValue.setProxy( proxy.get() );
-        attributeValue.setAttribute( attribute.get() );
         attributeValue.setUnit( unit.get() );
         attributeValueRepo.save( attributeValue );
 

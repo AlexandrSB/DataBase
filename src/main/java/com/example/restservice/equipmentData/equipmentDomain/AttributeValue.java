@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Data
@@ -20,18 +23,12 @@ public class AttributeValue {
     @Column(name = "name")
     private String name;
 
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "proxy_id")
-    private Proxy proxy;
-
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "unit_id")
+    @ToString.Exclude
     private Unit unit;
 
+    @OneToMany(mappedBy = "attributeValue")
     @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "attribute_id")
-    private Attribute attribute;
+    private Set<Attribute> attributes = new HashSet<>();
 }
