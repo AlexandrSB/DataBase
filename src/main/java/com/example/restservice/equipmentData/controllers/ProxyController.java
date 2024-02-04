@@ -80,20 +80,39 @@ public class ProxyController {
     @PostMapping("proxy_addAttribute")
     private String addAttribute(
         @RequestParam String proxy_name,
+        @RequestParam String attribute_groups_name,
         @RequestParam String attribute_name,
         @RequestParam String attribute_value,
         @RequestParam String unit_name,
         Model model
     ) {
 
-        Optional<Attribute> attribute = attributeRepo.findByName( attribute_name );
-        Optional<Unit> unit = unitRepo.findByName( unit_name );
-        Optional<Proxy> proxy = proxyRepo.findByName( proxy_name );
+        Attribute attribute = attributeRepo
+                .findByName( attribute_name )
+                .orElseThrow();
+        Unit unit = unitRepo
+                .findByName( unit_name )
+                .orElseThrow();
+        Proxy proxy = proxyRepo
+                .findByName( proxy_name )
+                .orElseThrow();
+        AttributeGroup attributeGroup = attributeGroupRepo
+                .findByName(attribute_groups_name)
+                .orElseThrow();
 
         AttributeValue attributeValue = new AttributeValue();
-        attributeValue.setUnit( unit.get() );
+        attributeValue.setName(attribute_value);
+        attributeValue.setUnit( unit );
         attributeValueRepo.save( attributeValue );
 
-        return "redirect:/element_proxy";
+        attribute.setAttributeValue(attributeValue);
+        attributeRepo.save(attribute);
+
+        attributeGroup.setName( attribute_groups_name);
+        attributeGroup.setAttribute(attribute);
+        attributeGroup.setProxy(proxy);
+        attributeGroupRepo.save(attributeGroup);
+
+        return "redirect:/proxy";
     }
 }

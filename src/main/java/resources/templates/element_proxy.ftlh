@@ -93,7 +93,7 @@
         />
 
         <@se.select_element
-            element_name = "attribute_groups"
+            element_name = "attribute_groups_name"
             element_id = "attribute_groups_id"
             label = "Attribute groups"
             placeholder = "Insert attribute groups"
