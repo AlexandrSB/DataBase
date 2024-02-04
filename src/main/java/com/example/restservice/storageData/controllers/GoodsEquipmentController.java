@@ -30,7 +30,7 @@ public class GoodsEquipmentController {
     @GetMapping
     public String equipment(Model model) {
 
-        Iterable<String> goodsName = goodsRepo.getGoodsNames();
+        Iterable<String> goodsName = goodsRepo.getGoodsNamesOnlyEquipment();
         model.addAttribute("goods_name", goodsName);
 
         Iterable<Condition> conditions = conditionRepo.findAll();

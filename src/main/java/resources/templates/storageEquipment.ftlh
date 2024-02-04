@@ -51,7 +51,7 @@
             button_name = "Add Equipment"
             />
 
-        </form>
+</form>
 
 
 <@ce.table_input

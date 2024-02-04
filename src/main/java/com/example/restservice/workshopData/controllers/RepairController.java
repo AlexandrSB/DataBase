@@ -4,8 +4,10 @@ import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
 import com.example.restservice.storageData.storageDomain.Equipment;
+import com.example.restservice.storageData.storageDomain.Good;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
 import com.example.restservice.storageData.storageRepos.EquipmentRepo;
+import com.example.restservice.storageData.storageRepos.GoodsRepo;
 import com.example.restservice.workshopData.workshopRepos.RepairRepo;
 import com.example.restservice.workshopData.workshopRepos.SparesRepo;
 import com.example.restservice.workshopData.workshopRepos.WorkshopEquipmentRepo;
@@ -35,6 +37,9 @@ public class RepairController {
 
     @Autowired
     private SparesRepo sparesRepo;
+
+    @Autowired
+    private GoodsRepo goodsRepo;
 
 
     @GetMapping
@@ -77,13 +82,25 @@ public class RepairController {
         return "workshopWorkshop";
     }
 
-    @GetMapping("/repair_card/{id}")
+    @GetMapping("/repair_card/{equipment_id}")
     public String repairCard(
             Model model,
-            @PathVariable String id
+            @PathVariable String equipment_id
     ) {
 
+        Equipment equipment = storageEquipmentRepo.findById(Long.valueOf(equipment_id))
+                .orElseThrow();
+        model.addAttribute("equipment", equipment);
 
+        Element element = elementRepo.findById(equipment
+                        .getGood()
+                        .getId())
+                .orElseThrow();
+        model.addAttribute("element", element);
+
+        Iterable<Element> elements_destination =
+                elementRepo.findElementDestinationAll(element.getId());
+        model.addAttribute("elem_destination", elements_destination);
 
         return "workshopRepairCard";
     }

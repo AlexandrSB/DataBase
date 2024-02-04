@@ -83,12 +83,19 @@ public class GoodsController {
             @PathVariable String id
     ) {
 
-        Iterable<Equipment> equipment =
-                equipmentRepo.getEquipmentByGood(
-                        Long.valueOf(id));
-        model.addAttribute("goods_view", equipment);
+        Long thisId = Long.valueOf(id);
+        Good good = goodsRepo.findById(thisId).orElseThrow();
+        model.addAttribute("good", good);
 
-        return "storageGoodsView";
+        if (good.getIsEquipment()) {
+            return "storageGoodsEquipment";
+        } else {
+            Element element = elementRepo.findById(thisId).orElseThrow();
+            Iterable<Proxy> proxies = proxyRepo.findByElement(element.getId());
+            model.addAttribute("proxies", proxies);
+            return "storageGoodsParcel";
+        }
+
     }
 
     @GetMapping("/arrival")

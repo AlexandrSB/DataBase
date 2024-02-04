@@ -16,7 +16,11 @@ public class Parcel {
     private Long id;
 
     @ToString.Include
-    private Long proxy_id;
+    private String name;
+
+    @ToString.Include
+    @Column(name = "proxy_id")
+    private Long proxyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "good_id")

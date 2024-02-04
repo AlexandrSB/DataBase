@@ -4,4 +4,7 @@
     <a href="/element">Equipment</a>
     <br>
     <a href="/storage">Storage</a>
+    <br>
+    <a href="/proxy">Proxy</a>
+    <br>
 </@c.page>

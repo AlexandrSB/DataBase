@@ -4,8 +4,6 @@ import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.*;
 import com.example.restservice.storageData.storageRepos.*;
-import jakarta.websocket.server.PathParam;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +38,8 @@ public class ParcelController {
 
     @ModelAttribute
     private void addAttributes(Model model) {
-        Iterable<String> goods = goodsRepo.getGoodsNames();
-        model.addAttribute("goods", goods);
+        Iterable<String> goodsNamesOnlyParcels = goodsRepo.getGoodsNamesOnlyParcels();
+        model.addAttribute("goods_names_only_parcels", goodsNamesOnlyParcels);
 
         Iterable<String> quantities = quantityRepo.getQuantitiesName();
         model.addAttribute("quantities", quantities);
@@ -55,6 +53,9 @@ public class ParcelController {
 
         Iterable<Parcel> parcels = parcelRepo.findAllParcelsWithGood();
         model.addAttribute("parcelsWithGoods", parcels);
+
+        Iterable<Proxy> proxies = proxyRepo.findAll();
+        model.addAttribute("proxies", proxies);
 
         return "storageParcels";
     }
@@ -78,6 +79,28 @@ public class ParcelController {
         model.addAttribute("party_id", id);
 
         return "newParty";
+    }
+
+    @PostMapping("addParcel")
+    private String addParcel(
+            @RequestParam String good_id,
+            @RequestParam String parcel_name
+    ) {
+
+        Good good = goodsRepo.findById(Long.valueOf(good_id))
+                .orElseThrow();
+        Proxy proxy = proxyRepo.findByName(parcel_name)
+                .orElseThrow();
+
+        Parcel parcel = new Parcel();
+        parcel.setGood(good);
+        parcel.setName(proxy.getName());
+        parcel.setProxyId(proxy.getId());
+
+        parcelRepo.save(parcel);
+
+
+        return "redirect:/storage/parcel";
     }
 
     @PostMapping("addToParcel/{id}")

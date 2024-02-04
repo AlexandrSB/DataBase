@@ -22,12 +22,18 @@ public class Repair {
 
     private RepairType repairType;
 
-    private String notation;
+    @ManyToMany
+    @JoinTable(
+            name = "repair_repair_notation",
+            joinColumns = @JoinColumn(name = "repair_id"),
+            inverseJoinColumns = @JoinColumn(name = "repair_notation_id")
+    )
+    private Set<RepairNotation> repairNotations;
 
     @ManyToOne
     @JoinColumn(name = "equipment_id")
     public Equipment equipment_id;
 
-    @ManyToMany
-    public Set<Spares> spares = new HashSet<>();
+    @OneToMany(mappedBy = "repair")
+    public Set<NumberOfSparesParts> numberOfSparesParts = new HashSet<>();
 }

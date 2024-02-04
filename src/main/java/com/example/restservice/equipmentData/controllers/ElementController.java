@@ -99,8 +99,9 @@ public class ElementController {
             Model model
     ) {
 
-        Optional<Element> elem = elementRepo.findById(Long.valueOf( elem_id ));
-        model.addAttribute( "elem", elem.get() );
+        Element elem = elementRepo.findById(Long.valueOf( elem_id ))
+                .orElseThrow();
+        model.addAttribute( "elem", elem );
 
 //        Iterable<ElementsComposite> ecSource = elem.get().getElementsSource();
 //        Set<Element> elements_destination = new HashSet<>();
@@ -108,7 +109,7 @@ public class ElementController {
 //            elements_destination.add( ec.getElement_destination() );
 //        }
         Iterable<String> elements_source =
-                elementRepo.findElementSource(elem.get().getId());
+                elementRepo.findElementSource(elem.getId());
         model.addAttribute("elem_source", elements_source);
 
 //        Iterable<ElementsComposite> ecDestination = elem.get()
@@ -118,7 +119,7 @@ public class ElementController {
 //            elements_source.add( ec.getElement_source() );
 //        }
         Iterable<String> elements_destination =
-                elementRepo.findElementDestination(elem.get().getId());
+                elementRepo.findElementDestination(elem.getId());
         model.addAttribute("elem_destination", elements_destination);
 
         Set<Group> groups = new HashSet<>();
@@ -128,7 +129,7 @@ public class ElementController {
         Iterable<Proxy> proxies_select = proxyRepo.findAll();
         model.addAttribute("proxies_select", proxies_select);
 
-        Iterable<Proxy> proxies = elem.get().getProxies();
+        Iterable<Proxy> proxies = elem.getProxies();
         model.addAttribute("proxies", proxies);
 
         Iterable<Attribute> attributes = attributeRepo.findAll();

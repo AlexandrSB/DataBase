@@ -18,7 +18,7 @@ public class Good {
 
     private String name;
 
-    private Set<Long> proxy_id = new HashSet<>();
+//    private Set<Long> proxy_id = new HashSet<>();
 
     @Column(name = "is_equipment")
     private Boolean isEquipment = false;
@@ -49,7 +49,7 @@ public class Good {
         return "Good{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", proxy_id=" + proxy_id +
+//                ", proxy_id=" + proxy_id +
 //                ", externalEquipId=" + externalEquipId +
                 '}';
     }

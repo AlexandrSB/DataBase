@@ -10,9 +10,17 @@
     />
 
     <@se.header_2
-        title = "Equipment"
+        title = equipment.inventoryNumber + " [" + equipment.good.name + "]"
     />
 
+    <p>${element}</p>
 
+    <p>Element Destination</p>
+    <#list elem_destination as ed>
+        <span>element - ${ed[0]!"none"}</span><br/>
+        <span>element destination - ${ed[1]!"none"}</span><br/>
+        <span>proxy- ${ed[2]!"none"}</span><br/>
+        <br/>
+    </#list>
 
 </@c.page>

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface GoodsRepo extends CrudRepository<Good, Long> {
@@ -18,6 +17,20 @@ public interface GoodsRepo extends CrudRepository<Good, Long> {
             FROM Good g
             """)
     List<String> getGoodsNames();
+
+    @Query(value = """
+            SELECT g.name
+            FROM Good g
+            WHERE g.isEquipment = true
+            """)
+    List<String> getGoodsNamesOnlyEquipment();
+
+    @Query(value = """
+            SELECT g.name
+            FROM Good g
+            WHERE g.isEquipment = false
+            """)
+    List<String> getGoodsNamesOnlyParcels();
 
     @Query(value= """
             SELECT g

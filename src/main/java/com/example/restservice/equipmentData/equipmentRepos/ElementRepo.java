@@ -38,6 +38,21 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
     Iterable<String> findElementDestination(Long id);
 
     @Query(value = """
+            SELECT  e,
+            		ed,
+            		px       
+            	FROM Element e
+            LEFT JOIN FETCH ElementsComposite ec
+            	ON e = ec.element_destination
+            LEFT JOIN FETCH Proxy px
+            	ON ec.proxy = px
+            LEFT JOIN FETCH Element ed
+            	ON ec.element_source = ed
+            WHERE e.id = :id
+            GROUP BY e.id, ed.id, px.id         
+            """)
+    Iterable<Element> findElementDestinationAll(Long id);
+    @Query(value = """
             SELECT  e.id, e.name,
             		es.id, es.name,
             		px.id, px.name       
@@ -53,6 +68,19 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             """)
     Iterable<String> findElementSource(Long id);
 
+    @Query(value = """
+            SELECT  e, px, es      
+            	FROM Element e
+            LEFT JOIN FETCH ElementsComposite ec
+            	ON e = ec.element_source
+            LEFT JOIN FETCH Proxy px
+            	ON ec.proxy = px
+            LEFT JOIN FETCH Element es
+            	ON ec.element_destination = es
+            WHERE e.id = :id
+            GROUP BY e.id, es.id, px.id         
+            """)
+    Iterable<Element> findElementSourceAll(Long id);
     @Query(value= """
             SELECT e.name
             FROM Element e
@@ -80,4 +108,12 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             WHERE e.isEquipment = false
             """)
     Iterable<Element> findAllParcels();
+
+    @Query(value = """
+            SELECT e.id
+            FROM Element e
+            WHERE e.isEquipment = false
+            """)
+    Iterable<Long> findAllParcelsId();
+
 }
