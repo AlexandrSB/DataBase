@@ -8,9 +8,13 @@
         />
 
 
-    <form action="addProxy" method="post" id="addProxy">
+    <form action="addProxy" method="post" id="addProxyId">
+        <@se.input_hidden
+            name = "path"
+            value = "/proxy"
+        />
 
-        <@se.input_element
+    <@se.input_element
             element_name = "proxy_name"
             element_id = "proxy_name"
             label = "Proxy name"
@@ -20,10 +24,64 @@
         <@se.button_send
             button_name = "Add proxy"
         />
-
     </form>
 
-    <form action="proxy_addAttribute" method="post" id="proxy_add_attributes">
+    <form action="addAttrGroup" method="post" id="addAttrGroupId">
+        <@se.input_hidden
+            name = "path"
+            value = "/proxy"
+        />
+
+    <@se.input_element
+            element_name = "attribute_group_name"
+            element_id = "attribute_group_id"
+            label = "Attribute group name"
+            placeholder = "Insert name of attribute group"
+        />
+
+        <@se.button_send
+            button_name = "Add attribute group"
+        />
+    </form>
+
+    <form action="addAttr" method="post" id="addAttrId">
+        <@se.input_hidden
+            name = "path"
+            value = "/proxy"
+        />
+
+        <@se.input_element
+            element_name = "attribute_name"
+            element_id = "attribute_id"
+            label = "Attribute name"
+            placeholder = "Insert name of attribute"
+        />
+
+        <@se.button_send
+            button_name = "Add attribute"
+        />
+    </form>
+
+    <form action="addUnit" method="post" id="addUnitId">
+        <@se.input_hidden
+            name = "path"
+            value = "/proxy"
+        />
+
+        <@se.input_element
+            element_name = "unit_name"
+            element_id = "unit_id"
+            label = "Unit name"
+            placeholder = "Insert unit name"
+        />
+
+        <@se.button_send
+            button_name = "Add unit"
+        />
+    </form>
+
+
+<form action="proxy_addAttribute" method="post" id="proxy_add_attributes">
 
         <@se.select_element
             element_name = "proxy_name"

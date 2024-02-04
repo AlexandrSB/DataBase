@@ -38,11 +38,6 @@ public class Proxy {
     private Set<Element> elements = new HashSet<>();
 
     @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "firma_id")
-    private Firma firma;
-
-    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "proxy")
     private Set<ElementsComposite> elementsComposites = new HashSet<>();

@@ -20,6 +20,8 @@ public class AttributeValue {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "unit_id")
     @ToString.Exclude

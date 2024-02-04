@@ -66,10 +66,8 @@ public class ProxyController {
 
     @PostMapping("addProxy")
     private String addProxy(
-        @RequestParam(required = false) String firma,
         @RequestParam String proxy_name,
-        @RequestParam String path,
-        Model model
+        @RequestParam String path
     ) {
 
         Proxy proxy = new Proxy();

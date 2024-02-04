@@ -4,7 +4,7 @@
 -- Name: attribute_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.attribute_seq', 1, false);
+SELECT pg_catalog.setval('public.attribute_seq', 51, true);
 
 
 --
@@ -14,15 +14,6 @@ SELECT pg_catalog.setval('public.attribute_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.attribute_value_seq', 1, false);
-
-
---
--- TOC entry 3486 (class 0 OID 0)
--- Dependencies: 216
--- Name: element_label_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('public.element_label_seq', 1, false);
 
 
 --
@@ -53,15 +44,6 @@ SELECT pg_catalog.setval('public.elements_composite_seq', 151, true);
 
 
 --
--- TOC entry 3490 (class 0 OID 0)
--- Dependencies: 229
--- Name: firma_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('public.firma_seq', 1, false);
-
-
---
 -- TOC entry 3491 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: groups_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
@@ -85,4 +67,4 @@ SELECT pg_catalog.setval('public.proxy_seq', 151, true);
 -- Name: unit_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.unit_seq', 1, false);
+SELECT pg_catalog.setval('public.unit_seq', 6, true);

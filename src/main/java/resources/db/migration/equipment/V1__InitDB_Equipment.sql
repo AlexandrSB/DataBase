@@ -3,14 +3,6 @@
 
 -- ************************************** barcode
 
-CREATE TABLE IF NOT EXISTS "public".element_label
-(
-    id              bigint NOT NULL,
-    vendor_code     character varying(100) NOT NULL,
-    CONSTRAINT PK_element_label PRIMARY KEY ( id )
-);
-
-
 CREATE TABLE IF NOT EXISTS "public".elements_group
 (
     id                bigint NOT NULL UNIQUE,
@@ -91,24 +83,11 @@ CONSTRAINT unit_pkey PRIMARY KEY (id)
 );
 
 
-CREATE TABLE IF NOT EXISTS "public".firma
-(
-    id  bigint              NOT NULL,
-    firm_name               character varying( 50 ) NOT NULL,
-    CONSTRAINT PK_firma PRIMARY KEY ( id )
-);
-
-
 CREATE TABLE IF NOT EXISTS public.proxy
 (
     id                      bigint NOT NULL,
     name                    character varying(250) COLLATE pg_catalog."default" NOT NULL,
-    firma_id                bigint NULL,
-    CONSTRAINT PK_proxy PRIMARY KEY (id),
-    CONSTRAINT FK_firma FOREIGN KEY ( firma_id )
-        REFERENCES "public".firma ( id )
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    CONSTRAINT PK_proxy PRIMARY KEY (id)
 );
 
 
@@ -208,35 +187,6 @@ CONSTRAINT FK_attribute FOREIGN KEY ( attribute_id )
         id
     );
 
-
-CREATE TABLE IF NOT EXISTS "public".attribute_double_value
-(
-    attribute_id            bigint NOT NULL,
-    value                   real NULL,
-    CONSTRAINT PK_attribute_double_value PRIMARY KEY ( attribute_id ),
-    CONSTRAINT FK_7_1 FOREIGN KEY ( attribute_id )
-        REFERENCES "public".attribute_value ( id )
-);
-
-
-CREATE TABLE IF NOT EXISTS "public".attribute_integer_value
-(
-    attribute_id            bigint NOT NULL,
-    value                   integer NULL,
-    CONSTRAINT PK_attr_integer_value PRIMARY KEY ( attribute_id ),
-    CONSTRAINT FK_7_2 FOREIGN KEY ( attribute_id )
-        REFERENCES "public".attribute_value ( id )
-);
-
-
-CREATE TABLE IF NOT EXISTS "public".attribute_string_value
-(
-    attribute_id            bigint NOT NULL,
-    value                   character varying(100) NULL,
-    CONSTRAINT PK_attr_string_value PRIMARY KEY ( attribute_id ),
-    CONSTRAINT FK_7_3 FOREIGN KEY ( attribute_id )
-        REFERENCES "public".attribute_value ( id )
-);
 
 -- View: public.get_groups_with_recursion
 -- DROP VIEW public.get_groups_with_recursion;

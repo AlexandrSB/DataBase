@@ -11,6 +11,7 @@ import lombok.ToString;
 public class AttributeGroup {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 

@@ -6,7 +6,7 @@
     <#include "parts/navbar/navbar_breadcramb.ftlh" />
 
     <@se.header_1
-        title = ${my_group.name}
+        title = my_group.name
         />
 
 

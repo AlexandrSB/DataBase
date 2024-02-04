@@ -10,6 +10,16 @@ import java.util.Set;
 
 @Repository
 public interface ElementRepo extends CrudRepository<Element, Long> {
+
+    @Override
+    @Query(value = """
+            SELECT e
+            FROM Element e
+                LEFT JOIN FETCH e.groups g
+            ORDER BY e.category, g.id, e.name
+            """)
+    Iterable<Element> findAll();
+
     @Override
     Optional<Element> findById(Long aLong);
 
@@ -98,7 +108,8 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
     @Query(value= """
             SELECT e
             FROM Element e
-            WHERE e.category = 0 
+            WHERE e.category = 0
+            ORDER BY e.name
             """)
     Iterable<Element> findAllEquipment();
 
