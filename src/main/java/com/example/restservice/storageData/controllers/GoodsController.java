@@ -127,7 +127,7 @@ public class GoodsController {
             Model model
     ) {
 
-        List<String> goodsNames = goodsRepo.getGoodsNames();
+        Iterable<String> goodsNames = goodsRepo.getGoodsNames();
         model.addAttribute("goods_names", goodsNames);
 
         Iterable<Workshop> workshops = workshopRepo.findAll();

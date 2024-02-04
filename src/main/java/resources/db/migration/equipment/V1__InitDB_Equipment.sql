@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS public.element_proxy
 CREATE TABLE IF NOT EXISTS "public".attribute_value
 (
     id                      bigint NOT NULL,
+    name                    character varying(100) NOT NULL UNIQUE,
     unit_id      bigint NOT NULL,
     CONSTRAINT PK_attribute_value PRIMARY KEY ( id ),
     CONSTRAINT FK_unit FOREIGN KEY ( unit_id )

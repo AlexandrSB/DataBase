@@ -16,21 +16,21 @@ public interface GoodsRepo extends CrudRepository<Good, Long> {
             SELECT g.name
             FROM Good g
             """)
-    List<String> getGoodsNames();
+    Iterable<String> getGoodsNames();
 
     @Query(value = """
             SELECT g.name
             FROM Good g
             WHERE g.isEquipment = true
             """)
-    List<String> getGoodsNamesOnlyEquipment();
+    Iterable<String> getGoodsNamesOnlyEquipment();
 
     @Query(value = """
             SELECT g.name
             FROM Good g
             WHERE g.isEquipment = false
             """)
-    List<String> getGoodsNamesOnlyParcels();
+    Iterable<String> getGoodsNamesOnlyParcels();
 
     @Query(value= """
             SELECT g
@@ -38,5 +38,5 @@ public interface GoodsRepo extends CrudRepository<Good, Long> {
                 LEFT JOIN FETCH equipment e
                 LEFT JOIN FETCH parcels p
             """)
-    Set<Good> findAllWithLazy();
+    Iterable<Good> findAllWithLazy();
 }
