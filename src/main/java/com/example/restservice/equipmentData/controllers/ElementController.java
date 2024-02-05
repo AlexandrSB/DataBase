@@ -93,7 +93,7 @@ public class ElementController {
 
         Iterable<Category> categories =
                 List.of(Category.values());
-        model.addAttribute("type_of_elements", categories);
+        model.addAttribute("categories", categories);
 
         model.addAttribute("nav_breadcrumb", groups_breadcrumb);
         model.addAttribute("nav", groups);

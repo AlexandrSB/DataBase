@@ -38,7 +38,7 @@
         <@se.simple_list
             name = "this_category"
             label = "Category"
-            this_list = type_of_elements
+            this_list = categories
             column_length = "sm-6"
             justify_content = "justify-content-center"
         />
