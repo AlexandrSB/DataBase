@@ -188,7 +188,7 @@ unit_dic_id                 bigint NOT NULL,
 CONSTRAINT unit_pkey PRIMARY KEY ( id ),
 CONSTRAINT FK_unit FOREIGN KEY ( id )
     REFERENCES "public".attribute_value ( id ),
-CONSTRAINT FK_unit_dic FOREIGN KEY ( id )
+CONSTRAINT FK_unit_dic FOREIGN KEY ( unit_dic_id )
     REFERENCES "public".unit_dic ( id )
 );
 

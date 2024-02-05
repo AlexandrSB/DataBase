@@ -24,19 +24,6 @@ ALTER SEQUENCE public.attribute_group_seq
     OWNER TO admin;
 
 
--- SEQUENCE: public.attribute_value_seq
--- DROP SEQUENCE IF EXISTS public.attribute_value_seq;
-CREATE SEQUENCE IF NOT EXISTS public.attribute_value_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.attribute_value_seq
-    OWNER TO admin;
-
-
 -- SEQUENCE: public.element_seq
 -- DROP SEQUENCE IF EXISTS public.element_seq;
 CREATE SEQUENCE IF NOT EXISTS public.element_seq
@@ -104,14 +91,14 @@ ALTER SEQUENCE public.proxy_seq
 
 -- SEQUENCE: public.unit_seq
 -- DROP SEQUENCE IF EXISTS public.unit_seq;
-CREATE SEQUENCE IF NOT EXISTS public.unit_seq
+CREATE SEQUENCE IF NOT EXISTS public.unit_dic_seq
     INCREMENT 50
     START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
 
-ALTER SEQUENCE public.unit_seq
+ALTER SEQUENCE public.unit_dic_seq
     OWNER TO admin;
 
 

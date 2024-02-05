@@ -8,15 +8,6 @@ SELECT pg_catalog.setval('public.attribute_seq', 51, true);
 
 
 --
--- TOC entry 3485 (class 0 OID 0)
--- Dependencies: 236
--- Name: attribute_value_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('public.attribute_value_seq', 1, false);
-
-
---
 -- TOC entry 3487 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: element_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
@@ -67,4 +58,4 @@ SELECT pg_catalog.setval('public.proxy_seq', 151, true);
 -- Name: unit_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.unit_seq', 6, true);
+SELECT pg_catalog.setval('public.unit_dic_seq', 1, false);

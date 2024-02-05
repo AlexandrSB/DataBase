@@ -164,11 +164,17 @@
         <ul>
             <#list proxies as p>
                 <li>
-                    <#if p.firma??>
-                        <span>${p.firma.firmName}</span>
-                    </#if>
-                    <#list p.attributeValues as pV>
-                        <span>${pV.attribute.name} - ${pV.name} ${pV.workshopUnit.name}<#sep>; </span>
+                    <#list p.attributeGroups as ag>
+                        <li><i>${ag.name}</i></li>
+                        <ul>
+                            <#list ag.attributes as agt>
+                                <li>${agt.name} -- ${agt.attributeValue.name}
+                                    <#if agt.attributeValue.unit.unitDictionary.name != "<none>">
+                                        ${agt.attributeValue.unit.unitDictionary.name}
+                                    </#if>
+                                </li>
+                            </#list>
+                        </ul>
                     <#else>
                         <li></li>
                     </#list>

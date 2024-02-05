@@ -20,7 +20,7 @@
         />
 
         <@se.input_element
-                element_name = "elementName"
+                element_name = "element_name"
                 element_id = "element"
                 label = "Component"
                 placeholder = "Component Name"
@@ -36,8 +36,8 @@
         />
 
         <@se.simple_list
-            name = "type_of_element"
-            label = "Type:"
+            name = "this_category"
+            label = "Category"
             this_list = type_of_elements
             column_length = "sm-6"
             justify_content = "justify-content-center"

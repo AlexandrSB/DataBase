@@ -19,9 +19,6 @@ public class Unit {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
-
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "id")

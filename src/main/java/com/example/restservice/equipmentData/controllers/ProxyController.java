@@ -33,6 +33,9 @@ public class ProxyController {
     @Autowired
     private UnitRepo unitRepo;
 
+    @Autowired
+    private UnitDictionaryRepo unitDictionaryRepo;
+
 
     @ModelAttribute
     public void addAttr( Model model ) {
@@ -51,8 +54,8 @@ public class ProxyController {
         Iterable<Attribute> attributes = attributeRepo.findAll();
         model.addAttribute( "attributes", attributes );
 
-        Iterable<Unit> units = unitRepo.findAll();
-        model.addAttribute( "units", units );
+        Iterable<UnitDictionary> unit_dictionaries = unitDictionaryRepo.findAll();
+        model.addAttribute( "unit_dic", unit_dictionaries );
 
         Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
         model.addAttribute( "attributeValues", attributeValues );
@@ -83,7 +86,8 @@ public class ProxyController {
         @RequestParam String attribute_groups_name,
         @RequestParam String attribute_name,
         @RequestParam String attribute_value,
-        @RequestParam String unit_name,
+        @RequestParam String unit_dic_name,
+        @RequestParam String path,
         Model model
     ) {
 
@@ -95,6 +99,9 @@ public class ProxyController {
                 .orElseThrow();
         AttributeGroup attributeGroup = attributeGroupRepo
                 .findByName(attribute_groups_name)
+                .orElseThrow();
+        UnitDictionary unitDic = unitDictionaryRepo
+                .findByName(unit_dic_name)
                 .orElseThrow();
 
         attributeGroup.setProxy(proxy);
@@ -109,10 +116,10 @@ public class ProxyController {
         attributeValueRepo.save( attributeValue );
 
         Unit unit = new Unit();
-        unit.setName(unit_name);
+        unit.setUnitDictionary(unitDic);
         unit.setAttributeValue(attributeValue);
         unitRepo.save(unit);
 
-        return "redirect:/proxy";
+        return "redirect:" + path;
     }
 }

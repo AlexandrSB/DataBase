@@ -83,6 +83,11 @@
 
 <form action="proxy_addAttribute" method="post" id="proxy_add_attributes">
 
+        <@se.input_hidden
+            name = "path"
+            value = "/proxy"
+        />
+
         <@se.select_element
             element_name = "proxy_name"
             element_id = "proxy_name_selected"
@@ -118,11 +123,11 @@
         />
 
         <@se.select_element
-            element_name = "unit_name"
-            element_id = "unit_id"
-            label = "Unit"
+            element_name = "unit_dic_name"
+            element_id = "unit_dic_id"
+            label = "Unit dict"
             placeholder = "Units"
-            elements_array = units
+            elements_array = unit_dic
             elements_attr = "name"
         />
 
@@ -144,7 +149,11 @@
                     <li><i>${ag.name}</i></li>
                     <ul>
                         <#list ag.attributes as agt>
-                            <li>${agt.name} -- ${agt.attributeValue.name} ${agt.attributeValue.unit}</li>
+                            <li>${agt.name} -- ${agt.attributeValue.name}
+                                <#if agt.attributeValue.unit.unitDictionary.name != "<none>">
+                                    ${agt.attributeValue.unit.unitDictionary.name}
+                                </#if>
+                            </li>
                         </#list>
                     </ul>
                 </#list>

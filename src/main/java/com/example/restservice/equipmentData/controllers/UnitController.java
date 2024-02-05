@@ -1,6 +1,8 @@
 package com.example.restservice.equipmentData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Unit;
+import com.example.restservice.equipmentData.equipmentDomain.UnitDictionary;
+import com.example.restservice.equipmentData.equipmentRepos.UnitDictionaryRepo;
 import com.example.restservice.equipmentData.equipmentRepos.UnitRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UnitController {
 
     @Autowired
-    private UnitRepo unitRepo;
+    private UnitDictionaryRepo unitDicRepo;
 
     @PostMapping("addUnit")
     private String addUnit(
@@ -19,13 +21,13 @@ public class UnitController {
             @RequestParam String path
     ) {
 
-        if (unitRepo.findByName(unit_name).isPresent()) {
+        if (unitDicRepo.findByName(unit_name).isPresent()) {
             return "redirect:" + path;
         }
 
-        Unit unit = new Unit();
-        unit.setName(unit_name);
-        unitRepo.save(unit);
+        UnitDictionary unitDictionary = new UnitDictionary();
+        unitDictionary.setName(unit_name);
+        unitDicRepo.save(unitDictionary);
 
         return "redirect:" + path;
     }

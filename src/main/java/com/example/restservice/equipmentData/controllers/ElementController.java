@@ -155,12 +155,12 @@ public class ElementController {
 //        return "equipment_edit_proxy";
 //    }
 //
-    @PostMapping("add_element")
+    @PostMapping("/add_element")
     public String addElement(
 //            @RequestParam( required = false ) String proxy_name,
             @RequestParam String this_category,
             @RequestParam String group_name,
-            @RequestParam String elementName,
+            @RequestParam String element_name,
             @RequestParam String description,
             @RequestParam String element_type,
             Model model) {
@@ -176,7 +176,7 @@ public class ElementController {
         model.addAttribute("my_group", group );
 
         Element elem = new Element();
-        elem.setName( elementName.trim() );
+        elem.setName( element_name.trim() );
         elem.setDescription( description.trim() );
         elem.addGroup( group );
         elem.setElementType( elementType );
