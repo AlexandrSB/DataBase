@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Table(name = "attribute_group", schema = "public")
@@ -23,9 +26,12 @@ public class AttributeGroup {
     @EqualsAndHashCode.Exclude
     private Proxy proxy;
 
-    @ManyToOne
-    @JoinColumn(name = "attribute_id")
+    @OneToMany(mappedBy = "attributeGroup")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Attribute attribute;
+    private Set<Attribute> attributes = new HashSet<>();
+
+    public void addAttributes(Attribute attribute) {
+        this.attributes.add(attribute);
+    }
 }

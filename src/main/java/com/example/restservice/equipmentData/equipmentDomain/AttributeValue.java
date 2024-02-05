@@ -16,18 +16,20 @@ import java.util.Set;
 public class AttributeValue {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id")
+    @ToString.Exclude
+    private Attribute attribute;
+
+    @OneToOne(mappedBy = "attributeValue")
     @ToString.Exclude
     private Unit unit;
 
-    @OneToMany(mappedBy = "attributeValue")
-    @ToString.Exclude
-    private Set<Attribute> attributes = new HashSet<>();
 }

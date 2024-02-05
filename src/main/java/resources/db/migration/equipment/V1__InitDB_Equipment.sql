@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS "public".element
     );
 
 
-
 CREATE TABLE IF NOT EXISTS "public".element_groups
 (
     element_id              bigint NULL UNIQUE,
@@ -72,15 +71,6 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
     (
         group_id
     );
-
-
-CREATE TABLE IF NOT EXISTS public.unit
-(
-id                          bigint NOT NULL,
-name                        character varying(250)
-    COLLATE pg_catalog."default" NOT NULL,
-CONSTRAINT unit_pkey PRIMARY KEY (id)
-);
 
 
 CREATE TABLE IF NOT EXISTS public.proxy
@@ -137,27 +127,33 @@ CREATE TABLE IF NOT EXISTS public.element_proxy
 );
 
 
-CREATE TABLE IF NOT EXISTS "public".attribute_value
+CREATE TABLE IF NOT EXISTS "public".attribute_group
 (
-    id                      bigint NOT NULL,
-    name                    character varying(100) NOT NULL,
-    unit_id      bigint NOT NULL,
-    CONSTRAINT PK_attribute_value PRIMARY KEY ( id ),
-    CONSTRAINT FK_unit FOREIGN KEY ( unit_id )
-        REFERENCES "public".unit ( id )
+id                          bigint NOT NULL,
+name                        character varying(250) NOT NULL,
+proxy_id                    bigint,
+CONSTRAINT PK_attribute_group PRIMARY KEY ( id ),
+CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
+    REFERENCES "public".proxy ( id )
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
 );
+    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
+        ON "public".attribute_group
+    (
+        id
+    );
 
 
 CREATE TABLE IF NOT EXISTS "public".attribute
 (
 id                          bigint NOT NULL,
 name                        character varying(250) NOT NULL,
-attr_value_id               bigint,
+attr_group_id               bigint,
 CONSTRAINT PK_attribute PRIMARY KEY ( id ),
-CONSTRAINT attr_value_FK FOREIGN KEY ( attr_value_id )
-    REFERENCES "public".attribute_value ( id )
+CONSTRAINT attr_group_FK FOREIGN KEY ( attr_group_id )
+    REFERENCES "public".attribute_group ( id )
 );
-
     CREATE INDEX IF NOT EXISTS FK_Index_attributeID
         ON "public".attribute
     (
@@ -165,28 +161,36 @@ CONSTRAINT attr_value_FK FOREIGN KEY ( attr_value_id )
     );
 
 
-CREATE TABLE IF NOT EXISTS "public".attribute_group
+CREATE TABLE IF NOT EXISTS "public".attribute_value
 (
-id                          bigint NOT NULL,
-name                        character varying(250) NOT NULL,
-proxy_id                    bigint,
-attribute_id                bigint,
-CONSTRAINT PK_attribute_group PRIMARY KEY ( id ),
-CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
-    REFERENCES "public".proxy ( id )
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION,
-CONSTRAINT FK_attribute FOREIGN KEY ( attribute_id )
+    id                      bigint NOT NULL UNIQUE,
+    name                    character varying(100) NOT NULL
+    COLLATE pg_catalog."default" NOT NULL,
+CONSTRAINT attr_value_pkey PRIMARY KEY ( id ),
+CONSTRAINT FK_attribute_value FOREIGN KEY ( id )
     REFERENCES "public".attribute ( id )
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
 );
 
-    CREATE INDEX IF NOT EXISTS FK_Index_attributeID
-        ON "public".attribute_group
-    (
-        id
-    );
+
+CREATE TABLE IF NOT EXISTS "public".unit_dic
+(
+id                          bigint NOT NULL UNIQUE,
+name                        character varying(250)
+    COLLATE pg_catalog."default" NOT NULL,
+CONSTRAINT unit_dic_pkey PRIMARY KEY ( id )
+);
+
+
+CREATE TABLE IF NOT EXISTS "public".unit
+(
+id                          bigint NOT NULL UNIQUE,
+unit_dic_id                 bigint NOT NULL,
+CONSTRAINT unit_pkey PRIMARY KEY ( id ),
+CONSTRAINT FK_unit FOREIGN KEY ( id )
+    REFERENCES "public".attribute_value ( id ),
+CONSTRAINT FK_unit_dic FOREIGN KEY ( id )
+    REFERENCES "public".unit_dic ( id )
+);
 
 
 -- View: public.get_groups_with_recursion

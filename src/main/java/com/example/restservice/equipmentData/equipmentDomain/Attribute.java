@@ -23,13 +23,13 @@ public class Attribute {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "attribute")
+    @ManyToOne
+    @JoinColumn(name = "attr_group_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<AttributeGroup> attributeGroups = new HashSet<>();
+    private AttributeGroup attributeGroup;
 
-    @ManyToOne
-    @JoinColumn(name = "attr_value_id")
+    @OneToOne(mappedBy = "attribute")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private AttributeValue attributeValue;

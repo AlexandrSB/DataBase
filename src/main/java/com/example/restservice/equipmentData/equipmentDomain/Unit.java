@@ -1,11 +1,10 @@
 package com.example.restservice.equipmentData.equipmentDomain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,10 +15,22 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 public class Unit {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id")
+    @ToString.Exclude
+    private AttributeValue attributeValue;
+
+    @ManyToOne
+    @JoinColumn(name = "unit_dic_id")
+    @ToString.Exclude
+    private UnitDictionary unitDictionary;
+
 }

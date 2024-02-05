@@ -141,7 +141,12 @@
             <span>${pr.name}</span>
             <ul>
                 <#list pr.attributeGroups as ag>
-                    <li>${ag.attribute.name} - ${ag.name}; </li>
+                    <li><i>${ag.name}</i></li>
+                    <ul>
+                        <#list ag.attributes as agt>
+                            <li>${agt.name} -- ${agt.attributeValue.name} ${agt.attributeValue.unit}</li>
+                        </#list>
+                    </ul>
                 </#list>
             </ul>
         </li>

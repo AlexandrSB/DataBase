@@ -87,31 +87,31 @@ public class ProxyController {
         Model model
     ) {
 
-        Attribute attribute = attributeRepo
-                .findByName( attribute_name )
-                .orElseThrow();
-        Unit unit = unitRepo
-                .findByName( unit_name )
-                .orElseThrow();
         Proxy proxy = proxyRepo
                 .findByName( proxy_name )
+                .orElseThrow();
+        Attribute attribute = attributeRepo
+                .findByName( attribute_name )
                 .orElseThrow();
         AttributeGroup attributeGroup = attributeGroupRepo
                 .findByName(attribute_groups_name)
                 .orElseThrow();
 
-        AttributeValue attributeValue = new AttributeValue();
-        attributeValue.setName(attribute_value);
-        attributeValue.setUnit( unit );
-        attributeValueRepo.save( attributeValue );
-
-        attribute.setAttributeValue(attributeValue);
-        attributeRepo.save(attribute);
-
-        attributeGroup.setName( attribute_groups_name);
-        attributeGroup.setAttribute(attribute);
         attributeGroup.setProxy(proxy);
         attributeGroupRepo.save(attributeGroup);
+
+        attribute.setAttributeGroup(attributeGroup);
+        attributeRepo.save(attribute);
+
+        AttributeValue attributeValue = new AttributeValue();
+        attributeValue.setName( attribute_value );
+        attributeValue.setAttribute( attribute );
+        attributeValueRepo.save( attributeValue );
+
+        Unit unit = new Unit();
+        unit.setName(unit_name);
+        unit.setAttributeValue(attributeValue);
+        unitRepo.save(unit);
 
         return "redirect:/proxy";
     }
