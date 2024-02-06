@@ -19,12 +19,11 @@ public class AttributeController {
             @RequestParam String path
     ) {
 
-        if (attributeRepo.findByName(attribute_name).isPresent()) {
-            return "redirect:" + path;
-        }
-
+//        if (attributeRepo.findByName(attribute_name).isPresent()) {
+//            return "redirect:" + path;
+//        }
+//
         Attribute attribute = new Attribute();
-        attribute.setName(attribute_name);
         attributeRepo.save(attribute);
 
         return "redirect:" + path;

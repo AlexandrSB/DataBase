@@ -5,13 +5,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Data
-@Table(name = "unit_dic", schema = "public")
-public class UnitDictionary {
+@Table(name = "attr_value_dic")
+public class AttributeValueDictionary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -9,7 +9,4 @@ import java.util.Optional;
 @Repository
 public interface AttributeGroupRepo extends CrudRepository<AttributeGroup, Long> {
 
-    Iterable<AttributeGroup> findAllByName(String attributeCroupName);
-
-    Optional<AttributeGroup> findByName(String attributeCroupName);
 }

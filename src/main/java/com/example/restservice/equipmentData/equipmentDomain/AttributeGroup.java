@@ -18,7 +18,10 @@ public class AttributeGroup {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "attr_group_dic_id")
+    @ToString.Exclude
+    private AttributeGroupDictionary attributeGroupDictionary;
 
     @ManyToOne
     @JoinColumn(name = "proxy_id")

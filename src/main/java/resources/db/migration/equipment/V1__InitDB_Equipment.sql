@@ -127,16 +127,27 @@ CREATE TABLE IF NOT EXISTS public.element_proxy
 );
 
 
+CREATE TABLE IF NOT EXISTS "public".attr_group_dic
+(
+    id                      bigint NOT NULL UNIQUE,
+    name                    character varying(250)
+        COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT attr_group_dic_pkey PRIMARY KEY ( id )
+);
+
+
 CREATE TABLE IF NOT EXISTS "public".attribute_group
 (
-id                          bigint NOT NULL,
-name                        character varying(250) NOT NULL,
-proxy_id                    bigint,
-CONSTRAINT PK_attribute_group PRIMARY KEY ( id ),
-CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
-    REFERENCES "public".proxy ( id )
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+    id                      bigint NOT NULL,
+    attr_group_dic_id       bigint NOT NULL,
+    proxy_id                bigint NOT NULL,
+    CONSTRAINT PK_attribute_group PRIMARY KEY ( id ),
+    CONSTRAINT FK_attr_group_attr_group_dic FOREIGN KEY ( attr_group_dic_id )
+        REFERENCES "public".attr_group_dic ( id ),
+    CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
+        REFERENCES "public".proxy ( id )
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
     CREATE INDEX IF NOT EXISTS FK_Index_attributeID
         ON "public".attribute_group
@@ -145,14 +156,27 @@ CONSTRAINT FK_proxy FOREIGN KEY ( proxy_id )
     );
 
 
+CREATE TABLE IF NOT EXISTS "public".attr_dic
+(
+    id                      bigint NOT NULL UNIQUE,
+    name                    character varying(250),
+    attr_group_dic_id       bigint NOT NULL,
+    CONSTRAINT attr_dic_pkey PRIMARY KEY ( id ),
+    CONSTRAINT FK_attr_attr_group_dic FOREIGN KEY ( attr_group_dic_id )
+        REFERENCES "public".attr_group_dic ( id )
+);
+
+
 CREATE TABLE IF NOT EXISTS "public".attribute
 (
-id                          bigint NOT NULL,
-name                        character varying(250) NOT NULL,
-attr_group_id               bigint,
-CONSTRAINT PK_attribute PRIMARY KEY ( id ),
-CONSTRAINT attr_group_FK FOREIGN KEY ( attr_group_id )
-    REFERENCES "public".attribute_group ( id )
+    id                      bigint NOT NULL,
+    attr_dic_id             bigint NOT NULL,
+    attr_group_id           bigint,
+    CONSTRAINT PK_attribute PRIMARY KEY ( id ),
+    CONSTRAINT FK_attr_attr_dic FOREIGN KEY ( attr_dic_id )
+        REFERENCES "public".attr_dic ( id ),
+    CONSTRAINT attr_group_FK FOREIGN KEY ( attr_group_id )
+        REFERENCES "public".attribute_group ( id )
 );
     CREATE INDEX IF NOT EXISTS FK_Index_attributeID
         ON "public".attribute
@@ -161,35 +185,49 @@ CONSTRAINT attr_group_FK FOREIGN KEY ( attr_group_id )
     );
 
 
+CREATE TABLE IF NOT EXISTS "public".attr_value_dic
+(
+    id                      bigint NOT NULL UNIQUE,
+    name                    character varying(250),
+    attr_dic_id             bigint NOT NULL,
+    CONSTRAINT attr_value_dic_pkey PRIMARY KEY ( id ),
+    CONSTRAINT FK_attr_value_attr_dic FOREIGN KEY ( attr_dic_id )
+        REFERENCES "public".attr_dic ( id )
+);
+
+
 CREATE TABLE IF NOT EXISTS "public".attribute_value
 (
     id                      bigint NOT NULL UNIQUE,
-    name                    character varying(100) NOT NULL
-    COLLATE pg_catalog."default" NOT NULL,
-CONSTRAINT attr_value_pkey PRIMARY KEY ( id ),
-CONSTRAINT FK_attribute_value FOREIGN KEY ( id )
-    REFERENCES "public".attribute ( id )
+    attr_value_dic_id       bigint NOT NULL,
+    CONSTRAINT attr_value_pkey PRIMARY KEY ( id ),
+    CONSTRAINT FK_attribute_value FOREIGN KEY ( id )
+        REFERENCES "public".attribute ( id ),
+    CONSTRAINT FK_attr_value_attr_value_dic FOREIGN KEY ( attr_value_dic_id )
+        REFERENCES "public".attr_value_dic ( id )
 );
 
 
 CREATE TABLE IF NOT EXISTS "public".unit_dic
 (
-id                          bigint NOT NULL UNIQUE,
-name                        character varying(250)
-    COLLATE pg_catalog."default" NOT NULL,
-CONSTRAINT unit_dic_pkey PRIMARY KEY ( id )
+    id                      bigint NOT NULL UNIQUE,
+    name                    character varying(250),
+    attr_dic_id             bigint NOT NULL,
+    CONSTRAINT unit_dic_pkey PRIMARY KEY ( id ),
+    CONSTRAINT FK_unit_dic_attr_dic FOREIGN KEY ( attr_dic_id )
+        REFERENCES "public".attr_dic ( id )
 );
 
 
 CREATE TABLE IF NOT EXISTS "public".unit
 (
-id                          bigint NOT NULL UNIQUE,
-unit_dic_id                 bigint NOT NULL,
-CONSTRAINT unit_pkey PRIMARY KEY ( id ),
-CONSTRAINT FK_unit FOREIGN KEY ( id )
-    REFERENCES "public".attribute_value ( id ),
-CONSTRAINT FK_unit_dic FOREIGN KEY ( unit_dic_id )
-    REFERENCES "public".unit_dic ( id )
+    id                      bigint NOT NULL UNIQUE,
+    unit_dic_id             bigint NOT NULL,
+    CONSTRAINT unit_pkey PRIMARY KEY ( id ),
+    CONSTRAINT FK_unit_attr_value FOREIGN KEY ( id )
+        REFERENCES "public".attribute_value ( id ),
+    CONSTRAINT FK_unit_unit_dic FOREIGN KEY ( unit_dic_id )
+        REFERENCES "public".unit_dic ( id )
 );
 
 

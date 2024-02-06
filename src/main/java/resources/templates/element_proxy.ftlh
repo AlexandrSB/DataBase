@@ -32,7 +32,7 @@
             value = "/proxy"
         />
 
-    <@se.input_element
+        <@se.input_element
             element_name = "attribute_group_name"
             element_id = "attribute_group_id"
             label = "Attribute group name"
@@ -81,8 +81,8 @@
     </form>
 
 
-<form action="proxy_addAttribute" method="post" id="proxy_add_attributes">
 
+    <form action="proxy_addAttribute" method="post" id="proxy_add_attributes">
         <@se.input_hidden
             name = "path"
             value = "/proxy"
@@ -144,6 +144,7 @@
         <#list proxies as pr>
         <li>
             <span>${pr.name}</span>
+            <a href="/proxy/${pr.id}">View</a>
             <ul>
                 <#list pr.attributeGroups as ag>
                     <li><i>${ag.name}</i></li>

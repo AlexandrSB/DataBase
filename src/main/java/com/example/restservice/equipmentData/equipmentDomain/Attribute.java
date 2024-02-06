@@ -20,8 +20,10 @@ public class Attribute {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "name", unique = true, nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "attr_dic_id")
+    @ToString.Exclude
+    private AttributeDictionary attributeDictionary;
 
     @ManyToOne
     @JoinColumn(name = "attr_group_id")
@@ -34,7 +36,4 @@ public class Attribute {
     @EqualsAndHashCode.Exclude
     private AttributeValue attributeValue;
 
-    public Attribute(String n) {
-        this.name = n;
-    }
 }

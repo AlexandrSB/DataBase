@@ -20,7 +20,10 @@ public class AttributeValue {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attr_value_dic_id")
+    @ToString.Exclude
+    private AttributeValueDictionary attributeValueDictionary;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId

@@ -5,10 +5,7 @@ import com.example.restservice.equipmentData.equipmentRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -67,6 +64,25 @@ public class ProxyController {
         return "element_proxy";
     }
 
+    @GetMapping("/proxy/{proxy_id}")
+    private String viewProxy(
+            @PathVariable String proxy_id,
+            Model model
+    ) {
+
+        Long proxyId = Long.valueOf(proxy_id);
+
+        Proxy proxy = proxyRepo.findById(proxyId)
+                .orElseThrow();
+        model.addAttribute("proxy", proxy);
+
+        Iterable<AttributeGroup> attributeGroups =
+                attributeGroupRepo.findAll();
+        model.addAttribute("attr_groups", attributeGroups);
+
+        return "element_viewProxy";
+    }
+
     @PostMapping("addProxy")
     private String addProxy(
         @RequestParam String proxy_name,
@@ -94,30 +110,29 @@ public class ProxyController {
         Proxy proxy = proxyRepo
                 .findByName( proxy_name )
                 .orElseThrow();
-        Attribute attribute = attributeRepo
-                .findByName( attribute_name )
-                .orElseThrow();
-        AttributeGroup attributeGroup = attributeGroupRepo
-                .findByName(attribute_groups_name)
-                .orElseThrow();
+//        Attribute attribute = attributeRepo
+//                .findByName( attribute_name )
+//                .orElseThrow();
+//        AttributeGroup attributeGroup = attributeGroupRepo
+//                .findByName(attribute_groups_name)
+//                .orElseThrow();
         UnitDictionary unitDic = unitDictionaryRepo
                 .findByName(unit_dic_name)
                 .orElseThrow();
 
-        attributeGroup.setProxy(proxy);
-        attributeGroupRepo.save(attributeGroup);
+//        attributeGroup.setProxy(proxy);
+//        attributeGroupRepo.save(attributeGroup);
 
-        attribute.setAttributeGroup(attributeGroup);
-        attributeRepo.save(attribute);
+//        attribute.setAttributeGroup(attributeGroup);
+//        attributeRepo.save(attribute);
 
-        AttributeValue attributeValue = new AttributeValue();
-        attributeValue.setName( attribute_value );
-        attributeValue.setAttribute( attribute );
-        attributeValueRepo.save( attributeValue );
+//        AttributeValue attributeValue = new AttributeValue();
+//        attributeValue.setAttribute( attribute );
+//        attributeValueRepo.save( attributeValue );
 
         Unit unit = new Unit();
         unit.setUnitDictionary(unitDic);
-        unit.setAttributeValue(attributeValue);
+//        unit.setAttributeValue(attributeValue);
         unitRepo.save(unit);
 
         return "redirect:" + path;
