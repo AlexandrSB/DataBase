@@ -89,9 +89,48 @@ ALTER SEQUENCE public.proxy_seq
     OWNER TO admin;
 
 
--- SEQUENCE: public.unit_seq
--- DROP SEQUENCE IF EXISTS public.unit_seq;
+-- SEQUENCE: public.unit_dic_seq
+-- DROP SEQUENCE IF EXISTS public.unit_dic_seq;
 CREATE SEQUENCE IF NOT EXISTS public.unit_dic_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.unit_dic_seq
+    OWNER TO admin;
+
+
+-- SEQUENCE: public.attr_group_dic_seq
+-- DROP SEQUENCE IF EXISTS public.attr_group_dic_seq;
+CREATE SEQUENCE IF NOT EXISTS public.attr_group_dic_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.unit_dic_seq
+    OWNER TO admin;
+
+
+-- SEQUENCE: public.attr_dic_seq
+-- DROP SEQUENCE IF EXISTS public.attr_dic_seq;
+CREATE SEQUENCE IF NOT EXISTS public.attr_dic_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.unit_dic_seq
+    OWNER TO admin;
+
+
+-- SEQUENCE: public.attr_value_dic_seq
+-- DROP SEQUENCE IF EXISTS public.attr_value_dic_seq;
+CREATE SEQUENCE IF NOT EXISTS public.attr_value_dic_seq
     INCREMENT 50
     START 1
     MINVALUE 1

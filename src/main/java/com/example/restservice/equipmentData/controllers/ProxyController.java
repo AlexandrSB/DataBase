@@ -16,10 +16,19 @@ public class ProxyController {
     private AttributeGroupRepo attributeGroupRepo;
 
     @Autowired
+    private AttributeGroupDictionaryRepo attributeGroupDictionaryRepo;
+
+    @Autowired
     private AttributeRepo attributeRepo;
 
     @Autowired
+    private AttributeDictionaryRepo attributeDictionaryRepo;
+
+    @Autowired
     private AttributeValueRepo attributeValueRepo;
+
+    @Autowired
+    private AttributeValueDictionaryRepo attributeValueDictionaryRepo;
 
     @Autowired
     private GroupRecursiveRepo groupRecursiveRepo;
@@ -48,16 +57,20 @@ public class ProxyController {
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
 
-        Iterable<Attribute> attributes = attributeRepo.findAll();
+        Iterable<AttributeDictionary> attributes =
+                attributeDictionaryRepo.findAll();
         model.addAttribute( "attributes", attributes );
 
-        Iterable<UnitDictionary> unit_dictionaries = unitDictionaryRepo.findAll();
+        Iterable<UnitDictionary> unit_dictionaries =
+                unitDictionaryRepo.findAll();
         model.addAttribute( "unit_dic", unit_dictionaries );
 
-        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
+        Iterable<AttributeValueDictionary> attributeValues =
+                attributeValueDictionaryRepo.findAll();
         model.addAttribute( "attributeValues", attributeValues );
 
-        Iterable<AttributeGroup> attributeGroups = attributeGroupRepo.findAll();
+        Iterable<AttributeGroupDictionary> attributeGroups =
+                attributeGroupDictionaryRepo.findAll();
         model.addAttribute("attr_groups", attributeGroups);
 
 
@@ -76,8 +89,8 @@ public class ProxyController {
                 .orElseThrow();
         model.addAttribute("proxy", proxy);
 
-        Iterable<AttributeGroup> attributeGroups =
-                attributeGroupRepo.findAll();
+        Iterable<AttributeGroupDictionary> attributeGroups =
+                attributeGroupDictionaryRepo.findAll();
         model.addAttribute("attr_groups", attributeGroups);
 
         return "element_viewProxy";

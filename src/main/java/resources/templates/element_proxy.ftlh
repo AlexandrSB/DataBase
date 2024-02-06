@@ -2,7 +2,8 @@
 <#import "parts/constructor/simple_element.ftlh" as se />
 
 <@c.page>
-    <br />
+    <#assign path = "/proxy">
+
     <@se.header_1
         title = "Proxy"
         />
@@ -11,7 +12,7 @@
     <form action="addProxy" method="post" id="addProxyId">
         <@se.input_hidden
             name = "path"
-            value = "/proxy"
+            value = path
         />
 
     <@se.input_element
@@ -26,10 +27,10 @@
         />
     </form>
 
-    <form action="addAttrGroup" method="post" id="addAttrGroupId">
+    <form action="addAttrGroupName" method="post" id="addAttrGroupId">
         <@se.input_hidden
             name = "path"
-            value = "/proxy"
+            value = path
         />
 
         <@se.input_element
@@ -44,10 +45,10 @@
         />
     </form>
 
-    <form action="addAttr" method="post" id="addAttrId">
+    <form action="addAttrName" method="post" id="addAttrId">
         <@se.input_hidden
             name = "path"
-            value = "/proxy"
+            value = path
         />
 
         <@se.input_element
@@ -65,7 +66,7 @@
     <form action="addUnit" method="post" id="addUnitId">
         <@se.input_hidden
             name = "path"
-            value = "/proxy"
+            value = path
         />
 
         <@se.input_element
@@ -80,64 +81,6 @@
         />
     </form>
 
-
-
-    <form action="proxy_addAttribute" method="post" id="proxy_add_attributes">
-        <@se.input_hidden
-            name = "path"
-            value = "/proxy"
-        />
-
-        <@se.select_element
-            element_name = "proxy_name"
-            element_id = "proxy_name_selected"
-            label = "Proxy"
-            placeholder = "Select proxy"
-            elements_array = proxies
-            elements_attr = "name"
-        />
-
-        <@se.select_element
-            element_name = "attribute_groups_name"
-            element_id = "attribute_groups_id"
-            label = "Attribute groups"
-            placeholder = "Insert attribute groups"
-            elements_array = attr_groups
-            elements_attr = "name"
-        />
-
-        <@se.select_element
-            element_name = "attribute_name"
-            element_id = "attribute_id"
-            label = "Attribute"
-            placeholder = "Insert attribute"
-            elements_array = attributes
-            elements_attr = "name"
-        />
-
-        <@se.input_element
-            element_name = "attribute_value"
-            element_id = "attribute_value"
-            label = "Value"
-            placeholder = "Insert attribute value"
-        />
-
-        <@se.select_element
-            element_name = "unit_dic_name"
-            element_id = "unit_dic_id"
-            label = "Unit dict"
-            placeholder = "Units"
-            elements_array = unit_dic
-            elements_attr = "name"
-        />
-
-        <@se.button_send
-            button_name = "Add attribute"
-        />
-
-    </form>
-
-
     <br />
     <span>Прокси : </span>
     <ul>
@@ -145,20 +88,6 @@
         <li>
             <span>${pr.name}</span>
             <a href="/proxy/${pr.id}">View</a>
-            <ul>
-                <#list pr.attributeGroups as ag>
-                    <li><i>${ag.name}</i></li>
-                    <ul>
-                        <#list ag.attributes as agt>
-                            <li>${agt.name} -- ${agt.attributeValue.name}
-                                <#if agt.attributeValue.unit.unitDictionary.name != "<none>">
-                                    ${agt.attributeValue.unit.unitDictionary.name}
-                                </#if>
-                            </li>
-                        </#list>
-                    </ul>
-                </#list>
-            </ul>
         </li>
         <#else>
         <li>Аттрибутов нет</li>
