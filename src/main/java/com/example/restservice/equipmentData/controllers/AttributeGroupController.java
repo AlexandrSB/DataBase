@@ -64,7 +64,9 @@ public class AttributeGroupController {
             @RequestParam String path
     ) {
 
-        if (attributeGroupDictionaryRepo.findByName(attribute_group_name).isPresent()) {
+        if (attributeGroupDictionaryRepo
+                .findByName(attribute_group_name)
+                .isPresent()) {
             return "redirect:" + path;
         }
 
