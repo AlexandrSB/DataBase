@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS public.good
 CREATE TABLE IF NOT EXISTS public.equipment
 (
     id bigint NOT NULL,
-    inventory_number character varying(15) UNIQUE COLLATE pg_catalog."default",
+    index_inv_number character varying(3),
+    inventory_number character varying(15) UNIQUE
+        COLLATE pg_catalog."default",
     condition_id bigint NOT NULL,
     good_id bigint NOT NULL,
     CONSTRAINT equipment_pkey PRIMARY KEY (id),

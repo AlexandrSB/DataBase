@@ -20,7 +20,7 @@ public class UnitController {
     private UnitDictionaryRepo unitDicRepo;
 
     @Autowired
-    private AttributeValueRepo attributeValueRepo;
+    private AttributeRepo attributeRepo;
 
     @Autowired
     private AttributeDictionaryRepo attributeDictionaryRepo;
@@ -53,14 +53,15 @@ public class UnitController {
 
     @PostMapping("addUnit")
     private String addUnit(
-            @RequestParam String attr_value_id,
+            @RequestParam String attr_id,
             @RequestParam String unit_dic_name,
             @RequestParam String path
     ) {
-        Long attrId = Long.valueOf(attr_value_id);
+        //TODO привязать Unit к Attribute
+        Long attrId = Long.valueOf(attr_id);
 
-        AttributeValue attributeValue =
-                attributeValueRepo.findById(attrId)
+        Attribute attribute =
+                attributeRepo.findById(attrId)
                         .orElseThrow();
 
         UnitDictionary unitDictionary =
@@ -69,13 +70,10 @@ public class UnitController {
 
         Unit unit = new Unit();
         unit.setUnitDictionary(unitDictionary);
-        unit.setAttributeValue(attributeValue);
+        unit.setAttribute(attribute);
         unitRepo.save(unit);
 
-//        UnitDictionary unitDictionary = new UnitDictionary();
-//        unitDictionary.setName(unit_name);
-//        unitDicRepo.save(unitDictionary);
-//
+
         return "redirect:" + path;
     }
 }

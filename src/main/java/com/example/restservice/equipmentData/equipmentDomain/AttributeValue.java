@@ -31,8 +31,4 @@ public class AttributeValue {
     @ToString.Exclude
     private Attribute attribute;
 
-    @OneToOne(mappedBy = "attributeValue")
-    @ToString.Exclude
-    private Unit unit;
-
 }

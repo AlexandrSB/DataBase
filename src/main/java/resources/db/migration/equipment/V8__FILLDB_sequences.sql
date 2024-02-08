@@ -22,7 +22,7 @@ SELECT pg_catalog.setval('public.element_seq', 251, true);
 -- Name: element_type_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.element_type_seq', 1, false);
+SELECT pg_catalog.setval('public.element_type_seq', 14, true);
 
 
 --
@@ -40,7 +40,7 @@ SELECT pg_catalog.setval('public.elements_composite_seq', 151, true);
 -- Name: groups_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.elements_group_seq', 1, false);
+SELECT pg_catalog.setval('public.elements_group_seq', 35, false);
 
 
 --

@@ -23,7 +23,7 @@ public class Unit {
     @MapsId
     @JoinColumn(name = "id")
     @ToString.Exclude
-    private AttributeValue attributeValue;
+    private Attribute attribute;
 
     @ManyToOne
     @JoinColumn(name = "unit_dic_id")

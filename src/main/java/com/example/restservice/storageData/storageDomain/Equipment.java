@@ -16,6 +16,9 @@ public class Equipment {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "index_inv_number")
+    private IndexInventoryNumber indexInventoryNumber;
+
     @Size(min = 6)
     @Column(
             name = "inventory_number",

@@ -36,4 +36,8 @@ public class Attribute {
     @EqualsAndHashCode.Exclude
     private AttributeValue attributeValue;
 
+    @OneToOne(mappedBy = "attribute")
+    @ToString.Exclude
+    private Unit unit;
+
 }

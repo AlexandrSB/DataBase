@@ -1,17 +1,16 @@
 package com.example.restservice.equipmentData.controllers;
 
-import com.example.restservice.equipmentData.equipmentDomain.*;
+import com.example.restservice.equipmentData.equipmentDomain.AttributeDictionary;
+import com.example.restservice.equipmentData.equipmentDomain.AttributeGroup;
+import com.example.restservice.equipmentData.equipmentDomain.AttributeGroupDictionary;
+import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class AttributeGroupController {
@@ -30,6 +29,13 @@ public class AttributeGroupController {
 
     @Autowired
     private ProxyRepo proxyRepo;
+
+    @ModelAttribute
+    private void modelAttribute(Model model) {
+        model.addAttribute("root", "proxy");
+        model.addAttribute("root_name", "Proxy");
+    }
+
 
     @GetMapping("/proxy/{proxy_id}/{attr_group_id}")
     private String viewAttributeGroup(
@@ -52,8 +58,19 @@ public class AttributeGroupController {
         model.addAttribute("attr_group", attributeGroup);
 
         Iterable<AttributeDictionary> attributeDictionaries =
-                attributeDictionaryRepo.findAll();
+                attributeDictionaryRepo.findByOwner(
+                        attributeGroup.getAttributeGroupDictionary()
+                );
         model.addAttribute("attr_dic", attributeDictionaries);
+
+        // Create broadcrumb menu
+        List<String[]> breadcramb = new ArrayList<>();
+        breadcramb.add(
+                new String[] {"/proxy/" + proxy_id,
+                        proxy.getName()}
+        );
+        model.addAttribute("nav_breadcrumb", breadcramb);
+        model.addAttribute("last", attributeGroup.getAttributeGroupDictionary().getName());
 
         return "element_attrGroup";
     }

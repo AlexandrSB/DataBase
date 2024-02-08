@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -47,7 +49,10 @@ public class ProxyController {
     public void addAttr( Model model ) {
         // Добавляем меню
         model.addAttribute("group", groupRecursiveRepo.findAll());
+        model.addAttribute("root", "proxy");
+        model.addAttribute("root_name", "Proxy");
     }
+
 
     @GetMapping("/proxy")
     public String proxy(
@@ -92,6 +97,11 @@ public class ProxyController {
         Iterable<AttributeGroupDictionary> attributeGroups =
                 attributeGroupDictionaryRepo.findAll();
         model.addAttribute("attr_groups", attributeGroups);
+
+        // Create broadcrumb menu
+        List<String[]> breadcramb = new ArrayList<>();
+        model.addAttribute("nav_breadcrumb", breadcramb);
+        model.addAttribute("last", proxy.getName());
 
         return "element_viewProxy";
     }

@@ -39,3 +39,6 @@ VALUES (12, 'Сложный компонент');
 
 INSERT INTO element_type(id, type)
 VALUES (13, 'Электрический компонент');
+
+INSERT INTO element_type(id, type)
+VALUES (14, 'Расходный материал');

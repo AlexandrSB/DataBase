@@ -3,6 +3,7 @@
 
 <@c.page>
     <#assign path = "/proxy/${proxy.id}/${attr_group.id}">
+    <#include "parts/navbar/navbar_proxy_breadcramb.ftlh" />
 
     <@se.header_1
         title = proxy.name
@@ -62,10 +63,17 @@
 
 
 
-<#list  attr_group.attributes as a>
+<#list  attr_group.attributes as agt>
         <ul>
-            <li>${a.attributeDictionary.name}
-                <a href="/proxy/${proxy.id}/${attr_group.id}/${a.id}">View</a>
+            <li>${agt.attributeDictionary.name}
+                <#if agt.attributeValue??>
+                -- ${agt.attributeValue.attributeValueDictionary.name}
+                    <#if agt.unit?? &&
+                    agt.unit.unitDictionary.name != "<none>">
+                        ${agt.unit.unitDictionary.name}
+                    </#if>
+                </#if>
+                <a href="/proxy/${proxy.id}/${attr_group.id}/${agt.id}">View</a>
             </li>
         </ul>
     </#list>

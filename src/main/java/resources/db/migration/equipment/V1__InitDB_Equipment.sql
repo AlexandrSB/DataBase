@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS "public".unit
     unit_dic_id             bigint NOT NULL,
     CONSTRAINT unit_pkey PRIMARY KEY ( id ),
     CONSTRAINT FK_unit_attr_value FOREIGN KEY ( id )
-        REFERENCES "public".attribute_value ( id ),
+        REFERENCES "public".attribute ( id ),
     CONSTRAINT FK_unit_unit_dic FOREIGN KEY ( unit_dic_id )
         REFERENCES "public".unit_dic ( id )
 );

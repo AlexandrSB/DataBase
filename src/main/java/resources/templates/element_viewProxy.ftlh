@@ -3,6 +3,7 @@
 
 <@c.page>
     <#assign path = "/proxy/${proxy.id}">
+    <#include "parts/navbar/navbar_proxy_breadcramb.ftlh" />
 
     <@se.header_1
         title = proxy.name
@@ -64,9 +65,9 @@
                 <li>${agt.attributeDictionary.name}
                     <#if agt.attributeValue??>
                         -- ${agt.attributeValue.attributeValueDictionary.name}
-                        <#if agt.attributeValue.unit?? &&
-                                agt.attributeValue.unit.unitDictionary.name != "<none>">
-                            ${agt.attributeValue.unit.unitDictionary.name}
+                        <#if agt.unit?? &&
+                                agt.unit.unitDictionary.name != "<none>">
+                            ${agt.unit.unitDictionary.name}
                         </#if>
                     </#if>
                 </li>
