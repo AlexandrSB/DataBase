@@ -12,13 +12,13 @@ import java.util.Optional;
 public interface WorkshopElementRepo extends CrudRepository<WorkshopElement, Long> {
     @Query(value = """
             SELECT e.id
-            FROM WorkshopEquipment e
+            FROM WorkshopElement e
             """)
     List<Long> getAllId();
 
     @Query(value = """
             SELECT we
-            FROM WorkshopEquipment we
+            FROM WorkshopElement we
             WHERE we.inventoryNumber = :inventoryNumber
             """)
     Optional<WorkshopElement> findByInventoryNumber(String inventoryNumber);
