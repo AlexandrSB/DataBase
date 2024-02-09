@@ -23,7 +23,10 @@ CREATE TABLE IF NOT EXISTS "public".element_type
 (
     id                      bigint NOT NULL UNIQUE,
     type                    character varying(50) NOT NULL,
-    CONSTRAINT PK_element_type_id PRIMARY KEY ( id )
+    group_id                bigint,
+    CONSTRAINT PK_element_type_id PRIMARY KEY ( id ),
+    CONSTRAINT FK_12 FOREIGN KEY ( group_id )
+        REFERENCES "public".elements_group ( id )
 );
 
 

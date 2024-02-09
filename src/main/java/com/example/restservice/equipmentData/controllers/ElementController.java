@@ -88,7 +88,7 @@ public class ElementController {
             groups.addAll(groupRepo.findAllByParentId(0L));
         }
 
-        Iterable<ElementType> elementTypes = elementTypeRepo.findAll();
+        Iterable<ElementType> elementTypes = elementTypeRepo.findByGroup(myGroup);
         model.addAttribute("elements_type", elementTypes);
 
         Iterable<Category> categories =

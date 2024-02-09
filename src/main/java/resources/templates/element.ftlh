@@ -10,7 +10,9 @@
         />
 
 
-<form action="add_element" method="post" id="equip">
+
+    <#if my_group.id gt 0>
+    <form action="add_element" method="post" id="equip">
 
         <input
                 type="text"
@@ -50,6 +52,7 @@
         />
 
     </form>
+    </#if>
 
     <br />
     <br />
