@@ -14,16 +14,7 @@ INSERT INTO condition(id, name)
 VALUES (4, 'Списано');
 
 INSERT INTO condition(id, name)
-VALUES (5, 'Закуп');
-
-INSERT INTO condition(id, name)
-VALUES (6, 'На диагностике');
-
-INSERT INTO condition(id, name)
-VALUES (7, 'В Чистке');
-
-INSERT INTO condition(id, name)
-VALUES (8, 'На кеше');
+VALUES (5, 'На кеше');
 
 
 

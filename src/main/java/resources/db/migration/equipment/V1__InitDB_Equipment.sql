@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS "public".element
     name                    character varying(250) NOT NULL UNIQUE,
     description             character varying(5000) NULL,
     parent_id               bigint NULL,
-    type_of_element         smallint,
+    category                smallint,
     element_type_id         bigint NOT NULL,
     CONSTRAINT PK_component PRIMARY KEY ( id ),
     CONSTRAINT unique_component_name_constraint UNIQUE ( name ),

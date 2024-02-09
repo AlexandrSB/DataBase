@@ -2,18 +2,44 @@
 -- DROP TABLE IF EXISTS public.contragent;
 CREATE TABLE IF NOT EXISTS public.contragent
 (
-    id bigint NOT NULL,
-    description character varying(255) COLLATE pg_catalog."default",
-    name character varying(50) COLLATE pg_catalog."default",
+    id bigint               NOT NULL,
+    description             character varying(255) COLLATE pg_catalog."default",
+    name                    character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT contragent_pkey PRIMARY KEY (id)
 );
 
 
 CREATE TABLE IF NOT EXISTS public.condition
 (
-    id bigint NOT NULL,
-    name character varying(50) COLLATE pg_catalog."default",
+    id bigint               NOT NULL,
+    name                    character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT condition_pkey PRIMARY KEY (id)
+);
+
+
+-- Table: public.quantity
+-- DROP TABLE IF EXISTS public.quantity;
+CREATE TABLE IF NOT EXISTS public.quantity
+(
+    id bigint NOT NULL,
+    dimension character varying(25) COLLATE pg_catalog."default",
+    quantity_in_one integer,
+    CONSTRAINT quantity_pkey PRIMARY KEY (id)
+);
+
+
+-- Table: public.quantity_account
+-- DROP TABLE IF EXISTS public.quantity_account;
+CREATE TABLE IF NOT EXISTS public.quantity_account
+(
+    id bigint NOT NULL,
+    quantity integer,
+    quantity_id bigint,
+    CONSTRAINT quantity_account_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_quantity_account_quantity FOREIGN KEY (quantity_id)
+        REFERENCES public.quantity (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 
@@ -21,20 +47,25 @@ CREATE TABLE IF NOT EXISTS public.condition
 -- DROP TABLE IF EXISTS public.good;
 CREATE TABLE IF NOT EXISTS public.good
 (
-    id bigint NOT NULL,
-    name character varying(50) COLLATE pg_catalog."default",
-    proxy_id bigint[] NULL,
-    is_equipment boolean DEFAULT false,
-    CONSTRAINT good_pkey PRIMARY KEY (id)
+    id bigint               NOT NULL,
+    name                    character varying(50) COLLATE pg_catalog."default",
+    category                smallint,
+    proxy_id                bigint NULL,
+    quantity_account_id     bigint,
+    CONSTRAINT good_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_good_quantity_account_id FOREIGN KEY (quantity_account_id)
+        REFERENCES public.quantity_account (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 -- Table: public.equipment
 -- DROP TABLE IF EXISTS public.equipment;
 CREATE TABLE IF NOT EXISTS public.equipment
 (
-    id bigint NOT NULL,
-    index_inv_number character varying(3),
-    inventory_number character varying(15) UNIQUE
+    id bigint               NOT NULL,
+    index_inv_number        character varying(3),
+    inventory_number        character varying(15) UNIQUE
         COLLATE pg_catalog."default",
     condition_id bigint NOT NULL,
     good_id bigint NOT NULL,
@@ -73,9 +104,9 @@ CREATE TABLE IF NOT EXISTS public.storage
 CREATE TABLE IF NOT EXISTS public.workshop
 (
     id bigint NOT NULL,
-    description character varying(255) COLLATE pg_catalog."default",
+    description character varying(2500) COLLATE pg_catalog."default",
     name character varying(50) COLLATE pg_catalog."default",
-    notice character varying(255) COLLATE pg_catalog."default",
+    notice character varying(5000) COLLATE pg_catalog."default",
     CONSTRAINT workshop_pkey PRIMARY KEY (id)
 );
 
@@ -131,30 +162,6 @@ CREATE TABLE IF NOT EXISTS public.goods_tracking_from_storage
         CHECK (type_of_goods_movement::text = ANY (ARRAY['ARRIVAL'::character varying, 'EXPENSE'::character varying]::text[]))
 );
 
--- Table: public.quantity
--- DROP TABLE IF EXISTS public.quantity;
-CREATE TABLE IF NOT EXISTS public.quantity
-(
-    id bigint NOT NULL,
-    dimension character varying(25) COLLATE pg_catalog."default",
-    quantity_in_one integer,
-    CONSTRAINT quantity_pkey PRIMARY KEY (id)
-);
-
--- Table: public.quantity_account
--- DROP TABLE IF EXISTS public.quantity_account;
-CREATE TABLE IF NOT EXISTS public.quantity_account
-(
-    id bigint NOT NULL,
-    quantity integer,
-    quantity_id bigint,
-    CONSTRAINT quantity_account_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_quantity_account_quantity FOREIGN KEY (quantity_id)
-        REFERENCES public.quantity (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
 -- Table: public.party
 -- DROP TABLE IF EXISTS public.party;
 CREATE TABLE IF NOT EXISTS public.party
@@ -178,20 +185,9 @@ CREATE TABLE IF NOT EXISTS public.party
 -- DROP TABLE IF EXISTS public.parcel;
 CREATE TABLE IF NOT EXISTS public.parcel
 (
-    id bigint NOT NULL,
-    good_id bigint,
-    quantity_account_id bigint,
-    party_id bigint,
-    proxy_id bigint,
+    id bigint           NOT NULL,
+    good_id             bigint,
     CONSTRAINT parcel_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_parcel_party FOREIGN KEY (party_id)
-        REFERENCES public.party (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fk5egyo4nqpxbyq781kwxpj7slc FOREIGN KEY (quantity_account_id)
-        REFERENCES public.quantity_account (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
     CONSTRAINT fkei2fe1in8565eviv96ql24w43 FOREIGN KEY (good_id)
         REFERENCES public.good (id) MATCH SIMPLE
         ON UPDATE NO ACTION

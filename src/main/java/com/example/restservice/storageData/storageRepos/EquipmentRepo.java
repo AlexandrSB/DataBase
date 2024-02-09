@@ -54,4 +54,5 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Long> {
             WHERE e.inventoryNumber = :inventoryNumber
             """)
     Optional<Equipment> findByInventoryNumber(String inventoryNumber);
+
 }

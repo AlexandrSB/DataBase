@@ -25,7 +25,7 @@ public class Element {
     @Column(name = "description", columnDefinition = "")
     private String description = "";
 
-    @Column(name = "type_of_element", columnDefinition = "")
+    @Column(name = "category", columnDefinition = "")
     private Category category;
 
     @ToString.Exclude

@@ -1,5 +1,6 @@
 package com.example.restservice.equipmentData.equipmentRepos;
 
+import com.example.restservice.equipmentData.equipmentDomain.Category;
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -104,6 +105,13 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             WHERE e.category = 1
             """)
     Set<String> findParcelsOnlyName();
+
+    @Query(value = """
+            SELECT e
+            FROM Element e
+            WHERE e.category = :category
+            """)
+    Set<Element> findAllByCategory(Category category);
 
     @Query(value= """
             SELECT e

@@ -1,8 +1,11 @@
 package com.example.restservice.storageData.storageDomain;
 
+import com.example.restservice.equipmentData.equipmentDomain.Category;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,30 +21,25 @@ public class Good {
 
     private String name;
 
-//    private Set<Long> proxy_id = new HashSet<>();
+    private Long proxy_id;
 
-    @Column(name = "is_equipment")
-    private Boolean isEquipment = false;
+    @Column(name = "category")
+    private Category category;
 
-//    @Column(name = "external_equip_id")
-//    private Long externalEquipId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quantity_account_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private QuantityAccount quantityAccount;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "good_equip",
-//            joinColumns = {
-//                @JoinColumn(
-//                        name = "good_id", referencedColumnName = "id")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(
-//                        name = "equipment_id", referencedColumnName = "id")
-//            }
-//    )
     @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Equipment> equipment = new HashSet<>();
 
     @OneToMany(mappedBy = "good", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Parcel> parcels = new HashSet<>();
 
     @Override

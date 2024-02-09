@@ -31,12 +31,20 @@
             elements_attr = "name"
             />
 
-    <@se.input_element
-            element_name = "inventory_number"
-            element_id = "inventory_number_id"
-            label = "Inventory number"
-            placeholder = "Input inventory number"
-            />
+    <div class="form-group row justify-content-center">
+    <label for="inventory_number" class="col-sm-2 col-form-label">Inventory number : </label>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">E</span>
+                <input type="text"
+                       name="inventory_number"
+                       class="form-control"
+                       placeholder="Inventory number"
+                       aria-label="Inventory number"
+                       aria-describedby="basic-addon1"/>
+            </div>
+        </div>
+    </div>
 
     <@se.input_element
             element_name = "barcode"

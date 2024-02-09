@@ -11,14 +11,14 @@
 
 
     <@ce.table_input
-        table_head = ["id", "name", "categoty"]
+        table_head = ["id", "name", "category"]
     >
 
-        <#list parcelsWithGoods as p>
+        <#list goods_not_equipment as g>
             <tr>
-                <td><span>${p.id!"none"}</span></td>
-                <td><span>${p.name!"none"}</span></td>
-                <td><span>${p.good.name!"none"}</span></td>
+                <td><span>${g.id!"none"}</span></td>
+                <td><span>${g.name!"none"}</span></td>
+                <td><span>${g.category!"none"}</span></td>
             </tr>
         <#else>
             <tr>

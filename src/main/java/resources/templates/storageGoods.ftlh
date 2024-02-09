@@ -20,15 +20,6 @@
         >
     </@f.form_button>
 
-    <@f.form_button
-        id = "form_equipment_id"
-        action = "exportParcels"
-        method = "post"
-        button_name = "Export Parcels"
-        >
-    </@f.form_button>
-
-
     <@ce.table_link_element
             table_head = ["id", "Name", "View"]
             table_body = goods

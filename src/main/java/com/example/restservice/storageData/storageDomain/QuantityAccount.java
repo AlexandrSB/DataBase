@@ -25,6 +25,6 @@ public class QuantityAccount {
     private Quantity dimension;
 
     @OneToMany(mappedBy = "quantityAccount")
-    private Set<Parcel> parcels = new HashSet<>();
+    private Set<Good> goods = new HashSet<>();
 
 }

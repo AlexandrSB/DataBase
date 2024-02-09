@@ -1,8 +1,8 @@
 package com.example.restservice.storageData.controllers;
 
+import com.example.restservice.equipmentData.equipmentDomain.Category;
 import com.example.restservice.storageData.storageDomain.Condition;
 import com.example.restservice.storageData.storageDomain.Equipment;
-import com.example.restservice.storageData.storageDomain.Good;
 import com.example.restservice.storageData.storageRepos.ConditionRepo;
 import com.example.restservice.storageData.storageRepos.EquipmentRepo;
 import com.example.restservice.storageData.storageRepos.GoodsRepo;
@@ -30,7 +30,10 @@ public class GoodsEquipmentController {
     @GetMapping
     public String equipment(Model model) {
 
-        Iterable<String> goodsName = goodsRepo.getGoodsNamesOnlyEquipment();
+        Iterable<String> goodsName = goodsRepo
+                .findAllOnlyNameByCategory(
+                        Category.ОБОРУДОВАНИЕ
+                );
         model.addAttribute("goods_name", goodsName);
 
         Iterable<Condition> conditions = conditionRepo.findAll();

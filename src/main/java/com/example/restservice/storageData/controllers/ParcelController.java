@@ -1,5 +1,6 @@
 package com.example.restservice.storageData.controllers;
 
+import com.example.restservice.equipmentData.equipmentDomain.Category;
 import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.*;
@@ -38,7 +39,10 @@ public class ParcelController {
 
     @ModelAttribute
     private void addAttributes(Model model) {
-        Iterable<String> goodsNamesOnlyParcels = goodsRepo.getGoodsNamesOnlyParcels();
+        Iterable<String> goodsNamesOnlyParcels = goodsRepo
+                .findAllOnlyNameByCategory(
+                        Category.ЗАПЧАСТЬ
+                );
         model.addAttribute("goods_names_only_parcels", goodsNamesOnlyParcels);
 
         Iterable<String> quantities = quantityRepo.getQuantitiesName();
@@ -51,12 +55,12 @@ public class ParcelController {
     @GetMapping
     public String getParcels(Model model) {
 
-        Iterable<Parcel> parcels = parcelRepo.findAllParcelsWithGood();
-        model.addAttribute("parcelsWithGoods", parcels);
+        Iterable<Good> goods = goodsRepo.findAllNotEquipment();
+        model.addAttribute("goods_not_equipment", goods);
 
-        Iterable<Proxy> proxies = proxyRepo.findAll();
-        model.addAttribute("proxies", proxies);
-
+//        Iterable<Proxy> proxies = proxyRepo.findAll();
+//        model.addAttribute("proxies", proxies);
+//
         return "storageParcels";
     }
 
@@ -71,9 +75,7 @@ public class ParcelController {
 //        Iterable<Parcel> parcels = partyRepo
 //                .findAllParcelsWithPartyId(party_id);
         Iterable<Parcel> parcels = parcelRepo
-                .findAllParcelsWithGoodAndQuandtityAccountAndParty(
-                        party_id
-                );
+                .findAllParcelsWithGood();
         model.addAttribute("parcels", parcels);
 
         model.addAttribute("party_id", id);
