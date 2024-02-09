@@ -49,7 +49,7 @@
             <a class="dropdown-item" href="/storage/goods">Goods</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/equipment">Equipment</a>
+            <a class="dropdown-item" href="/storage/workshopEquipment">Equipment</a>
         </li>
         <li>
             <a class="dropdown-item" href="/storage/arrival">Arrival Goods</a>

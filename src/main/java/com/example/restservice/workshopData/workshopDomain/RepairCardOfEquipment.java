@@ -1,6 +1,5 @@
 package com.example.restservice.workshopData.workshopDomain;
 
-import com.example.restservice.workshopData.workshopRepos.RepairCardOfModuleRepo;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,7 +33,7 @@ public class RepairCardOfEquipment {
 
     @ManyToOne
     @JoinColumn(name = "workshop_equipment_id")
-    private WorkshopEquipment workshopEquipment;
+    private WorkshopElement workshopElement;
 
     @OneToMany(mappedBy = "repairCardOfEquipment")
     @ToString.Exclude

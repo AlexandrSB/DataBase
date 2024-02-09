@@ -29,6 +29,9 @@ public class RepairNotationController {
     private ProxyRepo proxyRepo;
 
     @Autowired
+    private SparePartRepo sparePartRepo;
+
+    @Autowired
     private TypeOfOperationRepo typeOfOperationRepo;
 
     @Autowired
@@ -49,7 +52,7 @@ public class RepairNotationController {
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
             @RequestParam String repair_notation_name,
-            @RequestParam String proxy_name,
+            @RequestParam String element_name,
             @RequestParam String operation_type_name
     ) {
 
@@ -67,23 +70,23 @@ public class RepairNotationController {
                 .orElseThrow();
 
         Optional<Proxy> proxy = proxyRepo
-                .findByName(proxy_name);
+                .findByName(element_name);
 
-        TypeOfSparePart typeOfSparePart = null;
+        SparePart sparePart = null;
         if(proxy.isPresent()) {
-            typeOfSparePart = typeOfSparePartRepo
+            sparePart = sparePartRepo
                     .findByName(proxy.get().getName())
-                    .orElse(new TypeOfSparePart());
-            if (typeOfSparePart.getName() == null) {
-                typeOfSparePart.setId(proxy.get().getId());
-                typeOfSparePart.setName(proxy.get().getName());
-                typeOfSparePartRepo.save(typeOfSparePart);
+                    .orElse(new SparePart());
+            if (sparePart.getName() == null) {
+                sparePart.setId(proxy.get().getId());
+                sparePart.setName(proxy.get().getName());
+                sparePartRepo.save(sparePart);
             }
         }
 
         CompletedWork completedWork = new CompletedWork();
         completedWork.setNotation(repair_notation_name);
-        completedWork.setTypeOfSparePart(typeOfSparePart);
+        completedWork.setSparePart(sparePart);
         completedWork.setRepairType(repairCardOfEquipment.getRepairType());
         completedWorkRepo.save(completedWork);
 
@@ -117,7 +120,7 @@ public class RepairNotationController {
 
         WorkshopModule workshopModule = workshopModuleRepo
                 .findModule(repairCardOfEquipment
-                        .getWorkshopEquipment()
+                        .getWorkshopElement()
                         .getId(),
                         unitId)
                 .orElseThrow();

@@ -14,7 +14,7 @@ public interface RepairCardOfEquipmentRepo extends CrudRepository<RepairCardOfEq
             SELECT rp
             FROM RepairCardOfEquipment rp
                 LEFT JOIN FETCH repairCardOfModules rcom
-                LEFT JOIN FETCH workshopEquipment we
+                LEFT JOIN FETCH workshopElement we
             WHERE endRepairTimestamp is NULL
             """)
     Iterable<RepairCardOfEquipment> getCardInRepair();

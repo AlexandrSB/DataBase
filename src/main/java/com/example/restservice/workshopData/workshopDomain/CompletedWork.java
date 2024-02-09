@@ -23,10 +23,10 @@ public class CompletedWork {
     private RepairType repairType;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_of_spare_part_id")
+    @JoinColumn(name = "spare_part_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    public TypeOfSparePart typeOfSparePart;
+    public SparePart sparePart;
 
     @OneToMany(mappedBy = "completedWork")
     @ToString.Exclude

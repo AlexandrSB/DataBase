@@ -29,7 +29,7 @@ public class WorkshopModule {
     @JoinColumn(name = "workshop_equipment_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private WorkshopEquipment workshopEquipment;
+    private WorkshopElement workshopElement;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workshopModule")
     @ToString.Exclude

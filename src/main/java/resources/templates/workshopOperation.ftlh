@@ -6,7 +6,7 @@
 <@c.page>
 
     <@se.header_1
-        title = "Ремонт комплектующих: " + repair_card.workshopEquipment.model
+        title = "Ремонт: " + repair_card.workshopElement.model
         />
 
     <@se.header_2
@@ -18,17 +18,15 @@
         />
 
     <#if elements_destination[0][1]?has_content>
-        <ul>
-            <#list elements_destination as ed>
+        <#list elements_destination as ed>
+        <#if ed[1].category == "МОДУЛЬ">
+            <ul>
                 <li>
                     <a href="/workshop/repair_card/${repair_card.id}/${ed[1].id}">Ремонт модуля -- ${ed[1].name!"none"}</a>
                 </li>
-            <#else>
-                <li>
-                    <span>none</span>
-                </li>
-            </#list>
-        </ul>
+            </ul>
+        </#if>
+        </#list>
     </#if>
 
     <div>
@@ -61,19 +59,17 @@
                                     <input type="text" class="form-control" id="input_repair_notation_id" name="repair_notation_name" placeholder="Добавить операцию" />
                                 </div>
 
-                                <#if elements_proxy?has_content>
+                                <#if elements_composite?has_content>
                                     <div class="col-3">
-                                        <select class="form-control" id="proxy_id" name="proxy_name">
+                                        <select class="form-control" id="element_id" name="element_name">
                                             <option>&ltnone&gt</option>
-                                            <#if elements_proxy??>
-                                                <#list elements_proxy as e>
+                                                <#list elements_composite as e>
                                                     <#if e??>
                                                         <option>${e.name}</option>
                                                     </#if>
                                                 <#else>
                                                     <option>&ltnone&gt</option>
                                                 </#list>
-                                            </#if>
                                         </select>
                                     </div>
                                 </#if>
@@ -123,10 +119,25 @@
                                                     <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
                                                 </div>
                                             </div>
-                                            <div class="col-3">
-                                                <#if cw.typeOfSparePart?has_content>
-                                                    <label class="col-auto" for="quantity" >${cw.typeOfSparePart.name}</label>
-                                                </#if>
+
+                                            <#if elements_composite?has_content>
+                                            <div class="col-4">
+                                                <select class="form-control" id="repair_component_id" name="repair_component">
+                                                    <#list elements_composite as e>
+                                                        <#list e.proxies as p>
+                                                            <#if p??>
+                                                                <option>${p.name}</option>
+                                                            </#if>
+                                                        </#list>
+                                                    <#else>
+                                                        <option>&ltnone&gt</option>
+                                                    </#list>
+                                                </select>
+                                            </div>
+                                            </#if>
+
+
+                                            <div class="col-1">
                                                 <input type="text" class="form-control" id="quantity" name="my_checkboxes" placeholder="Количество" value="0"/>
                                             </div>
                                         </div>

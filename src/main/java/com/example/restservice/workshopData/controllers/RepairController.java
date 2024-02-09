@@ -1,7 +1,9 @@
 package com.example.restservice.workshopData.controllers;
 
+import com.example.restservice.equipmentData.equipmentDomain.Category;
 import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
+import com.example.restservice.equipmentData.equipmentRepos.ElementsCompositeRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.Condition;
 import com.example.restservice.storageData.storageDomain.Equipment;
@@ -18,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/workshop")
@@ -43,10 +42,19 @@ public class RepairController {
     private ElementRepo elementRepo;
 
     @Autowired
+    private ElementsCompositeRepo elementsCompositeRepo;
+
+    @Autowired
+    private WorkshopEquipmentRepo workshopEquipmentRepo;
+
+    @Autowired
     private GoodsRepo goodsRepo;
 
     @Autowired
     private ProxyRepo proxyRepo;
+
+    @Autowired
+    private WorkshopProxyRepo workshopProxyRepo;
 
     @Autowired
     private RepairCardOfModuleRepo repairCardOfModuleRepo;
@@ -58,7 +66,7 @@ public class RepairController {
     private SparePartRepo sparePartRepo;
 
     @Autowired
-    private WorkshopEquipmentRepo workshopEquipmentRepo;
+    private WorkshopElementRepo workshopElementRepo;
 
     @Autowired
     private WorkshopModuleRepo workshopModuleRepo;
@@ -81,7 +89,7 @@ public class RepairController {
 //            8 -- На кеше
 //        """
 
-        Iterable<Long> equipmentsId = workshopEquipmentRepo.getAllId();
+        Iterable<Long> equipmentsId = workshopElementRepo.getAllId();
         Iterable<Element> element = elementRepo.findAllById(equipmentsId);
         model.addAttribute("workshop_equipment", element);
 
@@ -122,11 +130,11 @@ public class RepairController {
                 .orElseThrow();
         model.addAttribute("repair_card", repairCardOfEquipment);
 
-        WorkshopEquipment equipment = repairCardOfEquipment.getWorkshopEquipment();
-        model.addAttribute("equipment", equipment);
+        WorkshopElement workshopElement = repairCardOfEquipment.getWorkshopElement();
+        model.addAttribute("equipment", workshopElement);
 
-        Element element = elementRepo.findByName(equipment
-                        .getModel())
+        Element element = elementRepo.findById(workshopElement
+                        .getWorkshopEquipment().getId())
                 .orElseThrow();
         model.addAttribute("element", element);
 
@@ -181,7 +189,7 @@ public class RepairController {
         WorkshopModule workshopModule = workshopModuleRepo
                 .findModule(
                         repairCardOfEquipment
-                                .getWorkshopEquipment()
+                                .getWorkshopElement()
                                 .getId(),
                         workshopUnit.getId()
                 )
@@ -189,9 +197,9 @@ public class RepairController {
         if (workshopModule.getName() == null) {
             workshopModule.setName(workshopUnit.getName());
             workshopModule.setWorkshopUnit(workshopUnit);
-            workshopModule.setWorkshopEquipment(
+            workshopModule.setWorkshopElement(
                     repairCardOfEquipment
-                            .getWorkshopEquipment()
+                            .getWorkshopElement()
             );
             workshopModuleRepo.save(workshopModule);
         }
@@ -208,6 +216,10 @@ public class RepairController {
         Iterable<Element> elements_destination =
                 elementRepo.findElementDestinationAll(element.getId());
         model.addAttribute("elements_destination", elements_destination);
+
+        Iterable<Element> elementsCompositeSet =
+                elementsCompositeRepo.findAllByElemDestination(element);
+        model.addAttribute("elements_composite", elementsCompositeSet);
 
         Iterable<Element> elements_proxy =
                 elementRepo.findAllProxy(element.getId());
@@ -243,6 +255,29 @@ public class RepairController {
         return "workshopClearing";
     }
 
+    @PostMapping("take_elements")
+    private String takeElements(
+            @RequestParam String path
+    ) {
+        Iterable<Element> elements = elementRepo
+                .findAllByCategory(Category.ОБОРУДОВАНИЕ);
+        WorkshopEquipment workshopEquipment = null;
+        Set<WorkshopEquipment> workshopEquipmentSet = new HashSet<>();
+
+        for(Element e: elements) {
+            workshopEquipment = workshopEquipmentRepo
+                    .findById(e.getId())
+                    .orElse(new WorkshopEquipment());
+            workshopEquipment.setName(e.getName());
+            workshopEquipmentSet.add(workshopEquipment);
+        }
+        workshopEquipmentRepo.saveAll(workshopEquipmentSet);
+
+
+
+        return "redirect:" + path;
+    }
+
     @PostMapping("set_repair")
     private String setRepair(
             Model model,
@@ -269,19 +304,17 @@ public class RepairController {
             workshopUnitRepo.save(workshopUnit);
         }
 
-        WorkshopEquipment workshopEquipment =
-                workshopEquipmentRepo.findByInventoryNumber(storageEquipment.getInventoryNumber())
-                        .orElse(new WorkshopEquipment());
-        if(workshopEquipment.getId() == null) {
-            workshopEquipment.setId(storageEquipment.getId());
-            workshopEquipment.setInventoryNumber(storageEquipment.getInventoryNumber());
-            workshopEquipment.setModel(workshopUnit.getName());
-//            workshopEquipment.setType();
-            workshopEquipmentRepo.save(workshopEquipment);
+        WorkshopElement workshopElement =
+                workshopElementRepo.findByInventoryNumber(storageEquipment.getInventoryNumber())
+                        .orElse(new WorkshopElement());
+        if(workshopElement.getId() == null) {
+            workshopElement.setId(storageEquipment.getId());
+            workshopElement.setInventoryNumber(storageEquipment.getInventoryNumber());
+            workshopElementRepo.save(workshopElement);
         }
 
         RepairCardOfEquipment repairCardOfEquipment = new RepairCardOfEquipment();
-        repairCardOfEquipment.setWorkshopEquipment(workshopEquipment);
+        repairCardOfEquipment.setWorkshopElement(workshopElement);
         repairCardOfEquipment.setRepairType(repairType);
         repairCardOfEquipmentRepo.save(repairCardOfEquipment);
 

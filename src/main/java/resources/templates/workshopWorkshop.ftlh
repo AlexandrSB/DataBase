@@ -19,12 +19,22 @@
                 href_1_name = "Ремонт"
             >
                 <#list in_repairs as ir>
-                    <p>${ir.workshopEquipment.inventoryNumber} -- ${ir.workshopEquipment.model}
+                    <p>${ir.workshopElement.inventoryNumber} -- name
                         <a href="/workshop/repair_card/${ir.id}">card</a>
                     </p>
                 <#else>
                     <p>&ltnone&gt</p>
                 </#list>
+
+            <form action="workshop/take_elements" method="post" id="tacke_elements_id">
+
+                <@se.input_hidden
+                    name = "path"
+                    value = "/workshop"
+                />
+
+            <button class="btn btn-primary" type="submit">Take element</button>
+            </form>
 
             </@ce.card_element_2>
 

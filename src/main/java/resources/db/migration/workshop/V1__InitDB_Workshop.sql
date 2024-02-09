@@ -54,12 +54,12 @@ CREATE TABLE IF NOT EXISTS public.completed_work
 (
     id bigint NOT NULL,
     notation character varying(255) COLLATE pg_catalog."default",
-    type_of_spare_part_id bigint,
+    spare_part_id bigint,
     consumption_of_materials_id bigint,
     repair_type character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT completed_work_pkey PRIMARY KEY (id),
-    CONSTRAINT fk5bt0087bqlft5c91urjg7u0o9 FOREIGN KEY (type_of_spare_part_id)
-        REFERENCES public.type_of_spare_part (id) MATCH SIMPLE
+    CONSTRAINT fk5bt0087bqlft5c91urjg7u0o9 FOREIGN KEY (spare_part_id)
+        REFERENCES public.spare_part (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
@@ -72,14 +72,57 @@ ALTER TABLE IF EXISTS public.completed_work
 -- DROP TABLE IF EXISTS public.workshop_equipment;
 CREATE TABLE IF NOT EXISTS public.workshop_equipment
 (
-    id bigint NOT NULL,
-    inventory_number character varying(255) COLLATE pg_catalog."default",
-    model character varying(255) COLLATE pg_catalog."default",
-    type character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT workshop_equipment_pkey PRIMARY KEY (id)
+    id bigint                   NOT NULL,
+    name                        character varying(255)
+        COLLATE pg_catalog."default",
+    CONSTRAINT equipment_pkey PRIMARY KEY (id)
 )
 TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.workshop_equipment
+    OWNER to admin;
+
+
+-- Table: public.workshop_proxy
+-- DROP TABLE IF EXISTS public.workshop_proxy;
+CREATE TABLE IF NOT EXISTS public.workshop_proxy
+(
+    id bigint NOT NULL,
+    name                        character varying(255)
+        COLLATE pg_catalog."default",
+    equipment_id                bigint,
+    CONSTRAINT proxy_pkey PRIMARY KEY (id),
+    CONSTRAINT proxy_equipment_fkey FOREIGN KEY (equipment_id)
+        REFERENCES public.workshop_equipment (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+TABLESPACE pg_default;
+ALTER TABLE IF EXISTS public.workshop_proxy
+    OWNER to admin;
+
+
+
+-- Table: public.workshop_equipment
+-- DROP TABLE IF EXISTS public.workshop_equipment;
+CREATE TABLE IF NOT EXISTS public.workshop_element
+(
+    id bigint NOT NULL,
+    inventory_number            character varying(255)
+        COLLATE pg_catalog."default",
+    proxy_id                    bigint,
+    equipment_id                bigint,
+    CONSTRAINT workshop_equipment_pkey PRIMARY KEY (id),
+    CONSTRAINT workshop_equipment_equipment_fkey FOREIGN KEY (equipment_id)
+        REFERENCES public.workshop_equipment (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT workshop_equipment_proxy_equipment_fkey FOREIGN KEY (proxy_id)
+        REFERENCES public.workshop_proxy (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+TABLESPACE pg_default;
+ALTER TABLE IF EXISTS public.workshop_element
     OWNER to admin;
 
 
@@ -91,10 +134,10 @@ CREATE TABLE IF NOT EXISTS public.repair_card_of_equipment
     begin_repair_timestamp timestamp(6) with time zone,
     end_repair_timestamp timestamp(6) with time zone,
     repair_type smallint,
-    workshop_equipment_id bigint,
+    workshop_element_id bigint,
     CONSTRAINT repair_card_of_equipment_pkey PRIMARY KEY (id),
-    CONSTRAINT fkat107puy91fjk7vn42srmoffg FOREIGN KEY (workshop_equipment_id)
-        REFERENCES public.workshop_equipment (id) MATCH SIMPLE
+    CONSTRAINT fkat107puy91fjk7vn42srmoffg FOREIGN KEY (workshop_element_id)
+        REFERENCES public.workshop_element (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT repair_card_of_equipment_repair_type_check CHECK (repair_type >= 0 AND repair_type <= 4)
@@ -110,11 +153,11 @@ CREATE TABLE IF NOT EXISTS public.workshop_module
 (
     id uuid NOT NULL,
     name character varying(255) COLLATE pg_catalog."default",
-    workshop_equipment_id bigint,
+    workshop_element_id bigint,
     workshop_unit_id bigint,
     CONSTRAINT workshop_module_pkey PRIMARY KEY (id),
-    CONSTRAINT fk8icbrhomuq1odnfc13dpg9lg6 FOREIGN KEY (workshop_equipment_id)
-            REFERENCES public.workshop_equipment (id) MATCH SIMPLE
+    CONSTRAINT fk8icbrhomuq1odnfc13dpg9lg6 FOREIGN KEY (workshop_element_id)
+            REFERENCES public.workshop_element (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE NO ACTION,
     CONSTRAINT fkth7wd6uclr811wbg0al43i49h FOREIGN KEY (workshop_unit_id)
@@ -153,11 +196,12 @@ ALTER TABLE IF EXISTS public.repair_card_of_module
 -- DROP TABLE IF EXISTS public.consumption_of_material;
 CREATE TABLE IF NOT EXISTS public.consumption_of_material
 (
-    id bigint NOT NULL,
-    quantity_of_material integer,
-    completed_work_id bigint,
-    repair_card_of_module_id uuid,
-    workshop_module_id uuid,
+    id bigint                       NOT NULL,
+    quantity_of_material            integer,
+    type_of_spare_part_id           bigint,
+    completed_work_id               bigint,
+    repair_card_of_module_id        uuid,
+    workshop_module_id              uuid,
     CONSTRAINT consumption_of_material_pkey PRIMARY KEY (id),
     CONSTRAINT fk67eueksxfhwp6ektn4gtrnk6d FOREIGN KEY (completed_work_id)
         REFERENCES public.completed_work (id) MATCH SIMPLE
@@ -169,6 +213,10 @@ CREATE TABLE IF NOT EXISTS public.consumption_of_material
         ON DELETE NO ACTION,
     CONSTRAINT fkc9utymm7inal6b3bh4q3nrw1p FOREIGN KEY (workshop_module_id)
         REFERENCES public.workshop_module (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT consumption_of_material_type_of_spare_part FOREIGN KEY (type_of_spare_part_id)
+        REFERENCES public.type_of_spare_part (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )

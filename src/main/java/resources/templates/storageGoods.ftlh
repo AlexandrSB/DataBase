@@ -10,7 +10,7 @@
     />
 
     <a href="/storage/parcel">Расходники</a>
-    <a href="/storage/equipment">Оборудование</a>
+    <a href="/storage/workshopEquipment">Оборудование</a>
 
     <@f.form_button
         id = "form_equipment_id"

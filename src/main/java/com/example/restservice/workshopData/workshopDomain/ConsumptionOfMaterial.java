@@ -18,6 +18,12 @@ public class ConsumptionOfMaterial {
     private Integer quantityOfMaterial;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "type_of_spare_part_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    public TypeOfSparePart typeOfSparePart;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workshop_module_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

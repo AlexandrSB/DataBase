@@ -14,7 +14,7 @@ public interface WorkshopModuleRepo extends CrudRepository<WorkshopModule, Long>
             SELECT wm
             FROM WorkshopModule wm
                 LEFT JOIN FETCH workshopUnit wu
-                LEFT JOIN FETCH workshopEquipment we
+                LEFT JOIN FETCH workshopElement we
                 LEFT JOIN FETCH consumptionOfMaterials com
                 LEFT JOIN FETCH repairCardOfModules rcom
             WHERE we.id = :workshopEquipmentId

@@ -9,7 +9,7 @@
         title = "Оборудование"
     />
 
-<form action="/storage/equipment/add_equipment" method="post" id="equip">
+<form action="/storage/workshopEquipment/add_equipment" method="post" id="equip">
 
     <@se.select_list_element
         element_name = "goods_name"

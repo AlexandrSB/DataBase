@@ -21,7 +21,7 @@ public interface GoodsRepo extends CrudRepository<Good, Long> {
     @Query(value= """
             SELECT g
             FROM Good g
-                LEFT JOIN FETCH equipment e
+                LEFT JOIN FETCH workshopEquipment e
                 LEFT JOIN FETCH parcels p
             """)
     Iterable<Good> findAllWithLazy();
