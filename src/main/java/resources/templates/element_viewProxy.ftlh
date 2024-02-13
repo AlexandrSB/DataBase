@@ -10,6 +10,99 @@
         />
 
 
+    <form action="/changeProxyName" method="post" id="changeProxyNameId">
+        <@se.input_hidden
+            name = "path"
+            value = path
+        />
+
+        <@se.input_hidden
+        name = "proxy_id"
+        value = proxy.id
+        />
+
+        <@se.input_element
+            element_name = "proxy_name"
+            element_id = "proxy_name_id"
+            label = "Proxy name"
+            placeholder = "Insert Proxy name"
+        />
+
+        <@se.button_send
+            button_name = "Change Proxy name"
+        />
+    </form>
+
+    <form action="/changeProxyCategory" method="post" id="change_proxy_category_id">
+        <@se.input_hidden
+            name = "path"
+            value = path
+        />
+
+        <@se.input_hidden
+            name = "proxy_id"
+            value = proxy.id
+        />
+
+        <@se.select_element
+            element_name = "proxy_category"
+            element_id = "proxy_category_id"
+            label = "Category"
+            placeholder = "Insert proxy category"
+            elements_array = proxy_category
+            elements_attr = ""
+        />
+
+        <@se.button_send
+            button_name = "Change Proxy category"
+        />
+    </form>
+
+    <form action="/changeProxyType" method="post" id="changeProxyNameId">
+        <@se.input_hidden
+            name = "path"
+            value = path
+        />
+
+        <@se.input_hidden
+            name = "proxy_id"
+            value = proxy.id
+        />
+
+        <@se.select_element
+            element_name = "proxy_type"
+            element_id = "proxy_type_id"
+            label = "Type"
+            placeholder = "Insert proxy type"
+            elements_array = proxy_type
+            elements_attr = "type"
+        />
+
+        <@se.button_send
+            button_name = "Change Proxy type"
+        />
+    </form>
+
+    <form action="/changeProxyDescription" method="post" id="changeProxyDescription">
+        <@se.input_hidden
+            name = "path"
+            value = path
+        />
+
+        <@se.input_hidden
+            name = "proxy_id"
+            value = proxy.id
+        />
+
+        <@se.description />
+
+        <@se.button_send
+            button_name = "Change description"
+        />
+    </form>
+
+    <h3>Характеристики</h3>
+
     <form action="/addAttrGroupName" method="post" id="addAttrGroupId">
         <@se.input_hidden
             name = "path"
@@ -53,6 +146,14 @@
         />
     </form>
 
+<b> ${proxy.name} </b>
+<ul>
+    <li><b>Описание:</b> ${proxy.description!"none"}</li>
+    <li><b>Категория:</b> ${proxy.category!"none"}</li>
+    <#if proxy.elementType??>
+        <li><b>Тип:</b> ${proxy.elementType.type!"none"}</li>
+    </#if>
+</ul>
 
 <#list proxy.attributeGroups as ag>
     <ul>

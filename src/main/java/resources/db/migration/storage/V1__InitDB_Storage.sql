@@ -48,9 +48,8 @@ CREATE TABLE IF NOT EXISTS public.quantity_account
 CREATE TABLE IF NOT EXISTS public.good
 (
     id bigint               NOT NULL,
-    name                    character varying(50) COLLATE pg_catalog."default",
+    name                    character varying(250) COLLATE pg_catalog."default",
     category                smallint,
-    proxy_id                bigint NULL,
     quantity_account_id     bigint,
     CONSTRAINT good_pkey PRIMARY KEY (id),
     CONSTRAINT fk_good_quantity_account_id FOREIGN KEY (quantity_account_id)
@@ -59,12 +58,22 @@ CREATE TABLE IF NOT EXISTS public.good
         ON DELETE NO ACTION
 );
 
+
+-- Table: public.prefix_inventory_number
+-- DROP TABLE IF EXISTS public.prefix_inventory_number;
+CREATE TABLE IF NOT EXISTS public.prefix_inventory_number
+(
+    id bigint               NOT NULL,
+    prefix                  character (3),
+    CONSTRAINT PK_prefix_inv_number PRIMARY KEY (id)
+);
+
 -- Table: public.equipment
 -- DROP TABLE IF EXISTS public.equipment;
 CREATE TABLE IF NOT EXISTS public.equipment
 (
-    id bigint               NOT NULL,
-    index_inv_number        character varying(3),
+    id                      bigint NOT NULL,
+    prefix_inv_number_id    bigint,
     inventory_number        character varying(15) UNIQUE
         COLLATE pg_catalog."default",
     condition_id bigint NOT NULL,
@@ -72,6 +81,10 @@ CREATE TABLE IF NOT EXISTS public.equipment
     CONSTRAINT equipment_pkey PRIMARY KEY (id),
     CONSTRAINT FK_condition_equipment FOREIGN KEY ( condition_id )
         REFERENCES "public".condition ( id ) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT FK_equipment_prefix_inv_number FOREIGN KEY ( prefix_inv_number_id )
+        REFERENCES "public".prefix_inventory_number ( id ) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT FK_good_equipment FOREIGN KEY ( good_id )
@@ -387,135 +400,4 @@ CREATE TABLE IF NOT EXISTS public.goods_party
 
 
 
-
--- SEQUENCE: public.contragent_seq
--- DROP SEQUENCE IF EXISTS public.contragent_seq;
-CREATE SEQUENCE IF NOT EXISTS public.contragent_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.contragent_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.good_seq
--- DROP SEQUENCE IF EXISTS public.good_seq;
-CREATE SEQUENCE IF NOT EXISTS public.good_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.good_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.equipment_seq
--- DROP SEQUENCE IF EXISTS public.good_seq;
-CREATE SEQUENCE IF NOT EXISTS public.equipment_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.equipment_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.goods_tracking_from_contragent_seq
--- DROP SEQUENCE IF EXISTS public.goods_tracking_from_contragent_seq;
-CREATE SEQUENCE IF NOT EXISTS public.goods_tracking_from_contragent_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.goods_tracking_from_contragent_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.goods_tracking_from_storage_seq
--- DROP SEQUENCE IF EXISTS public.goods_tracking_from_storage_seq;
-CREATE SEQUENCE IF NOT EXISTS public.goods_tracking_from_storage_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.goods_tracking_from_storage_seq
-    OWNER TO admin;
-
-
--- SEQUENCE: public.party_seq
--- DROP SEQUENCE IF EXISTS public.party_seq;
-CREATE SEQUENCE IF NOT EXISTS public.party_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.party_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.storage_seq
--- DROP SEQUENCE IF EXISTS public.storage_seq;
-CREATE SEQUENCE IF NOT EXISTS public.storage_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.storage_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.workshop_seq
--- DROP SEQUENCE IF EXISTS public.workshop_seq;
-CREATE SEQUENCE IF NOT EXISTS public.workshop_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.workshop_seq
-    OWNER TO admin;
-
--- SEQUENCE: public.quantity_account_seq
--- DROP SEQUENCE IF EXISTS public.quantity_account_seq;
-CREATE SEQUENCE IF NOT EXISTS public.quantity_account_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.quantity_account_seq
-    OWNER TO admin;
-
-
--- SEQUENCE: public.parcel_seq
--- DROP SEQUENCE IF EXISTS public.parcel_seq;
-CREATE SEQUENCE IF NOT EXISTS public.parcel_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
--- SEQUENCE: public.goods_tracking_date_seq
--- DROP SEQUENCE IF EXISTS public.goods_tracking_date_seq;
-CREATE SEQUENCE IF NOT EXISTS public.goods_tracking_date_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.goods_tracking_date_seq
-    OWNER TO admin;
 

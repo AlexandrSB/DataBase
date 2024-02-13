@@ -24,6 +24,17 @@ public class Proxy {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description", length = 5000)
+    private String description;
+
+    @Column(name = "category")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "proxy_type_id")
+    @ToString.Exclude
+    private ElementType elementType;
+
     @ToString.Exclude
     @ManyToMany
     @JoinTable(

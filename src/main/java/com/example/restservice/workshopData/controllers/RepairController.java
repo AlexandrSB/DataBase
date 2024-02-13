@@ -2,6 +2,7 @@ package com.example.restservice.workshopData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Category;
 import com.example.restservice.equipmentData.equipmentDomain.Element;
+import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ElementsCompositeRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
@@ -84,8 +85,6 @@ public class RepairController {
 //            3 -- Донор
 //            4 -- Списано
 //            5 -- Закуп
-//            6 -- На диагностике
-//            7 -- В чистке
 //            8 -- На кеше
 //        """
 
@@ -263,15 +262,28 @@ public class RepairController {
                 .findAllByCategory(Category.ОБОРУДОВАНИЕ);
         WorkshopEquipment workshopEquipment = null;
         Set<WorkshopEquipment> workshopEquipmentSet = new HashSet<>();
+        Set<WorkshopProxy> workshopProxies = new HashSet<>();
 
         for(Element e: elements) {
             workshopEquipment = workshopEquipmentRepo
                     .findById(e.getId())
                     .orElse(new WorkshopEquipment());
+            workshopEquipment.setId(e.getId());
             workshopEquipment.setName(e.getName());
             workshopEquipmentSet.add(workshopEquipment);
+            
+            for (Proxy p : e.getProxies()) {
+                WorkshopProxy workshopProxy = workshopProxyRepo
+                        .findById(p.getId())
+                        .orElse(new WorkshopProxy());
+                workshopProxy.setId(p.getId());
+                workshopProxy.setName(p.getName());
+                workshopProxy.setWorkshopEquipment(workshopEquipment);
+                workshopProxies.add(workshopProxy);
+            }
         }
         workshopEquipmentRepo.saveAll(workshopEquipmentSet);
+        workshopProxyRepo.saveAll(workshopProxies);
 
 
 

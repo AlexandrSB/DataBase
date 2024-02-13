@@ -7,11 +7,11 @@ import lombok.ToString;
 
 @Entity
 @Data
-@Table(name = "proxy", schema = "public")
+@Table(name = "workshop_proxy", schema = "public")
 public class WorkshopProxy {
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     private Long id;
 
     private String name;

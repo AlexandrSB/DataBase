@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MyProject" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.example.restservice.RestServiceApplication" />
+    <module name="rest-service-complete" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

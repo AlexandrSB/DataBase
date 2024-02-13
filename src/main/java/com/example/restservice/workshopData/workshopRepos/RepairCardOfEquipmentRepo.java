@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface RepairCardOfEquipmentRepo extends CrudRepository<RepairCardOfEquipment, UUID> {
+public interface RepairCardOfEquipmentRepo
+        extends CrudRepository<RepairCardOfEquipment, UUID> {
     @Query(value = """
             SELECT rp
             FROM RepairCardOfEquipment rp
-                LEFT JOIN FETCH repairCardOfModules rcom
-                LEFT JOIN FETCH workshopElement we
+                LEFT JOIN FETCH rp.repairCardOfModules rcom
+                LEFT JOIN FETCH rp.workshopElement we
             WHERE endRepairTimestamp is NULL
             """)
     Iterable<RepairCardOfEquipment> getCardInRepair();

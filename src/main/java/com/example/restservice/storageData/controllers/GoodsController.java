@@ -8,7 +8,6 @@ import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.storageData.storageDomain.*;
 import com.example.restservice.storageData.storageRepos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -149,29 +148,29 @@ public class GoodsController {
     @PostMapping("exportEquipment")
     public String exportEquipment() {
 
-        Set<Good> goods = new HashSet<>();
+        Set<Good> goodSet = new HashSet<>();
 
         Iterable<Element> equipment = elementRepo.findAll();
 
         for (Element e : equipment) {
             if(e.getProxies().size() == 0) {
-                Good good = new Good();
-                good.setId(e.getId());
-                good.setName(e.getName());
-                good.setCategory(e.getCategory());
-                goods.add(good);
+//                Good good = new Good();
+//                good.setId(e.getId());
+//                good.setName(e.getName());
+//                good.setCategory(e.getCategory());
+//                goodSet.add(good);
+                continue;
             }
             for (Proxy ep: e.getProxies()) {
                 Good good = new Good();
-                good.setId(e.getId());
-                good.setName(e.getName());
+                good.setId(ep.getId());
+                good.setName(ep.getName());
                 good.setCategory(e.getCategory());
-                goods.add(good);
-                good.setProxy_id(ep.getId());
+                goodSet.add(good);
             }
         }
 
-        goodsRepo.saveAll(goods);
+        goodsRepo.saveAll(goodSet);
 
         return "redirect:/storage/goods";
     }

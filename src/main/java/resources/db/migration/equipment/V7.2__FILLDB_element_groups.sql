@@ -1,6 +1,6 @@
 --
--- TOC entry 3461 (class 0 OID 166866)
--- Dependencies: 113
+-- TOC entry 3463 (class 0 OID 324585)
+-- Dependencies: 218
 -- Data for Name: element_groups; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -38,15 +38,7 @@ INSERT INTO public.element_groups VALUES (77, 1);
 INSERT INTO public.element_groups VALUES (78, 1);
 INSERT INTO public.element_groups VALUES (79, 1);
 INSERT INTO public.element_groups VALUES (80, 1);
-INSERT INTO public.element_groups VALUES (81, 1);
 INSERT INTO public.element_groups VALUES (82, 4);
-INSERT INTO public.element_groups VALUES (83, 1);
-INSERT INTO public.element_groups VALUES (84, 1);
-INSERT INTO public.element_groups VALUES (85, 1);
-INSERT INTO public.element_groups VALUES (86, 1);
-INSERT INTO public.element_groups VALUES (87, 1);
-INSERT INTO public.element_groups VALUES (88, 1);
-INSERT INTO public.element_groups VALUES (89, 1);
 INSERT INTO public.element_groups VALUES (90, 1);
 INSERT INTO public.element_groups VALUES (91, 1);
 INSERT INTO public.element_groups VALUES (92, 1);
@@ -57,18 +49,21 @@ INSERT INTO public.element_groups VALUES (96, 1);
 INSERT INTO public.element_groups VALUES (97, 1);
 INSERT INTO public.element_groups VALUES (98, 1);
 INSERT INTO public.element_groups VALUES (99, 1);
-INSERT INTO public.element_groups VALUES (100, 1);
-INSERT INTO public.element_groups VALUES (101, 1);
 INSERT INTO public.element_groups VALUES (102, 1);
 INSERT INTO public.element_groups VALUES (103, 1);
 INSERT INTO public.element_groups VALUES (104, 1);
 INSERT INTO public.element_groups VALUES (105, 1);
 INSERT INTO public.element_groups VALUES (106, 1);
-INSERT INTO public.element_groups VALUES (107, 1);
-INSERT INTO public.element_groups VALUES (108, 1);
 INSERT INTO public.element_groups VALUES (109, 1);
 INSERT INTO public.element_groups VALUES (110, 1);
 INSERT INTO public.element_groups VALUES (153, 6);
 INSERT INTO public.element_groups VALUES (202, 4);
 INSERT INTO public.element_groups VALUES (203, 4);
 INSERT INTO public.element_groups VALUES (204, 4);
+INSERT INTO public.element_groups VALUES (252, 1);
+INSERT INTO public.element_groups VALUES (253, 1);
+INSERT INTO public.element_groups VALUES (254, 1);
+INSERT INTO public.element_groups VALUES (255, 1);
+INSERT INTO public.element_groups VALUES (52, 4);
+INSERT INTO public.element_groups VALUES (256, 4);
+INSERT INTO public.element_groups VALUES (257, 4);

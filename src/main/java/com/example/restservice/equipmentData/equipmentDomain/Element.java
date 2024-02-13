@@ -33,9 +33,9 @@ public class Element {
     @JoinColumn(name = "parent_id")
     private Element parent;
 
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn( name = "element_type_id" )
+    @ToString.Exclude
     private ElementType elementType;
 
     @ToString.Exclude

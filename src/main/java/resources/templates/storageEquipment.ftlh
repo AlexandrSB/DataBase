@@ -9,7 +9,7 @@
         title = "Оборудование"
     />
 
-<form action="/storage/workshopEquipment/add_equipment" method="post" id="equip">
+<form action="/storage/equipment/add_equipment" method="post" id="equip">
 
     <@se.select_list_element
         element_name = "goods_name"
@@ -32,10 +32,23 @@
             />
 
     <div class="form-group row justify-content-center">
-    <label for="inventory_number" class="col-sm-2 col-form-label">Inventory number : </label>
-        <div class="col-sm-6">
+        <div class="col-sm-2">
+            <label for="inventory_number" class="col-form-label">Inventory number : </label>
+        </div>
+        <div class="col-sm-1">
+                <select class="form-control" id="inv_number_prefix_name_id" name="inv_number_prefix">
+                    <#list inv_number_prefix as inp>
+                        <#if inp??>
+                            <option>${inp.prefix}</option>
+                        </#if>
+                    <#else>
+                        <option>&ltnone&gt</option>
+                    </#list>
+                </select>
+        </div>
+
+        <div class="col-sm-5">
             <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">E</span>
                 <input type="text"
                        name="inventory_number"
                        class="form-control"

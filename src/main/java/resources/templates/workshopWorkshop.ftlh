@@ -26,7 +26,7 @@
                     <p>&ltnone&gt</p>
                 </#list>
 
-            <form action="workshop/take_elements" method="post" id="tacke_elements_id">
+            <form action="workshop/take_elements" method="post" id="take_elements_id">
 
                 <@se.input_hidden
                     name = "path"

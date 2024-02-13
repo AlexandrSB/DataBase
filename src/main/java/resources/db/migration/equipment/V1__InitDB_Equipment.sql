@@ -79,8 +79,13 @@ CREATE TABLE IF NOT EXISTS "public".element_groups
 CREATE TABLE IF NOT EXISTS public.proxy
 (
     id                      bigint NOT NULL,
-    name                    character varying(250) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT PK_proxy PRIMARY KEY (id)
+    name                    character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    description             character varying(5000) NULL,
+    category                smallint,
+    proxy_type_id           bigint,
+    CONSTRAINT PK_proxy PRIMARY KEY (id),
+    CONSTRAINT FK_proxy_type_id FOREIGN KEY ( proxy_type_id)
+        REFERENCES "public".element_type( id )
 );
 
 

@@ -43,6 +43,8 @@ public class ProxyController {
 
     @Autowired
     private UnitDictionaryRepo unitDictionaryRepo;
+    @Autowired
+    private ElementTypeRepo elementTypeRepo;
 
 
     @ModelAttribute
@@ -103,6 +105,11 @@ public class ProxyController {
         model.addAttribute("nav_breadcrumb", breadcramb);
         model.addAttribute("last", proxy.getName());
 
+        model.addAttribute("proxy_category",
+                Category.values());
+        model.addAttribute("proxy_type",
+                elementTypeRepo.findAll());
+
         return "element_viewProxy";
     }
 
@@ -133,25 +140,9 @@ public class ProxyController {
         Proxy proxy = proxyRepo
                 .findByName( proxy_name )
                 .orElseThrow();
-//        Attribute attribute = attributeRepo
-//                .findByName( attribute_name )
-//                .orElseThrow();
-//        AttributeGroup attributeGroup = attributeGroupRepo
-//                .findByName(attribute_groups_name)
-//                .orElseThrow();
         UnitDictionary unitDic = unitDictionaryRepo
                 .findByName(unit_dic_name)
                 .orElseThrow();
-
-//        attributeGroup.setProxy(proxy);
-//        attributeGroupRepo.save(attributeGroup);
-
-//        attribute.setAttributeGroup(attributeGroup);
-//        attributeRepo.save(attribute);
-
-//        AttributeValue attributeValue = new AttributeValue();
-//        attributeValue.setAttribute( attribute );
-//        attributeValueRepo.save( attributeValue );
 
         Unit unit = new Unit();
         unit.setUnitDictionary(unitDic);
@@ -160,4 +151,74 @@ public class ProxyController {
 
         return "redirect:" + path;
     }
+
+    @PostMapping("changeProxyName")
+    private String changeProxyName(
+            @RequestParam String path,
+            @RequestParam String proxy_id,
+            @RequestParam String proxy_name
+    ) {
+        Long proxyId = Long.valueOf(proxy_id);
+
+        Proxy proxy = proxyRepo.findById(proxyId)
+                .orElseThrow();
+        proxy.setName(proxy_name);
+        proxyRepo.save(proxy);
+
+        return "redirect:" + path;
+    }
+
+    @PostMapping("changeProxyCategory")
+    private String changeProxyCategory(
+            @RequestParam String path,
+            @RequestParam String proxy_id,
+            @RequestParam String proxy_category
+    ) {
+        Long proxyId = Long.valueOf(proxy_id);
+
+        Proxy proxy = proxyRepo.findById(proxyId)
+                .orElseThrow();
+        Category category = Category.valueOf(proxy_category);
+        proxy.setCategory(category);
+        proxyRepo.save(proxy);
+
+        return "redirect:" + path;
+    }
+
+    @PostMapping("changeProxyDescription")
+    private String changeProxyDescription(
+            @RequestParam String path,
+            @RequestParam String proxy_id,
+            @RequestParam String description
+    ) {
+        Long proxyId = Long.valueOf(proxy_id);
+
+        Proxy proxy = proxyRepo.findById(proxyId)
+                .orElseThrow();
+
+        proxy.setDescription(description);
+        proxyRepo.save(proxy);
+
+        return "redirect:" + path;
+    }
+
+    @PostMapping("changeProxyType")
+    private String changeProxyType(
+            @RequestParam String path,
+            @RequestParam String proxy_id,
+            @RequestParam String proxy_type
+    ) {
+        Long proxyId = Long.valueOf(proxy_id);
+        Proxy proxy = proxyRepo.findById(proxyId)
+                .orElseThrow();
+        ElementType elementType = elementTypeRepo
+                .findByType(proxy_type)
+                .orElseThrow();
+        proxy.setElementType(elementType);
+        proxyRepo.save(proxy);
+
+        return "redirect:" + path;
+    }
+
+
 }

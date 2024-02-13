@@ -32,7 +32,7 @@ public class RepairCardOfEquipment {
     private ZonedDateTime endRepairTimestamp;
 
     @ManyToOne
-    @JoinColumn(name = "workshop_equipment_id")
+    @JoinColumn(name = "workshop_element_id")
     private WorkshopElement workshopElement;
 
     @OneToMany(mappedBy = "repairCardOfEquipment")

@@ -1,6 +1,6 @@
 --
--- TOC entry 3469 (class 0 OID 266902)
--- Dependencies: 230
+-- TOC entry 3464 (class 0 OID 324604)
+-- Dependencies: 219
 -- Data for Name: proxy; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -26,3 +26,27 @@ INSERT INTO public.proxy VALUES (102, 'Панель управления CAS CNW
 INSERT INTO public.proxy VALUES (103, 'Нагревательный элемент к CAS CNW-460');
 INSERT INTO public.proxy VALUES (104, 'Выключатель для горячего стола CAS CNW');
 INSERT INTO public.proxy VALUES (105, 'Кулисный переключатель KCD3');
+INSERT INTO public.proxy VALUES (152, 'MF211');
+INSERT INTO public.proxy VALUES (153, 'MF4410');
+INSERT INTO public.proxy VALUES (154, 'FS-2100D');
+INSERT INTO public.proxy VALUES (155, 'FS-2100DN');
+INSERT INTO public.proxy VALUES (156, 'FS-4100DN');
+INSERT INTO public.proxy VALUES (157, 'FS-4200dn');
+INSERT INTO public.proxy VALUES (158, 'FS-4300dn');
+INSERT INTO public.proxy VALUES (159, 'M2535dn');
+INSERT INTO public.proxy VALUES (160, 'M2035dn');
+INSERT INTO public.proxy VALUES (161, 'M2235dn');
+INSERT INTO public.proxy VALUES (162, 'M2735dn');
+INSERT INTO public.proxy VALUES (163, 'M2835dn');
+INSERT INTO public.proxy VALUES (164, 'M2030dn');
+INSERT INTO public.proxy VALUES (165, 'M2530dn');
+INSERT INTO public.proxy VALUES (166, 'TK-1130');
+INSERT INTO public.proxy VALUES (167, 'M2640idw');
+INSERT INTO public.proxy VALUES (168, 'M2540dn');
+INSERT INTO public.proxy VALUES (169, 'M3040dn');
+INSERT INTO public.proxy VALUES (170, 'M3540dn');
+INSERT INTO public.proxy VALUES (171, 'M3145dn');
+INSERT INTO public.proxy VALUES (172, 'M3145idn');
+INSERT INTO public.proxy VALUES (173, 'M3645dn');
+INSERT INTO public.proxy VALUES (174, 'M3645idn');
+INSERT INTO public.proxy VALUES (202, 'CAS CNW-460');

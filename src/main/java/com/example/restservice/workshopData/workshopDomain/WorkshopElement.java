@@ -1,15 +1,15 @@
 package com.example.restservice.workshopData.workshopDomain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Data
-@Table(name = "workshop_equipment")
+@Table(name = "workshop_element", schema = "public")
 public class WorkshopElement {
 
     @Id

@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,8 +22,6 @@ public class Good {
     private Long id;
 
     private String name;
-
-    private Long proxy_id;
 
     @Column(name = "category")
     private Category category;
@@ -51,5 +51,4 @@ public class Good {
 //                ", externalEquipId=" + externalEquipId +
                 '}';
     }
-
 }

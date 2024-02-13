@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "equipment", schema = "public")
+@Table(name = "workshop_equipment", schema = "public")
 public class WorkshopEquipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
