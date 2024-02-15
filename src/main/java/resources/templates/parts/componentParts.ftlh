@@ -1,26 +1,5 @@
 <#import "constructor/simple_element.ftlh" as se>
 
-<#macro addComponent>
-<!--    <form action="add_element" method="post" id="equip">-->
-
-<!--        <input type="text" name="group_name" value="${my_group.groupName}" hidden="hidden">-->
-
-<!--        <div class="form-group row justify-content-center">-->
-<!--            <label for="element" class="col-sm-2 col-form-label">Component : </label>-->
-<!--            <div class="col-sm-6">-->
-<!--                <input class="form-control" type="text" name="elementName"-->
-<!--                placeholder="componentName" id="element" >-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <@se.description />-->
-
-<!--        <div class="d-grid gap-2 col-4 mx-auto">-->
-<!--            <button class="btn btn-primary my-2" type="submit">Add</button>-->
-<!--        </div>-->
-<!--    </form>-->
-</#macro>
-
 <#macro componentCard>
     <div class="card-columns">
         <#list elements as element>
@@ -72,4 +51,36 @@
             </tbody>
         </table>
     </div>
+</#macro>
+
+<#macro proxies_table>
+<div class="">
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Class</th>
+        <th scope="col">Category</th>
+        <th scope="col">Button</th>
+    </tr>
+    </thead>
+    <tbody>
+        <#list proxies as p>
+            <tr>
+                <td><span>${p.name!"none"}</span></td>
+                <td><span>${p.description!"none"}</span></td>
+                <#if p.elementType??>
+                    <td>${p.elementType.type!"none"}</td>
+                <#else>
+                    <td>&ltnone&gt</td>
+                </#if>
+                <td>${p.category!"none"}</td>
+
+                <td><a href="/proxy/${p.id}">view</a></td>
+            </tr>
+        </#list>
+    </tbody>
+</table>
+</div>
 </#macro>

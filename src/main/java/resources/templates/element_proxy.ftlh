@@ -1,5 +1,6 @@
 <#import "parts/common.ftlh" as c />
 <#import "parts/constructor/simple_element.ftlh" as se />
+<#import "parts/componentParts.ftlh" as cp />
 
 <@c.page>
     <#assign path = "/proxy">
@@ -83,14 +84,6 @@
 
     <br />
     <span>Прокси : </span>
-    <ul>
-        <#list proxies as pr>
-        <li>
-            <span>${pr.name}</span>
-            <a href="/proxy/${pr.id}">View</a>
-        </li>
-        <#else>
-        <li>Аттрибутов нет</li>
-        </#list>
-    </ul>
+    <@cp.proxies_table />
+
 </@c.page>

@@ -87,7 +87,7 @@ public class RepairController {
 //            5 -- Закуп
 //            8 -- На кеше
 //        """
-
+// TODO сделать функцию проверки оборудования в ремонте(со склада)
         Iterable<Long> equipmentsId = workshopElementRepo.getAllId();
         Iterable<Element> element = elementRepo.findAllById(equipmentsId);
         model.addAttribute("workshop_equipment", element);
@@ -98,7 +98,7 @@ public class RepairController {
 
         Iterable<RepairCardOfEquipment> inRepairs =
                 repairCardOfEquipmentRepo.getCardInRepair();
-        model.addAttribute("in_repairs", inRepairs);
+        model.addAttribute("repair_cards", inRepairs);
 
         Iterable<Equipment> inDiagnostics =
                 storageEquipmentRepo.getEquipmentByCondition(6L);
@@ -130,12 +130,12 @@ public class RepairController {
         model.addAttribute("repair_card", repairCardOfEquipment);
 
         WorkshopElement workshopElement = repairCardOfEquipment.getWorkshopElement();
-        model.addAttribute("equipment", workshopElement);
+        model.addAttribute("workshop_element", workshopElement);
 
         Element element = elementRepo.findById(workshopElement
                         .getWorkshopEquipment().getId())
                 .orElseThrow();
-        model.addAttribute("element", element);
+//        model.addAttribute("element", element);
 
         Iterable<Element> elements_destination =
                 elementRepo.findElementDestinationAll(element.getId());
@@ -258,11 +258,15 @@ public class RepairController {
     private String takeElements(
             @RequestParam String path
     ) {
-        Iterable<Element> elements = elementRepo
-                .findAllByCategory(Category.ОБОРУДОВАНИЕ);
         WorkshopEquipment workshopEquipment = null;
+        WorkshopElement workshopElement = null;
         Set<WorkshopEquipment> workshopEquipmentSet = new HashSet<>();
         Set<WorkshopProxy> workshopProxies = new HashSet<>();
+        Set<WorkshopElement> workshopElements = new HashSet<>();
+
+        Iterable<Element> elements = elementRepo
+                .findAllByCategory(Category.ОБОРУДОВАНИЕ);
+        Iterable<Equipment> storageEquipments = storageEquipmentRepo.findAllWithLazy();
 
         for(Element e: elements) {
             workshopEquipment = workshopEquipmentRepo
@@ -282,8 +286,25 @@ public class RepairController {
                 workshopProxies.add(workshopProxy);
             }
         }
+
+        for (Equipment e : storageEquipments) {
+            workshopElement = workshopElementRepo
+                    .findById(e.getId())
+                    .orElse(new WorkshopElement());
+            workshopElement.setId(e.getId());
+            workshopElement.setPrefixInventoryNumber(
+                    String.valueOf(e.getPrefixInventoryNumber().getPrefix())
+            );
+            workshopElement.setInventoryNumber(e.getInventoryNumber());
+//            workshopElement.setWorkshopProxy(
+//                    workshopProxyRepo.findById(e.getId()).orElseThrow()
+//            );
+            workshopElements.add(workshopElement);
+        }
+
         workshopEquipmentRepo.saveAll(workshopEquipmentSet);
         workshopProxyRepo.saveAll(workshopProxies);
+        workshopElementRepo.saveAll(workshopElements);
 
 
 
@@ -328,6 +349,7 @@ public class RepairController {
         RepairCardOfEquipment repairCardOfEquipment = new RepairCardOfEquipment();
         repairCardOfEquipment.setWorkshopElement(workshopElement);
         repairCardOfEquipment.setRepairType(repairType);
+        repairCardOfEquipment.setEquipmentName(storageEquipment.getGood().getName());
         repairCardOfEquipmentRepo.save(repairCardOfEquipment);
 
         return "redirect:/workshop";
@@ -349,6 +371,7 @@ public class RepairController {
         storageEquipment.setCondition(condition);
         storageEquipmentRepo.save(storageEquipment);
 
+        // TODO заменить тайм-зону из настроек
         ZonedDateTime zonedDateTime = ZonedDateTime.of(
                 LocalDateTime.now(), ZoneId.of("UTC+8"));
 

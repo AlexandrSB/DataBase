@@ -1,6 +1,7 @@
 package com.example.restservice.storageData.storageDomain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -12,5 +13,6 @@ public class PrefixInventoryNumber {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Size(min = 6, max = 12)
     private String prefix;
 }

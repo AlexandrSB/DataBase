@@ -11,8 +11,8 @@
 
     <@se.header_2
         title = repair_card.repairType?capitalize + ": "
-        + workshopEquipment.inventoryNumber +
-        " [" + workshopEquipment.model + "]"
+        + workshop_element.inventoryNumber +
+        " [" + repair_card.equipment_name + "]"
         />
 
     <span>Начало ремонта: ${repair_card.beginRepairTimestamp!"none"}</span></br>
@@ -26,7 +26,7 @@
 
         <@se.input_hidden
             name = "storage_equipment_id"
-            value = workshopEquipment.id
+            value = workshop_element.id
             />
 
 
@@ -45,7 +45,7 @@
 
         <@se.input_hidden
                 name = "storage_equipment_id"
-                value = workshopEquipment.id
+                value = workshop_element.id
                 />
 
 

@@ -20,6 +20,9 @@ public class RepairCardOfEquipment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "equipment_name")
+    private String equipmentName;
+
     @Column(name = "repair_type")
     private  RepairType repairType;
 

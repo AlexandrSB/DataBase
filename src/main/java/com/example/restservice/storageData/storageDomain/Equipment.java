@@ -16,7 +16,6 @@ public class Equipment {
     @GeneratedValue
     private Long id;
 
-    @Size(max = 3)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "prefix_inv_number_id")
     private PrefixInventoryNumber prefixInventoryNumber;

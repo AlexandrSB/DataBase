@@ -15,6 +15,10 @@ public class WorkshopElement {
     @Id
     private Long id;
 
+    // TODO занести в базу данных
+    @Column(name = "prefix_inventory_number")
+    private String prefixInventoryNumber;
+
     @Column(name = "inventory_number")
     private String inventoryNumber;
 

@@ -26,7 +26,7 @@ public class WorkshopModule {
     private WorkshopUnit workshopUnit;
 
     @ManyToOne
-    @JoinColumn(name = "workshop_equipment_id")
+    @JoinColumn(name = "workshop_element_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private WorkshopElement workshopElement;

@@ -18,9 +18,11 @@
                 href_1 = "/workshop/repair"
                 href_1_name = "Ремонт"
             >
-                <#list in_repairs as ir>
-                    <p>${ir.workshopElement.inventoryNumber} -- name
-                        <a href="/workshop/repair_card/${ir.id}">card</a>
+                <#list repair_cards as rc>
+                    <p>${rc.workshopElement.prefixInventoryNumber!"none"}
+                        ${rc.workshopElement.inventoryNumber!"none"} --
+                        ${rc.equipmentName!"none"} --
+                        <a href="/workshop/repair_card/${rc.id}">card</a>
                     </p>
                 <#else>
                     <p>&ltnone&gt</p>

@@ -31,11 +31,17 @@ public class Proxy {
     private Category category;
 
     @ManyToOne
+    @JoinColumn(name = "parent_module_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Element module;
+
+    @ManyToOne
     @JoinColumn(name = "proxy_type_id")
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private ElementType elementType;
 
-    @ToString.Exclude
     @ManyToMany
     @JoinTable(
             name = "element_proxy",
@@ -46,15 +52,19 @@ public class Proxy {
                     @JoinColumn(name = "element_id")
             }
     )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Element> elements = new HashSet<>();
 
+    @OneToMany(mappedBy = "proxy")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "proxy")
-    private Set<ElementsComposite> elementsComposites = new HashSet<>();
+    private Set<ElementsComposite> elementsComposites =
+            new HashSet<>();
 
+
+    @OneToMany(mappedBy = "proxy")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "proxy")
     private Set<AttributeGroup> attributeGroups = new HashSet<>();
 }

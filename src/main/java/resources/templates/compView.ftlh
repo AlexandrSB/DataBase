@@ -2,6 +2,7 @@
 <#import "parts/constructor/simple_element.ftlh" as se />
 
 <@c.page>
+    <#assign path = "/element/view/${elem.id}">
 
     <@se.header_1 title = elem.name />
 
@@ -31,6 +32,22 @@
             button_name = "Add owner"
         />
 
+    </form>
+
+    <form method="get" id="proxy_category_id">
+
+        <@se.select_element
+            element_name = "proxy_category"
+            element_id = "proxy_category_select_id"
+            label = "Proxy category"
+            placeholder = "Proxy category"
+            elements_array = proxies_category
+            elements_attr = ""
+        />
+
+        <@se.button_send
+            button_name = "Choice category"
+        />
     </form>
 
     <form action="add_attribute" method="post" id="add_attributes">

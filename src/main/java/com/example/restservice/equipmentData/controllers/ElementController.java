@@ -105,6 +105,7 @@ public class ElementController {
     @GetMapping("/view/{elem_id}")
     public String showElement(
             @PathVariable String elem_id,
+            @RequestParam(required = false) String proxy_category,
             Model model
     ) {
 
@@ -124,8 +125,16 @@ public class ElementController {
         groups.addAll( groupRepo.findAllByParentId( 0L ));
         model.addAttribute( "nav", groups );
 
-        Iterable<Proxy> proxies_select = proxyRepo.findAll();
-        model.addAttribute("proxies_select", proxies_select);
+        model.addAttribute("proxies_category", Category.values());
+
+        if (proxy_category == null) {
+            Iterable<Proxy> proxies = proxyRepo.findAll();
+            model.addAttribute("proxies_select", proxies);
+        } else {
+            Iterable<Proxy> proxies_select = proxyRepo
+                    .findAllByCategory(Category.valueOf(proxy_category));
+            model.addAttribute("proxies_select", proxies_select);
+        }
 
         Iterable<Proxy> proxies = elem.getProxies();
         model.addAttribute("proxies", proxies);
@@ -142,26 +151,13 @@ public class ElementController {
         return "compView";
     }
 
-//    @GetMapping("/proxy/edit_proxy")
-//    private String editProxy(
-//            Model model
-//    ) {
-//
-//        Iterable<Proxy> proxies = proxyRepo.findAll();
-//        model.addAttribute("proxes", proxies);
-//
-//
-//
-//        return "equipment_edit_proxy";
-//    }
-//
     @PostMapping("/add_element")
     public String addElement(
 //            @RequestParam( required = false ) String proxy_name,
             @RequestParam String this_category,
-            @RequestParam String group_name,
             @RequestParam String element_name,
             @RequestParam String description,
+            @RequestParam String group_name,
             @RequestParam String element_type,
             Model model) {
 
@@ -194,12 +190,21 @@ public class ElementController {
             Model model
     ) {
 
-        Optional<Proxy> proxy = proxyRepo.findByName( proxy_name );
-        Optional<Element> element = elementRepo.findById(
+        Proxy proxy = proxyRepo
+                .findByName( proxy_name )
+                .orElseThrow();
+        Element element = elementRepo
+                .findById(
                 Long.valueOf(thisElementId)
-        );
-        element.get().addProxy(proxy.get());
-        elementRepo.save( element.get() );
+        )
+                .orElseThrow();
+        element.addProxy(proxy);
+        elementRepo.save(element);
+
+        if (proxy.getModule() == null) {
+            proxy.setModule(element);
+        }
+        proxyRepo.save(proxy);
 
         return "redirect:/element/view/" + thisElementId;
     }

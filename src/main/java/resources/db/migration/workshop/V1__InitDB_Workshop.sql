@@ -107,7 +107,8 @@ ALTER TABLE IF EXISTS public.workshop_proxy
 CREATE TABLE IF NOT EXISTS public.workshop_element
 (
     id bigint NOT NULL,
-    inventory_number            character varying(255)
+    prefix_inventory_number     character varying(12),
+    inventory_number            character varying(50)
         COLLATE pg_catalog."default",
     proxy_id                    bigint,
     equipment_id                bigint,
@@ -130,10 +131,11 @@ ALTER TABLE IF EXISTS public.workshop_element
 -- DROP TABLE IF EXISTS public.repair_card_of_equipment;
 CREATE TABLE IF NOT EXISTS public.repair_card_of_equipment
 (
-    id uuid NOT NULL,
-    begin_repair_timestamp timestamp(6) with time zone,
-    end_repair_timestamp timestamp(6) with time zone,
-    repair_type smallint,
+    id                      uuid NOT NULL,
+    equipment_name          character varying (255),
+    begin_repair_timestamp  timestamp(6) with time zone,
+    end_repair_timestamp    timestamp(6) with time zone,
+    repair_type             smallint,
     workshop_element_id bigint,
     CONSTRAINT repair_card_of_equipment_pkey PRIMARY KEY (id),
     CONSTRAINT fkat107puy91fjk7vn42srmoffg FOREIGN KEY (workshop_element_id)
