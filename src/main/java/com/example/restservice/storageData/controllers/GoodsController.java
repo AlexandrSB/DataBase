@@ -150,24 +150,14 @@ public class GoodsController {
 
         Set<Good> goodSet = new HashSet<>();
 
-        Iterable<Element> equipment = elementRepo.findAll();
+        Iterable<Proxy> proxies = proxyRepo.findAll();
 
-        for (Element e : equipment) {
-            if(e.getProxies().size() == 0) {
-//                Good good = new Good();
-//                good.setId(e.getId());
-//                good.setName(e.getName());
-//                good.setCategory(e.getCategory());
-//                goodSet.add(good);
-                continue;
-            }
-            for (Proxy ep: e.getProxies()) {
-                Good good = new Good();
-                good.setId(ep.getId());
-                good.setName(ep.getName());
-                good.setCategory(e.getCategory());
-                goodSet.add(good);
-            }
+        for (Proxy ep: proxies) {
+            Good good = new Good();
+            good.setId(ep.getId());
+            good.setName(ep.getName());
+            good.setCategory(ep.getCategory());
+            goodSet.add(good);
         }
 
         goodsRepo.saveAll(goodSet);

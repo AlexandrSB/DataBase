@@ -129,13 +129,13 @@ public class RepairController {
                 .orElseThrow();
         model.addAttribute("repair_card", repairCardOfEquipment);
 
-        WorkshopElement workshopElement = repairCardOfEquipment.getWorkshopElement();
+        WorkshopElement workshopElement = repairCardOfEquipment
+                .getWorkshopElement();
         model.addAttribute("workshop_element", workshopElement);
 
-        Element element = elementRepo.findById(workshopElement
-                        .getWorkshopEquipment().getId())
-                .orElseThrow();
-//        model.addAttribute("element", element);
+        Proxy proxy = proxyRepo.findById(workshopElement.getId()).orElseThrow();
+        Element element = proxy.getModule();
+        model.addAttribute("element", element);
 
         Iterable<Element> elements_destination =
                 elementRepo.findElementDestinationAll(element.getId());
@@ -327,21 +327,26 @@ public class RepairController {
         storageEquipment.setCondition(condition);
         storageEquipmentRepo.save(storageEquipment);
 
-        WorkshopUnit workshopUnit = workshopUnitRepo.findByName(
-                storageEquipment.getGood().getName()
-                )
-                .orElse(new WorkshopUnit());
-        if (workshopUnit.getId() == null) {
-            workshopUnit.setId(storageEquipment.getGood().getId());
-            workshopUnit.setName(storageEquipment.getGood().getName());
-            workshopUnitRepo.save(workshopUnit);
-        }
-
+//        WorkshopUnit workshopUnit = workshopUnitRepo.findByName(
+//                storageEquipment.getGood().getName()
+//                )
+//                .orElse(new WorkshopUnit());
+//        if (workshopUnit.getId() == null) {
+//            workshopUnit.setId(storageEquipment.getGood().getId());
+//            workshopUnit.setName(storageEquipment.getGood().getName());
+//            workshopUnitRepo.save(workshopUnit);
+//        }
+//
         WorkshopElement workshopElement =
-                workshopElementRepo.findByInventoryNumber(storageEquipment.getInventoryNumber())
+                workshopElementRepo.findByInventoryNumber(
+                        storageEquipment.getInventoryNumber()
+                        )
                         .orElse(new WorkshopElement());
         if(workshopElement.getId() == null) {
-            workshopElement.setId(storageEquipment.getId());
+            workshopElement.setId(storageEquipment.getGood().getId());
+            workshopElement.setPrefixInventoryNumber(
+		            storageEquipment.getPrefixInventoryNumber().getPrefix()
+            );
             workshopElement.setInventoryNumber(storageEquipment.getInventoryNumber());
             workshopElementRepo.save(workshopElement);
         }

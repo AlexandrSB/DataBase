@@ -6,7 +6,7 @@
 <@c.page>
 
     <@se.header_1
-        title = "Ремонт: " + repair_card.workshopElement.model
+        title = "Ремонт: " + repair_card.equipmentName
         />
 
     <@se.header_2
@@ -115,14 +115,20 @@
                                         <div class="row g-1">
                                             <div class="col-3 ">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="my_checkboxes" value=${cw.id}>
-                                                    <label class="form-check-label" for="flexSwitchCheckDefault">${cw.notation!"none"}</label>
+                                                    <input class="form-check-input" type="checkbox"
+                                                           id="flexSwitchCheckDefault" name="my_checkboxes"
+                                                           value=${cw.id}>
+                                                    <label
+                                                            class="form-check-label" for="flexSwitchCheckDefault">
+                                                        ${cw.notation!"none"}
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <#if elements_composite?has_content>
                                             <div class="col-4">
-                                                <select class="form-control" id="repair_component_id" name="repair_component">
+                                                <select class="form-control" id="repair_component_id"
+                                                        name="my_checkboxes">
                                                     <#list elements_composite as e>
                                                         <#list e.proxies as p>
                                                             <#if p??>

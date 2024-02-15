@@ -17,7 +17,7 @@ public interface ElementRepo extends CrudRepository<Element, Long> {
             SELECT e
             FROM Element e
                 LEFT JOIN FETCH e.groups g
-            ORDER BY e.category, g.id, e.name
+            ORDER BY e.category, e.elementType, e.name
             """)
     Iterable<Element> findAll();
 

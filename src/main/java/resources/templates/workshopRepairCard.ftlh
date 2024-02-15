@@ -11,8 +11,10 @@
 
     <@se.header_2
         title = repair_card.repairType?capitalize + ": "
-        + workshop_element.inventoryNumber +
-        " [" + repair_card.equipment_name + "]"
+        + repair_card.equipmentName
+        + "[" + workshop_element.prefixInventoryNumber
+        + workshop_element.inventoryNumber
+        + "]"
         />
 
     <span>Начало ремонта: ${repair_card.beginRepairTimestamp!"none"}</span></br>
@@ -76,8 +78,10 @@
                     <span>${rcom.workshopModule.name}</span>
                     <ul>
                         <#list consumption_of_materials as com>
-                            <#if com.workshopModule.name == rcom.workshopModule.name>
-                                <li><span>${com} ${com.workshopModule.name}</span></li>
+                            <#if com.workshopModule.id == rcom.workshopModule.id>
+                                <#if com.typeOfSparePart??>
+                                    <li><span>${com.quantityOfMaterial!"none"} ${com.typeOfSparePart.name}</span></li>
+                                </#if>
                             </#if>
                         </#list>
                     </ul>
