@@ -57,29 +57,12 @@ public class ProxyController {
 
 
     @GetMapping("/proxy")
-    public String proxy(
+    public String viewProxy(
             Model model
     ) {
 
         Iterable<Proxy> proxies = proxyRepo.findAll();
         model.addAttribute("proxies", proxies);
-
-        Iterable<AttributeDictionary> attributes =
-                attributeDictionaryRepo.findAll();
-        model.addAttribute( "attributes", attributes );
-
-        Iterable<UnitDictionary> unit_dictionaries =
-                unitDictionaryRepo.findAll();
-        model.addAttribute( "unit_dic", unit_dictionaries );
-
-        Iterable<AttributeValueDictionary> attributeValues =
-                attributeValueDictionaryRepo.findAll();
-        model.addAttribute( "attributeValues", attributeValues );
-
-        Iterable<AttributeGroupDictionary> attributeGroups =
-                attributeGroupDictionaryRepo.findAll();
-        model.addAttribute("attr_groups", attributeGroups);
-
 
         return "element_proxy";
     }

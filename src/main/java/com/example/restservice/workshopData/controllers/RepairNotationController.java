@@ -1,6 +1,8 @@
 package com.example.restservice.workshopData.controllers;
 
+import com.example.restservice.equipmentData.equipmentDomain.Element;
 import com.example.restservice.equipmentData.equipmentDomain.Proxy;
+import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ProxyRepo;
 import com.example.restservice.workshopData.workshopDomain.*;
 import com.example.restservice.workshopData.workshopRepos.*;
@@ -24,6 +26,9 @@ public class RepairNotationController {
 
     @Autowired
     private ConsumptionOfMaterialRepo consumptionOfMaterialRepo;
+
+    @Autowired
+    private ElementRepo elementRepo;
 
     @Autowired
     private ProxyRepo proxyRepo;
@@ -52,7 +57,7 @@ public class RepairNotationController {
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
             @RequestParam String repair_notation_name,
-            @RequestParam String element_name,
+            @RequestParam(required = false) String element_name,
             @RequestParam String operation_type_name
     ) {
 
@@ -69,17 +74,17 @@ public class RepairNotationController {
                 .findById(unitId)
                 .orElseThrow();
 
-        Optional<Proxy> proxy = proxyRepo
+        Optional<Element> element = elementRepo
                 .findByName(element_name);
 
         SparePart sparePart = null;
-        if(proxy.isPresent()) {
+        if(element.isPresent()) {
             sparePart = sparePartRepo
-                    .findByName(proxy.get().getName())
+                    .findByName(element.get().getName())
                     .orElse(new SparePart());
             if (sparePart.getName() == null) {
-                sparePart.setId(proxy.get().getId());
-                sparePart.setName(proxy.get().getName());
+                sparePart.setId(element.get().getId());
+                sparePart.setName(element.get().getName());
                 sparePartRepo.save(sparePart);
             }
         }
@@ -103,15 +108,29 @@ public class RepairNotationController {
 
     @PostMapping("check_operation")
     private String checkOperation(
+            @RequestParam String path,
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
-            @RequestParam(required = false) List<String> my_checkboxes,
-            @RequestParam(required = false) List<String> quantity_of_spare
+            @RequestParam(required = false) String completed_work_id,
+            @RequestParam(required = false) String spare_type_name,
+            @RequestParam(required = false, defaultValue = "0") String quantity_of_spare
     ) {
+        if (completed_work_id == null) {
+            return "redirect:" + path;
+        }
         UUID repairCardUUID = UUID.fromString(repair_card_id);
         Long unitId = Long.valueOf(unit_id);
-        List<ConsumptionOfMaterial> consumptionOfMaterialSet = new ArrayList<>();
-        Long comId;
+        Long cwId = Long.valueOf(completed_work_id);
+        Integer quantityOfSpare = Integer.valueOf(quantity_of_spare);
+        TypeOfSparePart typeOfSparePart = null;
+
+        Element element = elementRepo
+                .findById(unitId)
+                .orElseThrow();
+
+        CompletedWork completedWork = completedWorkRepo
+                .findById(cwId)
+                .orElseThrow();
 
         RepairCardOfEquipment repairCardOfEquipment =
                 repairCardOfEquipmentRepo
@@ -134,35 +153,42 @@ public class RepairNotationController {
             repairCardOfModuleRepo.save(repairCardOfModule);
         }
 
-        CompletedWork completedWork = null;
+        SparePart sparePart = sparePartRepo
+                .findById(unitId)
+                .orElse(new SparePart());
+        if (sparePart.getId() == null) {
+            sparePart.setId(unitId);
+            sparePart.setName(element.getName());
+            sparePartRepo.save(sparePart);
+        }
 
-        //TODO правильно обработать массив
-        // (выполненные_работы_id, количество запчастей ...)
-//        for (String s : my_checkboxes) {
-        int j = 0;
-        for(int i = 0; i < my_checkboxes.size(); i += 2) {
-            j = i;
-            comId = Long.valueOf(my_checkboxes.get(i));
-
-            completedWork = completedWorkRepo
-                    .findById(comId)
+        if(spare_type_name != null) {
+            Proxy proxy = proxyRepo
+                    .findByName(spare_type_name)
                     .orElseThrow();
+
+            typeOfSparePart = typeOfSparePartRepo
+                    .findByName(spare_type_name)
+                    .orElse(new TypeOfSparePart());
+            if (typeOfSparePart.getId() == null) {
+                typeOfSparePart.setId(proxy.getId());
+                typeOfSparePart.setName(spare_type_name);
+                typeOfSparePart.setSparePart(sparePart);
+                typeOfSparePartRepo.save(typeOfSparePart);
+            }
+        }
 
             ConsumptionOfMaterial consumptionOfMaterial =
                     new ConsumptionOfMaterial();
             consumptionOfMaterial.setCompletedWork(completedWork);
             consumptionOfMaterial.setWorkshopModule(workshopModule);
             consumptionOfMaterial.setRepairCardOfModule(repairCardOfModule);
-            consumptionOfMaterial.setQuantityOfMaterial(
-                    Integer.valueOf(my_checkboxes.get(++j))
-            );
+            consumptionOfMaterial.setQuantityOfMaterial(quantityOfSpare);
+            if(typeOfSparePart != null) {
+                consumptionOfMaterial.setTypeOfSparePart(typeOfSparePart);
+            }
+            consumptionOfMaterialRepo.save(consumptionOfMaterial);
 
-            consumptionOfMaterialSet.add(consumptionOfMaterial);
-        }
-        consumptionOfMaterialRepo.saveAll(consumptionOfMaterialSet);
-
-        return "redirect:/workshop/repair_card/"
-                + repair_card_id + "/"
-                + unit_id;
+        return "redirect:" + path;
     }
 }

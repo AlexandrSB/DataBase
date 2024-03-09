@@ -11,15 +11,36 @@
         <li>
             <a class="dropdown-item" href="/element/0">Все оборудование</a>
         </li>
-        <#if nav??>
-            <#list nav as n>
-                <li>
-                    <a class="dropdown-item" href="/element/${n.id}">${n.name}</a>
-                </li>
-            <#else>
-                <span>***</span>
-            </#list>
-        </#if>
+        <li>
+            <a class="dropdown-item" href="/element/1">Оргтехника</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/element/2">Компьютеры</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/element/3">Мониторы</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/element/4">Компоненты</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/element/5">ИБП</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/element/6">Торговое оборудование</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/element/7">Расходные материалы</a>
+        </li>
+<!--        <#if nav??>-->
+<!--            <#list nav as n>-->
+<!--                <li>-->
+<!--                    <a class="dropdown-item" href="/element/${n.id}">${n.name}</a>-->
+<!--                </li>-->
+<!--            <#else>-->
+<!--                <span>***</span>-->
+<!--            </#list>-->
+<!--        </#if>-->
     </ul>
 </li>
 

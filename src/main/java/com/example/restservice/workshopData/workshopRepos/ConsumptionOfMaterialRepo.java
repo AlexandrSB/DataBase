@@ -17,6 +17,7 @@ public interface ConsumptionOfMaterialRepo extends CrudRepository<ConsumptionOfM
                LEFT JOIN FETCH com.workshopModule AS wm
                LEFT JOIN FETCH com.completedWork AS cw
                LEFT JOIN FETCH com.repairCardOfModule AS rcom
+               LEFT JOIN FETCH com.typeOfSparePart AS tosp
             WHERE wm.id = :moduleId
             """)
     Iterable<ConsumptionOfMaterial> findAllWithLazy(UUID moduleId);

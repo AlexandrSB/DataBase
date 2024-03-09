@@ -26,4 +26,9 @@ public class SparePart {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<TypeOfSparePart> typeOfSparePartSet = new HashSet<>();
+
+    public SparePart addTypeOfSparePart(TypeOfSparePart tosp) {
+        this.typeOfSparePartSet.add(tosp);
+        return this;
+    }
 }

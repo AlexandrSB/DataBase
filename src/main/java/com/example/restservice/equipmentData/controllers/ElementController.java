@@ -103,9 +103,8 @@ public class ElementController {
     }
 
     @GetMapping("/view/{elem_id}")
-    public String showElement(
+    public String viewElement(
             @PathVariable String elem_id,
-            @RequestParam(required = false) String proxy_category,
             Model model
     ) {
 
@@ -121,34 +120,41 @@ public class ElementController {
                 elementRepo.findElementDestination(elem.getId());
         model.addAttribute("elem_destination", elements_destination);
 
-        Set<Group> groups = new HashSet<>();
-        groups.addAll( groupRepo.findAllByParentId( 0L ));
-        model.addAttribute( "nav", groups );
+        Iterable<Proxy> proxies = elem.getProxies();
+        model.addAttribute("proxies", proxies);
 
-        model.addAttribute("proxies_category", Category.values());
+        return "element_viewElement";
+    }
+
+    @GetMapping("/edit/{elem_id}")
+    public String editElement(
+            @PathVariable String elem_id,
+            @RequestParam(required = false) String proxy_category,
+            Model model
+    ) {
+
+        Element elem = elementRepo.findById(Long.valueOf( elem_id ))
+                .orElseThrow();
+        model.addAttribute( "elem", elem );
+
+        model.addAttribute("element_category",
+                Category.values());
+        model.addAttribute("element_type",
+                elementTypeRepo.findAll());
+
+        Iterable<Proxy> proxies = elem.getProxies();
+        model.addAttribute("proxies", proxies);
 
         if (proxy_category == null) {
-            Iterable<Proxy> proxies = proxyRepo.findAll();
-            model.addAttribute("proxies_select", proxies);
+            Iterable<Proxy> pr = proxyRepo.findAll();
+            model.addAttribute("proxies_select", pr);
         } else {
             Iterable<Proxy> proxies_select = proxyRepo
                     .findAllByCategory(Category.valueOf(proxy_category));
             model.addAttribute("proxies_select", proxies_select);
         }
 
-        Iterable<Proxy> proxies = elem.getProxies();
-        model.addAttribute("proxies", proxies);
-
-        Iterable<Attribute> attributes = attributeRepo.findAll();
-        model.addAttribute( "attributes", attributes );
-
-        Iterable<Unit> units = unitRepo.findAll();
-        model.addAttribute( "units", units );
-
-        Iterable<AttributeValue> attributeValues = attributeValueRepo.findAll();
-        model.addAttribute( "attributeValues", attributeValues );
-
-        return "compView";
+        return "element_editElement";
     }
 
     @PostMapping("/add_element")
@@ -183,8 +189,9 @@ public class ElementController {
         return "redirect:/element/" + group.getId();
     }
 
-    @PostMapping("/view/add_attribute")
+    @PostMapping("/edit/add_attribute")
     private String addAttribute(
+            @RequestParam String path,
             @RequestParam String thisElementId,
             @RequestParam String proxy_name,
             Model model
@@ -206,11 +213,12 @@ public class ElementController {
         }
         proxyRepo.save(proxy);
 
-        return "redirect:/element/view/" + thisElementId;
+        return "redirect:" + path;
     }
 
-    @PostMapping("/view/link_elements")
+    @PostMapping("/edit/link_elements")
     private String linkElements(
+            @RequestParam String path,
             @RequestParam String element_destination,
             @RequestParam String element_source_id,
             @RequestParam String proxy_name,
@@ -226,7 +234,7 @@ public class ElementController {
         Proxy proxy = proxyRepo.findByName(proxy_name).get();
 
         if (element_destination.equals(elementSource)) {
-            return "redirect:/element/view/" + element_source_id;
+            return "redirect:" + path;
         }
 
         ElementsComposite elementsComposite = new ElementsComposite();
@@ -235,6 +243,84 @@ public class ElementController {
         elementsComposite.setProxy(proxy);
         elementsCompositeRepo.save( elementsComposite );
 
-        return "redirect:/element/view/" + element_source_id;
+        return "redirect:" + path;
+    }
+
+    @PostMapping("/edit/changeElementName")
+    private String changeElementName(
+            @RequestParam String path,
+            @RequestParam String element_id,
+            @RequestParam String element_name
+    ) {
+        if (element_name.isBlank()) {
+            return "redirect:" + path;
+        }
+
+        Long elementId = Long.valueOf(element_id);
+
+        Element element = elementRepo.findById(elementId)
+                .orElseThrow();
+        element.setName(element_name);
+        elementRepo.save(element);
+
+        return "redirect:" + path;
+    }
+
+    @PostMapping("/edit/changeElementType")
+    private String changeElementType(
+            @RequestParam String path,
+            @RequestParam String element_id,
+            @RequestParam String element_type
+    ) {
+        Long elementId = Long.valueOf(element_id);
+
+        ElementType elementType = elementTypeRepo
+                .findByType(element_type)
+                .orElseThrow();
+
+        Element element = elementRepo.findById(elementId)
+                .orElseThrow();
+        element.setElementType(elementType);
+        elementRepo.save(element);
+
+        return "redirect:" + path;
+    }
+
+    @PostMapping("/edit/changeElementCategory")
+    private String changeElementCategory(
+            @RequestParam String path,
+            @RequestParam String element_id,
+            @RequestParam String element_category
+    ) {
+        Long elementId = Long.valueOf(element_id);
+
+        Category category = Category.valueOf(element_category);
+
+        Element element = elementRepo.findById(elementId)
+                .orElseThrow();
+        element.setCategory(category);
+        elementRepo.save(element);
+
+        return "redirect:" + path;
+    }
+
+    @PostMapping("/edit/changeElementDescription")
+    private String changeElementDescription(
+            @RequestParam String path,
+            @RequestParam String element_id,
+            @RequestParam String description
+    ) {
+        if (description.isBlank()) {
+            return "redirect:" + path;
+        }
+
+        Long elementId = Long.valueOf(element_id);
+
+        Element element = elementRepo.findById(elementId)
+                .orElseThrow();
+        element.setDescription(description);
+        elementRepo.save(element);
+
+        return "redirect:" + path;
     }
 }

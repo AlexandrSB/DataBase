@@ -2,6 +2,7 @@ package com.example.restservice.workshopData.controllers;
 
 import com.example.restservice.equipmentData.equipmentDomain.Category;
 import com.example.restservice.equipmentData.equipmentDomain.Element;
+import com.example.restservice.equipmentData.equipmentDomain.ElementsComposite;
 import com.example.restservice.equipmentData.equipmentDomain.Proxy;
 import com.example.restservice.equipmentData.equipmentRepos.ElementRepo;
 import com.example.restservice.equipmentData.equipmentRepos.ElementsCompositeRepo;
@@ -13,6 +14,7 @@ import com.example.restservice.storageData.storageRepos.EquipmentRepo;
 import com.example.restservice.storageData.storageRepos.GoodsRepo;
 import com.example.restservice.workshopData.workshopDomain.*;
 import com.example.restservice.workshopData.workshopRepos.*;
+import com.example.restservice.workshopData.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,8 +135,13 @@ public class RepairController {
                 .getWorkshopElement();
         model.addAttribute("workshop_element", workshopElement);
 
-        Proxy proxy = proxyRepo.findById(workshopElement.getId()).orElseThrow();
-        Element element = proxy.getModule();
+        // TODO это нормально?
+        Proxy proxy = proxyRepo
+                .findByName(repairCardOfEquipment.getEquipmentName())
+                .orElseThrow();
+        Element element = elementRepo
+                .findById(proxy.getModule().getId())
+                .orElseThrow();
         model.addAttribute("element", element);
 
         Iterable<Element> elements_destination =
@@ -254,6 +261,7 @@ public class RepairController {
         return "workshopClearing";
     }
 
+    // TODO изменить функцию по заполнению Мастерской
     @PostMapping("take_elements")
     private String takeElements(
             @RequestParam String path
@@ -263,27 +271,51 @@ public class RepairController {
         Set<WorkshopEquipment> workshopEquipmentSet = new HashSet<>();
         Set<WorkshopProxy> workshopProxies = new HashSet<>();
         Set<WorkshopElement> workshopElements = new HashSet<>();
+        List<WorkshopModule> workshopModules = new ArrayList<>();
+        List<WorkshopUnit> workshopUnits = new ArrayList<>();
 
-        Iterable<Element> elements = elementRepo
-                .findAllByCategory(Category.ОБОРУДОВАНИЕ);
-        Iterable<Equipment> storageEquipments = storageEquipmentRepo.findAllWithLazy();
+        Iterable<Element> elements = elementRepo.findAll();
+        Iterable<Equipment> storageEquipments =
+                storageEquipmentRepo.findAllWithLazy();
 
         for(Element e: elements) {
-            workshopEquipment = workshopEquipmentRepo
-                    .findById(e.getId())
-                    .orElse(new WorkshopEquipment());
-            workshopEquipment.setId(e.getId());
-            workshopEquipment.setName(e.getName());
-            workshopEquipmentSet.add(workshopEquipment);
-            
-            for (Proxy p : e.getProxies()) {
-                WorkshopProxy workshopProxy = workshopProxyRepo
-                        .findById(p.getId())
-                        .orElse(new WorkshopProxy());
-                workshopProxy.setId(p.getId());
-                workshopProxy.setName(p.getName());
-                workshopProxy.setWorkshopEquipment(workshopEquipment);
-                workshopProxies.add(workshopProxy);
+            if (e.getCategory().equals(Category.ОБОРУДОВАНИЕ)) {
+                workshopEquipment = workshopEquipmentRepo
+                        .findById(e.getId())
+                        .orElse(new WorkshopEquipment());
+                workshopEquipment = WorkshopEquipmentService
+                        .fullWorkshopEquipment(
+                                workshopEquipment, e.getId(), e.getName()
+                        );
+                workshopEquipmentSet.add(workshopEquipment);
+
+                for (Proxy p : e.getProxies()) {
+                    WorkshopProxy workshopProxy = workshopProxyRepo
+                            .findById(p.getId())
+                            .orElse(new WorkshopProxy());
+                    workshopProxy.setId(p.getId());
+                    workshopProxy.setName(p.getName());
+                    workshopProxy.setWorkshopEquipment(workshopEquipment);
+                    workshopProxies.add(workshopProxy);
+                }
+            } else if (e.getCategory().equals(Category.МОДУЛЬ)) {
+                WorkshopUnit wu = workshopUnitRepo
+                        .findById(e.getId())
+                        .orElse(new WorkshopUnit());
+                wu.setId(e.getId());
+                wu.setName(e.getName());
+                workshopUnits.add(wu);
+
+//                for (Proxy p: e.getProxies()) {
+//                    WorkshopModule workshopModule = workshopModuleRepo
+//                            .findById(p.getId())
+//                            .orElse(new WorkshopModule());
+//                    workshopModule.setName(p.getName());
+//                    workshopModule.setWorkshopUnit(wu);
+//                    workshopModules.add(workshopModule);
+//                }
+//            } else if (e.getCategory().equals(Category.ЗАПЧАСТЬ)) {
+//
             }
         }
 
@@ -304,6 +336,8 @@ public class RepairController {
 
         workshopEquipmentRepo.saveAll(workshopEquipmentSet);
         workshopProxyRepo.saveAll(workshopProxies);
+        workshopUnitRepo.saveAll(workshopUnits);
+        workshopModuleRepo.saveAll(workshopModules);
         workshopElementRepo.saveAll(workshopElements);
 
 
@@ -343,7 +377,7 @@ public class RepairController {
                         )
                         .orElse(new WorkshopElement());
         if(workshopElement.getId() == null) {
-            workshopElement.setId(storageEquipment.getGood().getId());
+            workshopElement.setId(storageEquipment.getId());
             workshopElement.setPrefixInventoryNumber(
 		            storageEquipment.getPrefixInventoryNumber().getPrefix()
             );

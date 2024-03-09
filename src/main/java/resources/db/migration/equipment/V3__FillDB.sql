@@ -94,7 +94,7 @@ INSERT INTO public.element VALUES (6, 'DRAM', '', NULL, 1, 11);
 INSERT INTO public.element VALUES (7, 'MK', '', NULL, 1, 11);
 INSERT INTO public.element VALUES (8, 'Фотовал', '', NULL, 2, 11);
 INSERT INTO public.element VALUES (54, 'Canon MF4410', '', NULL, 0, 0);
-INSERT INTO public.element VALUES (55, 'Магнитный вал', '', NULL, 1, 11);
+INSERT INTO public.element VALUES (55, 'Магнитный вал', '', NULL, 2, 11);
 INSERT INTO public.element VALUES (56, 'Картридж Canon/HP 737', '', NULL, 1, 11);
 INSERT INTO public.element VALUES (57, 'Картридж Canon/HP 728', '', NULL, 1, 11);
 INSERT INTO public.element VALUES (58, 'Картридж Kyocera TK-1110', 'Тонер-картридж Kyocera TK-1110 для FS-1040/1020MFP/1120MFP (1T02M50NX1)', NULL, 1, 11);

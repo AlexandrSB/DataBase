@@ -2,12 +2,10 @@
 <#import "parts/constructor/simple_element.ftlh" as se />
 
 <@c.page>
-    <#assign path = "/proxy/${proxy.id}">
+    <#assign path = "/proxy/${proxy.id}" />
     <#include "parts/navbar/navbar_proxy_breadcramb.ftlh" />
 
-    <@se.header_1
-        title = proxy.name
-        />
+    <@se.header_1 title = proxy.name />
 
 
     <form action="/changeProxyName" method="post" id="changeProxyNameId">
@@ -17,8 +15,8 @@
         />
 
         <@se.input_hidden
-        name = "proxy_id"
-        value = proxy.id
+            name = "proxy_id"
+            value = proxy.id
         />
 
         <@se.input_element

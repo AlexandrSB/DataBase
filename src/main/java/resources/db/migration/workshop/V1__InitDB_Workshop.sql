@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS public.completed_work
     id bigint NOT NULL,
     notation character varying(255) COLLATE pg_catalog."default",
     spare_part_id bigint,
-    consumption_of_materials_id bigint,
     repair_type character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT completed_work_pkey PRIMARY KEY (id),
     CONSTRAINT fk5bt0087bqlft5c91urjg7u0o9 FOREIGN KEY (spare_part_id)

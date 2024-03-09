@@ -2,100 +2,11 @@
 <#import "parts/constructor/simple_element.ftlh" as se />
 
 <@c.page>
-    <#assign path = "/element/view/${elem.id}">
+    <#assign path = "/element/view/${elem.id}"/>
+    <a href="/element/edit/${elem.id}">Edit element</a>
 
     <@se.header_1 title = elem.name />
 
-    <form action="link_elements" method="post" id="link_elements">
-
-        <input type="text" name="element_source_id" value="${elem.id}" hidden="hidden" />
-
-        <@se.select_element
-            element_name = "element_destination"
-            element_id = "element_id"
-            label = "Component"
-            placeholder = "Component Name"
-            elements_array = elements
-            elements_attr = "name"
-        />
-
-        <@se.select_element
-            element_name = "proxy_name"
-            element_id = "proxy_id"
-            label = "Proxy of component"
-            placeholder = "Proxy Name"
-            elements_array = proxies
-            elements_attr = "name"
-        />
-
-        <@se.button_send
-            button_name = "Add owner"
-        />
-
-    </form>
-
-    <form method="get" id="proxy_category_id">
-
-        <@se.select_element
-            element_name = "proxy_category"
-            element_id = "proxy_category_select_id"
-            label = "Proxy category"
-            placeholder = "Proxy category"
-            elements_array = proxies_category
-            elements_attr = ""
-        />
-
-        <@se.button_send
-            button_name = "Choice category"
-        />
-    </form>
-
-    <form action="add_attribute" method="post" id="add_attributes">
-
-    <input type="text"
-           name="thisElementId"
-           value="${elem.id}"
-           hidden="hidden"
-    />
-
-    <@se.select_element
-        element_name = "proxy_name"
-        element_id = "proxy_name"
-        label = "Proxy select"
-        placeholder = "Insert proxy name"
-        elements_array = proxies_select
-        elements_attr = "name"
-    />
-
-    <@se.button_send
-        button_name = "Add proxy"
-    />
-
-    </form>
-
-
-    <form action="/addProxy" method="post" id="addProxyId">
-        <@se.input_hidden
-            name = "path"
-            value = "/element/view/" + elem.id
-        />
-
-        <@se.input_element
-            element_name = "proxy_name"
-            element_id = "proxy_name_id"
-            label = "Proxy name"
-            placeholder = "Input proxy name"
-        />
-
-        <@se.button_send
-            button_name = "Create proxy"
-        />
-    </form>
-
-<a href="/proxy">Edit Proxy</a></br>
-
-
-    <span>Группы : </span>
     <ul class="nav nav-tabs">
         <#list elem.groups as g>
             <li class="nav-item">
