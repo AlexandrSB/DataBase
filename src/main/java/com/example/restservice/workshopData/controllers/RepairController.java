@@ -16,6 +16,7 @@ import com.example.restservice.workshopData.workshopDomain.*;
 import com.example.restservice.workshopData.workshopRepos.*;
 import com.example.restservice.workshopData.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +77,8 @@ public class RepairController {
 
     @Autowired
     private WorkshopUnitRepo workshopUnitRepo;
+    @Autowired
+    private TypeOfOperationRepo typeOfOperationRepo;
 
     @GetMapping
     public String workshop(Model model) {
@@ -131,10 +134,6 @@ public class RepairController {
                 .orElseThrow();
         model.addAttribute("repair_card", repairCardOfEquipment);
 
-        WorkshopElement workshopElement = repairCardOfEquipment
-                .getWorkshopElement();
-        model.addAttribute("workshop_element", workshopElement);
-
         // TODO это нормально?
         Proxy proxy = proxyRepo
                 .findByName(repairCardOfEquipment.getEquipmentName())
@@ -152,10 +151,9 @@ public class RepairController {
                 repairCardOfModuleRepo.findByRepairCardId(repairCardId);
         model.addAttribute("repair_cards_of_modules", repairCardOfModules);
 
-        Iterable<ConsumptionOfMaterial> consumptionOfMaterials =
-                consumptionOfMaterialRepo.findAll();
-        model.addAttribute("consumption_of_materials", consumptionOfMaterials);
-
+        Iterable<TypeOfOperation> typeOfOperations =
+                typeOfOperationRepo.findAll();
+        model.addAttribute("type_of_operations", typeOfOperations);
         return "workshopRepairCard";
     }
 

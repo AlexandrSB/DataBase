@@ -29,7 +29,7 @@ public class RepairCardOfModule {
     @EqualsAndHashCode.Exclude
     private RepairCardOfEquipment repairCardOfEquipment;
 
-    @OneToMany(mappedBy = "repairCardOfModule")
+    @OneToMany(mappedBy = "repairCardOfModule", fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<ConsumptionOfMaterial> consumptionOfMaterials;

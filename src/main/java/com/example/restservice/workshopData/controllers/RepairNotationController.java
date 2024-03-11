@@ -54,6 +54,7 @@ public class RepairNotationController {
 
     @PostMapping("add_operation")
     private String addRepairNotation(
+            @RequestParam String path,
             @RequestParam String repair_card_id,
             @RequestParam String unit_id,
             @RequestParam String repair_notation_name,
@@ -101,9 +102,7 @@ public class RepairNotationController {
         typeOfOperation.setWorkshopUnit(workshopUnit);
         typeOfOperationRepo.save(typeOfOperation);
 
-        return "redirect:/workshop/repair_card/"
-                + repair_card_id +"/"
-                + unit_id;
+        return "redirect:" + path;
     }
 
     @PostMapping("check_operation")

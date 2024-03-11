@@ -14,8 +14,8 @@ public interface RepairCardOfModuleRepo extends CrudRepository<RepairCardOfModul
     @Query(value = """
             SELECT rcom
             FROM RepairCardOfModule rcom
-                LEFT JOIN FETCH repairCardOfEquipment rcoe
-                LEFT JOIN FETCH workshopModule wm
+                LEFT JOIN FETCH rcom.repairCardOfEquipment rcoe
+                LEFT JOIN FETCH rcom.workshopModule wm
             WHERE wm.id = :moduleId 
             AND rcoe.id = :repairCardUUID
             """)
@@ -25,8 +25,9 @@ public interface RepairCardOfModuleRepo extends CrudRepository<RepairCardOfModul
     @Query(value = """
             SELECT rcom
             FROM RepairCardOfModule rcom
-                LEFT JOIN FETCH repairCardOfEquipment rcoe
-                LEFT JOIN FETCH workshopModule wm
+                LEFT JOIN FETCH rcom.repairCardOfEquipment rcoe
+                LEFT JOIN FETCH rcom.workshopModule wm
+                LEFT JOIN FETCH rcom.consumptionOfMaterials com
             WHERE rcoe.id = :repairCardUUID 
             """)
     Iterable<RepairCardOfModule> findByRepairCardId(UUID repairCardUUID);
