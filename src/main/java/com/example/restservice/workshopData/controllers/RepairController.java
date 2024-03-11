@@ -97,27 +97,34 @@ public class RepairController {
         Iterable<Element> element = elementRepo.findAllById(equipmentsId);
         model.addAttribute("workshop_equipment", element);
 
-        Iterable<Equipment> awaitingRepairs =
-                storageEquipmentRepo.getEquipmentByCondition(2L);
-        model.addAttribute("awaiting_repairs", awaitingRepairs);
-
         Iterable<RepairCardOfEquipment> inRepairs =
                 repairCardOfEquipmentRepo.getCardInRepair();
         model.addAttribute("repair_cards", inRepairs);
 
-        Iterable<Equipment> inDiagnostics =
-                storageEquipmentRepo.getEquipmentByCondition(6L);
-        model.addAttribute("in_diagnostics", inDiagnostics);
+//        Iterable<Equipment> inDiagnostics =
+//                storageEquipmentRepo.getEquipmentByCondition(6L);
+//        model.addAttribute("in_diagnostics", inDiagnostics);
+//
+//        Iterable<Equipment> inClearing =
+//                storageEquipmentRepo.getEquipmentByCondition(7L);
+//        model.addAttribute("in_clearing", inClearing);
+//
 
-        Iterable<Equipment> inClearing =
-                storageEquipmentRepo.getEquipmentByCondition(7L);
-        model.addAttribute("in_clearing", inClearing);
+        return "workshopRepair";
+    }
+
+    @GetMapping("/awaiting")
+    public String awaitingRepair(
+            Model model
+    ) {
+        Iterable<Equipment> awaitingRepairs =
+                storageEquipmentRepo.getEquipmentByCondition(2L);
+        model.addAttribute("awaiting_repairs", awaitingRepairs);
 
         Iterable<RepairType> repairTypes = List.of(RepairType.values());
         model.addAttribute("repair_types", repairTypes);
 
-
-        return "workshopWorkshop";
+        return "workshopAwaitingRepairs";
     }
 
     @GetMapping("/repair_card/{repair_card_id}")
