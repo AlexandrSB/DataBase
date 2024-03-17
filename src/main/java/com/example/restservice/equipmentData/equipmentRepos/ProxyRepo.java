@@ -32,4 +32,5 @@ public interface ProxyRepo extends CrudRepository<Proxy, Long> {
 			WHERE p.category = :category
 			""")
 	Iterable<Proxy> findAllByCategory(Category category);
+
 }

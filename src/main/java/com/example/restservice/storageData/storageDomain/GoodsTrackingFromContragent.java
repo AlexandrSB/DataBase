@@ -19,7 +19,8 @@ public class GoodsTrackingFromContragent {
     @Column(name = "type_of_goods_movement")
     private TypeOfGoodsMovement typeOfGoodsMovement;
 
-    @OneToMany(mappedBy = "goodsTrackingFromContragent")
+    @OneToMany(mappedBy = "goodsTrackingFromContragent"
+            , fetch = FetchType.LAZY)
     private Set<Party> parties = new HashSet<>();
 
     @ManyToOne

@@ -58,28 +58,28 @@
             <a class="dropdown-item" href="/storage">Storage menu</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/contragent">Contragent</a>
+            <a class="dropdown-item" href="/storage/contragent">Контрагент</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/storage">Storage</a>
+            <a class="dropdown-item" href="/storage/storage">Склад</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/workshop">Workshop</a>
+            <a class="dropdown-item" href="/storage/workshop">Мастерская</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/goods">Goods</a>
+            <a class="dropdown-item" href="/storage/goods">Товары</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/workshopEquipment">Equipment</a>
+            <a class="dropdown-item" href="/storage/equipment">Оборудование</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/arrival">Arrival Goods</a>
+            <a class="dropdown-item" href="/storage/arrival">Приход товара</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/expense">Expense Goods</a>
+            <a class="dropdown-item" href="/storage/expense">Расход товара</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/storage/contragents_party">Contragents party</a>
+            <a class="dropdown-item" href="/storage/contragents_party">Контрагент партия</a>
         </li>
     </ul>
 </li>
@@ -95,16 +95,10 @@
 
     <ul class="dropdown-menu dropdown-menu-dark">
         <li>
-            <a class="dropdown-item" href="/workshop">Мастерская</a>
+            <a class="dropdown-item" href="/workshop">Оборудование в ремонте</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/workshop/repair">Ремонт</a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="/workshop/diagnostics">Диагностика</a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="/workshop/clearing">Чистка</a>
+            <a class="dropdown-item" href="/workshop/awaiting">Оборудование в ожидании ремонта</a>
         </li>
     </ul>
 </li>

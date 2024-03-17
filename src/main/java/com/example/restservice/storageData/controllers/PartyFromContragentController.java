@@ -54,7 +54,7 @@ public class PartyFromContragentController {
                 "partyFromContragents", partyFromContragents
         );
 
-        return "contragentsParty";
+        return "storageContragentsParty";
     }
 
     @PostMapping("addToParty")

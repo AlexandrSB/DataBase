@@ -7,8 +7,7 @@
     <@se.header_1
         title = "Расходники"
     />
-
-
+    <a href="/storage/goods">Товары</a>
 
     <@ce.table_input
         table_head = ["id", "name", "category"]

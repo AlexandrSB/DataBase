@@ -129,7 +129,7 @@
         href_1_name = ""
         >
 
-    <div class="col-sm-4">
+    <div class="mb-3 col-sm-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">${title_1}</h5>
@@ -154,14 +154,14 @@
         >
 
     <div class="col-sm-4">
-    <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">${title_1}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${title_2}</h6>
-        <#nested>
-        <a href="${href_1}" class="card-link">${href_1_name}</a>
-    </div>
-    </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">${title_1}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${title_2}</h6>
+                <#nested>
+                <a href="${href_1}" class="card-link">${href_1_name}</a>
+            </div>
         </div>
+    </div>
 
 </#macro>

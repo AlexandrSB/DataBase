@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS public.condition
 -- DROP TABLE IF EXISTS public.quantity;
 CREATE TABLE IF NOT EXISTS public.quantity
 (
-    id bigint NOT NULL,
-    dimension character varying(25) COLLATE pg_catalog."default",
-    quantity_in_one integer,
+    id bigint               NOT NULL,
+    dimension               character varying(25) COLLATE pg_catalog."default",
+    quantity_in_one         integer,
     CONSTRAINT quantity_pkey PRIMARY KEY (id)
 );
 
@@ -32,9 +32,9 @@ CREATE TABLE IF NOT EXISTS public.quantity
 -- DROP TABLE IF EXISTS public.quantity_account;
 CREATE TABLE IF NOT EXISTS public.quantity_account
 (
-    id bigint NOT NULL,
-    quantity integer,
-    quantity_id bigint,
+    id bigint               NOT NULL,
+    quantity                integer,
+    quantity_id             bigint,
     CONSTRAINT quantity_account_pkey PRIMARY KEY (id),
     CONSTRAINT fk_quantity_account_quantity FOREIGN KEY (quantity_id)
         REFERENCES public.quantity (id) MATCH SIMPLE
@@ -180,9 +180,9 @@ CREATE TABLE IF NOT EXISTS public.goods_tracking_from_storage
 CREATE TABLE IF NOT EXISTS public.party
 (
     id bigint NOT NULL,
-    name character varying(255) COLLATE pg_catalog."default",
-    goods_tracking_from_contragent_id bigint,
-    goods_tracking_from_storage_id bigint,
+    name                                character varying(255) COLLATE pg_catalog."default",
+    goods_tracking_from_contragent_id   bigint,
+    goods_tracking_from_storage_id      bigint,
     CONSTRAINT party_pkey PRIMARY KEY (id),
     CONSTRAINT fkabvi5brfdm2koepxnj96ppm4u FOREIGN KEY (goods_tracking_from_storage_id)
         REFERENCES public.goods_tracking_from_storage (id) MATCH SIMPLE
@@ -199,10 +199,22 @@ CREATE TABLE IF NOT EXISTS public.party
 CREATE TABLE IF NOT EXISTS public.parcel
 (
     id bigint           NOT NULL,
+    name                character varying(50),
     good_id             bigint,
+    proxy_id            bigint,
+    party_id            bigint,
+    quantity_account_id bigint,
     CONSTRAINT parcel_pkey PRIMARY KEY (id),
     CONSTRAINT fkei2fe1in8565eviv96ql24w43 FOREIGN KEY (good_id)
         REFERENCES public.good (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT parcel_quantity_account_FK FOREIGN KEY (quantity_account_id)
+        REFERENCES public.quantity_account (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT parcel_party_FK FOREIGN KEY (party_id)
+        REFERENCES public.party (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );

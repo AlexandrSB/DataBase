@@ -44,16 +44,14 @@
         elements_attr = "name"
     />
 
-    <div class="card-columns">
+    <div class="row p-3">
         <#list goods_names as g>
-            <@ce.card_element
+            <@ce.card_element_1
                 title_1 = g
                 title_2 = g
-                text = "This is a goods card"
+                text = ["This is a goods card"]
                 href_1 = "#"
                 href_1_name = "Persistent"
-                href_2 = "#"
-                href_2_name = "Persistent name"
             />
         <#else>
             none

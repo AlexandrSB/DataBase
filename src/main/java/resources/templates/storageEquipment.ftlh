@@ -8,6 +8,7 @@
     <@se.header_1
         title = "Оборудование"
     />
+    <a href="/storage/goods">Товары</a>
 
 <form action="/storage/equipment/add_equipment" method="post" id="equip">
 

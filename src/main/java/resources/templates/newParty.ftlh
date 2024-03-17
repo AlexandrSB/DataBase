@@ -4,8 +4,8 @@
 <#import "parts/constructor/forms.ftlh" as fm>
 
 
-
 <@c.page>
+    <#assign path = "/storage/contragents_party" />
 
     <@se.header_1
         title = "Новая партия товара"
@@ -30,20 +30,25 @@
             </div>
         </div>
 
+        <@se.input_hidden
+            name = "pathToNewParty"
+            value = "/storage/parcel/${party_id}"
+        />
+
         <@se.select_element
             element_name = "good_name"
             element_id = "good_name_id"
             label = "Good"
             placeholder = "Insert good name"
             elements_array = goods
-            elements_attr = ""
+            elements_attr = "name"
         />
 
         <@se.select_element
             element_name = "proxy_name"
             element_id = "proxy_name_id"
-            label = "Characteristik"
-            placeholder = "Choise characteristik"
+            label = "Proxy name: "
+            placeholder = "proxy"
             elements_array = proxies!["none"]
             elements_attr = "name"
         />
@@ -54,7 +59,7 @@
             label = "Dimension"
             placeholder = "Insert dimension"
             elements_array = quantities
-            elements_attr = ""
+            elements_attr = "dimension"
         />
 
         <@se.input_element
@@ -70,22 +75,46 @@
         id = "form_add_to_parcel_id"
         action = "redirectToGoodsTrackingFromContragent"
         method = "post"
-        button_name = "Next -->">
+        button_name = "Write">
 
         <@se.input_hidden
             name = "party_id"
             value = "${party_id}"
         />
 
-    </@fm.form_button>
+        <@se.select_element
+                element_name = "contragent_name"
+                element_id = "contragent_id"
+                label = "From Contragent"
+                placeholder = "Insert contragent name"
+                elements_array = contragents
+                elements_attr = "name"
+                />
+
+        <@se.select_element
+                element_name = "storage_name"
+                element_id = "storage_id"
+                label = "To Storage"
+                placeholder = "Insert storage name"
+                elements_array = storages
+                elements_attr = "name"
+                />
+
+        </@fm.form_button>
 
     <@ce.table_input
-        table_head = ["Id", "Good", "Dimension", "Quantity"]
+        table_head = ["Id", "Party", "Good", "Dimension", "Quantity"]
     >
 
         <#list parcels as ps>
             <tr>
                 <td>${ps.id!"none"}</td>
+
+                <#if ps.party??>
+                    <td>${ps.party.name}</td>
+                <#else>
+                    <td>none</td>
+                </#if>
 
                 <#if ps.good??>
                     <td>${(ps.good.name)!"none"}</td>
@@ -95,13 +124,15 @@
 
                 <#if ps.quantityAccount??>
                     <td>${ps.quantityAccount.dimension.dimension!"none"}</td>
-                    <td>${ps.quantityAccount.quantity!"none"}</td>
+                    <td>${ps.quantityAccount.quantity}</td>
                 <#else>
                     <td>none</td>
                     <td>none</td>
                 </#if>
+            </tr>
 
-            <#else>
+        <#else>
+            <tr>
                 <td>&ltnone&gt</td>
             </tr>
         </#list>

@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/storage/parcel")
 public class ParcelController {
@@ -35,6 +39,14 @@ public class ParcelController {
     @Autowired
     private GoodsTrackingFromContragentRepo
             goodsTrackingFromContragentRepo;
+
+    @Autowired
+    private GoodsTrackingDateRepo goodsTrackingDateRepo;
+
+    @Autowired
+    private ContragentRepo contragentRepo;
+    @Autowired
+    private StorageRepo storageRepo;
 
 
     @ModelAttribute
@@ -72,13 +84,24 @@ public class ParcelController {
     ) {
 
         Long party_id = Long.valueOf(id);
-//        Iterable<Parcel> parcels = partyRepo
-//                .findAllParcelsWithPartyId(party_id);
         Iterable<Parcel> parcels = parcelRepo
-                .findAllParcelsWithGood();
+                .findAllParcelsByPartyId(party_id);
         model.addAttribute("parcels", parcels);
 
+        Iterable<Good> goods = goodsRepo
+                .findAllWithLazy();
+        model.addAttribute("goods", goods);
+
+        Iterable<Proxy> proxies = proxyRepo.findAll();
+        model.addAttribute("proxies", proxies);
+
+        Iterable<Quantity> dimension =
+                quantityRepo.findAll();
+        model.addAttribute("quantities", dimension);
+
         model.addAttribute("party_id", id);
+        model.addAttribute("contragents", contragentRepo.findAll());
+        model.addAttribute("storages", storageRepo.findAll());
 
         return "newParty";
     }
@@ -107,6 +130,7 @@ public class ParcelController {
 
     @PostMapping("addToParcel/{id}")
     private String addToParcel(
+            @RequestParam String pathToNewParty,
             @RequestParam String party_id,
             @RequestParam String good_name,
             @RequestParam String quantity_dimension,
@@ -152,26 +176,44 @@ public class ParcelController {
         parcel.setParty( party );
         parcelRepo.save( parcel );
 
-        return "redirect:/storage/parcel/" + party.getId();
+        return "redirect:" + pathToNewParty;
     }
 
     @PostMapping("redirectToGoodsTrackingFromContragent")
     private String redirectToGoodsTrackingFromContragent(
             @RequestParam String party_id,
+            @RequestParam String contragent_name,
+            @RequestParam String storage_name,
             Model model) {
-
-        GoodsTrackingFromContragent goodsTrackingFromContragent =
-                new GoodsTrackingFromContragent();
 
         Long id = Long.valueOf(party_id);
         Party party = partyRepo.findById(id).get();
+        GoodsTrackingFromContragent goodsTrackingFromContragent = null;
+        Contragent contragent = contragentRepo
+                .findByName(contragent_name)
+                .orElseThrow();
+        Storage storage = storageRepo
+                .findByName(storage_name)
+                .orElseThrow();
 
-        goodsTrackingFromContragent.addParty(party);
-        goodsTrackingFromContragentRepo.save(
-                goodsTrackingFromContragent
-        );
 
-        return "redirect:/storage/goods_tracking_from_contragent/" +
-                goodsTrackingFromContragent.getId();
+        GoodsTrackingDate goodsTrackingDate = new GoodsTrackingDate();
+        goodsTrackingDate.setCreatedOn(ZonedDateTime.now(ZoneId.systemDefault()));
+        goodsTrackingDateRepo.save(goodsTrackingDate);
+
+        goodsTrackingFromContragent = Optional.ofNullable(
+                party.getGoodsTrackingFromContragent()
+        ).orElse(new GoodsTrackingFromContragent());
+        goodsTrackingFromContragent.setContragent(contragent);
+        goodsTrackingFromContragent.setStorage(storage);
+        goodsTrackingFromContragent.setGoodsTrackingDate(goodsTrackingDate);
+        goodsTrackingFromContragent.setTypeOfGoodsMovement(
+                TypeOfGoodsMovement.ARRIVAL);
+        goodsTrackingFromContragentRepo.save(goodsTrackingFromContragent);
+
+        party.setGoodsTrackingFromContragent(goodsTrackingFromContragent);
+        partyRepo.save(party);
+
+        return "redirect:/storage/contragents_party";
     }
 }
